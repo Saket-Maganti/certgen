@@ -1,16 +1,16 @@
 {
-  "lock_id": "cifar10_inception_bilinear_299",
-  "image_size": 299,
-  "resize_policy": "resize_to_square",
-  "interpolation": "bilinear",
+  "batch_size": 32,
   "center_crop": false,
-  "normalization": "inception",
   "color_mode": "rgb",
+  "dtype": "float32",
   "feature_extractor": "inception_v3_pool3",
   "feature_extractor_version": "manual_user_verified",
-  "batch_size": 32,
-  "dtype": "float32",
-  "sample_order_policy": "manifest_order_seeded",
+  "hash": "c3ef4cc6347100dec7f85f947757f32e1706ef175fd2827efbaef8c1859f1690",
+  "image_size": 299,
+  "interpolation": "bilinear",
+  "lock_id": "cifar10_inception_bilinear_299",
+  "normalization": "inception",
   "reference_set_policy": "declared_manifest",
-  "hash": "template_hash_recompute_with_cli"
+  "resize_policy": "resize_to_square",
+  "sample_order_policy": "manifest_order_seeded"
 }

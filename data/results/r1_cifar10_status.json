@@ -2,7 +2,6 @@
   "blockers": [
     "provenance ledger missing: registry/provenance/cifar10_r1_ledger.csv",
     "manifest: sample manifest missing: registry/manifests/cifar10_r1_samples.jsonl",
-    "preprocessing: preprocessing lock hash is still a template value",
     "features: feature cache missing for reference_inception: reference_inception.npz and/or reference_inception.sidecar.json",
     "features: feature cache missing for model_a_inception: model_a_inception.npz and/or model_a_inception.sidecar.json",
     "features: feature cache missing for model_b_inception: model_b_inception.npz and/or model_b_inception.sidecar.json",
@@ -72,11 +71,9 @@
       "within_tolerance": false
     },
     "preprocessing_lock": {
-      "errors": [
-        "preprocessing lock hash is still a template value"
-      ],
+      "errors": [],
       "lock_id": "cifar10_inception_bilinear_299",
-      "passed": false,
+      "passed": true,
       "warnings": []
     },
     "provenance": {

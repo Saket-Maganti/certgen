@@ -18,7 +18,7 @@
     "code_version": "uncommitted_or_not_git_controlled_v1_placeholder",
     "command": "python -m certgen.cli.certify_clean_metric",
     "config_hash": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
-    "created_at_utc": "2026-06-24T07:30:59+00:00",
+    "created_at_utc": "2026-06-24T08:36:01+00:00",
     "input_paths": [
       "data/smoke/v2/features/model_a_close.npz",
       "data/smoke/v2/features/model_b_far.npz",
@@ -43,7 +43,7 @@
     }
   },
   "comparison_id": "v2_audit_smoke_pair",
-  "created_at": "2026-06-24T07:30:59+00:00",
+  "created_at": "2026-06-24T08:36:01+00:00",
   "decision": "not_decided_at_budget",
   "evidence_status": "smoke_only",
   "feature_hashes": {

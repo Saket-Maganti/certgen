@@ -82,10 +82,12 @@ Passed: `True`
 | `artifact_data/results/provenance_ledger_validation.json` | `pass` | ok |
 | `artifact_data/results/v3_availability_table.json` | `pass` | ok |
 | `artifact_data/results/feature_extraction_plan.json` | `pass` | ok |
+| `artifact_data/results/r1_optional_stopping_lab.json` | `pass` | ok |
 | `artifact_data/results/v4_state_intake_audit.json` | `pass` | ok |
 | `artifact_data/results/v3_final_audit.json` | `pass` | ok |
 | `artifact_data/results/optional_stopping_lab_v3.json` | `pass` | ok |
 | `artifact_data/results/metric_reproduction_audit.json` | `pass` | ok |
+| `artifact_data/results/r1_cpu_validation.json` | `pass` | ok |
 | `artifact_data/results/r0_technical_correction_audit.json` | `pass` | ok |
 | `artifact_data/results/v5_related_work_audit.json` | `pass` | ok |
 | `artifact_data/results/v2_final_audit.json` | `pass` | ok |

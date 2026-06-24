@@ -1,0 +1,150 @@
+{
+  "block_size_sensitivity": {
+    "alpha": 0.05,
+    "claim_allowed": false,
+    "comparison_id": "comparison",
+    "decision_robust_across_block_sizes": false,
+    "kernel_config": {
+      "name": "rbf",
+      "normalize": "l2"
+    },
+    "labels": [
+      "sensitivity_diagnostic",
+      "not_paper_claim"
+    ],
+    "method": "betting",
+    "rows": [
+      {
+        "block_size": 1,
+        "decided": true,
+        "final_lower": -0.04399991199999986,
+        "final_upper": -0.003999992000000674,
+        "final_width": 0.03999991999999919,
+        "mean_estimate": -0.025499838558640558,
+        "num_units": 1200,
+        "samples_to_decision_raw": 843,
+        "samples_to_decision_units": 843
+      },
+      {
+        "block_size": 4,
+        "decided": false,
+        "final_lower": -0.09599980800000019,
+        "final_upper": 0.04799990400000009,
+        "final_width": 0.14399971200000028,
+        "mean_estimate": -0.02549983855864055,
+        "num_units": 300,
+        "samples_to_decision_raw": null,
+        "samples_to_decision_units": null
+      },
+      {
+        "block_size": 16,
+        "decided": false,
+        "final_lower": -0.2999993999999999,
+        "final_upper": 0.2519994959999998,
+        "final_width": 0.5519988959999997,
+        "mean_estimate": -0.02549983855864054,
+        "num_units": 75,
+        "samples_to_decision_raw": null,
+        "samples_to_decision_units": null
+      },
+      {
+        "block_size": 32,
+        "decided": false,
+        "final_lower": -0.5439989120000002,
+        "final_upper": 0.49999899999999986,
+        "final_width": 1.043997912,
+        "mean_estimate": -0.025487185489917484,
+        "num_units": 38,
+        "samples_to_decision_raw": null,
+        "samples_to_decision_units": null
+      }
+    ]
+  },
+  "claim_allowed": false,
+  "ebh_fdr": {
+    "alpha": 0.05,
+    "budget": 150,
+    "effect": -0.2,
+    "fdr_target_met": true,
+    "frac_null": 0.5,
+    "k": 20,
+    "max_realized_FDP": 0.09090909090909091,
+    "mean_power": 1.0,
+    "mean_realized_FDP": 0.0018181818181818182,
+    "mean_undecided_fraction": 0.499,
+    "reps": 200
+  },
+  "evidence_status": "synthetic_only",
+  "labels": [
+    "method_validation",
+    "not_paper_claim",
+    "not_generative_benchmark_evidence"
+  ],
+  "type_i_and_power": {
+    "alpha": 0.05,
+    "budget": 150,
+    "reps": 200,
+    "scenarios": {
+      "medium_effect_A_better": {
+        "betting": {
+          "decided_rate": 1.0,
+          "false_decision_rate": 0.0,
+          "mean_samples_to_decision": 35.415,
+          "median_samples_to_decision": 33.0
+        },
+        "hoeffding": {
+          "decided_rate": 0.0,
+          "false_decision_rate": 0.0,
+          "mean_samples_to_decision": null,
+          "median_samples_to_decision": null
+        },
+        "naive_fixed_n_peek": {
+          "decided_rate": 1.0,
+          "false_decision_rate": 0.0,
+          "mean_samples_to_decision": 12.075,
+          "median_samples_to_decision": 10.0
+        }
+      },
+      "null_equal_distance": {
+        "betting": {
+          "decided_rate": 0.02,
+          "false_decision_rate": 0.02,
+          "mean_samples_to_decision": 75.75,
+          "median_samples_to_decision": 78.0
+        },
+        "hoeffding": {
+          "decided_rate": 0.0,
+          "false_decision_rate": 0.0,
+          "mean_samples_to_decision": null,
+          "median_samples_to_decision": null
+        },
+        "naive_fixed_n_peek": {
+          "decided_rate": 0.39,
+          "false_decision_rate": 0.39,
+          "mean_samples_to_decision": 36.85897435897436,
+          "median_samples_to_decision": 17.5
+        }
+      },
+      "small_effect_A_better": {
+        "betting": {
+          "decided_rate": 0.71,
+          "false_decision_rate": 0.0,
+          "mean_samples_to_decision": 82.43661971830986,
+          "median_samples_to_decision": 77.0
+        },
+        "hoeffding": {
+          "decided_rate": 0.0,
+          "false_decision_rate": 0.0,
+          "mean_samples_to_decision": null,
+          "median_samples_to_decision": null
+        },
+        "naive_fixed_n_peek": {
+          "decided_rate": 0.96,
+          "false_decision_rate": 0.025,
+          "mean_samples_to_decision": 40.416666666666664,
+          "median_samples_to_decision": 25.0
+        }
+      }
+    }
+  }
+}

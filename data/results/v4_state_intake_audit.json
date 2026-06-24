@@ -460,6 +460,12 @@
     },
     {
       "detail": "ok",
+      "name": "artifact_data/results/r1_optional_stopping_lab.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
       "name": "artifact_data/results/v4_state_intake_audit.json",
       "passed": true,
       "warning": false
@@ -479,6 +485,12 @@
     {
       "detail": "ok",
       "name": "artifact_data/results/metric_reproduction_audit.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/r1_cpu_validation.json",
       "passed": true,
       "warning": false
     },
@@ -713,9 +725,9 @@
   ],
   "claim_allowed": false,
   "evidence_status": "dry_run_only",
-  "num_checks": 118,
+  "num_checks": 120,
   "num_failed": 0,
-  "num_passed": 118,
+  "num_passed": 120,
   "passed": true,
   "warnings": []
 }

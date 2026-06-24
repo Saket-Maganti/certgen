@@ -8,7 +8,6 @@ Claim allowed: `False`
 ## Blockers
 - provenance ledger missing: registry/provenance/cifar10_r1_ledger.csv
 - manifest: sample manifest missing: registry/manifests/cifar10_r1_samples.jsonl
-- preprocessing: preprocessing lock hash is still a template value
 - features: feature cache missing for reference_inception: reference_inception.npz and/or reference_inception.sidecar.json
 - features: feature cache missing for model_a_inception: model_a_inception.npz and/or model_a_inception.sidecar.json
 - features: feature cache missing for model_b_inception: model_b_inception.npz and/or model_b_inception.sidecar.json
