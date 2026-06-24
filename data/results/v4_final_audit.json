@@ -1,0 +1,158 @@
+{
+  "audit_name": "v4_final_audit",
+  "blockers": [],
+  "checks": [
+    {
+      "detail": "0.4.0",
+      "name": "package_imports_as_v4",
+      "passed": true
+    },
+    {
+      "detail": "99/99 checks",
+      "name": "v4_state_intake_audit_exists",
+      "passed": true
+    },
+    {
+      "detail": "['provenance_status must be verified', 'sample license not verified free/allowed', 'sample_count_available_a below requested budget', 'sample_count_available_b below requested budget', 'reported preprocessing is unknown']",
+      "name": "provenance_to_real_run_planner_exists",
+      "passed": true
+    },
+    {
+      "detail": "generated Kaggle script",
+      "name": "feature_notebook_generator_exists",
+      "passed": true
+    },
+    {
+      "detail": "strict lock valid",
+      "name": "preprocessing_lock_validator_exists",
+      "passed": true
+    },
+    {
+      "detail": "not_applicable_no_expected_value",
+      "name": "metric_reproduction_gate_exists",
+      "passed": true
+    },
+    {
+      "detail": "2 rows",
+      "name": "batch_certificate_runner_exists",
+      "passed": true
+    },
+    {
+      "detail": "{'policy': 'bonferroni', 'alpha_used': 0.01, 'adjusted_for_multiplicity': True, 'claim_allowed': False}",
+      "name": "multiple_comparison_policy_exists",
+      "passed": true
+    },
+    {
+      "detail": "{'v4_smoke_a_close_vs_b_far': ['feature cache reused: data/smoke/v4/audit/features/reference.npz', 'overlapping reference samples/cache reused'], 'v4_smoke_equal_models': ['feature cache reused: data/smoke/v4/audit/features/reference.npz', 'overlapping reference samples/cache reused']}",
+      "name": "dependence_diagnostics_exist",
+      "passed": true
+    },
+    {
+      "detail": "{'undecided_at_budget': 2}",
+      "name": "decidedness_audit_exists",
+      "passed": true
+    },
+    {
+      "detail": "2 undecided",
+      "name": "ranking_stability_report_exists",
+      "passed": true
+    },
+    {
+      "detail": "supply validated real feature caches",
+      "name": "first_real_pilot_controller_exists",
+      "passed": true
+    },
+    {
+      "detail": "1 template trace",
+      "name": "literature_claim_ingestion_exists",
+      "passed": true
+    },
+    {
+      "detail": "figures/tables spec generated",
+      "name": "paper_figure_table_scaffold_exists",
+      "passed": true
+    },
+    {
+      "detail": "paper/main.tex, paper/sections/introduction.tex, docs/CVPR_PAPER_SCAFFOLD_V4.md, docs/RELATED_WORK_TASK_BOARD_V4.md",
+      "name": "cvpr_paper_scaffold_exists",
+      "passed": true
+    },
+    {
+      "detail": "selected V4 docs are claim-safe",
+      "name": "claim_language_audit_exists",
+      "passed": true
+    },
+    {
+      "detail": "15 attacks",
+      "name": "reviewer_attack_harness_exists",
+      "passed": true
+    },
+    {
+      "detail": "capsule requirements present",
+      "name": "reproducibility_capsule_validator_exists",
+      "passed": true
+    },
+    {
+      "detail": "['unknown license present in template: registry/reported_metric_claims_v4_template.csv', 'unknown license present in template: registry/released_sample_ledger_template.csv', 'unknown license present in template: registry/reported_metric_claims_v4_smoke.csv', 'unknown license present in template: registry/provenance/released_sample_ledger_template.csv', 'unknown license present in template: registry/provenance/v4_plan_ledger_template.csv', 'unknown license present in template: registry/v3/benchmarks_template.csv', 'unknown license present in template: registry/v3/model_pairs_template.csv', 'unknown license present in template: registry/v3/feature_caches_template.csv', 'unknown license present in template: registry/templates/candidate_model_pairs_template.csv']",
+      "name": "release_safety_scan_exists",
+      "passed": true
+    },
+    {
+      "detail": "rigorous FID claim rejected",
+      "name": "fid_policy_remains_descriptive",
+      "passed": true
+    },
+    {
+      "detail": "no claim promotion found",
+      "name": "smoke_synthetic_artifacts_non_claim",
+      "passed": true
+    },
+    {
+      "detail": "no unguarded result claims",
+      "name": "no_result_claims_without_real_evidence",
+      "passed": true
+    },
+    {
+      "detail": "89 passed, 3 skipped in 0.42s",
+      "name": "pytest_passes_or_failure_recorded",
+      "passed": true
+    },
+    {
+      "detail": "docs/COMMAND_INDEX_V4.md",
+      "name": "command_index_updated",
+      "passed": true
+    },
+    {
+      "detail": "docs/V4_SINGLE_FILE_HANDOFF.md",
+      "name": "handoff_summarizes_blockers",
+      "passed": true
+    },
+    {
+      "detail": "populate one real provenance ledger with verified released sample/model-pair rows, materialize or validate real feature caches, reproduce one reported metric point estimate, and run the first real clean-core pilot in non-claim mode to measure the first-benchmark undecided fraction",
+      "name": "next_v5_action_concrete",
+      "passed": true
+    },
+    {
+      "detail": "27 checks",
+      "name": "audit_has_at_least_25_checks",
+      "passed": true
+    }
+  ],
+  "checks_passed": 27,
+  "checks_total": 27,
+  "claim_allowed": false,
+  "evidence_status": "dry_run_only",
+  "next_action": "populate one real provenance ledger with verified released sample/model-pair rows, materialize or validate real feature caches, reproduce one reported metric point estimate, and run the first real clean-core pilot in non-claim mode to measure the first-benchmark undecided fraction",
+  "passed": true,
+  "warnings": [
+    "unknown license present in template: registry/reported_metric_claims_v4_template.csv",
+    "unknown license present in template: registry/released_sample_ledger_template.csv",
+    "unknown license present in template: registry/reported_metric_claims_v4_smoke.csv",
+    "unknown license present in template: registry/provenance/released_sample_ledger_template.csv",
+    "unknown license present in template: registry/provenance/v4_plan_ledger_template.csv",
+    "unknown license present in template: registry/v3/benchmarks_template.csv",
+    "unknown license present in template: registry/v3/model_pairs_template.csv",
+    "unknown license present in template: registry/v3/feature_caches_template.csv",
+    "unknown license present in template: registry/templates/candidate_model_pairs_template.csv"
+  ]
+}

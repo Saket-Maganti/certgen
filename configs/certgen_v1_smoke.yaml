@@ -1,0 +1,11 @@
+project: CertGen
+version: v1_smoke
+mode: smoke
+alpha: 0.05
+max_samples: 128
+metrics:
+  - kid
+  - cmmd
+fid_policy: descriptive_only
+allow_real_evidence: false
+evidence_status: non_evidence_smoke

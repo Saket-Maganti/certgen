@@ -1,0 +1,30 @@
+{
+  "benchmark_id": "template_benchmark",
+  "blockers": [
+    "provenance_status must be verified",
+    "sample license not verified free/allowed",
+    "sample_count_available_a below requested budget",
+    "sample_count_available_b below requested budget",
+    "reported preprocessing is unknown"
+  ],
+  "claim_allowed": false,
+  "comparison_id": "v4_template_pair",
+  "evidence_status": "planned_only",
+  "feature_cache_targets": {
+    "model_a": "data/features/v4_template_pair/model_a_features.npz",
+    "model_b": "data/features/v4_template_pair/model_b_features.npz",
+    "reference": "data/features/v4_template_pair/reference_features.npz"
+  },
+  "metrics": [
+    "mmd_rbf"
+  ],
+  "next_commands": [
+    "python -m certgen.cli.generate_feature_notebook ...",
+    "python -m certgen.cli.validate_feature_cache ...",
+    "python -m certgen.cli.run_first_real_pilot ..."
+  ],
+  "preprocessing_lock_id": "TBD",
+  "run_id": "real_run_plan_v4_template_pair",
+  "sample_budget": 32,
+  "warnings": []
+}

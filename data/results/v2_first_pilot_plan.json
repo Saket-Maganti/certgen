@@ -1,0 +1,39 @@
+{
+  "claim_status": "NO_REAL_CLAIMS_ALLOWED",
+  "evidence_status": "dry_run_only",
+  "expected_clean_core_metrics": [
+    "kid_polynomial",
+    "cmmd_clip_mmd",
+    "mmd_rbf"
+  ],
+  "fid_descriptive_policy": "FID and FD-DINOv2 are descriptive_only in V2",
+  "label": "NO_REAL_EVIDENCE",
+  "missing_artifacts": [
+    "verified registry row",
+    "feature caches",
+    "preprocessing policy"
+  ],
+  "next_commands": [
+    "python -m certgen.cli.validate_feature_cache --manifest <manifest>",
+    "python -m certgen.cli.certify_clean_metric --features-a <a> --features-b <b> --features-r <r> --metric kid_polynomial ..."
+  ],
+  "required_features": [
+    "model_a_features",
+    "model_b_features",
+    "reference_features"
+  ],
+  "selected_benchmark": "none_selected",
+  "selected_model_pairs": [],
+  "unavailable_pairs": [
+    {
+      "comparison_id": "comparison_tbd",
+      "reasons": [
+        "audit_eligibility_not_eligible",
+        "feature_cache_missing",
+        "license_not_verified",
+        "preprocessing_missing"
+      ]
+    }
+  ],
+  "validation_errors": []
+}

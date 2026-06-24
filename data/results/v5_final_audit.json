@@ -1,0 +1,174 @@
+{
+  "audit_name": "v5_final_audit",
+  "blockers": [],
+  "checks": [
+    {
+      "detail": "0.5.0",
+      "name": "package_imports_as_v5",
+      "passed": true
+    },
+    {
+      "detail": "missing=0",
+      "name": "v5_state_intake_exists",
+      "passed": true
+    },
+    {
+      "detail": "104 passed, 4 skipped in 0.46s",
+      "name": "all_tests_pass_or_recorded",
+      "passed": true
+    },
+    {
+      "detail": "claim contract files",
+      "name": "claim_contract_exists",
+      "passed": true
+    },
+    {
+      "detail": "passed",
+      "name": "forbidden_claims_audit_passes",
+      "passed": true
+    },
+    {
+      "detail": "passed",
+      "name": "related_work_board_exists",
+      "passed": true
+    },
+    {
+      "detail": "unverified citations marked",
+      "name": "related_work_unverified_marked",
+      "passed": true
+    },
+    {
+      "detail": "passed",
+      "name": "analysis_plan_lock_exists",
+      "passed": true
+    },
+    {
+      "detail": "analysis hash",
+      "name": "analysis_plan_hash_exists",
+      "passed": true
+    },
+    {
+      "detail": "passed",
+      "name": "result_contracts_exist",
+      "passed": true
+    },
+    {
+      "detail": "docs/paper/TABLE_MANIFEST_V5.md",
+      "name": "table_manifest_exists",
+      "passed": true
+    },
+    {
+      "detail": "docs/paper/FIGURE_MANIFEST_V5.md",
+      "name": "figure_manifest_exists",
+      "passed": true
+    },
+    {
+      "detail": "passed",
+      "name": "main_paper_scaffold_exists",
+      "passed": true
+    },
+    {
+      "detail": "placeholder results section",
+      "name": "results_section_placeholders_only",
+      "passed": true
+    },
+    {
+      "detail": "passed",
+      "name": "supplement_scaffold_exists",
+      "passed": true
+    },
+    {
+      "detail": "proof tracker",
+      "name": "proof_obligation_tracker_exists",
+      "passed": true
+    },
+    {
+      "detail": "FID/FD policy caveat",
+      "name": "fid_fd_policy_exists_and_enforced",
+      "passed": true
+    },
+    {
+      "detail": "reproducibility docs",
+      "name": "reproducibility_capsule_exists",
+      "passed": true
+    },
+    {
+      "detail": "passed",
+      "name": "release_anonymity_scan_passes",
+      "passed": true
+    },
+    {
+      "detail": "commands/v5",
+      "name": "v5_command_bundle_exists",
+      "passed": true
+    },
+    {
+      "detail": "passed",
+      "name": "result_injection_protocol_exists",
+      "passed": true
+    },
+    {
+      "detail": "docs/paper/CLAIM_TRACE_PROTOCOL.md",
+      "name": "claim_trace_protocol_exists",
+      "passed": true
+    },
+    {
+      "detail": "passed",
+      "name": "reviewer_attack_harness_exists",
+      "passed": true
+    },
+    {
+      "detail": "docs/review/AUTHOR_RESPONSE_BANK_V5.md",
+      "name": "author_response_bank_exists",
+      "passed": true
+    },
+    {
+      "detail": "passed",
+      "name": "cvpr_readiness_scorecard_exists",
+      "passed": true
+    },
+    {
+      "detail": "kill list",
+      "name": "kill_list_exists",
+      "passed": true
+    },
+    {
+      "detail": "clean",
+      "name": "no_fake_real_evidence_exists",
+      "passed": true
+    },
+    {
+      "detail": "clean",
+      "name": "no_claim_allowed_true_for_non_evidence",
+      "passed": true
+    },
+    {
+      "detail": "docs/V5_SINGLE_FILE_HANDOFF.md",
+      "name": "v5_handoff_exists",
+      "passed": true
+    },
+    {
+      "detail": "docs/COMMAND_INDEX_V5.md",
+      "name": "v5_command_index_exists",
+      "passed": true
+    },
+    {
+      "detail": "docs/V5_STOP_CONDITION.md",
+      "name": "stop_condition_real_execution_not_v6",
+      "passed": true
+    },
+    {
+      "detail": "32 checks",
+      "name": "audit_has_at_least_30_checks",
+      "passed": true
+    }
+  ],
+  "checks_passed": 32,
+  "checks_total": 32,
+  "claim_allowed": false,
+  "evidence_status": "template_only",
+  "final_verdict": "CertGen is now CVPR-ready-except-runs: the codebase, paper scaffold, result contracts, claim gates, reproducibility capsule, and reviewer defenses are prepared. It is not CVPR-submission-ready because no real claim-eligible empirical audit has been executed. The next step is real execution: populate one provenance ledger, validate/materialize real feature caches, reproduce one metric point estimate, run the first real clean-core pilot in non-claim mode, and only then evaluate the first-benchmark undecided fraction.",
+  "next_action": "real execution: populate one provenance ledger, validate/materialize real feature caches, reproduce one metric point estimate, and run the first real clean-core pilot in non-claim mode",
+  "passed": true,
+  "warnings": []
+}

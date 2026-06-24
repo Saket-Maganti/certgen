@@ -1,0 +1,98 @@
+{
+  "alpha": 0.05,
+  "budget": 80,
+  "evidence_status": "smoke_only",
+  "label": "SMOKE_SIMULATION_ONLY_NOT_REAL_EVIDENCE",
+  "num_replicates": 50,
+  "scenarios": {
+    "near_zero": {
+      "naive_fixed_width_ci": {
+        "average_sample_units_to_decision": 17.205882352941178,
+        "decision_rate": 0.68,
+        "false_decision_rate": 0.0
+      },
+      "naive_running_mean_threshold": {
+        "average_sample_units_to_decision": 3.608695652173913,
+        "decision_rate": 0.92,
+        "false_decision_rate": 0.0
+      },
+      "v2_empirical_bernstein_cs": {
+        "average_sample_units_to_decision": null,
+        "decision_rate": 0.0,
+        "false_decision_rate": 0.0
+      },
+      "v2_hoeffding_cs": {
+        "average_sample_units_to_decision": null,
+        "decision_rate": 0.0,
+        "false_decision_rate": 0.0
+      }
+    },
+    "negative_A_better": {
+      "naive_fixed_width_ci": {
+        "average_sample_units_to_decision": 7.78,
+        "decision_rate": 1.0,
+        "false_decision_rate": 0.06
+      },
+      "naive_running_mean_threshold": {
+        "average_sample_units_to_decision": 5.3,
+        "decision_rate": 1.0,
+        "false_decision_rate": 0.02
+      },
+      "v2_empirical_bernstein_cs": {
+        "average_sample_units_to_decision": null,
+        "decision_rate": 0.0,
+        "false_decision_rate": 0.0
+      },
+      "v2_hoeffding_cs": {
+        "average_sample_units_to_decision": null,
+        "decision_rate": 0.0,
+        "false_decision_rate": 0.0
+      }
+    },
+    "null": {
+      "naive_fixed_width_ci": {
+        "average_sample_units_to_decision": 9.166666666666666,
+        "decision_rate": 0.48,
+        "false_decision_rate": 0.48
+      },
+      "naive_running_mean_threshold": {
+        "average_sample_units_to_decision": 3.3157894736842106,
+        "decision_rate": 0.76,
+        "false_decision_rate": 0.76
+      },
+      "v2_empirical_bernstein_cs": {
+        "average_sample_units_to_decision": null,
+        "decision_rate": 0.0,
+        "false_decision_rate": 0.0
+      },
+      "v2_hoeffding_cs": {
+        "average_sample_units_to_decision": null,
+        "decision_rate": 0.0,
+        "false_decision_rate": 0.0
+      }
+    },
+    "positive_B_better": {
+      "naive_fixed_width_ci": {
+        "average_sample_units_to_decision": 5.8,
+        "decision_rate": 1.0,
+        "false_decision_rate": 0.0
+      },
+      "naive_running_mean_threshold": {
+        "average_sample_units_to_decision": 2.48,
+        "decision_rate": 1.0,
+        "false_decision_rate": 0.06
+      },
+      "v2_empirical_bernstein_cs": {
+        "average_sample_units_to_decision": null,
+        "decision_rate": 0.0,
+        "false_decision_rate": 0.0
+      },
+      "v2_hoeffding_cs": {
+        "average_sample_units_to_decision": null,
+        "decision_rate": 0.0,
+        "false_decision_rate": 0.0
+      }
+    }
+  },
+  "seed": 0
+}

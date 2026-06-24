@@ -1,0 +1,16 @@
+pilot_id: first_pilot_v3_template
+benchmark_id: benchmark_tbd
+metric_family: clean_core
+metrics: [kid]
+alpha: 0.05
+max_samples: 40
+batch_size: 32
+seed: 0
+mode: dry_run
+comparisons:
+  - comparison_id: comparison_tbd
+    reported_claim:
+      metric: kid
+      source: NO_REAL_EVIDENCE template only
+claim_policy:
+  allow_claims: false

@@ -1,0 +1,16 @@
+{
+  "batch_size": 32,
+  "center_crop": true,
+  "color_mode": "rgb",
+  "dtype": "float32",
+  "feature_extractor": "inception_v3_pool3",
+  "feature_extractor_version": "manual_user_verified",
+  "hash": "87b69831b033e8a9260be0153e93176ac9496b26dc210f1d7dbd2cc968af47c8",
+  "image_size": 299,
+  "interpolation": "bicubic",
+  "lock_id": "v4_smoke_inception_lock",
+  "normalization": "feature_extractor_default",
+  "reference_set_policy": "declared_manifest",
+  "resize_policy": "resize_shorter_side_then_center",
+  "sample_order_policy": "manifest_order_seeded"
+}

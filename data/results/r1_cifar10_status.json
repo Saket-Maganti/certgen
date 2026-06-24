@@ -1,0 +1,135 @@
+{
+  "blockers": [
+    "provenance ledger missing: registry/provenance/cifar10_r1_ledger.csv",
+    "manifest: sample manifest missing: registry/manifests/cifar10_r1_samples.jsonl",
+    "preprocessing: preprocessing lock hash is still a template value",
+    "features: feature cache missing for reference_inception: reference_inception.npz and/or reference_inception.sidecar.json",
+    "features: feature cache missing for model_a_inception: model_a_inception.npz and/or model_a_inception.sidecar.json",
+    "features: feature cache missing for model_b_inception: model_b_inception.npz and/or model_b_inception.sidecar.json",
+    "features: feature cache missing for reference_clip: reference_clip.npz and/or reference_clip.sidecar.json",
+    "features: feature cache missing for model_a_clip: model_a_clip.npz and/or model_a_clip.sidecar.json",
+    "features: feature cache missing for model_b_clip: model_b_clip.npz and/or model_b_clip.sidecar.json",
+    "metric reproduction audit missing: data/results/cifar10_r1_metric_reproduction.json"
+  ],
+  "candidates": [
+    {
+      "candidate_id": "cifar10_null_real_split",
+      "purpose": "same-source CIFAR-10 split-vs-split calibration",
+      "role": "null_calibration_pair",
+      "status": "candidate_requires_real_manifest"
+    },
+    {
+      "candidate_id": "cifar10_obvious_gap_corruption_sanity",
+      "purpose": "reference samples versus clearly corrupted/noise replacement samples for software sanity only",
+      "role": "obvious_gap_sanity_pair",
+      "status": "candidate_requires_real_reference_manifest"
+    },
+    {
+      "candidate_id": "cifar10_medium_gap_public_baseline_pair",
+      "purpose": "public released-sample baseline versus stronger public released-sample model",
+      "role": "medium_gap_pair",
+      "status": "candidate_requires_source_selection"
+    },
+    {
+      "candidate_id": "cifar10_close_gap_two_strong_models",
+      "purpose": "two strong public CIFAR-10 generators with similar reported metric values",
+      "role": "close_gap_pair",
+      "status": "candidate_requires_source_selection"
+    },
+    {
+      "candidate_id": "cifar10_preprocessing_sensitivity_pair",
+      "purpose": "same samples under declared preprocessing-lock variant if local sources permit",
+      "role": "preprocessing_sensitivity_pair",
+      "status": "candidate_requires_primary_ready_path"
+    }
+  ],
+  "certificate_metrics_when_ready": [
+    "mmd_rbf",
+    "cmmd_clip_mmd"
+  ],
+  "claim_allowed": false,
+  "descriptive_only_metrics": [
+    "kid_polynomial",
+    "fid_inception",
+    "fd_dinov2"
+  ],
+  "exact_next_command": "python3 -m certgen.cli.run_cifar10_real_pilot --provenance-ledger registry/provenance/cifar10_r1_ledger.csv --sample-manifest registry/manifests/cifar10_r1_samples.jsonl --preprocessing-lock configs/preprocessing_locks/cifar10_inception_bilinear_299.json --feature-cache-dir data/features/cifar10_r1 --metric-reproduction-audit data/results/cifar10_r1_metric_reproduction.json --out-json data/results/r1_cifar10_status.json --report docs/R1_CIFAR10_REAL_PILOT_READINESS.md",
+  "gates": {
+    "feature_caches": {
+      "checked": [],
+      "errors": [
+        "feature cache missing for reference_inception: reference_inception.npz and/or reference_inception.sidecar.json",
+        "feature cache missing for model_a_inception: model_a_inception.npz and/or model_a_inception.sidecar.json",
+        "feature cache missing for model_b_inception: model_b_inception.npz and/or model_b_inception.sidecar.json",
+        "feature cache missing for reference_clip: reference_clip.npz and/or reference_clip.sidecar.json",
+        "feature cache missing for model_a_clip: model_a_clip.npz and/or model_a_clip.sidecar.json",
+        "feature cache missing for model_b_clip: model_b_clip.npz and/or model_b_clip.sidecar.json"
+      ],
+      "passed": false,
+      "warnings": []
+    },
+    "metric_reproduction": {
+      "within_tolerance": false
+    },
+    "preprocessing_lock": {
+      "errors": [
+        "preprocessing lock hash is still a template value"
+      ],
+      "lock_id": "cifar10_inception_bilinear_299",
+      "passed": false,
+      "warnings": []
+    },
+    "provenance": {
+      "errors": [
+        "provenance ledger missing"
+      ],
+      "passed": false,
+      "rows": 0,
+      "warnings": []
+    },
+    "sample_manifest": {
+      "errors": [
+        "sample manifest missing: registry/manifests/cifar10_r1_samples.jsonl"
+      ],
+      "passed": false,
+      "rows": 0,
+      "warnings": []
+    }
+  },
+  "promote_to_paper_evidence": false,
+  "ready_for_r1": false,
+  "replacement_candidates": [
+    {
+      "candidate_id": "cifar10_null_real_split",
+      "purpose": "same-source CIFAR-10 split-vs-split calibration",
+      "role": "null_calibration_pair",
+      "status": "candidate_requires_real_manifest"
+    },
+    {
+      "candidate_id": "cifar10_obvious_gap_corruption_sanity",
+      "purpose": "reference samples versus clearly corrupted/noise replacement samples for software sanity only",
+      "role": "obvious_gap_sanity_pair",
+      "status": "candidate_requires_real_reference_manifest"
+    },
+    {
+      "candidate_id": "cifar10_medium_gap_public_baseline_pair",
+      "purpose": "public released-sample baseline versus stronger public released-sample model",
+      "role": "medium_gap_pair",
+      "status": "candidate_requires_source_selection"
+    },
+    {
+      "candidate_id": "cifar10_close_gap_two_strong_models",
+      "purpose": "two strong public CIFAR-10 generators with similar reported metric values",
+      "role": "close_gap_pair",
+      "status": "candidate_requires_source_selection"
+    },
+    {
+      "candidate_id": "cifar10_preprocessing_sensitivity_pair",
+      "purpose": "same samples under declared preprocessing-lock variant if local sources permit",
+      "role": "preprocessing_sensitivity_pair",
+      "status": "candidate_requires_primary_ready_path"
+    }
+  ],
+  "status": "blocked",
+  "warnings": []
+}

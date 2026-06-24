@@ -1,0 +1,17 @@
+{
+  "capsule_requirements": [
+    "command_index",
+    "environment",
+    "dependencies",
+    "registry_templates",
+    "feature_cache_schema",
+    "preprocessing_locks",
+    "run_plans",
+    "certificate_configs",
+    "report_commands",
+    "evidence_policy",
+    "limitations"
+  ],
+  "claim_allowed": false,
+  "evidence_status": "planned_only"
+}

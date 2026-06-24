@@ -1,0 +1,28 @@
+"""V4 reported claim schema."""
+
+CLAIM_FIELDS = [
+    "claim_id",
+    "paper_title",
+    "paper_year",
+    "venue_or_source",
+    "citation_key",
+    "benchmark",
+    "dataset_split",
+    "metric_name",
+    "reported_model_a",
+    "reported_model_b",
+    "reported_score_a",
+    "reported_score_b",
+    "reported_direction",
+    "reported_sample_size",
+    "reported_preprocessing",
+    "released_samples_available",
+    "checkpoint_available",
+    "feature_stats_available",
+    "license_status",
+    "reproduction_status",
+    "certgen_status",
+    "evidence_status",
+    "claim_allowed",
+    "notes",
+]

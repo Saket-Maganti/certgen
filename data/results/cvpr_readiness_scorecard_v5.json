@@ -1,0 +1,37 @@
+{
+  "claim_allowed": false,
+  "errors": [],
+  "evidence_status": "template_only",
+  "kill_list": [
+    "no released samples for meaningful pairs",
+    "unable to reproduce point estimates",
+    "FID policy overclaimed",
+    "undecided fraction near zero and no compute-savings story",
+    "reviewer sees it as incremental KID with stopping rule",
+    "related work misses obvious papers",
+    "paper reads like stats-only",
+    "no ranking or audit consequence",
+    "claim gates allow fake evidence",
+    "paper contains unsupported result numbers"
+  ],
+  "passed": true,
+  "scores": {
+    "clean_core_metric_implementation": 8,
+    "cvpr_submission_readiness": 3,
+    "empirical_evidence_actual_status": 1,
+    "empirical_evidence_readiness": 4,
+    "fid_fd_policy_honesty": 9,
+    "paper_framing": 8,
+    "provenance_release_readiness": 7,
+    "related_work_preparedness": 5,
+    "reproducibility": 8,
+    "result_contract_readiness": 9,
+    "reviewer_defense_readiness": 7,
+    "statistical_correctness": 7
+  },
+  "status": {
+    "empirical_evidence": "blocked_until_real_runs",
+    "infrastructure": "ready_except_runs",
+    "submission": "not_submission_ready"
+  }
+}

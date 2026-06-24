@@ -1,0 +1,4 @@
+num_replicates: 10
+budget: 40
+alpha: 0.05
+seed: 0

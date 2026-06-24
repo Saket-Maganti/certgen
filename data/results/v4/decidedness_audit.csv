@@ -1,0 +1,3 @@
+adjusted_for_multiplicity,alpha_policy,alpha_used,claim_allowed,comparison_id,cs_lower,cs_upper,decidedness_category,decision,dependence_warning,evidence_status,metric_name,n_decision,n_max,seed
+True,bonferroni,0.025,False,v4_smoke_a_close_vs_b_far,-1.1159977680000002,0.6839986319999998,undecided_at_budget,undecided,"['feature cache reused: data/smoke/v4/audit/features/reference.npz', 'overlapping reference samples/cache reused']",synthetic_only,mmd_rbf,,24,41
+True,bonferroni,0.025,False,v4_smoke_equal_models,-0.895998208,0.8999981999999997,undecided_at_budget,undecided,"['feature cache reused: data/smoke/v4/audit/features/reference.npz', 'overlapping reference samples/cache reused']",synthetic_only,mmd_rbf,,24,42

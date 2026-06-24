@@ -1,0 +1,20 @@
+pilot_id: smoke_pilot_v3
+mode: real_features
+metrics: [mmd_rbf]
+alpha: 0.05
+max_samples: 20
+seed: 0
+metric_reproduction_audit: data/smoke/v3/audit/metric_reproduction_gate.json
+reference_cache:
+  npz: data/smoke/v3/audit/features/reference.npz
+  sidecar: data/smoke/v3/audit/features/reference.v3_sidecar.json
+comparisons:
+  - comparison_id: smoke_a_vs_b
+    model_a_cache:
+      npz: data/smoke/v3/audit/features/model_a_close.npz
+      sidecar: data/smoke/v3/audit/features/model_a_close.v3_sidecar.json
+    model_b_cache:
+      npz: data/smoke/v3/audit/features/model_b_far.npz
+      sidecar: data/smoke/v3/audit/features/model_b_far.v3_sidecar.json
+claim_policy:
+  allow_claims: false

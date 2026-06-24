@@ -1,0 +1,7 @@
+\section{Limitations, Ethics, and Reproducibility}
+
+CertGen does not replace metrics, human evaluation, or benchmark design. It asks a narrower question: whether a declared metric comparison is decided under the run contract. Before real runs, empirical strength is blocked.
+
+FID and FD-style metrics are descriptive in this scaffold. A naive mean-based confidence sequence does not directly certify FID because FID is a nonlinear functional of sample mean and covariance.
+
+The release plan is zero-cost by default: no paid APIs, paid GPUs, paid datasets, paid annotation, or hosted inference are required by tests or dry-run commands.

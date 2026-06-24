@@ -1,0 +1,2 @@
+pair_id,benchmark_id,model_a_name,model_b_name,reported_metric,reported_a_score,reported_b_score,reported_sample_size,paper_or_source,samples_available,checkpoint_available,feature_stats_available,license_note,contestable_reason,status,evidence_status
+cifar10_pair_tbd,cifar10_planned,TBD,TBD,TBD,TBD,TBD,TBD,TBD,TBD,TBD,TBD,TBD,TBD,planned,non_evidence_planned

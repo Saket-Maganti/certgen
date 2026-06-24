@@ -1,0 +1,97 @@
+{
+  "audit_name": "v3_intake_audit",
+  "blockers": [],
+  "checks": [
+    {
+      "detail": "certgen 0.3.0",
+      "name": "package_import",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "importable",
+      "name": "module_certgen.metrics.streams",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "importable",
+      "name": "module_certgen.certs.api",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "importable",
+      "name": "module_certgen.cli.certify_clean_metric",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "importable",
+      "name": "module_certgen.features.validate_cache",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "importable",
+      "name": "module_certgen.registry.validate",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "importable",
+      "name": "module_certgen.pilot.first_pilot_v2",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "docs/V2_FID_POLICY.md",
+      "name": "file_docs/V2_FID_POLICY.md",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "docs/COMMAND_INDEX_V2.md",
+      "name": "file_docs/COMMAND_INDEX_V2.md",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "docs/V2_SINGLE_FILE_HANDOFF.md",
+      "name": "file_docs/V2_SINGLE_FILE_HANDOFF.md",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "data/smoke/v2/certificates/smoke_pair_001_kid_certificate.json",
+      "name": "smoke_certificate_non_evidence",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "disabled by caller",
+      "name": "pytest_invocable",
+      "passed": true,
+      "warning": true
+    },
+    {
+      "detail": "data/results/v2_final_audit.json",
+      "name": "v2_audit_passed",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "no heavy modules imported",
+      "name": "heavy_imports_lazy",
+      "passed": true,
+      "warning": false
+    }
+  ],
+  "checks_passed": 14,
+  "checks_total": 14,
+  "claim_allowed": false,
+  "created_at": "2026-06-23T08:39:48+00:00",
+  "evidence_status": "dry_run_only",
+  "passed": true,
+  "warnings": []
+}

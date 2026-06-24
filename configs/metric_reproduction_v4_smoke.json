@@ -1,0 +1,18 @@
+{
+  "audit_id": "v4_metric_repro_smoke",
+  "evidence_status": "synthetic_only",
+  "expected": {
+    "source": "none"
+  },
+  "metric": "kid",
+  "model_features": {
+    "npz": "data/smoke/v4/metric_repro/features/model_a_close.npz",
+    "sidecar": "data/smoke/v4/metric_repro/features/model_a_close.v4_sidecar.json"
+  },
+  "reference_features": {
+    "npz": "data/smoke/v4/metric_repro/features/reference.npz",
+    "sidecar": "data/smoke/v4/metric_repro/features/reference.v4_sidecar.json"
+  },
+  "sample_count": 20,
+  "seed": 0
+}

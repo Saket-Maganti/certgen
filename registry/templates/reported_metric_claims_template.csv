@@ -1,0 +1,2 @@
+claim_id,comparison_id,metric_name,claimed_winner,reported_value_a,reported_value_b,reported_gap,sample_size,source_reference,recomputed_status,certificate_status,claim_evidence_status
+claim_tbd,comparison_tbd,TBD,TBD,TBD,TBD,TBD,TBD,TBD,not_run,not_run,planned

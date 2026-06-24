@@ -1,0 +1,129 @@
+# V4 State Intake Audit
+
+`NO_REAL_EVIDENCE`
+
+Passed: `True`
+
+| Check | Status | Detail |
+|---|---:|---|
+| `dir_certgen` | `pass` | certgen |
+| `dir_certgen/certs` | `pass` | certgen/certs |
+| `dir_certgen/audit` | `pass` | certgen/audit |
+| `dir_certgen/registry` | `pass` | certgen/registry |
+| `dir_docs` | `pass` | docs |
+| `dir_tests` | `pass` | tests |
+| `handoff_V1_SINGLE_FILE_HANDOFF` | `pass` | docs/V1_SINGLE_FILE_HANDOFF.md |
+| `handoff_V2_SINGLE_FILE_HANDOFF` | `pass` | docs/V2_SINGLE_FILE_HANDOFF.md |
+| `handoff_V3_SINGLE_FILE_HANDOFF` | `pass` | docs/V3_SINGLE_FILE_HANDOFF.md |
+| `artifact_data/smoke/v1/provenance.json` | `pass` | ok |
+| `artifact_data/smoke/v1/smoke_artifact.json` | `pass` | ok |
+| `artifact_data/smoke/v1/metrics/smoke_metrics.json` | `pass` | ok |
+| `artifact_data/smoke/v1/certificates/smoke_kid_certificate.json` | `pass` | ok |
+| `artifact_data/smoke/v1/manifests/model_a_feature_manifest.json` | `pass` | ok |
+| `artifact_data/smoke/v1/manifests/reference_feature_manifest.json` | `pass` | ok |
+| `artifact_data/smoke/v1/manifests/model_b_feature_manifest.json` | `pass` | ok |
+| `artifact_data/smoke/v2/features/model_b_close.metadata.json` | `pass` | ok |
+| `artifact_data/smoke/v2/features/model_a_close.metadata.json` | `pass` | ok |
+| `artifact_data/smoke/v2/features/model_equal_1.metadata.json` | `pass` | ok |
+| `artifact_data/smoke/v2/features/reference.metadata.json` | `pass` | ok |
+| `artifact_data/smoke/v2/features/model_equal_2.metadata.json` | `pass` | ok |
+| `artifact_data/smoke/v2/features/model_a_far.metadata.json` | `pass` | ok |
+| `artifact_data/smoke/v2/features/model_b_far.metadata.json` | `pass` | ok |
+| `artifact_data/smoke/v2/certificates/audit_smoke_mmd_rbf.json` | `pass` | ok |
+| `artifact_data/smoke/v2/certificates/smoke_pair_001_kid_certificate.json` | `pass` | ok |
+| `artifact_data/smoke/v2/certificates/audit_smoke_kid.json` | `pass` | ok |
+| `artifact_data/smoke/v4/audit/features/model_b_close.metadata.json` | `pass` | ok |
+| `artifact_data/smoke/v4/audit/features/model_a_close.metadata.json` | `pass` | ok |
+| `artifact_data/smoke/v4/audit/features/model_equal_1.metadata.json` | `pass` | ok |
+| `artifact_data/smoke/v4/audit/features/reference.metadata.json` | `pass` | ok |
+| `artifact_data/smoke/v4/audit/features/model_equal_2.metadata.json` | `pass` | ok |
+| `artifact_data/smoke/v4/audit/features/model_a_far.metadata.json` | `pass` | ok |
+| `artifact_data/smoke/v4/audit/features/model_b_far.metadata.json` | `pass` | ok |
+| `artifact_data/smoke/v4/metric_repro/features/model_a_close.v4_sidecar.json` | `pass` | ok |
+| `artifact_data/smoke/v4/metric_repro/features/model_b_close.metadata.json` | `pass` | ok |
+| `artifact_data/smoke/v4/metric_repro/features/model_a_close.metadata.json` | `pass` | ok |
+| `artifact_data/smoke/v4/metric_repro/features/reference.v4_sidecar.json` | `pass` | ok |
+| `artifact_data/smoke/v4/metric_repro/features/model_equal_1.metadata.json` | `pass` | ok |
+| `artifact_data/smoke/v4/metric_repro/features/reference.metadata.json` | `pass` | ok |
+| `artifact_data/smoke/v4/metric_repro/features/model_equal_2.metadata.json` | `pass` | ok |
+| `artifact_data/smoke/v4/metric_repro/features/model_a_far.metadata.json` | `pass` | ok |
+| `artifact_data/smoke/v4/metric_repro/features/model_b_far.metadata.json` | `pass` | ok |
+| `artifact_data/smoke/v3/audit/metric_reproduction_gate.json` | `pass` | ok |
+| `artifact_data/smoke/v3/audit/metric_repro.json` | `pass` | ok |
+| `artifact_data/smoke/v3/audit/features/model_a_close.v3_sidecar.json` | `pass` | ok |
+| `artifact_data/smoke/v3/audit/features/model_b_close.metadata.json` | `pass` | ok |
+| `artifact_data/smoke/v3/audit/features/model_a_close.metadata.json` | `pass` | ok |
+| `artifact_data/smoke/v3/audit/features/reference.v3_sidecar.json` | `pass` | ok |
+| `artifact_data/smoke/v3/audit/features/nan.v3_sidecar.json` | `pass` | ok |
+| `artifact_data/smoke/v3/audit/features/model_b_far.v3_sidecar.json` | `pass` | ok |
+| `artifact_data/smoke/v3/audit/features/model_equal_1.metadata.json` | `pass` | ok |
+| `artifact_data/smoke/v3/audit/features/reference.metadata.json` | `pass` | ok |
+| `artifact_data/smoke/v3/audit/features/model_equal_2.metadata.json` | `pass` | ok |
+| `artifact_data/smoke/v3/audit/features/model_a_far.metadata.json` | `pass` | ok |
+| `artifact_data/smoke/v3/audit/features/model_b_far.metadata.json` | `pass` | ok |
+| `artifact_data/contracts/analysis_plan_lock_v5.json` | `pass` | ok |
+| `artifact_data/contracts/claim_contract_v5.json` | `pass` | ok |
+| `artifact_data/contracts/proof_obligations_v5.json` | `pass` | ok |
+| `artifact_data/contracts/result_injection_contract_v5.json` | `pass` | ok |
+| `artifact_data/contracts/result_contracts_v5.json` | `pass` | ok |
+| `artifact_data/results/v5_final_audit.json` | `pass` | ok |
+| `artifact_data/results/cvpr_readiness_scorecard_v5.json` | `pass` | ok |
+| `artifact_data/results/v2_first_pilot_plan.json` | `pass` | ok |
+| `artifact_data/results/certificate_replay.replayed_certificate.json` | `pass` | ok |
+| `artifact_data/results/v3_intake_audit.json` | `pass` | ok |
+| `artifact_data/results/v5_reviewer_harness.json` | `pass` | ok |
+| `artifact_data/results/v3_registry_validation.json` | `pass` | ok |
+| `artifact_data/results/v1_final_audit.json` | `pass` | ok |
+| `artifact_data/results/v4_final_audit.json` | `pass` | ok |
+| `artifact_data/results/v4_metric_reproduction_audit.json` | `pass` | ok |
+| `artifact_data/results/v5_state_intake.json` | `pass` | ok |
+| `artifact_data/results/v5_release_safety.json` | `pass` | ok |
+| `artifact_data/results/v4_release_safety.json` | `pass` | ok |
+| `artifact_data/results/provenance_ledger_validation.json` | `pass` | ok |
+| `artifact_data/results/v3_availability_table.json` | `pass` | ok |
+| `artifact_data/results/feature_extraction_plan.json` | `pass` | ok |
+| `artifact_data/results/v4_state_intake_audit.json` | `pass` | ok |
+| `artifact_data/results/v3_final_audit.json` | `pass` | ok |
+| `artifact_data/results/optional_stopping_lab_v3.json` | `pass` | ok |
+| `artifact_data/results/metric_reproduction_audit.json` | `pass` | ok |
+| `artifact_data/results/r0_technical_correction_audit.json` | `pass` | ok |
+| `artifact_data/results/v5_related_work_audit.json` | `pass` | ok |
+| `artifact_data/results/v2_final_audit.json` | `pass` | ok |
+| `artifact_data/results/certificate_replay.json` | `pass` | ok |
+| `artifact_data/results/r1_cifar10_status.json` | `pass` | ok |
+| `artifact_data/results/v5_claim_contract_audit.json` | `pass` | ok |
+| `artifact_data/results/first_pilot_v3/summary.json` | `pass` | ok |
+| `artifact_data/results/first_pilot_v3/certificates/smoke_a_vs_b_mmd_rbf.json` | `pass` | ok |
+| `artifact_data/results/first_pilot_v3/certificates/smoke_a_vs_b_kid_polynomial.json` | `pass` | ok |
+| `artifact_data/results/v2_optional_stopping_lab/summary.json` | `pass` | ok |
+| `artifact_data/results/v4/real_run_plan.json` | `pass` | ok |
+| `artifact_data/results/v4/batch_certificates.json` | `pass` | ok |
+| `artifact_data/results/v4/ranking_stability.json` | `pass` | ok |
+| `artifact_data/results/v4/reviewer_attack_harness.json` | `pass` | ok |
+| `artifact_data/results/v4/reported_claim_traces.json` | `pass` | ok |
+| `artifact_data/results/v4/decidedness_audit.json` | `pass` | ok |
+| `artifact_data/results/v4/certificates/v4_smoke_a_close_vs_b_far_mmd_rbf.json` | `pass` | ok |
+| `artifact_data/results/v4/certificates/v4_smoke_equal_models_kid_polynomial.json` | `pass` | ok |
+| `artifact_data/results/v4/certificates/v4_smoke_equal_models_mmd_rbf.json` | `pass` | ok |
+| `artifact_data/results/v4/certificates/v4_smoke_a_close_vs_b_far_kid_polynomial.json` | `pass` | ok |
+| `artifact_data/results/v4/first_real_pilot/summary.json` | `pass` | ok |
+| `artifact_data/results/v4/paper_artifacts/paper_artifacts_spec.json` | `pass` | ok |
+| `result_boundary_doc_exists` | `pass` | docs/NO_RESULTS_YET.md |
+| `fid_policy_docs_descriptive` | `pass` | FID docs descriptive |
+| `template_non_evidence_registry/reported_metric_claims_v4_template.csv` | `pass` | registry/reported_metric_claims_v4_template.csv |
+| `template_non_evidence_registry/released_sample_ledger_template.csv` | `pass` | registry/released_sample_ledger_template.csv |
+| `template_non_evidence_registry/real_run_plan_template.json` | `pass` | registry/real_run_plan_template.json |
+| `template_non_evidence_registry/candidate_model_pairs_template.csv` | `pass` | registry/candidate_model_pairs_template.csv |
+| `template_non_evidence_registry/candidate_benchmarks_template.csv` | `pass` | registry/candidate_benchmarks_template.csv |
+| `template_non_evidence_registry/audit_claims_template.csv` | `pass` | registry/audit_claims_template.csv |
+| `template_non_evidence_registry/v3/benchmarks_template.csv` | `pass` | registry/v3/benchmarks_template.csv |
+| `template_non_evidence_registry/v3/model_pairs_template.csv` | `pass` | registry/v3/model_pairs_template.csv |
+| `template_non_evidence_registry/v3/feature_caches_template.csv` | `pass` | registry/v3/feature_caches_template.csv |
+| `template_non_evidence_registry/provenance/released_sample_ledger_template.csv` | `pass` | registry/provenance/released_sample_ledger_template.csv |
+| `template_non_evidence_registry/provenance/v4_plan_ledger_template.csv` | `pass` | registry/provenance/v4_plan_ledger_template.csv |
+| `paper_claim_phrases_guarded` | `pass` | guarded |
+| `no_release_doc_private_paths` | `pass` | none |
+| `tests_discoverable` | `pass` | pytest tests present |
+
+## Blockers
+- none

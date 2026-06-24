@@ -1,0 +1,68 @@
+{
+  "blockers": [],
+  "checks": [
+    {
+      "detail": "docs/V4_FINAL_AUDIT.md",
+      "name": "exists_docs/V4_FINAL_AUDIT.md",
+      "passed": true
+    },
+    {
+      "detail": "data/results/v4_final_audit.json",
+      "name": "exists_data/results/v4_final_audit.json",
+      "passed": true
+    },
+    {
+      "detail": "docs/V4_SINGLE_FILE_HANDOFF.md",
+      "name": "exists_docs/V4_SINGLE_FILE_HANDOFF.md",
+      "passed": true
+    },
+    {
+      "detail": "docs/COMMAND_INDEX_V4.md",
+      "name": "exists_docs/COMMAND_INDEX_V4.md",
+      "passed": true
+    },
+    {
+      "detail": "data/results/v4_final_audit.json",
+      "name": "v4_audit_passed",
+      "passed": true
+    },
+    {
+      "detail": "unknown-license template warning is explicit",
+      "name": "v4_unknown_license_warning_documented",
+      "passed": true
+    },
+    {
+      "detail": "clean",
+      "name": "claim_boundary_clean",
+      "passed": true
+    },
+    {
+      "detail": "0.5.0",
+      "name": "core_package_imports",
+      "passed": true
+    },
+    {
+      "detail": "not_run in intake; final audit runs tests",
+      "name": "pytest_command_works",
+      "passed": true
+    },
+    {
+      "detail": "complete",
+      "name": "v5_worklist_emitted",
+      "passed": true
+    }
+  ],
+  "claim_allowed": false,
+  "claim_boundary_issues": [],
+  "claim_boundary_status": "clean",
+  "evidence_status": "dry_run_only",
+  "missing_cvpr_ready_items": [],
+  "passed": true,
+  "required_v5_actions": [],
+  "tests_detail": "not requested",
+  "tests_status": "not_run",
+  "timestamp_utc": "2026-06-24T07:31:01Z",
+  "v4_audit_passed": true,
+  "v4_detected": true,
+  "v5_state_intake_version": "0.5.0"
+}

@@ -1,0 +1,110 @@
+{
+  "audit_name": "CERTGEN_R0_TECHNICAL_CORRECTION_AND_REAL_PILOT_PREP",
+  "checks": [
+    {
+      "detail": "none",
+      "name": "no_claim_allowed_true_artifacts",
+      "passed": true
+    },
+    {
+      "detail": "none",
+      "name": "no_rigorous_fid_certificate_claim",
+      "passed": true
+    },
+    {
+      "detail": "polynomial KID/CMMD/MMD is descriptive-only and blocked from rigorous certificate mode by default",
+      "name": "polynomial_kid_not_certified_by_default",
+      "passed": true
+    },
+    {
+      "detail": {
+        "bounded_by_construction": true,
+        "delta_lower": -4.0,
+        "delta_upper": 4.0,
+        "feature_normalization": "l2",
+        "kernel_lower": 0.0,
+        "kernel_name": "rbf",
+        "kernel_upper": 1.0,
+        "mmd_contribution_lower": -2.0,
+        "mmd_contribution_upper": 2.0
+      },
+      "name": "bounded_rbf_mmd_certificate_path_exists",
+      "passed": true
+    },
+    {
+      "detail": {
+        "bounded_by_construction": true,
+        "delta_lower": -4.0,
+        "delta_upper": 4.0,
+        "feature_normalization": "l2",
+        "kernel_lower": 0.0,
+        "kernel_name": "rbf",
+        "kernel_upper": 1.0,
+        "mmd_contribution_lower": -2.0,
+        "mmd_contribution_upper": 2.0
+      },
+      "name": "bounded_cmmd_clip_mmd_path_exists",
+      "passed": true
+    },
+    {
+      "detail": "betting_mixture_bounded_mean_r0",
+      "name": "betting_cs_path_exists",
+      "passed": true
+    },
+    {
+      "detail": {
+        "alpha": 0.05,
+        "claim_allowed": false,
+        "implemented_for_claims": false,
+        "inputs_required": [
+          "valid e-values from bounded-stream e-processes"
+        ],
+        "num_hypotheses": 4,
+        "policy": "e_bh_design_scaffold"
+      },
+      "name": "lightweight_e_bh_design_scaffold_exists",
+      "passed": true
+    },
+    {
+      "detail": [
+        "provenance ledger missing: registry/provenance/cifar10_r1_ledger.csv",
+        "manifest: sample manifest missing: registry/manifests/cifar10_r1_samples.jsonl",
+        "preprocessing: preprocessing lock hash is still a template value",
+        "features: feature cache missing for reference_inception: reference_inception.npz and/or reference_inception.sidecar.json",
+        "features: feature cache missing for model_a_inception: model_a_inception.npz and/or model_a_inception.sidecar.json",
+        "features: feature cache missing for model_b_inception: model_b_inception.npz and/or model_b_inception.sidecar.json",
+        "features: feature cache missing for reference_clip: reference_clip.npz and/or reference_clip.sidecar.json",
+        "features: feature cache missing for model_a_clip: model_a_clip.npz and/or model_a_clip.sidecar.json",
+        "features: feature cache missing for model_b_clip: model_b_clip.npz and/or model_b_clip.sidecar.json",
+        "metric reproduction audit missing: data/results/cifar10_r1_metric_reproduction.json"
+      ],
+      "name": "first_real_pilot_ready_or_blocked_with_exact_reason",
+      "passed": true
+    },
+    {
+      "detail": "docs/R0_COMMAND_INDEX.md",
+      "name": "updated_r0_command_index_written",
+      "passed": true
+    }
+  ],
+  "checks_passed": 9,
+  "checks_total": 9,
+  "claim_allowed": false,
+  "exact_next_command": "python3 -m certgen.cli.run_cifar10_real_pilot --provenance-ledger registry/provenance/cifar10_r1_ledger.csv --sample-manifest registry/manifests/cifar10_r1_samples.jsonl --preprocessing-lock configs/preprocessing_locks/cifar10_inception_bilinear_299.json --feature-cache-dir data/features/cifar10_r1 --metric-reproduction-audit data/results/cifar10_r1_metric_reproduction.json --out-json data/results/r1_cifar10_status.json --report docs/R1_CIFAR10_REAL_PILOT_READINESS.md",
+  "passed": true,
+  "promote_to_paper_evidence": false,
+  "r1_blockers": [
+    "provenance ledger missing: registry/provenance/cifar10_r1_ledger.csv",
+    "manifest: sample manifest missing: registry/manifests/cifar10_r1_samples.jsonl",
+    "preprocessing: preprocessing lock hash is still a template value",
+    "features: feature cache missing for reference_inception: reference_inception.npz and/or reference_inception.sidecar.json",
+    "features: feature cache missing for model_a_inception: model_a_inception.npz and/or model_a_inception.sidecar.json",
+    "features: feature cache missing for model_b_inception: model_b_inception.npz and/or model_b_inception.sidecar.json",
+    "features: feature cache missing for reference_clip: reference_clip.npz and/or reference_clip.sidecar.json",
+    "features: feature cache missing for model_a_clip: model_a_clip.npz and/or model_a_clip.sidecar.json",
+    "features: feature cache missing for model_b_clip: model_b_clip.npz and/or model_b_clip.sidecar.json",
+    "metric reproduction audit missing: data/results/cifar10_r1_metric_reproduction.json"
+  ],
+  "r1_ready": false,
+  "r1_status": "blocked"
+}

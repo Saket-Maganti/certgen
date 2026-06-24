@@ -1,0 +1,10 @@
+{
+  "evidence_status": "smoke_only",
+  "feature_dim": 6,
+  "feature_file_path": "data/smoke/v4/audit/features/model_a_close.npz",
+  "feature_file_sha256": "bb9be7acb661c0d8272117c2932b249c233ba861db24711fba31d0586a30c1e3",
+  "fixture_id": "model_a_close",
+  "num_samples": 80,
+  "seed": 41,
+  "warning": "NO_REAL_EVIDENCE: synthetic fixture for software validation only"
+}

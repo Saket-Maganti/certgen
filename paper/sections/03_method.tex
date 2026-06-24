@@ -1,0 +1,19 @@
+\section{Method}
+
+\subsection{Problem Setup}
+For models $A$ and $B$ and reference set $R$, CertGen tracks $\Delta=d(A,R)-d(B,R)$ under a declared metric, preprocessing lock, and sample budget.
+
+\subsection{Metrics as Black-Box Discrepancy Functions}
+The framework is metric-agnostic at the protocol level, while rigorous certificate support depends on whether the metric admits a valid bounded stream or estimator.
+
+\subsection{Clean-Core Streams}
+The clean-core scaffold covers KID/MMD/CMMD-style streams where sample units can be bounded or clipped and monitored with confidence sequences.
+
+\subsection{Anytime-Valid Decision Certificate}
+The certificate monitors a betting confidence sequence on the bounded per-block stream and stops when the interval excludes zero (certifying a direction) or reports not-decided at budget. Because the underlying object is a betting e-process, the decision is valid under continuous monitoring and optional stopping, and the same process evaluated at the point null $\Delta=0$ is a per-comparison e-value.
+
+\subsection{Multiple Comparisons and Dependence}
+A leaderboard audit is many simultaneous decisions sharing one reference set. We collect the per-comparison e-values and apply e-BH, which controls the false discovery rate under arbitrary dependence, so the reported decided/undecided split is multiplicity-safe rather than a count of uncorrected per-pair tests. Reused samples, references, and feature caches are additionally surfaced as dependence diagnostics.
+
+\subsection{FID/FD Policy}
+FID and FD-style metrics are descriptive unless a separate rigorous functional treatment is implemented and audited.

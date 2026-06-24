@@ -1,0 +1,25 @@
+{
+  "certificates": [
+    {
+      "decision": "not_decided_at_budget",
+      "metric": "mmd_rbf",
+      "path": "data/results/first_pilot_v3/certificates/smoke_a_vs_b_mmd_rbf.json"
+    }
+  ],
+  "claim_allowed": false,
+  "claim_blockers": [
+    "V3 pilot defaults to non-claim mode"
+  ],
+  "comparisons": [
+    {
+      "comparison_id": "smoke_a_vs_b",
+      "feature_cache_valid": true
+    }
+  ],
+  "evidence_status": "real_pilot_non_claim",
+  "mode": "real_features",
+  "paper_claim_allowed": false,
+  "pilot_id": "smoke_pilot_v3",
+  "pilot_result_computed": true,
+  "undecided_fraction": 1.0
+}

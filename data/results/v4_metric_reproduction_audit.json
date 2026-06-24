@@ -1,0 +1,22 @@
+{
+  "audit_name": "metric_reproduction",
+  "claim_allowed": false,
+  "computed_value": -0.0007576754166378485,
+  "errors": [],
+  "evidence_status": "real_features_validated",
+  "expected_value": null,
+  "feature_caches_validated": true,
+  "fid_descriptive_only": false,
+  "metric": "kid",
+  "preprocessing_match": true,
+  "reproduction_status": "not_applicable_no_expected_value",
+  "rigorous_certification_supported": false,
+  "warnings": [
+    "sample_ids absent",
+    "source_paths absent",
+    "sample_ids absent",
+    "source_paths absent",
+    "no published reproduction claim possible"
+  ],
+  "within_tolerance": null
+}

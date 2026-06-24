@@ -1,0 +1,5 @@
+# First Real Pilot Go/No-Go Template
+
+`NO_REAL_EVIDENCE`
+
+Statuses: `GO_STRONG`, `GO_CONDITIONAL`, `NO_GO_FOR_AUDIT_HEADLINE`, `BLOCKED`, `NONCLAIM_DRY_RUN`.

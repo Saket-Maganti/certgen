@@ -1,0 +1,9 @@
+{
+  "claim_allowed": false,
+  "evidence_status": "real_pilot_non_claim",
+  "original_decision": "not_decided_at_budget",
+  "original_stream_hash": "6ed27eeba38f18689c4d4b6f0c5212c4736a62ef6249ec6c67846bcef7876777",
+  "replay_status": "passed",
+  "replayed_decision": "not_decided_at_budget",
+  "replayed_stream_hash": "6ed27eeba38f18689c4d4b6f0c5212c4736a62ef6249ec6c67846bcef7876777"
+}

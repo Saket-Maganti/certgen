@@ -1,0 +1,14 @@
+{
+  "dataset_or_model_id": "smoke_model_b",
+  "evidence_status": "non_evidence_smoke",
+  "feature_dim": 8,
+  "feature_manifest_id": "27cd9d370b4c5f7e",
+  "feature_path": "data/smoke/v1/features/model_b_features.npz",
+  "feature_type": "toy_feature",
+  "hash": "31c8f7312ccace22757fb76b187d730f21e65763bf15c298535bc20a57b0aea8",
+  "num_items": 128,
+  "preprocessing": {
+    "mode": "toy",
+    "source": "deterministic numpy smoke arrays"
+  }
+}

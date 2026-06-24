@@ -1,0 +1,133 @@
+{
+  "audit_name": "v3_final_audit",
+  "blockers": [],
+  "checks": [
+    {
+      "detail": "0.3.0",
+      "name": "package_import",
+      "passed": true
+    },
+    {
+      "detail": "V1/V2 audit docs present",
+      "name": "v1_v2_compatibility_docs_present",
+      "passed": true
+    },
+    {
+      "detail": "V3 intake audit CLI present",
+      "name": "v3_intake_audit_available",
+      "passed": true
+    },
+    {
+      "detail": "V3 status policy active",
+      "name": "evidence_statuses_enforced",
+      "passed": true
+    },
+    {
+      "detail": "dry-run claim_allowed=true rejected",
+      "name": "smoke_dry_run_claim_blocked",
+      "passed": true
+    },
+    {
+      "detail": "passed",
+      "name": "provenance_ledger_template_validates",
+      "passed": true
+    },
+    {
+      "detail": "passed",
+      "name": "feature_cache_valid_fixture_passes",
+      "passed": true
+    },
+    {
+      "detail": "features contain NaN/Inf; n_samples mismatch; feature_dim mismatch",
+      "name": "feature_cache_rejects_nan_or_mismatch",
+      "passed": true
+    },
+    {
+      "detail": "plan emitted",
+      "name": "feature_extraction_planner_dry_run",
+      "passed": true
+    },
+    {
+      "detail": "not_applicable_no_expected_value",
+      "name": "metric_reproduction_audit_works",
+      "passed": true
+    },
+    {
+      "detail": "synthetic validated caches only",
+      "name": "first_pilot_real_mode_synthetic_validated",
+      "passed": true
+    },
+    {
+      "detail": "[{'path': 'data/results/first_pilot_v3/certificates/smoke_a_vs_b_kid_polynomial.json', 'decision': 'not_decided_at_budget', 'metric': 'kid_polynomial'}]",
+      "name": "clean_core_certificates_generated",
+      "passed": true
+    },
+    {
+      "detail": "blocked",
+      "name": "fid_policy_blocks_rigorous",
+      "passed": true
+    },
+    {
+      "detail": "passed",
+      "name": "certificate_replay_passes",
+      "passed": true
+    },
+    {
+      "detail": "rendered",
+      "name": "pilot_report_card_renders",
+      "passed": true
+    },
+    {
+      "detail": "overclaim blocked",
+      "name": "claim_scanner_catches_overclaim",
+      "passed": true
+    },
+    {
+      "detail": "passed",
+      "name": "v3_registry_validator_works",
+      "passed": true
+    },
+    {
+      "detail": "rendered",
+      "name": "availability_table_renders",
+      "passed": true
+    },
+    {
+      "detail": "synthetic lab ran",
+      "name": "optional_stopping_lab_tiny_runs",
+      "passed": true
+    },
+    {
+      "detail": "command index checked",
+      "name": "command_index_includes_v3_commands",
+      "passed": true
+    },
+    {
+      "detail": "docs/V3_RUNBOOK.md, docs/REPRODUCIBILITY_CAPSULE_V3.md, docs/CLAIM_POLICY_V3.md, docs/FID_POLICY_V3.md, docs/V3_SINGLE_FILE_HANDOFF.md",
+      "name": "required_docs_exist",
+      "passed": true
+    },
+    {
+      "detail": "82 passed, 1 skipped in 1.28s",
+      "name": "pytest_passes",
+      "passed": true
+    },
+    {
+      "detail": "dry_run_only claim_allowed false",
+      "name": "final_audit_non_evidence",
+      "passed": true
+    },
+    {
+      "detail": "no fake claim phrases",
+      "name": "no_fake_real_numbers_in_docs",
+      "passed": true
+    }
+  ],
+  "checks_passed": 24,
+  "checks_total": 24,
+  "claim_allowed": false,
+  "evidence_status": "dry_run_only",
+  "next_action": "fill provenance ledger for one benchmark and validate real feature caches",
+  "passed": true,
+  "warnings": []
+}

@@ -1,0 +1,29 @@
+{
+  "alpha": 0.05,
+  "alpha_policy": "bonferroni",
+  "budget_units": 24,
+  "comparisons": [
+    {
+      "comparison_id": "v4_smoke_a_close_vs_b_far",
+      "features_a": "data/smoke/v4/audit/features/model_a_close.npz",
+      "features_b": "data/smoke/v4/audit/features/model_b_far.npz",
+      "features_r": "data/smoke/v4/audit/features/reference.npz",
+      "seed": 41,
+      "shared_reference_id": "v4_smoke_reference"
+    },
+    {
+      "comparison_id": "v4_smoke_equal_models",
+      "features_a": "data/smoke/v4/audit/features/model_equal_1.npz",
+      "features_b": "data/smoke/v4/audit/features/model_equal_2.npz",
+      "features_r": "data/smoke/v4/audit/features/reference.npz",
+      "seed": 42,
+      "shared_reference_id": "v4_smoke_reference"
+    }
+  ],
+  "evidence_status": "synthetic_only",
+  "method": "betting",
+  "metrics": [
+    "mmd_rbf"
+  ],
+  "seed": 41
+}

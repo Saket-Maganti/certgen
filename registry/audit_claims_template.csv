@@ -1,0 +1,2 @@
+claim_id,pair_id,claim_text,metric_name,reported_direction,recomputed_direction,certificate_status,decided_at_n,evidence_status,limitations
+claim_tbd,cifar10_pair_tbd,TBD,TBD,TBD,TBD,TBD,TBD,non_evidence_planned,TBD

@@ -1,0 +1,69 @@
+{
+  "alpha": 0.025,
+  "boundedness_metadata": {
+    "bounded_by_construction": true,
+    "delta_lower": -4.0,
+    "delta_upper": 4.0,
+    "feature_normalization": "l2",
+    "kernel_lower": 0.0,
+    "kernel_name": "rbf",
+    "kernel_upper": 1.0,
+    "mmd_contribution_lower": -2.0,
+    "mmd_contribution_upper": 2.0
+  },
+  "budget_units": 24,
+  "claim_allowed": false,
+  "command_provenance": {
+    "certgen_version": "0.5.0",
+    "code_version": "uncommitted_or_not_git_controlled_v1_placeholder",
+    "command": "python -m certgen.cli.certify_clean_metric",
+    "config_hash": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "created_at_utc": "2026-06-24T07:31:00+00:00",
+    "input_paths": [
+      "data/smoke/v4/audit/features/model_a_close.npz",
+      "data/smoke/v4/audit/features/model_b_far.npz",
+      "data/smoke/v4/audit/features/reference.npz"
+    ],
+    "notes": [
+      "NO_REAL_EVIDENCE",
+      "R0 bounded-kernel clean metric API"
+    ],
+    "parameters": {
+      "block_size": null,
+      "budget_units": 24,
+      "kernel_config": {
+        "gamma": null,
+        "name": "rbf",
+        "normalize": "l2"
+      },
+      "method": "betting",
+      "metric_label": "mmd_rbf",
+      "metric_reproduction_audit": null,
+      "seed": 41
+    }
+  },
+  "comparison_id": "v4_smoke_a_close_vs_b_far",
+  "created_at": "2026-06-24T07:31:00+00:00",
+  "decision": "not_decided_at_budget",
+  "evidence_status": "synthetic_only",
+  "feature_hashes": {
+    "features_a_sha256": "bb9be7acb661c0d8272117c2932b249c233ba861db24711fba31d0586a30c1e3",
+    "features_b_sha256": "1a165fe51c1cee84fca6c3993c518dcd90a282ec80cff7dfb29cc93aa5a8a60d",
+    "features_r_sha256": "4f8174ab80d530e2817f053f3d2e1daf9c3dc8924b231a00fff5c26a7f355fb6"
+  },
+  "limitations": [
+    "NO_REAL_EVIDENCE",
+    "R0 clean-core certificate path over bounded kernel-derived streams",
+    "Claim export remains blocked until real provenance and registry gates pass"
+  ],
+  "lower": -1.1159977680000002,
+  "mean_estimate": -0.2793576313342709,
+  "method_label": "betting_mixture_bounded_mean_r0",
+  "metric_label": "mmd_rbf",
+  "sample_units_seen": 24,
+  "software_version": "0.2.0",
+  "stream_hash": "0f53b39ca496eb98c66029274116b9d23ab54a642df99481707a631f6d45a175",
+  "theory_status": "betting_e_process_valid_for_bounded_streams",
+  "time_uniform": true,
+  "upper": 0.6839986319999998
+}

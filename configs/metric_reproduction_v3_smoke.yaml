@@ -1,0 +1,13 @@
+audit_id: v3_smoke_reproduction_template
+metric: kid
+reference_features:
+  npz: data/smoke/v3/audit/features/reference.npz
+  sidecar: data/smoke/v3/audit/features/reference.v3_sidecar.json
+model_features:
+  npz: data/smoke/v3/audit/features/model_a_close.npz
+  sidecar: data/smoke/v3/audit/features/model_a_close.v3_sidecar.json
+expected:
+  source: none
+preprocessing_id: synthetic_no_resize
+sample_count: 20
+seed: 0

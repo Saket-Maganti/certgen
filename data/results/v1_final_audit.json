@@ -1,0 +1,80 @@
+{
+  "audit_status": "passed",
+  "checks": [
+    {
+      "detail": "certgen 0.1.0",
+      "name": "package_imports",
+      "passed": true
+    },
+    {
+      "detail": "configs/certgen_v1_smoke.yaml validates",
+      "name": "smoke_config_validates",
+      "passed": true
+    },
+    {
+      "detail": "DatasetRecord serializes to JSON dict",
+      "name": "schemas_serialize",
+      "passed": true
+    },
+    {
+      "detail": "real_evidence_candidate is blocked in smoke mode",
+      "name": "evidence_statuses_enforced",
+      "passed": true
+    },
+    {
+      "detail": "forbidden claim language: we find that, model a beats model b",
+      "name": "claim_gate_catches_forbidden_phrases",
+      "passed": true
+    },
+    {
+      "detail": "FID-like metrics cannot enter the clean CS path in V1",
+      "name": "fid_policy_blocks_clean_cs",
+      "passed": true
+    },
+    {
+      "detail": "kid=0.124864; fid_identical=0.000000",
+      "name": "smoke_metrics_run",
+      "passed": true
+    },
+    {
+      "detail": "status=certified_a_better",
+      "name": "clean_core_certificate_runs",
+      "passed": true
+    },
+    {
+      "detail": "claim gate passed",
+      "name": "reports_pass_claim_gate",
+      "passed": true
+    },
+    {
+      "detail": "docs/NO_RESULTS_YET.md",
+      "name": "no_results_doc_exists",
+      "passed": true
+    },
+    {
+      "detail": "registry/candidate_benchmarks_template.csv, registry/candidate_model_pairs_template.csv, registry/audit_claims_template.csv",
+      "name": "registry_templates_exist",
+      "passed": true
+    },
+    {
+      "detail": "no generated JSON artifact uses real_evidence_candidate",
+      "name": "no_generated_artifact_marked_real_status",
+      "passed": true
+    },
+    {
+      "detail": "selected docs are claim-safe",
+      "name": "docs_do_not_claim_audit_findings",
+      "passed": true
+    },
+    {
+      "detail": "command index includes V1 commands",
+      "name": "command_index_exists",
+      "passed": true
+    },
+    {
+      "detail": "33 passed in 0.21s",
+      "name": "pytest_passes",
+      "passed": true
+    }
+  ]
+}

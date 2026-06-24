@@ -1,0 +1,40 @@
+{
+  "evidence_status": "non_evidence_smoke",
+  "metrics": [
+    {
+      "delta_a_minus_b": -0.09887613139635842,
+      "evidence_status": "non_evidence_smoke",
+      "limitations": [
+        "toy arrays",
+        "non-evidence smoke output"
+      ],
+      "metric_name": "kid_poly",
+      "model_a_distance": -0.0017873558705954196,
+      "model_b_distance": 0.097088775525763
+    },
+    {
+      "delta_a_minus_b": -0.09887613139635842,
+      "evidence_status": "non_evidence_smoke",
+      "limitations": [
+        "toy arrays",
+        "non-evidence smoke output"
+      ],
+      "metric_name": "cmmd_poly",
+      "model_a_distance": -0.0017873558705954196,
+      "model_b_distance": 0.097088775525763
+    },
+    {
+      "delta_a_minus_b": -0.2552492285493205,
+      "evidence_status": "non_evidence_smoke",
+      "fid_rigor_status": "descriptive_only",
+      "limitations": [
+        "descriptive FID point estimate on toy arrays",
+        "non-evidence smoke output"
+      ],
+      "metric_name": "fid_inception",
+      "model_a_distance": 0.00038901891411498925,
+      "model_b_distance": 0.25563824746343544,
+      "optional_stopping_valid": false
+    }
+  ]
+}

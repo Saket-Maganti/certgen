@@ -1,0 +1,34 @@
+{
+  "claim_allowed": false,
+  "traces": [
+    {
+      "availability": {
+        "checkpoint_available": "unknown",
+        "feature_stats_available": "unknown",
+        "released_samples_available": "unknown"
+      },
+      "certificate_ids": [],
+      "claim_allowed": false,
+      "claim_id": "template_claim_001",
+      "decidedness_status": "not_run",
+      "feature_cache_ids": [],
+      "metric_reproduction_id": "not_run",
+      "preprocessing_lock_id": "v4_smoke_inception_lock",
+      "provenance_row": "",
+      "reported_values": {
+        "a": "",
+        "b": "",
+        "direction": "A"
+      },
+      "source": "Template Source For V4 Claim Trace"
+    }
+  ],
+  "validation": {
+    "claim_allowed": false,
+    "errors": [],
+    "evidence_status": "planned_only",
+    "passed": true,
+    "rows": 1,
+    "warnings": []
+  }
+}

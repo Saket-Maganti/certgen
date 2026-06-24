@@ -1,0 +1,218 @@
+{
+  "claim_allowed": false,
+  "contract_version": "0.5.0",
+  "evidence_status": "template_only",
+  "items": [
+    {
+      "allowed_pre_run": false,
+      "artifact_id": "table_1_audit_summary",
+      "artifact_type": "table",
+      "claim_allowed_condition": "claim_allowed=true only after result injection, claim trace, and V5 audit pass with claim_eligible evidence",
+      "columns": [
+        "benchmark",
+        "metric",
+        "number_of_model_pairs",
+        "decided_A_better",
+        "decided_B_better",
+        "not_decided_at_budget",
+        "invalid_or_rejected",
+        "undecided_fraction",
+        "claim_status"
+      ],
+      "placeholder_required_before_run": true,
+      "placeholder_token": "TBD_REAL_RUN_REQUIRED",
+      "required_evidence_status": "claim_eligible",
+      "required_inputs": [
+        "benchmark",
+        "metric",
+        "number_of_model_pairs",
+        "decided_A_better",
+        "decided_B_better",
+        "not_decided_at_budget",
+        "invalid_or_rejected",
+        "undecided_fraction",
+        "claim_status"
+      ],
+      "validation_command": "python3 -m certgen.audit.v5_audit --out docs/V5_FINAL_AUDIT.md --json-out data/results/v5_final_audit.json"
+    },
+    {
+      "allowed_pre_run": false,
+      "artifact_id": "table_2_samples_to_decision",
+      "artifact_type": "table",
+      "claim_allowed_condition": "claim_allowed=true only after result injection, claim trace, and V5 audit pass with claim_eligible evidence",
+      "columns": [
+        "benchmark",
+        "model_A",
+        "model_B",
+        "metric",
+        "reported_sample_size",
+        "budget",
+        "samples_to_decision",
+        "verdict",
+        "alpha_policy",
+        "preprocessing_lock_id"
+      ],
+      "placeholder_required_before_run": true,
+      "placeholder_token": "TBD_REAL_RUN_REQUIRED",
+      "required_evidence_status": "claim_eligible",
+      "required_inputs": [
+        "benchmark",
+        "model_A",
+        "model_B",
+        "metric",
+        "reported_sample_size",
+        "budget",
+        "samples_to_decision",
+        "verdict",
+        "alpha_policy",
+        "preprocessing_lock_id"
+      ],
+      "validation_command": "python3 -m certgen.audit.v5_audit --out docs/V5_FINAL_AUDIT.md --json-out data/results/v5_final_audit.json"
+    },
+    {
+      "allowed_pre_run": false,
+      "artifact_id": "table_3_metric_agreement",
+      "artifact_type": "table",
+      "claim_allowed_condition": "claim_allowed=true only after result injection, claim trace, and V5 audit pass with claim_eligible evidence",
+      "columns": [
+        "benchmark",
+        "model_pair",
+        "FID_direction_descriptive",
+        "KID_certificate_verdict",
+        "CMMD_certificate_verdict",
+        "DINO_or_other_verdict",
+        "disagreement_flag",
+        "claim_status"
+      ],
+      "placeholder_required_before_run": true,
+      "placeholder_token": "TBD_REAL_RUN_REQUIRED",
+      "required_evidence_status": "claim_eligible",
+      "required_inputs": [
+        "benchmark",
+        "model_pair",
+        "FID_direction_descriptive",
+        "KID_certificate_verdict",
+        "CMMD_certificate_verdict",
+        "DINO_or_other_verdict",
+        "disagreement_flag",
+        "claim_status"
+      ],
+      "validation_command": "python3 -m certgen.audit.v5_audit --out docs/V5_FINAL_AUDIT.md --json-out data/results/v5_final_audit.json"
+    },
+    {
+      "allowed_pre_run": false,
+      "artifact_id": "table_4_ranking_stability",
+      "artifact_type": "table",
+      "claim_allowed_condition": "claim_allowed=true only after result injection, claim trace, and V5 audit pass with claim_eligible evidence",
+      "columns": [
+        "benchmark",
+        "metric",
+        "naive_rank_order",
+        "certified_partial_order",
+        "number_of_rank_changes",
+        "undecided_edges",
+        "claim_status"
+      ],
+      "placeholder_required_before_run": true,
+      "placeholder_token": "TBD_REAL_RUN_REQUIRED",
+      "required_evidence_status": "claim_eligible",
+      "required_inputs": [
+        "benchmark",
+        "metric",
+        "naive_rank_order",
+        "certified_partial_order",
+        "number_of_rank_changes",
+        "undecided_edges",
+        "claim_status"
+      ],
+      "validation_command": "python3 -m certgen.audit.v5_audit --out docs/V5_FINAL_AUDIT.md --json-out data/results/v5_final_audit.json"
+    },
+    {
+      "allowed_pre_run": true,
+      "artifact_id": "figure_1_conceptual_pipeline",
+      "artifact_type": "figure",
+      "claim_allowed_condition": "claim_allowed=true only after result injection, claim trace, and V5 audit pass with claim_eligible evidence",
+      "placeholder_required_before_run": true,
+      "placeholder_token": "TBD_REAL_RUN_REQUIRED",
+      "required_evidence_status": "template_only",
+      "required_inputs": [
+        "released_samples",
+        "feature_cache",
+        "metric_stream",
+        "cs_or_eprocess",
+        "decision_certificate",
+        "audit_report"
+      ],
+      "validation_command": "python3 -m certgen.audit.v5_audit --out docs/V5_FINAL_AUDIT.md --json-out data/results/v5_final_audit.json"
+    },
+    {
+      "allowed_pre_run": false,
+      "artifact_id": "figure_2_optional_stopping_validity_lab",
+      "artifact_type": "figure",
+      "claim_allowed_condition": "claim_allowed=true only after result injection, claim trace, and V5 audit pass with claim_eligible evidence",
+      "placeholder_required_before_run": true,
+      "placeholder_token": "TBD_REAL_RUN_REQUIRED",
+      "required_evidence_status": "claim_eligible",
+      "required_inputs": [
+        "synthetic_lab_summary"
+      ],
+      "validation_command": "python3 -m certgen.audit.v5_audit --out docs/V5_FINAL_AUDIT.md --json-out data/results/v5_final_audit.json"
+    },
+    {
+      "allowed_pre_run": false,
+      "artifact_id": "figure_3_samples_to_decision_curves",
+      "artifact_type": "figure",
+      "claim_allowed_condition": "claim_allowed=true only after result injection, claim trace, and V5 audit pass with claim_eligible evidence",
+      "placeholder_required_before_run": true,
+      "placeholder_token": "TBD_REAL_RUN_REQUIRED",
+      "required_evidence_status": "claim_eligible",
+      "required_inputs": [
+        "first_real_pilot_summary"
+      ],
+      "validation_command": "python3 -m certgen.audit.v5_audit --out docs/V5_FINAL_AUDIT.md --json-out data/results/v5_final_audit.json"
+    },
+    {
+      "allowed_pre_run": false,
+      "artifact_id": "figure_4_decidedness_ranking_stability_heatmap",
+      "artifact_type": "figure",
+      "claim_allowed_condition": "claim_allowed=true only after result injection, claim trace, and V5 audit pass with claim_eligible evidence",
+      "placeholder_required_before_run": true,
+      "placeholder_token": "TBD_REAL_RUN_REQUIRED",
+      "required_evidence_status": "claim_eligible",
+      "required_inputs": [
+        "decidedness_audit",
+        "ranking_stability_report"
+      ],
+      "validation_command": "python3 -m certgen.audit.v5_audit --out docs/V5_FINAL_AUDIT.md --json-out data/results/v5_final_audit.json"
+    },
+    {
+      "allowed_pre_run": false,
+      "artifact_id": "figure_5_metric_disagreement_cards",
+      "artifact_type": "figure",
+      "claim_allowed_condition": "claim_allowed=true only after result injection, claim trace, and V5 audit pass with claim_eligible evidence",
+      "placeholder_required_before_run": true,
+      "placeholder_token": "TBD_REAL_RUN_REQUIRED",
+      "required_evidence_status": "claim_eligible",
+      "required_inputs": [
+        "metric_agreement_table",
+        "result_cards"
+      ],
+      "validation_command": "python3 -m certgen.audit.v5_audit --out docs/V5_FINAL_AUDIT.md --json-out data/results/v5_final_audit.json"
+    },
+    {
+      "allowed_pre_run": false,
+      "artifact_id": "comparison_result_card_template",
+      "artifact_type": "card",
+      "claim_allowed_condition": "claim_allowed=true only after result injection, claim trace, and V5 audit pass with claim_eligible evidence",
+      "placeholder_required_before_run": true,
+      "placeholder_token": "TBD_REAL_RUN_REQUIRED",
+      "required_evidence_status": "claim_eligible",
+      "required_inputs": [
+        "claim_trace",
+        "certificate"
+      ],
+      "validation_command": "python3 -m certgen.audit.v5_audit --out docs/V5_FINAL_AUDIT.md --json-out data/results/v5_final_audit.json"
+    }
+  ],
+  "placeholder_token": "TBD_REAL_RUN_REQUIRED"
+}

@@ -1,0 +1,17 @@
+{
+  "audit_id": "audit",
+  "expected": {
+    "source": "none"
+  },
+  "metric": "kid",
+  "model_features": {
+    "npz": "data/smoke/v3/audit/features/model_a_close.npz",
+    "sidecar": "data/smoke/v3/audit/features/model_a_close.v3_sidecar.json"
+  },
+  "reference_features": {
+    "npz": "data/smoke/v3/audit/features/reference.npz",
+    "sidecar": "data/smoke/v3/audit/features/reference.v3_sidecar.json"
+  },
+  "sample_count": 20,
+  "seed": 0
+}

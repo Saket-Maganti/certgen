@@ -1,0 +1,13 @@
+{
+  "claim_allowed": false,
+  "evidence_status": "dry_run_only",
+  "next_action": "supply validated real feature caches",
+  "pilot_status": "NONCLAIM_DRY_RUN",
+  "stages": {
+    "stage_0_dry_run": true,
+    "stage_1_provenance_gate": false,
+    "stage_2_feature_cache_gate": false,
+    "stage_3_reproduction_gate": false,
+    "stage_4_certificate_gate": false
+  }
+}

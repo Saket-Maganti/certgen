@@ -1,0 +1,16 @@
+{
+  "lock_id": "cifar10_inception_bilinear_299",
+  "image_size": 299,
+  "resize_policy": "resize_to_square",
+  "interpolation": "bilinear",
+  "center_crop": false,
+  "normalization": "inception",
+  "color_mode": "rgb",
+  "feature_extractor": "inception_v3_pool3",
+  "feature_extractor_version": "manual_user_verified",
+  "batch_size": 32,
+  "dtype": "float32",
+  "sample_order_policy": "manifest_order_seeded",
+  "reference_set_policy": "declared_manifest",
+  "hash": "template_hash_recompute_with_cli"
+}

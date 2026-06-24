@@ -1,0 +1,49 @@
+{
+  "claim_allowed": false,
+  "counts": {
+    "undecided_at_budget": 2
+  },
+  "evidence_status": "synthetic_only",
+  "rows": [
+    {
+      "adjusted_for_multiplicity": true,
+      "alpha_policy": "bonferroni",
+      "alpha_used": 0.025,
+      "claim_allowed": false,
+      "comparison_id": "v4_smoke_a_close_vs_b_far",
+      "cs_lower": -1.1159977680000002,
+      "cs_upper": 0.6839986319999998,
+      "decidedness_category": "undecided_at_budget",
+      "decision": "undecided",
+      "dependence_warning": [
+        "feature cache reused: data/smoke/v4/audit/features/reference.npz",
+        "overlapping reference samples/cache reused"
+      ],
+      "evidence_status": "synthetic_only",
+      "metric_name": "mmd_rbf",
+      "n_decision": null,
+      "n_max": 24,
+      "seed": 41
+    },
+    {
+      "adjusted_for_multiplicity": true,
+      "alpha_policy": "bonferroni",
+      "alpha_used": 0.025,
+      "claim_allowed": false,
+      "comparison_id": "v4_smoke_equal_models",
+      "cs_lower": -0.895998208,
+      "cs_upper": 0.8999981999999997,
+      "decidedness_category": "undecided_at_budget",
+      "decision": "undecided",
+      "dependence_warning": [
+        "feature cache reused: data/smoke/v4/audit/features/reference.npz",
+        "overlapping reference samples/cache reused"
+      ],
+      "evidence_status": "synthetic_only",
+      "metric_name": "mmd_rbf",
+      "n_decision": null,
+      "n_max": 24,
+      "seed": 42
+    }
+  ]
+}

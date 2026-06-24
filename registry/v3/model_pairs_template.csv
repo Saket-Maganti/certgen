@@ -1,0 +1,2 @@
+comparison_id,benchmark_id,model_a_id,model_b_id,reference_cache_id,model_a_cache_id,model_b_cache_id,reported_metric,reported_claim_source,sample_source_verified,license_status,preprocessing_match,metric_policy,pilot_eligibility,blocker_reason
+comparison_tbd,benchmark_tbd,model_a_tbd,model_b_tbd,cache_ref_tbd,cache_a_tbd,cache_b_tbd,kid,TBD,false,unknown,false,clean_core,availability_planned,metadata not verified

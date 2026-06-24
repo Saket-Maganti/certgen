@@ -1,0 +1,8 @@
+{
+  "run_id": "template",
+  "comparison_id": "comparison_template",
+  "evidence_status": "planned_only",
+  "claim_allowed": false,
+  "blockers": ["template only"],
+  "warnings": []
+}

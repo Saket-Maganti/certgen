@@ -1,0 +1,20 @@
+{
+  "claim_allowed": false,
+  "device_request": "auto",
+  "estimated_batches": 1,
+  "evidence_status": "dry_run_only",
+  "extractor": "inception_v3_pool3",
+  "extractor_available": true,
+  "feature_dim": 2048,
+  "heavy_dependencies": [
+    "torch",
+    "torchvision"
+  ],
+  "item_count": 1,
+  "missing_local_files": [
+    "TBD"
+  ],
+  "missing_local_files_count": 1,
+  "output_feature_path": "data/features/first_pilot/inception/inception_v3_pool3_features.npz",
+  "output_sidecar_path": "data/features/first_pilot/inception/inception_v3_pool3_features.json"
+}

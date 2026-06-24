@@ -1,0 +1,22 @@
+{
+  "cache_id": "cache_tbd",
+  "dataset_id": "benchmark_tbd",
+  "split": "TBD",
+  "sample_source_type": "smoke_fixture",
+  "model_or_generator_id": "model_tbd",
+  "feature_extractor": "TBD",
+  "feature_extractor_version": "TBD",
+  "preprocessing_policy_id": "TBD",
+  "resize_size": "TBD",
+  "crop_policy": "TBD",
+  "interpolation": "TBD",
+  "normalization": "TBD",
+  "num_samples": 0,
+  "feature_dim": 0,
+  "feature_file_path": "TBD",
+  "feature_file_sha256": "TBD",
+  "source_license_status": "TBD",
+  "download_or_local_source_note": "NO_REAL_EVIDENCE template only",
+  "evidence_status": "planned",
+  "created_at": "TBD"
+}

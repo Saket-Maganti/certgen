@@ -1,0 +1,103 @@
+{
+  "allowed_pre_run_claims": [
+    "CertGen implements a design/scaffold for metric-agnostic decision certification.",
+    "Clean-core KID/MMD/CMMD-style certificates are implemented or planned, depending on actual code state.",
+    "FID is descriptive-only unless rigorously handled.",
+    "Smoke/dry-run artifacts are non-evidence.",
+    "The project is zero-cost/released-samples-oriented by design."
+  ],
+  "claim_allowed": false,
+  "claims": [
+    {
+      "allowed_before_real_runs": true,
+      "blocked_reason_if_pre_run": "",
+      "citation_status": "not_needed",
+      "claim_id": "C_METHOD_SCAFFOLD",
+      "claim_text": "CertGen implements a design scaffold for metric-agnostic decision certification.",
+      "claim_type": "method",
+      "fid_sensitive": false,
+      "required_artifact_types": [
+        "code",
+        "docs"
+      ],
+      "required_evidence_status": [
+        "template_only",
+        "dry_run_only"
+      ],
+      "requires_citation": false
+    },
+    {
+      "allowed_before_real_runs": true,
+      "blocked_reason_if_pre_run": "",
+      "citation_status": "needed_unverified",
+      "claim_id": "C_CLEAN_CORE_IMPLEMENTED",
+      "claim_text": "Clean-core KID/MMD/CMMD-style certificate scaffolds are implemented for non-evidence validation.",
+      "claim_type": "statistical",
+      "fid_sensitive": false,
+      "required_artifact_types": [
+        "tests",
+        "audit"
+      ],
+      "required_evidence_status": [
+        "smoke_only",
+        "synthetic_only",
+        "dry_run_only"
+      ],
+      "requires_citation": true
+    },
+    {
+      "allowed_before_real_runs": true,
+      "blocked_reason_if_pre_run": "",
+      "citation_status": "needed_unverified",
+      "claim_id": "C_FID_DESCRIPTIVE_ONLY",
+      "claim_text": "FID and FD-style metrics are descriptive-only unless a separate rigorous audit is added.",
+      "claim_type": "limitation",
+      "fid_sensitive": true,
+      "required_artifact_types": [
+        "fid_policy"
+      ],
+      "required_evidence_status": [
+        "template_only",
+        "dry_run_only"
+      ],
+      "requires_citation": true
+    },
+    {
+      "allowed_before_real_runs": false,
+      "blocked_reason_if_pre_run": "TBD_REAL_RUN_REQUIRED",
+      "citation_status": "not_needed",
+      "claim_id": "C_UNDECIDED_FRACTION",
+      "claim_text": "The first-benchmark undecided fraction has a numeric value.",
+      "claim_type": "empirical",
+      "fid_sensitive": false,
+      "required_artifact_types": [
+        "real_pilot",
+        "claim_trace",
+        "certificate_audit"
+      ],
+      "required_evidence_status": [
+        "claim_eligible"
+      ],
+      "requires_citation": false
+    }
+  ],
+  "contract_version": "0.5.0",
+  "evidence_status": "template_only",
+  "forbidden_pre_run_claims": [
+    "any undecided-fraction value",
+    "any claim that published wins are undecided",
+    "any ranking movement claim",
+    "any compute-savings number",
+    "any real benchmark result",
+    "any rigorous FID certificate claim unless audited",
+    "any claim that CertGen is a new metric",
+    "any claim that FID is useless/wrong",
+    "any claim that most papers are wrong"
+  ],
+  "preferred_title": "How Many Samples Until You Know? Anytime-Valid Certificates for Generative Model Comparison",
+  "title_candidates": [
+    "How Many Samples Until You Know? Anytime-Valid Certificates for Generative Model Comparison",
+    "CertGen: Anytime-Valid, Metric-Agnostic Decision Certificates for Generative-Model Comparison",
+    "Are Generative-Model Wins Statistically Decided? A Peeking-Safe Audit of Visual Generation Metrics"
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "audit_status": "passed",
+  "checks": [
+    {
+      "detail": "65 passed, 1 skipped in 0.38s",
+      "name": "pytest_suite_passes",
+      "passed": true
+    },
+    {
+      "detail": "MMD difference stream imports and follows direction",
+      "name": "clean_core_stream_code_exists",
+      "passed": true
+    },
+    {
+      "detail": "time_uniform_hoeffding_union_bound_v2",
+      "name": "cs_implementation_exists",
+      "passed": true
+    },
+    {
+      "detail": "not_decided_at_budget",
+      "name": "certificate_api_exists",
+      "passed": true
+    },
+    {
+      "detail": "module importable",
+      "name": "optional_stopping_lab_exists",
+      "passed": true
+    },
+    {
+      "detail": "20 required fields",
+      "name": "feature_cache_schema_exists",
+      "passed": true
+    },
+    {
+      "detail": "V2 registry template present",
+      "name": "registry_v2_fields_exist",
+      "passed": true
+    },
+    {
+      "detail": "module importable",
+      "name": "first_pilot_v2_planner_exists",
+      "passed": true
+    },
+    {
+      "detail": "rigorous FID flag rejected",
+      "name": "fid_rigorous_claims_blocked",
+      "passed": true
+    },
+    {
+      "detail": "real_evidence_candidate is blocked in smoke mode",
+      "name": "smoke_artifacts_cannot_become_evidence",
+      "passed": true
+    },
+    {
+      "detail": "certificate card warning present",
+      "name": "certificate_reports_warn_not_evidence",
+      "passed": true
+    },
+    {
+      "detail": "selected V2 docs are claim-safe",
+      "name": "no_forbidden_v2_claim_phrases",
+      "passed": true
+    },
+    {
+      "detail": "not imported: torch, torchvision, transformers, timm",
+      "name": "heavy_dependencies_optional_lazy",
+      "passed": true
+    },
+    {
+      "detail": "tests do not invoke GPU/CUDA",
+      "name": "no_gpu_command_in_tests",
+      "passed": true
+    },
+    {
+      "detail": "handoff contains no-real-evidence label",
+      "name": "handoff_states_no_real_evidence",
+      "passed": true
+    }
+  ]
+}

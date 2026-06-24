@@ -1,0 +1,10 @@
+{
+  "evidence_status": "smoke_only",
+  "feature_dim": 6,
+  "feature_file_path": "data/smoke/v4/metric_repro/features/model_equal_1.npz",
+  "feature_file_sha256": "dd9a879909c4c7a291f80bb149670b20473d913b3adcef0be152701202fbec43",
+  "fixture_id": "model_equal_1",
+  "num_samples": 80,
+  "seed": 43,
+  "warning": "NO_REAL_EVIDENCE: synthetic fixture for software validation only"
+}

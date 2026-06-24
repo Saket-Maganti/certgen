@@ -1,0 +1,52 @@
+{
+  "alpha": 0.05,
+  "boundedness_metadata": {
+    "fraction_clipped": 1.0,
+    "lower_bound": -1.0,
+    "num_clipped_high": 0,
+    "num_clipped_low": 20,
+    "upper_bound": 1.0
+  },
+  "budget_units": 20,
+  "claim_allowed": false,
+  "command_provenance": {
+    "certgen_version": "0.5.0",
+    "code_version": "uncommitted_or_not_git_controlled_v1_placeholder",
+    "command": "python -m certgen.cli.certify_clean_metric",
+    "config_hash": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "created_at_utc": "2026-06-23T14:05:23+00:00",
+    "input_paths": [
+      "data/smoke/v3/audit/features/model_a_close.npz",
+      "data/smoke/v3/audit/features/model_b_far.npz",
+      "data/smoke/v3/audit/features/reference.npz"
+    ],
+    "notes": [
+      "NO_REAL_EVIDENCE",
+      "V2 clean metric API"
+    ]
+  },
+  "comparison_id": "smoke_a_vs_b",
+  "created_at": "2026-06-23T14:05:23+00:00",
+  "decision": "not_decided_at_budget",
+  "evidence_status": "real_pilot_non_claim",
+  "feature_hashes": {
+    "features_a_sha256": "1745ee38a76decca29315567655ef90b05b080c26e1743027bfffda47c20de33",
+    "features_b_sha256": "37ba61c5f739a3a3189a4436de990e3864ff944c9928c5d061dd08f965dda0b7",
+    "features_r_sha256": "37479938e6a62d7f1ac1027dbb2495ac20a9b6098de8f6cfdaf4f5700b306e8f"
+  },
+  "limitations": [
+    "NO_REAL_EVIDENCE",
+    "V2 clean-core certificate path over bounded feature-derived streams",
+    "Claim export remains blocked until real provenance and registry gates pass"
+  ],
+  "lower": -2.0088629393377806,
+  "mean_estimate": -1.0,
+  "method_label": "time_uniform_hoeffding_union_bound_v2",
+  "metric_label": "kid_polynomial",
+  "sample_units_seen": 20,
+  "software_version": "0.2.0",
+  "stream_hash": "4c694c80ee58dad77d0adb80c3839f1f874db9311a84d52ba59d0ae180e25818",
+  "theory_status": "conservative_valid_for_bounded_streams",
+  "time_uniform": true,
+  "upper": 0.008862939337780595
+}

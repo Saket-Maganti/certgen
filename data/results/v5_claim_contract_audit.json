@@ -1,0 +1,8 @@
+{
+  "audit_name": "v5_claim_contract_audit",
+  "claim_allowed": false,
+  "errors": [],
+  "evidence_status": "template_only",
+  "passed": true,
+  "warnings": []
+}

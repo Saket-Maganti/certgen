@@ -1,0 +1,10 @@
+{
+  "certified_partial_order": [],
+  "claim_allowed": false,
+  "evidence_status": "synthetic_only",
+  "naive_ranking": [],
+  "undecided_edges": [
+    "v4_smoke_a_close_vs_b_far",
+    "v4_smoke_equal_models"
+  ]
+}

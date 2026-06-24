@@ -1,0 +1,181 @@
+{
+  "alpha": 0.05,
+  "budget": 40,
+  "claim_allowed": false,
+  "evidence_status": "synthetic_only",
+  "num_replicates": 10,
+  "scenarios": {
+    "heavy_tailed_bounded": {
+      "certgen_empirical_bernstein_cs": {
+        "average_sample_units_to_decision": null,
+        "average_samples_to_decision": null,
+        "decision_rate": 0.0,
+        "false_decision_rate": 0.0,
+        "stopping_times": []
+      },
+      "certgen_hoeffding_cs": {
+        "average_sample_units_to_decision": null,
+        "average_samples_to_decision": null,
+        "decision_rate": 0.0,
+        "false_decision_rate": 0.0,
+        "stopping_times": []
+      },
+      "naive_fixed_n_peek": {
+        "average_sample_units_to_decision": 13.75,
+        "average_samples_to_decision": 13.75,
+        "decision_rate": 0.4,
+        "false_decision_rate": 0.4,
+        "stopping_times": [
+          5,
+          10,
+          5,
+          35
+        ]
+      },
+      "naive_running_mean_threshold": {
+        "average_sample_units_to_decision": 5.0,
+        "average_samples_to_decision": 5.0,
+        "decision_rate": 0.5,
+        "false_decision_rate": 0.5,
+        "stopping_times": [
+          5,
+          5,
+          5,
+          5,
+          5
+        ]
+      }
+    },
+    "medium_effect_A_better": {
+      "certgen_empirical_bernstein_cs": {
+        "average_sample_units_to_decision": null,
+        "average_samples_to_decision": null,
+        "decision_rate": 0.0,
+        "false_decision_rate": 0.0,
+        "stopping_times": []
+      },
+      "certgen_hoeffding_cs": {
+        "average_sample_units_to_decision": null,
+        "average_samples_to_decision": null,
+        "decision_rate": 0.0,
+        "false_decision_rate": 0.0,
+        "stopping_times": []
+      },
+      "naive_fixed_n_peek": {
+        "average_sample_units_to_decision": 7.0,
+        "average_samples_to_decision": 7.0,
+        "decision_rate": 1.0,
+        "false_decision_rate": 0.0,
+        "stopping_times": [
+          5,
+          5,
+          5,
+          5,
+          5,
+          10,
+          5,
+          5,
+          10,
+          15
+        ]
+      },
+      "naive_running_mean_threshold": {
+        "average_sample_units_to_decision": 6.0,
+        "average_samples_to_decision": 6.0,
+        "decision_rate": 1.0,
+        "false_decision_rate": 0.0,
+        "stopping_times": [
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          15,
+          5
+        ]
+      }
+    },
+    "null_equal_distance": {
+      "certgen_empirical_bernstein_cs": {
+        "average_sample_units_to_decision": null,
+        "average_samples_to_decision": null,
+        "decision_rate": 0.0,
+        "false_decision_rate": 0.0,
+        "stopping_times": []
+      },
+      "certgen_hoeffding_cs": {
+        "average_sample_units_to_decision": null,
+        "average_samples_to_decision": null,
+        "decision_rate": 0.0,
+        "false_decision_rate": 0.0,
+        "stopping_times": []
+      },
+      "naive_fixed_n_peek": {
+        "average_sample_units_to_decision": 10.0,
+        "average_samples_to_decision": 10.0,
+        "decision_rate": 0.3,
+        "false_decision_rate": 0.3,
+        "stopping_times": [
+          10,
+          5,
+          15
+        ]
+      },
+      "naive_running_mean_threshold": {
+        "average_sample_units_to_decision": 5.0,
+        "average_samples_to_decision": 5.0,
+        "decision_rate": 0.4,
+        "false_decision_rate": 0.4,
+        "stopping_times": [
+          5,
+          5,
+          5,
+          5
+        ]
+      }
+    },
+    "small_effect_A_better": {
+      "certgen_empirical_bernstein_cs": {
+        "average_sample_units_to_decision": null,
+        "average_samples_to_decision": null,
+        "decision_rate": 0.0,
+        "false_decision_rate": 0.0,
+        "stopping_times": []
+      },
+      "certgen_hoeffding_cs": {
+        "average_sample_units_to_decision": null,
+        "average_samples_to_decision": null,
+        "decision_rate": 0.0,
+        "false_decision_rate": 0.0,
+        "stopping_times": []
+      },
+      "naive_fixed_n_peek": {
+        "average_sample_units_to_decision": 21.0,
+        "average_samples_to_decision": 21.0,
+        "decision_rate": 0.5,
+        "false_decision_rate": 0.1,
+        "stopping_times": [
+          5,
+          35,
+          5,
+          20,
+          40
+        ]
+      },
+      "naive_running_mean_threshold": {
+        "average_sample_units_to_decision": 10.0,
+        "average_samples_to_decision": 10.0,
+        "decision_rate": 0.3,
+        "false_decision_rate": 0.1,
+        "stopping_times": [
+          5,
+          5,
+          20
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "analysis_plan_version": "0.5.0",
+  "claim_allowed": false,
+  "dependence_diagnostics_required": true,
+  "evidence_status": "template_only",
+  "exclusions": [
+    "unverifiable_sample_provenance",
+    "unavailable_feature_cache",
+    "license_uncertainty",
+    "failed_metric_reproduction",
+    "mismatched_preprocessing"
+  ],
+  "go_no_go_thresholds": {
+    "conditional_go_min_undecided_fraction": 0.05,
+    "strong_go_min_undecided_fraction": 0.25,
+    "weak_headline_below": 0.05
+  },
+  "lock_hash": "a6d1c41d0065d81dcdd3b6ea94bc8207c8abd858b508f2d779a1324e819c0966",
+  "multiple_comparisons": {
+    "alpha": 0.05,
+    "default": "bonferroni_family_wise_alpha"
+  },
+  "outcomes": [
+    "A_certified_better",
+    "B_certified_better",
+    "not_decided_at_budget",
+    "invalid_or_rejected"
+  ],
+  "preprocessing_lock_required_fields": [
+    "sample_size",
+    "resize",
+    "interpolation",
+    "crop",
+    "color_mode",
+    "feature_extractor",
+    "reference_set"
+  ],
+  "primary_decision_rule": "stop_when_anytime_valid_cs_for_delta_excludes_zero_or_budget_exhausted",
+  "primary_metrics": [
+    "kid_mmd_style",
+    "cmmd_clip_mmd",
+    "dino_mmd_optional",
+    "fid_descriptive_only"
+  ],
+  "primary_pilot_endpoint": "first_benchmark_undecided_fraction_among_preselected_contestable_pairs",
+  "primary_question": "When is one generative model certifiably better than another under a chosen metric, with optional-stopping-safe validity and a sample budget?",
+  "result_placeholder": "TBD_REAL_RUN_REQUIRED"
+}

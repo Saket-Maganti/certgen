@@ -1,0 +1,22 @@
+{
+  "cache_id": "smoke_reference_cache_v2",
+  "created_at": "2026-06-23T08:16:53+00:00",
+  "crop_policy": "none",
+  "dataset_id": "smoke_reference",
+  "download_or_local_source_note": "NO_REAL_EVIDENCE synthetic V2 fixture generated locally",
+  "evidence_status": "smoke_only",
+  "feature_dim": 6,
+  "feature_extractor": "synthetic_fixture",
+  "feature_extractor_version": "v2_seed0",
+  "feature_file_path": "data/smoke/v2/features/reference.npz",
+  "feature_file_sha256": "d196862a3128ae0563515fd9b5904fcb9e5ef6eddd5f0e2e53087848ef0c970b",
+  "interpolation": "not_applicable_synthetic_features",
+  "model_or_generator_id": "reference_smoke_fixture",
+  "normalization": "none",
+  "num_samples": 80,
+  "preprocessing_policy_id": "synthetic_no_resize_no_crop",
+  "resize_size": "none",
+  "sample_source_type": "smoke_fixture",
+  "source_license_status": "smoke_fixture",
+  "split": "synthetic_smoke"
+}

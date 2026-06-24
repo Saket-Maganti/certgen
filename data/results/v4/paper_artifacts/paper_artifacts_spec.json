@@ -1,0 +1,76 @@
+{
+  "claim_allowed": false,
+  "evidence_status": "planned_only",
+  "figures": [
+    {
+      "claim_allowed": false,
+      "figure_id": "optional_stopping_validity",
+      "watermark": "NON-EVIDENCE / TEMPLATE / SYNTHETIC"
+    },
+    {
+      "claim_allowed": false,
+      "figure_id": "samples_to_decision_curve",
+      "watermark": "NON-EVIDENCE / TEMPLATE / SYNTHETIC"
+    },
+    {
+      "claim_allowed": false,
+      "figure_id": "ranking_stability_graph",
+      "watermark": "NON-EVIDENCE / TEMPLATE / SYNTHETIC"
+    },
+    {
+      "claim_allowed": false,
+      "figure_id": "decidedness_audit_bar_chart",
+      "watermark": "NON-EVIDENCE / TEMPLATE / SYNTHETIC"
+    },
+    {
+      "claim_allowed": false,
+      "figure_id": "metric_disagreement_panel",
+      "watermark": "NON-EVIDENCE / TEMPLATE / SYNTHETIC"
+    }
+  ],
+  "result_cards": [
+    {
+      "certificate_decision": "not_run",
+      "claim_allowed": false,
+      "comparison_id": "comparison_template",
+      "evidence_status": "planned_only",
+      "preprocessing_lock": "template",
+      "reproduction_status": "not_run",
+      "sample_availability": "template",
+      "samples_to_decision": null,
+      "source_claim": "template"
+    }
+  ],
+  "tables": [
+    {
+      "claim_allowed": false,
+      "table_id": "main_audit_table",
+      "watermark": "NON-EVIDENCE / TEMPLATE / SYNTHETIC"
+    },
+    {
+      "claim_allowed": false,
+      "table_id": "metric_reproduction_table",
+      "watermark": "NON-EVIDENCE / TEMPLATE / SYNTHETIC"
+    },
+    {
+      "claim_allowed": false,
+      "table_id": "sample_availability_table",
+      "watermark": "NON-EVIDENCE / TEMPLATE / SYNTHETIC"
+    },
+    {
+      "claim_allowed": false,
+      "table_id": "certificate_summary_table",
+      "watermark": "NON-EVIDENCE / TEMPLATE / SYNTHETIC"
+    },
+    {
+      "claim_allowed": false,
+      "table_id": "ranking_stability_table",
+      "watermark": "NON-EVIDENCE / TEMPLATE / SYNTHETIC"
+    },
+    {
+      "claim_allowed": false,
+      "table_id": "limitations_table",
+      "watermark": "NON-EVIDENCE / TEMPLATE / SYNTHETIC"
+    }
+  ]
+}

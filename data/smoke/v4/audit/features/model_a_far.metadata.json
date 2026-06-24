@@ -1,0 +1,10 @@
+{
+  "evidence_status": "smoke_only",
+  "feature_dim": 6,
+  "feature_file_path": "data/smoke/v4/audit/features/model_a_far.npz",
+  "feature_file_sha256": "79134a2a71fe04c8611a33550b05b0e1cc540339020bb8d34d02cc450e3c3112",
+  "fixture_id": "model_a_far",
+  "num_samples": 80,
+  "seed": 41,
+  "warning": "NO_REAL_EVIDENCE: synthetic fixture for software validation only"
+}

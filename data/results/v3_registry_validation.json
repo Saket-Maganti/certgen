@@ -1,0 +1,12 @@
+{
+  "benchmarks": 1,
+  "claim_allowed": false,
+  "errors": [],
+  "evidence_status": "planned_only",
+  "feature_caches": 1,
+  "model_pairs": 1,
+  "passed": true,
+  "warnings": [
+    "comparison_tbd: not pilot-ready (availability_planned)"
+  ]
+}

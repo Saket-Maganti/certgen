@@ -1,0 +1,721 @@
+{
+  "audit_name": "v4_state_intake",
+  "blockers": [],
+  "checks": [
+    {
+      "detail": "certgen",
+      "name": "dir_certgen",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "certgen/certs",
+      "name": "dir_certgen/certs",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "certgen/audit",
+      "name": "dir_certgen/audit",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "certgen/registry",
+      "name": "dir_certgen/registry",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "docs",
+      "name": "dir_docs",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "tests",
+      "name": "dir_tests",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "docs/V1_SINGLE_FILE_HANDOFF.md",
+      "name": "handoff_V1_SINGLE_FILE_HANDOFF",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "docs/V2_SINGLE_FILE_HANDOFF.md",
+      "name": "handoff_V2_SINGLE_FILE_HANDOFF",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "docs/V3_SINGLE_FILE_HANDOFF.md",
+      "name": "handoff_V3_SINGLE_FILE_HANDOFF",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v1/provenance.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v1/smoke_artifact.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v1/metrics/smoke_metrics.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v1/certificates/smoke_kid_certificate.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v1/manifests/model_a_feature_manifest.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v1/manifests/reference_feature_manifest.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v1/manifests/model_b_feature_manifest.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v2/features/model_b_close.metadata.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v2/features/model_a_close.metadata.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v2/features/model_equal_1.metadata.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v2/features/reference.metadata.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v2/features/model_equal_2.metadata.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v2/features/model_a_far.metadata.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v2/features/model_b_far.metadata.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v2/certificates/audit_smoke_mmd_rbf.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v2/certificates/smoke_pair_001_kid_certificate.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v2/certificates/audit_smoke_kid.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v4/audit/features/model_b_close.metadata.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v4/audit/features/model_a_close.metadata.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v4/audit/features/model_equal_1.metadata.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v4/audit/features/reference.metadata.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v4/audit/features/model_equal_2.metadata.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v4/audit/features/model_a_far.metadata.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v4/audit/features/model_b_far.metadata.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v4/metric_repro/features/model_a_close.v4_sidecar.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v4/metric_repro/features/model_b_close.metadata.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v4/metric_repro/features/model_a_close.metadata.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v4/metric_repro/features/reference.v4_sidecar.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v4/metric_repro/features/model_equal_1.metadata.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v4/metric_repro/features/reference.metadata.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v4/metric_repro/features/model_equal_2.metadata.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v4/metric_repro/features/model_a_far.metadata.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v4/metric_repro/features/model_b_far.metadata.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v3/audit/metric_reproduction_gate.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v3/audit/metric_repro.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v3/audit/features/model_a_close.v3_sidecar.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v3/audit/features/model_b_close.metadata.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v3/audit/features/model_a_close.metadata.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v3/audit/features/reference.v3_sidecar.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v3/audit/features/nan.v3_sidecar.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v3/audit/features/model_b_far.v3_sidecar.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v3/audit/features/model_equal_1.metadata.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v3/audit/features/reference.metadata.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v3/audit/features/model_equal_2.metadata.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v3/audit/features/model_a_far.metadata.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/smoke/v3/audit/features/model_b_far.metadata.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/contracts/analysis_plan_lock_v5.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/contracts/claim_contract_v5.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/contracts/proof_obligations_v5.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/contracts/result_injection_contract_v5.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/contracts/result_contracts_v5.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v5_final_audit.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/cvpr_readiness_scorecard_v5.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v2_first_pilot_plan.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/certificate_replay.replayed_certificate.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v3_intake_audit.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v5_reviewer_harness.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v3_registry_validation.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v1_final_audit.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v4_final_audit.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v4_metric_reproduction_audit.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v5_state_intake.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v5_release_safety.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v4_release_safety.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/provenance_ledger_validation.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v3_availability_table.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/feature_extraction_plan.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v4_state_intake_audit.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v3_final_audit.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/optional_stopping_lab_v3.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/metric_reproduction_audit.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/r0_technical_correction_audit.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v5_related_work_audit.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v2_final_audit.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/certificate_replay.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/r1_cifar10_status.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v5_claim_contract_audit.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/first_pilot_v3/summary.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/first_pilot_v3/certificates/smoke_a_vs_b_mmd_rbf.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/first_pilot_v3/certificates/smoke_a_vs_b_kid_polynomial.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v2_optional_stopping_lab/summary.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v4/real_run_plan.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v4/batch_certificates.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v4/ranking_stability.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v4/reviewer_attack_harness.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v4/reported_claim_traces.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v4/decidedness_audit.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v4/certificates/v4_smoke_a_close_vs_b_far_mmd_rbf.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v4/certificates/v4_smoke_equal_models_kid_polynomial.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v4/certificates/v4_smoke_equal_models_mmd_rbf.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v4/certificates/v4_smoke_a_close_vs_b_far_kid_polynomial.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v4/first_real_pilot/summary.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v4/paper_artifacts/paper_artifacts_spec.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "docs/NO_RESULTS_YET.md",
+      "name": "result_boundary_doc_exists",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "FID docs descriptive",
+      "name": "fid_policy_docs_descriptive",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "registry/reported_metric_claims_v4_template.csv",
+      "name": "template_non_evidence_registry/reported_metric_claims_v4_template.csv",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "registry/released_sample_ledger_template.csv",
+      "name": "template_non_evidence_registry/released_sample_ledger_template.csv",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "registry/real_run_plan_template.json",
+      "name": "template_non_evidence_registry/real_run_plan_template.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "registry/candidate_model_pairs_template.csv",
+      "name": "template_non_evidence_registry/candidate_model_pairs_template.csv",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "registry/candidate_benchmarks_template.csv",
+      "name": "template_non_evidence_registry/candidate_benchmarks_template.csv",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "registry/audit_claims_template.csv",
+      "name": "template_non_evidence_registry/audit_claims_template.csv",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "registry/v3/benchmarks_template.csv",
+      "name": "template_non_evidence_registry/v3/benchmarks_template.csv",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "registry/v3/model_pairs_template.csv",
+      "name": "template_non_evidence_registry/v3/model_pairs_template.csv",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "registry/v3/feature_caches_template.csv",
+      "name": "template_non_evidence_registry/v3/feature_caches_template.csv",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "registry/provenance/released_sample_ledger_template.csv",
+      "name": "template_non_evidence_registry/provenance/released_sample_ledger_template.csv",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "registry/provenance/v4_plan_ledger_template.csv",
+      "name": "template_non_evidence_registry/provenance/v4_plan_ledger_template.csv",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "guarded",
+      "name": "paper_claim_phrases_guarded",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "none",
+      "name": "no_release_doc_private_paths",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "pytest tests present",
+      "name": "tests_discoverable",
+      "passed": true,
+      "warning": false
+    }
+  ],
+  "claim_allowed": false,
+  "evidence_status": "dry_run_only",
+  "num_checks": 118,
+  "num_failed": 0,
+  "num_passed": 118,
+  "passed": true,
+  "warnings": []
+}

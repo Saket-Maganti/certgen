@@ -1,0 +1,2 @@
+benchmark_id,name,data_source_note,reference_set_available,license_note,preprocessing_requirements,status,evidence_status
+cifar10_planned,CIFAR-10,TBD,TBD,TBD,TBD,planned,non_evidence_planned

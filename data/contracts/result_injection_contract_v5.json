@@ -1,0 +1,30 @@
+{
+  "claim_allowed": false,
+  "claim_trace_required_fields": [
+    "claim_id",
+    "paper_location",
+    "result_artifact_id",
+    "source_provenance_id",
+    "feature_cache_id",
+    "preprocessing_lock_id",
+    "metric_reproduction_id",
+    "certificate_id",
+    "audit_id",
+    "evidence_status",
+    "claim_allowed"
+  ],
+  "contract_version": "0.5.0",
+  "evidence_status": "template_only",
+  "injection_rules": [
+    "evidence_candidate required for internal result drafts",
+    "claim_eligible required for paper claims",
+    "analysis plan hash must match",
+    "FID-sensitive claims require FID policy approval",
+    "all result artifacts must exist"
+  ],
+  "placeholder_behavior": {
+    "before_real_runs": "retain TBD_REAL_RUN_REQUIRED",
+    "claim_allowed": false
+  },
+  "placeholder_token": "TBD_REAL_RUN_REQUIRED"
+}

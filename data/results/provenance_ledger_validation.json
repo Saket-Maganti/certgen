@@ -1,0 +1,15 @@
+{
+  "claim_allowed": false,
+  "errors": [],
+  "evidence_status": "planned_only",
+  "passed": true,
+  "rows": 1,
+  "warnings": [
+    "row 2: reported_metric_value unknown",
+    "row 2: reported_sample_count unknown",
+    "row 2: sample_count_available unknown",
+    "row 2: license unknown",
+    "row 2: source URL/DOI absent",
+    "row 2: preprocessing unknown"
+  ]
+}

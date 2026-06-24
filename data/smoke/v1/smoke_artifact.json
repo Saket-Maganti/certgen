@@ -1,0 +1,24 @@
+{
+  "artifact_type": "certgen_v1_smoke",
+  "description": "non-evidence smoke artifact for contract validation",
+  "evidence_status": "non_evidence_smoke",
+  "manifests": [
+    "10a7fe1920ee8a07",
+    "74225b6b0bb763d8",
+    "27cd9d370b4c5f7e"
+  ],
+  "provenance": {
+    "certgen_version": "0.1.0",
+    "code_version": "uncommitted_or_not_git_controlled_v1_placeholder",
+    "command": "python -m certgen.cli.make_smoke_artifacts",
+    "config_hash": "cce054ec564a96d1193f77cb2b5ced08d4a3008b09054a13ebcca6fcfd7594ed",
+    "created_at_utc": "2026-06-23T07:55:23+00:00",
+    "input_paths": [
+      "configs/certgen_v1_smoke.yaml"
+    ],
+    "notes": [
+      "deterministic smoke arrays",
+      "no real model samples"
+    ]
+  }
+}

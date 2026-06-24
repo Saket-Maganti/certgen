@@ -1,0 +1,16 @@
+{
+  "claim_allowed": false,
+  "entries": [
+    {
+      "comparison_id": "comparison_tbd",
+      "missing": [
+        "verified samples/features",
+        "matching preprocessing",
+        "pilot-ready eligibility"
+      ],
+      "next_action": "fill/validate missing metadata",
+      "pilot_ready": false
+    }
+  ],
+  "evidence_status": "planned_only"
+}

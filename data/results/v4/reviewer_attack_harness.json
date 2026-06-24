@@ -1,0 +1,180 @@
+{
+  "attacks": [
+    {
+      "attack": "This is just KID with error bars.",
+      "attack_id": "A01",
+      "blocker": true,
+      "current_status": "blocked_before_real_evidence",
+      "evidence_needed": "real pilot evidence and audit gates",
+      "likelihood": "high",
+      "required_artifact": "V5 real pilot",
+      "response_draft": "CertGen is a decision layer and audit pipeline; claims remain blocked until evidence gates pass.",
+      "severity": "high"
+    },
+    {
+      "attack": "Anytime-valid inference is known; what is new?",
+      "attack_id": "A02",
+      "blocker": false,
+      "current_status": "draft_response_available",
+      "evidence_needed": "clear writing and limitations",
+      "likelihood": "high",
+      "required_artifact": "V4 docs",
+      "response_draft": "CertGen is a decision layer and audit pipeline; claims remain blocked until evidence gates pass.",
+      "severity": "medium"
+    },
+    {
+      "attack": "FID is nonlinear, so your certificate is invalid.",
+      "attack_id": "A03",
+      "blocker": true,
+      "current_status": "blocked_before_real_evidence",
+      "evidence_needed": "real pilot evidence and audit gates",
+      "likelihood": "high",
+      "required_artifact": "V5 real pilot",
+      "response_draft": "CertGen is a decision layer and audit pipeline; claims remain blocked until evidence gates pass.",
+      "severity": "high"
+    },
+    {
+      "attack": "This is a statistics paper, not CVPR.",
+      "attack_id": "A04",
+      "blocker": true,
+      "current_status": "blocked_before_real_evidence",
+      "evidence_needed": "real pilot evidence and audit gates",
+      "likelihood": "high",
+      "required_artifact": "V5 real pilot",
+      "response_draft": "CertGen is a decision layer and audit pipeline; claims remain blocked until evidence gates pass.",
+      "severity": "high"
+    },
+    {
+      "attack": "No new metric.",
+      "attack_id": "A05",
+      "blocker": false,
+      "current_status": "draft_response_available",
+      "evidence_needed": "clear writing and limitations",
+      "likelihood": "high",
+      "required_artifact": "V4 docs",
+      "response_draft": "CertGen is a decision layer and audit pipeline; claims remain blocked until evidence gates pass.",
+      "severity": "medium"
+    },
+    {
+      "attack": "Only toy datasets.",
+      "attack_id": "A06",
+      "blocker": false,
+      "current_status": "draft_response_available",
+      "evidence_needed": "clear writing and limitations",
+      "likelihood": "medium",
+      "required_artifact": "V4 docs",
+      "response_draft": "CertGen is a decision layer and audit pipeline; claims remain blocked until evidence gates pass.",
+      "severity": "medium"
+    },
+    {
+      "attack": "Published metric gaps are already known to be noisy.",
+      "attack_id": "A07",
+      "blocker": false,
+      "current_status": "draft_response_available",
+      "evidence_needed": "clear writing and limitations",
+      "likelihood": "medium",
+      "required_artifact": "V4 docs",
+      "response_draft": "CertGen is a decision layer and audit pipeline; claims remain blocked until evidence gates pass.",
+      "severity": "medium"
+    },
+    {
+      "attack": "You selected only small gaps to make papers look bad.",
+      "attack_id": "A08",
+      "blocker": false,
+      "current_status": "draft_response_available",
+      "evidence_needed": "clear writing and limitations",
+      "likelihood": "medium",
+      "required_artifact": "V4 docs",
+      "response_draft": "CertGen is a decision layer and audit pipeline; claims remain blocked until evidence gates pass.",
+      "severity": "medium"
+    },
+    {
+      "attack": "Preprocessing mismatch invalidates your audit.",
+      "attack_id": "A09",
+      "blocker": true,
+      "current_status": "blocked_before_real_evidence",
+      "evidence_needed": "real pilot evidence and audit gates",
+      "likelihood": "medium",
+      "required_artifact": "V5 real pilot",
+      "response_draft": "CertGen is a decision layer and audit pipeline; claims remain blocked until evidence gates pass.",
+      "severity": "high"
+    },
+    {
+      "attack": "Multiple comparisons inflate false discoveries.",
+      "attack_id": "A10",
+      "blocker": true,
+      "current_status": "blocked_before_real_evidence",
+      "evidence_needed": "real pilot evidence and audit gates",
+      "likelihood": "medium",
+      "required_artifact": "V5 real pilot",
+      "response_draft": "CertGen is a decision layer and audit pipeline; claims remain blocked until evidence gates pass.",
+      "severity": "high"
+    },
+    {
+      "attack": "Reference samples are reused; independence is violated.",
+      "attack_id": "A11",
+      "blocker": true,
+      "current_status": "blocked_before_real_evidence",
+      "evidence_needed": "real pilot evidence and audit gates",
+      "likelihood": "medium",
+      "required_artifact": "V5 real pilot",
+      "response_draft": "CertGen is a decision layer and audit pipeline; claims remain blocked until evidence gates pass.",
+      "severity": "high"
+    },
+    {
+      "attack": "Video extension is too shallow.",
+      "attack_id": "A12",
+      "blocker": false,
+      "current_status": "draft_response_available",
+      "evidence_needed": "clear writing and limitations",
+      "likelihood": "medium",
+      "required_artifact": "V4 docs",
+      "response_draft": "CertGen is a decision layer and audit pipeline; claims remain blocked until evidence gates pass.",
+      "severity": "medium"
+    },
+    {
+      "attack": "Zero-cost constraint limits scope too much.",
+      "attack_id": "A13",
+      "blocker": false,
+      "current_status": "draft_response_available",
+      "evidence_needed": "clear writing and limitations",
+      "likelihood": "medium",
+      "required_artifact": "V4 docs",
+      "response_draft": "CertGen is a decision layer and audit pipeline; claims remain blocked until evidence gates pass.",
+      "severity": "medium"
+    },
+    {
+      "attack": "No human preference validation.",
+      "attack_id": "A14",
+      "blocker": false,
+      "current_status": "draft_response_available",
+      "evidence_needed": "clear writing and limitations",
+      "likelihood": "medium",
+      "required_artifact": "V4 docs",
+      "response_draft": "CertGen is a decision layer and audit pipeline; claims remain blocked until evidence gates pass.",
+      "severity": "medium"
+    },
+    {
+      "attack": "The tool does not change conclusions.",
+      "attack_id": "A15",
+      "blocker": false,
+      "current_status": "draft_response_available",
+      "evidence_needed": "clear writing and limitations",
+      "likelihood": "medium",
+      "required_artifact": "V4 docs",
+      "response_draft": "CertGen is a decision layer and audit pipeline; claims remain blocked until evidence gates pass.",
+      "severity": "medium"
+    }
+  ],
+  "claim_allowed": false,
+  "scorecard": {
+    "clarity": "draft",
+    "disclaimer": "internal triage only, not an acceptance predictor",
+    "empirical_strength": "blocked_until_real_pilot",
+    "limitations_honesty": "strong",
+    "novelty": "medium",
+    "reproducibility": "strong_infrastructure",
+    "significance": "depends_on_undecided_fraction",
+    "technical_correctness": "blocked_until_real_audit"
+  }
+}

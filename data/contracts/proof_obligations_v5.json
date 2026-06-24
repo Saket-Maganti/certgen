@@ -1,0 +1,87 @@
+{
+  "claim_allowed": false,
+  "evidence_status": "template_only",
+  "obligations": [
+    {
+      "audit_status": "draft_not_verified",
+      "description": "Define comparison estimand Delta = d(A,R) - d(B,R).",
+      "obligation_id": "PO01",
+      "paper_location": "paper/supplement.tex",
+      "requires_external_citation": false,
+      "status": "drafted"
+    },
+    {
+      "audit_status": "draft_not_verified",
+      "description": "State assumptions for bounded stream terms.",
+      "obligation_id": "PO02",
+      "paper_location": "paper/supplement.tex",
+      "requires_external_citation": false,
+      "status": "drafted"
+    },
+    {
+      "audit_status": "draft_not_verified",
+      "description": "State how stream terms are clipped or bounded.",
+      "obligation_id": "PO03",
+      "paper_location": "paper/supplement.tex",
+      "requires_external_citation": false,
+      "status": "drafted"
+    },
+    {
+      "audit_status": "draft_not_verified",
+      "description": "State the confidence sequence validity condition.",
+      "obligation_id": "PO04",
+      "paper_location": "paper/supplement.tex",
+      "requires_external_citation": true,
+      "status": "drafted"
+    },
+    {
+      "audit_status": "draft_not_verified",
+      "description": "State optional-stopping theorem or cited theorem.",
+      "obligation_id": "PO05",
+      "paper_location": "paper/supplement.tex",
+      "requires_external_citation": true,
+      "status": "drafted"
+    },
+    {
+      "audit_status": "draft_not_verified",
+      "description": "State stopping rule.",
+      "obligation_id": "PO06",
+      "paper_location": "paper/supplement.tex",
+      "requires_external_citation": false,
+      "status": "drafted"
+    },
+    {
+      "audit_status": "draft_not_verified",
+      "description": "State multiple-comparison alpha policy.",
+      "obligation_id": "PO07",
+      "paper_location": "paper/supplement.tex",
+      "requires_external_citation": false,
+      "status": "drafted"
+    },
+    {
+      "audit_status": "draft_not_verified",
+      "description": "State dependence caveats.",
+      "obligation_id": "PO08",
+      "paper_location": "paper/supplement.tex",
+      "requires_external_citation": false,
+      "status": "drafted"
+    },
+    {
+      "audit_status": "draft_not_verified",
+      "description": "State why FID is not part of the rigorous clean-core certificate unless separately handled.",
+      "obligation_id": "PO09",
+      "paper_location": "paper/supplement.tex",
+      "requires_external_citation": false,
+      "status": "drafted"
+    },
+    {
+      "audit_status": "draft_not_verified",
+      "description": "State what is empirical validation vs theoretical guarantee.",
+      "obligation_id": "PO10",
+      "paper_location": "paper/supplement.tex",
+      "requires_external_citation": false,
+      "status": "drafted"
+    }
+  ],
+  "proof_obligation_version": "0.5.0"
+}

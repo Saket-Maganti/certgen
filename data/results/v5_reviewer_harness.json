@@ -1,0 +1,19 @@
+{
+  "attacks": 15,
+  "claim_allowed": false,
+  "errors": [],
+  "evidence_status": "template_only",
+  "passed": true,
+  "responses": 15,
+  "scorecard": {
+    "claim_allowed": false,
+    "clarity": "draft",
+    "cvpr_fit": "conditional_on_visual_audit_story",
+    "empirical_strength": "blocked_until_real_runs",
+    "novelty": "medium",
+    "reproducibility": "ready_except_runs",
+    "risk_of_incremental_rejection": "high_before_real_results",
+    "risk_of_stats_only_rejection": "high_before_real_results",
+    "technical_correctness": "draft_reviewable"
+  }
+}
