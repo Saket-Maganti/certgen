@@ -24,5 +24,5 @@
   "schema_version": "certgen.final_run_ready.current_state.v1",
   "selected_profile": "cifar_integrity_minimal",
   "top_level_status": "WAITING_FOR_KAGGLE_DIAGNOSTIC",
-  "updated_at_utc": "2026-07-21T17:30:52Z"
+  "updated_at_utc": "2026-07-21T17:48:20Z"
 }

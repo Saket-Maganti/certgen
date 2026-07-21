@@ -1,16 +1,19 @@
 # GitHub publication report
 
-Status: `GITHUB_CLI_REQUIRED`.
+Status: `GITHUB_PUSHED_AND_VERIFIED`.
 
 - Required remote: `https://github.com/Saket-Maganti/certgen.git`
 - Configured origin: `https://github.com/Saket-Maganti/certgen.git`
 - Target branch: `main`
 - Git CLI: available
-- GitHub CLI: missing
-- Authentication and remote-history verification: not attempted because the required GitHub CLI is unavailable
+- GitHub CLI: `available`
+- Authentication: `verified for the completed push; no credential output recorded`
+- Local committed HEAD: `ad383a97acb2e140b1fd5f111fa8eb61ce1eebe2`
+- Remote `main`: `ad383a97acb2e140b1fd5f111fa8eb61ce1eebe2`
+- Remote verified: `true`
 - Secret scan findings: `0`
 - Large-file blockers: `0`
 - Raw CIFAR tracked: `false`
 - Returned Kaggle ZIP tracked: `false`
 
-The local validated checkpoint may be committed, but the prompt forbids an alternate push workaround. Install the GitHub CLI and run `gh auth login`, then rerun this execution prompt. No credential output is recorded.
+The publication status reflects the committed local HEAD and fetched `origin/main`. No credential output is recorded.

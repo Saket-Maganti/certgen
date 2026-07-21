@@ -1,7 +1,7 @@
 {
   "claim_allowed": false,
   "execution_status": "WAITING_FOR_KAGGLE_DIAGNOSTIC",
-  "github_publication_status": "GITHUB_CLI_REQUIRED",
+  "github_publication_status": "GITHUB_PUSHED_AND_VERIFIED",
   "kaggle": {
     "accelerator": "GPU T4 x2",
     "copy_back_path": "data/kaggle_returns/diagnostic/",
@@ -56,5 +56,5 @@
     "frozen": true,
     "study_hash": "b6882b9e1be0b9f12868c47be44c0f41a522ed45c7a4529ceabd08f38cc991aa"
   },
-  "updated_at_utc": "2026-07-21T17:30:52Z"
+  "updated_at_utc": "2026-07-21T17:48:20Z"
 }

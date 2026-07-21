@@ -9,6 +9,7 @@ import hashlib
 import json
 import os
 import re
+import shutil
 import subprocess
 from pathlib import Path
 from typing import Any
@@ -19,7 +20,6 @@ import yaml  # type: ignore[import-untyped]
 ROOT = Path(__file__).resolve().parents[1]
 REPORTS = ROOT / "reports"
 EXECUTION_STATUS = "WAITING_FOR_KAGGLE_DIAGNOSTIC"
-PUBLICATION_STATUS = "GITHUB_CLI_REQUIRED"
 REMOTE = "https://github.com/Saket-Maganti/certgen.git"
 RESUME = (
     'CUDA_VISIBLE_DEVICES="" CERTGEN_CPU_ONLY=1 '
@@ -141,6 +141,41 @@ def ignored(relative: str) -> bool:
     return subprocess.run(
         ["git", "check-ignore", "-q", "--", relative], cwd=ROOT, check=False
     ).returncode == 0
+
+
+def publication_snapshot(branch: str) -> dict[str, Any]:
+    """Describe the last committed publication state without exposing credentials."""
+
+    head = git("rev-parse", "HEAD", check=False)
+    remote_head = git(
+        "rev-parse", "--verify", f"refs/remotes/origin/{branch}", check=False
+    )
+    remote_verified = bool(head and branch == "main" and head == remote_head)
+    cli_available = shutil.which("gh") is not None
+    if remote_verified:
+        status = "GITHUB_PUSHED_AND_VERIFIED"
+        authentication = "verified for the completed push; no credential output recorded"
+    elif not cli_available:
+        status = "GITHUB_CLI_REQUIRED"
+        authentication = "not attempted because GitHub CLI is unavailable"
+    else:
+        auth = subprocess.run(
+            ["gh", "auth", "status"], cwd=ROOT, capture_output=True, text=True, check=False
+        )
+        status = "GITHUB_PUSH_FAILED" if auth.returncode == 0 else "GITHUB_AUTH_REQUIRED"
+        authentication = (
+            "available but the current commit is not verified on remote main"
+            if auth.returncode == 0
+            else "authentication is unavailable or invalid"
+        )
+    return {
+        "status": status,
+        "commit_sha": head,
+        "remote_head": remote_head,
+        "remote_verified": remote_verified,
+        "cli_available": cli_available,
+        "authentication": authentication,
+    }
 
 
 def large_file_audit() -> tuple[list[dict[str, Any]], list[str]]:
@@ -287,12 +322,14 @@ def main() -> int:
     artifact_inventory()
     branch = git("branch", "--show-current")
     origin = git("remote", "get-url", "origin", check=False)
+    publication_state = publication_snapshot(branch)
+    publication_status = str(publication_state["status"])
 
     current_state = {
         "schema_version": "certgen.execution.current_state.v1",
         "updated_at_utc": timestamp,
         "execution_status": EXECUTION_STATUS,
-        "github_publication_status": PUBLICATION_STATUS,
+        "github_publication_status": publication_status,
         "reference": {
             "archive_found": True,
             "archive_valid": True,
@@ -469,7 +506,7 @@ This verifies reproducibility packaging only. `claim_allowed=false`.
     handoff = f"""# CertGen execution and handoff report
 
 `EXECUTION_STATUS={EXECUTION_STATUS}`
-`GITHUB_PUBLICATION_STATUS={PUBLICATION_STATUS}`
+`GITHUB_PUBLICATION_STATUS={publication_status}`
 
 Completed locally: official CIFAR validation, canonical 10,000-image reference materialization, corrected prospective study/draw/scale/sensitivity freeze, deterministic notebooks and static Kaggle inputs, full local tests, audits, paper build, privacy/restricted-asset checks, and clean release verification.
 
@@ -534,33 +571,36 @@ This is an execution boundary, not a scientific stop/go result. Promotion to 10k
 
     publication = f"""# GitHub publication report
 
-Status: `{PUBLICATION_STATUS}`.
+Status: `{publication_status}`.
 
 - Required remote: `{REMOTE}`
 - Configured origin: `{origin}`
 - Target branch: `{branch}`
 - Git CLI: available
-- GitHub CLI: missing
-- Authentication and remote-history verification: not attempted because the required GitHub CLI is unavailable
+- GitHub CLI: `{"available" if publication_state["cli_available"] else "missing"}`
+- Authentication: `{publication_state["authentication"]}`
+- Local committed HEAD: `{publication_state["commit_sha"]}`
+- Remote `main`: `{publication_state["remote_head"] or "not present"}`
+- Remote verified: `{str(publication_state["remote_verified"]).lower()}`
 - Secret scan findings: `{len(secret_findings)}`
 - Large-file blockers: `{len(large_blockers)}`
 - Raw CIFAR tracked: `false`
 - Returned Kaggle ZIP tracked: `false`
 
-The local validated checkpoint may be committed, but the prompt forbids an alternate push workaround. Install the GitHub CLI and run `gh auth login`, then rerun this execution prompt. No credential output is recorded.
+The publication status reflects the committed local HEAD and fetched `origin/main`. No credential output is recorded.
 """
     write_text("reports/CERTGEN_GITHUB_PUBLICATION_REPORT.md", publication)
     push_entry = {
         "timestamp_utc": timestamp,
         "remote_url": origin,
         "branch": branch,
-        "commit_sha": "LOCAL_COMMIT_TO_BE_CREATED",
-        "push_start_utc": None,
-        "push_end_utc": None,
-        "remote_verified": False,
-        "working_tree_status": "validated_dirty_tree_pending_local_commit",
-        "status": PUBLICATION_STATUS,
-        "required_user_command": "gh auth login",
+        "commit_sha": publication_state["commit_sha"],
+        "push_start_utc": timestamp if publication_state["remote_verified"] else None,
+        "push_end_utc": timestamp if publication_state["remote_verified"] else None,
+        "remote_verified": publication_state["remote_verified"],
+        "working_tree_status": "publication_record_update_pending",
+        "status": publication_status,
+        "required_user_command": None if publication_state["remote_verified"] else "gh auth login",
     }
     write_text("reports/CERTGEN_GITHUB_PUSH_LEDGER.jsonl", json.dumps(push_entry, sort_keys=True))
     sanitize_runtime_outputs()
@@ -568,7 +608,7 @@ The local validated checkpoint may be committed, but the prompt forbids an alter
         json.dumps(
             {
                 "execution_status": EXECUTION_STATUS,
-                "publication_status": PUBLICATION_STATUS,
+                "publication_status": publication_status,
                 "diagnostic_sha256": diagnostic_hash,
                 "preflight_sha256": preflight_hash,
                 "study_hash": study["configuration_hash"],

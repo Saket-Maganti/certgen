@@ -1,7 +1,7 @@
 # CertGen execution and handoff report
 
 `EXECUTION_STATUS=WAITING_FOR_KAGGLE_DIAGNOSTIC`
-`GITHUB_PUBLICATION_STATUS=GITHUB_CLI_REQUIRED`
+`GITHUB_PUBLICATION_STATUS=GITHUB_PUSHED_AND_VERIFIED`
 
 Completed locally: official CIFAR validation, canonical 10,000-image reference materialization, corrected prospective study/draw/scale/sensitivity freeze, deterministic notebooks and static Kaggle inputs, full local tests, audits, paper build, privacy/restricted-asset checks, and clean release verification.
 
