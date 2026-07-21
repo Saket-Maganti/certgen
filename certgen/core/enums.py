@@ -27,6 +27,7 @@ class EvidenceStatus(StrEnum):
     REAL_FEATURES_UNVALIDATED = "real_features_unvalidated"
     REAL_FEATURES_VALIDATED = "real_features_validated"
     REAL_PILOT_PENDING = "real_pilot_pending"
+    PILOT_ONLY = "pilot_only"
     REAL_PILOT_NON_CLAIM = "real_pilot_non_claim"
     REAL_PILOT_CLAIM_BLOCKED = "real_pilot_claim_blocked"
     REAL_PILOT_CLAIM_ELIGIBLE = "real_pilot_claim_eligible"
@@ -73,6 +74,7 @@ NON_EVIDENCE_STATUSES = {
     EvidenceStatus.REAL_FEATURES_UNVALIDATED.value,
     EvidenceStatus.REAL_FEATURES_VALIDATED.value,
     EvidenceStatus.REAL_PILOT_PENDING.value,
+    EvidenceStatus.PILOT_ONLY.value,
     EvidenceStatus.REAL_PILOT_NON_CLAIM.value,
     EvidenceStatus.REAL_PILOT_CLAIM_BLOCKED.value,
     EvidenceStatus.ELIGIBLE_AFTER_REAL_RUN.value,
@@ -91,6 +93,7 @@ V3_EVIDENCE_STATUSES = {
     EvidenceStatus.REAL_FEATURES_UNVALIDATED.value,
     EvidenceStatus.REAL_FEATURES_VALIDATED.value,
     EvidenceStatus.REAL_PILOT_PENDING.value,
+    EvidenceStatus.PILOT_ONLY.value,
     EvidenceStatus.REAL_PILOT_NON_CLAIM.value,
     EvidenceStatus.REAL_PILOT_CLAIM_BLOCKED.value,
     EvidenceStatus.REAL_PILOT_CLAIM_ELIGIBLE.value,

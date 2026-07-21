@@ -1,0 +1,33 @@
+{
+  "cache_contracts": "IMPLEMENTED_NO_REAL_CACHE",
+  "certificate": "IMPLEMENTED_NO_REAL_CERTIFICATE",
+  "checkpoint_preflight": "NOT_RUN",
+  "claim_allowed": false,
+  "classification": "VERIFIED_CURRENT",
+  "evidence_state": [
+    "planning_only",
+    "synthetic_validation_only",
+    "not_empirical_evidence"
+  ],
+  "exact_next_action": {
+    "action": "PROVIDE_CIFAR_REFERENCE",
+    "exact_command": "python3 -m certgen validate reference --source data/sources/cifar-10-python.tar.gz --explain",
+    "expected_output": "data/results/v9_cifar_reference_onramp.json",
+    "success_status": "READY_FOR_LOCAL_CIFAR_REFERENCE_MATERIALIZATION"
+  },
+  "feature_extraction": "NOT_RUN",
+  "generation": "NOT_RUN",
+  "literature_audit": "SCHEMA_ONLY_NOT_RUN",
+  "metric_reproduction": "NOT_RUN",
+  "paper": "STRUCTURAL_PLACEHOLDERS_NO_RESULTS",
+  "partial_ranking": "IMPLEMENTED_NO_REAL_RANKING",
+  "reference": "BLOCKED_USER_MUST_PROVIDE_CIFAR_REFERENCE",
+  "registries": "planning_registries_valid_not_availability_evidence",
+  "release": "MANIFEST_READY_NOT_RELEASED",
+  "sanity": "NOT_RUN",
+  "schema_version": "certgen.cvpr.current_state.v1",
+  "software": "local_safe_baseline_passed_cvpr_layer_built",
+  "theory": "local_bounded_rbf_core_valid_real_assumptions_pending",
+  "top_level_status": "CVPR_PREEXECUTION_READY_BLOCKED_BY_REFERENCE_INPUT",
+  "visualization": "CONTRACTS_ONLY"
+}

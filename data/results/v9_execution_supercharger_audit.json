@@ -1,0 +1,187 @@
+{
+  "audit_name": "CERTGEN_V9_EXECUTION_SUPERCHARGER_UPGRADE_ONLY",
+  "checks": [
+    {
+      "detail": "certgen/data/cifar_reference_super_onramp.py",
+      "name": "cifar_super_onramp_exists",
+      "passed": true
+    },
+    {
+      "detail": "notebooks/kaggle/v9_checkpoint_real_load_preflight_t4x2.ipynb",
+      "name": "checkpoint_preflight_notebook_exists",
+      "passed": true
+    },
+    {
+      "detail": "notebooks/kaggle/v9_cifar10_generation_t4x2_1k_hardened.ipynb",
+      "name": "hardened_generation_notebook_exists",
+      "passed": true
+    },
+    {
+      "detail": "notebooks/kaggle/v9_cifar10_feature_extraction_t4x2_1k_hardened.ipynb",
+      "name": "hardened_feature_notebook_exists",
+      "passed": true
+    },
+    {
+      "detail": "certgen/packaging/v9_import_repair.py",
+      "name": "import_repair_exists",
+      "passed": true
+    },
+    {
+      "detail": "certgen/pipeline/v9_next_action.py",
+      "name": "next_action_engine_exists",
+      "passed": true
+    },
+    {
+      "detail": "certgen/pipeline/v9_execution_dashboard.py",
+      "name": "dashboard_exists",
+      "passed": true
+    },
+    {
+      "detail": "certgen/pipeline/v9_runtime_budget_planner.py",
+      "name": "runtime_planner_exists",
+      "passed": true
+    },
+    {
+      "detail": "certgen/notebooks/v9_static_analyzer.py",
+      "name": "notebook_static_analyzer_exists",
+      "passed": true
+    },
+    {
+      "detail": "certgen/paper/v9_paper_firewall.py",
+      "name": "paper_firewall_exists",
+      "passed": true
+    },
+    {
+      "detail": "commands/v9_cpu_execution/06_repo_snapshot_status.sh",
+      "name": "repo_snapshot_command_exists",
+      "passed": true
+    },
+    {
+      "detail": [
+        {
+          "forbidden": [],
+          "missing": [],
+          "passed": true,
+          "path": "notebooks/kaggle/v9_checkpoint_real_load_preflight_t4x2.ipynb"
+        },
+        {
+          "forbidden": [],
+          "missing": [],
+          "passed": true,
+          "path": "notebooks/kaggle/v9_cifar10_generation_t4x2_1k_hardened.ipynb"
+        },
+        {
+          "forbidden": [],
+          "missing": [],
+          "passed": true,
+          "path": "notebooks/kaggle/v9_cifar10_feature_extraction_t4x2_1k_hardened.ipynb"
+        }
+      ],
+      "name": "notebook_static_analyzer_passes",
+      "passed": true
+    },
+    {
+      "detail": [],
+      "name": "paper_firewall_passes",
+      "passed": true
+    },
+    {
+      "detail": {
+        "checkpoint_preflight": "5-20 min on Kaggle T4x2",
+        "cpu_certificate_pilot": "seconds-minutes after gates pass",
+        "cpu_imports": "seconds-minutes",
+        "cpu_sanity_gates": "seconds-minutes",
+        "feature_extraction": "Inception 5-30 min; CLIP 10-45 min",
+        "generation": "30 min-3 hr total for three models on Kaggle T4x2"
+      },
+      "name": "runtime_budget_planner_runs",
+      "passed": true
+    },
+    {
+      "detail": {
+        "action": "PROVIDE_CIFAR_REFERENCE",
+        "blocker": "BLOCKED_USER_MUST_PROVIDE_CIFAR_REFERENCE",
+        "claim_allowed": false,
+        "cpu_or_gpu": "CPU",
+        "estimated_runtime": "user-dependent",
+        "evidence_allowed": false,
+        "evidence_class": "planning_only",
+        "exact_command": "python3 -m certgen validate reference --source data/sources/cifar-10-python.tar.gz --explain",
+        "execution_location": "CPU",
+        "expected_input": "data/sources/cifar-10-python.tar.gz (official archive) or another accepted local CIFAR-10 source",
+        "expected_output": "data/results/v9_cifar_reference_onramp.json",
+        "kaggle_or_local": "local",
+        "location": "CPU",
+        "network_requirement": "none",
+        "no_fake_results": true,
+        "not_paper_evidence": true,
+        "reason": "No valid local CIFAR-10 reference root/archive has been detected.",
+        "success_validator": "python3 -m certgen validate reference --source data/sources/cifar-10-python.tar.gz --explain"
+      },
+      "name": "exact_next_action_runs",
+      "passed": true
+    },
+    {
+      "detail": "PROVIDE_CIFAR_REFERENCE",
+      "name": "dashboard_renders",
+      "passed": true
+    },
+    {
+      "detail": "none",
+      "name": "no_claim_allowed_true",
+      "passed": true
+    },
+    {
+      "detail": "none",
+      "name": "no_fake_empirical_or_paper_evidence_claims",
+      "passed": true
+    },
+    {
+      "detail": "BLOCKED_MISSING_REFERENCE_SAMPLES",
+      "name": "final_execution_audit_honest_if_inputs_missing",
+      "passed": true
+    },
+    {
+      "detail": "no V9 generation output ZIP present",
+      "name": "no_real_generation_claimed",
+      "passed": true
+    },
+    {
+      "detail": "no V9 feature output ZIP present",
+      "name": "no_real_features_claimed",
+      "passed": true
+    },
+    {
+      "detail": "BLOCKED_R1D_NOT_READY",
+      "name": "no_certificates_claimed",
+      "passed": true
+    }
+  ],
+  "checks_passed": 22,
+  "checks_total": 22,
+  "claim_allowed": false,
+  "next_action": {
+    "action": "PROVIDE_CIFAR_REFERENCE",
+    "blocker": "BLOCKED_USER_MUST_PROVIDE_CIFAR_REFERENCE",
+    "claim_allowed": false,
+    "cpu_or_gpu": "CPU",
+    "estimated_runtime": "user-dependent",
+    "evidence_allowed": false,
+    "evidence_class": "planning_only",
+    "exact_command": "python3 -m certgen validate reference --source data/sources/cifar-10-python.tar.gz --explain",
+    "execution_location": "CPU",
+    "expected_input": "data/sources/cifar-10-python.tar.gz (official archive) or another accepted local CIFAR-10 source",
+    "expected_output": "data/results/v9_cifar_reference_onramp.json",
+    "kaggle_or_local": "local",
+    "location": "CPU",
+    "network_requirement": "none",
+    "no_fake_results": true,
+    "not_paper_evidence": true,
+    "reason": "No valid local CIFAR-10 reference root/archive has been detected.",
+    "success_validator": "python3 -m certgen validate reference --source data/sources/cifar-10-python.tar.gz --explain"
+  },
+  "no_fake_results": true,
+  "not_paper_evidence": true,
+  "passed": true,
+  "status_code": "V9_SUPERCHARGER_READY_BLOCKED_BY_INPUTS"
+}

@@ -1,0 +1,29 @@
+# Proposed CertGen public release surface; paths are repository-relative.
+# Planning manifest only. Inclusion does not assert license clearance or empirical validation.
+pyproject.toml
+README.md
+# REQUIRED BEFORE RELEASE: add an approved LICENSE and CITATION.cff; both are absent.
+certgen/
+tests/
+configs/
+notebooks/kaggle/v9_checkpoint_real_load_preflight_t4x2.ipynb
+notebooks/kaggle/v9_cifar10_generation_t4x2_1k_hardened.ipynb
+notebooks/kaggle/v9_cifar10_feature_extraction_t4x2_1k_hardened.ipynb
+docs/CERTGEN_SINGLE_FILE_HANDOFF.md
+docs/CERTGEN_EXECUTION_CRITICAL_PATH.md
+docs/CERTGEN_EXACT_NEXT_ACTION.md
+docs/engineering/CERTGEN_CANONICAL_INTERFACE.md
+docs/execution/CERTGEN_KAGGLE_NOTEBOOK_FORENSIC_AUDIT.md
+docs/execution/CERTGEN_FAILURE_AND_RESUME_PLAYBOOK.md
+docs/theory/CERTGEN_FORMAL_ESTIMAND_AND_STREAM.md
+docs/theory/CERTGEN_STATISTICAL_VALIDITY_AUDIT.md
+docs/theory/CERTGEN_ASSUMPTION_LEDGER.csv
+docs/theory/CERTGEN_METRIC_CAPABILITY_REGISTRY.csv
+docs/theory/CERTGEN_MULTIPLICITY_PROTOCOL.md
+docs/theory/CERTGEN_THEOREM_AND_PROOF_OBLIGATIONS.md
+docs/metrics/CERTGEN_FEATURE_PIPELINE_AUDIT.md
+docs/metrics/CERTGEN_METRIC_REPRODUCTION_PROTOCOL.md
+docs/metrics/CERTGEN_CACHE_SCHEMA_V2.md
+docs/experiments/CERTGEN_PREREGISTRATION_PROTOCOL.md
+paper/
+release/CERTGEN_PUBLIC_RELEASE_MANIFEST.txt

@@ -1,0 +1,60 @@
+{
+  "claim_allowed": false,
+  "execution_status": "WAITING_FOR_KAGGLE_DIAGNOSTIC",
+  "github_publication_status": "GITHUB_CLI_REQUIRED",
+  "kaggle": {
+    "accelerator": "GPU T4 x2",
+    "copy_back_path": "data/kaggle_returns/diagnostic/",
+    "diagnostic_input_sha256": "6e5b22cd6ddce4155e762b6d2afa8fc3299fecd524cc10ac3c3de678c1ff8057",
+    "diagnostic_input_zip": "artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip",
+    "expected_output_zip": "certgen_kaggle_environment_diagnostic_output.zip",
+    "internet_mode": "Internet ON for dependency installation; model-asset network OFF",
+    "next_notebook": "notebooks/kaggle/certgen_kaggle_environment_diagnostic_t4x2.ipynb",
+    "preflight_input_sha256": "879f95c1867be7bc800b30f6e8ce67e61bde4510b83866e568deeb01cc5eb4af",
+    "preflight_input_zip": "artifacts/cvpr/kaggle_inputs/preflight/certgen_cvpr_preflight_input.zip",
+    "private_assets": "none for diagnostic",
+    "resume_command": "CUDA_VISIBLE_DEVICES=\"\" CERTGEN_CPU_ONLY=1 python3 scripts/run_all_available_cpu_stages.py --resume --explain",
+    "returned_zip_found": false
+  },
+  "local_defect_remaining": false,
+  "next_action": "Upload artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip and run notebooks/kaggle/certgen_kaggle_environment_diagnostic_t4x2.ipynb on GPU T4 x2.",
+  "no_empirical_claims": true,
+  "no_fake_results": true,
+  "quality": {
+    "changed_code_mypy": "PASS (23 source files at measured run)",
+    "default_pytest": "290 passed, 4 deselected",
+    "historical_full_mypy": "111 errors in 34 files (unchanged)",
+    "integration_audits": "4 passed, 290 deselected",
+    "notebook_determinism": "PASS",
+    "paper_compile": "PASS (5 pages; three nonfatal overfull boxes)",
+    "release": "ARCHIVE_VERIFIED",
+    "ruff": "PASS"
+  },
+  "reference": {
+    "archive_found": true,
+    "archive_sha256": "6d958be074577803d12ecdefd02955f39262c83c16fe9348329d7fe0b5c001ce",
+    "archive_valid": true,
+    "manifest_rows": 10000,
+    "materialized": true
+  },
+  "reference_draw_hash": "001ae0fe4b515e3bbe590ed9aea17e0d7da0f43816ac96cdea3aa0ab6e4f0b25",
+  "schema_version": "certgen.execution.current_state.v1",
+  "study": {
+    "comparisons": [
+      "checkpoint_variant"
+    ],
+    "confirmatory_hypotheses": 2,
+    "controls": [
+      "null_reference_split",
+      "obvious_gap_corruption"
+    ],
+    "controls_in_confirmatory_family": false,
+    "feature_spaces": [
+      "inception",
+      "clip"
+    ],
+    "frozen": true,
+    "study_hash": "b6882b9e1be0b9f12868c47be44c0f41a522ed45c7a4529ceabd08f38cc991aa"
+  },
+  "updated_at_utc": "2026-07-21T17:30:52Z"
+}

@@ -1,0 +1,19 @@
+# Final Runtime-Hardening Repair Changelog
+
+All priorities follow the prompt taxonomy. `CONFIRMED` means reproduced in the live pre-edit implementation; `repaired` means locally verified, not real Kaggle validated.
+
+| # | Priority | Finding / classification | Root cause | Repair | Primary proof | Remaining risk |
+|---:|---|---|---|---|---|---|
+| 1 | P0 | Missing environment bootstrap — `CONFIRMED`, repaired | Notebooks only rejected version drift | Compatibility profiles, plan/apply/restart/revalidate flow, logs and lock | bootstrap failure-injection tests | Kaggle package resolution still requires real preflight |
+| 2 | P0 | Ambiguous asset/network policy — `CONFIRMED`, repaired | `network_allowed=false` without complete caches | Exclusive online-preflight/offline-cache policies, registry fields, manifests and completeness checks | missing/hash-corrupt cache tests | Licenses/auth and real cache shapes need manual/real validation |
+| 3 | P0 | Forked CUDA risk — `CONFIRMED`, repaired | Parent runtime could touch torch before multiprocessing | Independent module subprocesses pin visibility before lazy torch import | two-worker device/log/crash/timeout tests | Real driver/runtime behavior requires Kaggle T4x2 |
+| 4 | P0 | Generation was not truly batched — `CONFIRMED`, repaired | Batch setting wrapped a per-image loop | Model-capability-aware batch adapter, generator lists, ordered atomic sample writes | batch call, seed, resume and duplicate tests | Some real adapters may require capability-specific fallback |
+| 5 | P0 | Preprocessing only declared — `CONFIRMED`, repaired | YAML was trusted without observing processor | Exact typed expected/observed capture, adapters and difference reports | match/mismatch tests | Real CLIP/DINO processor versions need preflight observation |
+| 6 | P0 | Rerun/idempotence incomplete — `CONFIRMED`, repaired | Existing paths caused blanket refusal | Hash-bound resume/restart/force-new modes and quarantine | mode/config-change tests | Long-session interruption behavior needs real run |
+| 7 | P1 | Legacy next-action routing — `CONFIRMED`, repaired | Dispatcher referenced V6/V9 commands/notebooks | 19-stage canonical CLI dispatcher; legacy labels only | CLI/status and V9 compatibility tests | Historical files remain but carry superseded labels |
+| 8 | P1 | Manual real-run configs — `CONFIRMED`, repaired | Users filled templates by hand | Registry/prior-artifact-derived prepare builders with fail-closed blockers | architecture/preparation contract tests | Manual license approval and real artifacts remain required |
+| 9 | P0 | Recursive pytest — `CONFIRMED`, repaired | Audit tests launched the entire suite during default collection | Explicit `integration_audit` marker; default excludes it; nested processes run default lane | default plus explicit integration lanes | Integration lane costs multiple subprocess runs by design |
+| 10 | P1 | Stale/contradictory guidance — `CONFIRMED`, repaired | Multiple generations were presented as current | README/canonical handbook/next action unified; old handbook/report superseded; ADE20K export truth fixed | link/status/stale-reference audits | Old historical prose remains for context, not guidance |
+| 11 | P0 | Dirty/nonportable archive — `CONFIRMED`, repaired | No canonical allowlisted verified export | Deterministic clean archive, path preservation, privacy/import/non-Git tests and manifest | archive portable test and final archive audit | Downstream environment compatibility remains user responsibility |
+
+New tightly scoped defects found while testing were missing explicit disk-failure proof, incomplete measured-preflight planner proof, and no combined reproducibility fingerprint. They were repaired under P0/P4. Broad new infrastructure, dashboards, new metrics and paper prose were rejected as overengineering.

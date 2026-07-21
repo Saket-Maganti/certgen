@@ -29,7 +29,7 @@ def block_size_sensitivity(
     kernel_config: dict | None = None,
     alpha: float = 0.05,
     block_sizes: list[int] | None = None,
-    method: str = "betting",
+    method: str = "hoeffding",
     seed: int = 0,
     comparison_id: str = "comparison",
 ) -> dict[str, Any]:
@@ -61,13 +61,24 @@ def block_size_sensitivity(
         )
         result = confidence_sequence(stream.values, config)
         decision_unit = samples_to_decision_from_states(result.states)
+        contributions_at_decision = None
+        if decision_unit is not None:
+            contributions_at_decision = min(
+                int(stream.metadata["num_contributions_consumed"]),
+                int(decision_unit) * int(stream.metadata["block_size"]),
+            )
         rows.append(
             {
                 "block_size": int(block_size),
                 "num_units": len(stream.values),
                 "decided": decision_unit is not None,
                 "samples_to_decision_units": decision_unit,
-                "samples_to_decision_raw": None if decision_unit is None else decision_unit * int(block_size),
+                # One linear-time contribution consumes two samples from each
+                # of A, B, and R.  Preserve the legacy field with an explicit
+                # per-distribution meaning and expose the total separately.
+                "samples_to_decision_raw": None if contributions_at_decision is None else 2 * contributions_at_decision,
+                "samples_to_decision_per_distribution": None if contributions_at_decision is None else 2 * contributions_at_decision,
+                "total_feature_rows_to_decision": None if contributions_at_decision is None else 6 * contributions_at_decision,
                 "final_lower": result.lower,
                 "final_upper": result.upper,
                 "final_width": result.upper - result.lower,

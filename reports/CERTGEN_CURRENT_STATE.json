@@ -1,0 +1,70 @@
+{
+  "schema_version": "certgen.forensic_current_state.v1",
+  "generated_at_utc": "2026-07-11T13:32:06Z",
+  "top_level_status": "LOCAL_RESEARCH_CORE_VALID_BLOCKED_BY_REFERENCE_INPUT",
+  "status_reason": "The bounded-RBF union-Hoeffding core and local safety gates are conditionally valid, but no accepted CIFAR-10 reference source or real artifact lineage exists.",
+  "claim_allowed": false,
+  "empirical_evidence_status": "NO_CLAIM_CAPABLE_EMPIRICAL_EVIDENCE",
+  "repository": {
+    "path": ".",
+    "branch": "master",
+    "commit": "bff335aa648fd19e2fa7e3cfea293a6ca519a68b",
+    "dirty_before_audit": true,
+    "baseline_tracked_modified": 18,
+    "baseline_untracked_files_at_least": 307,
+    "final_tracked_changed": 86,
+    "final_untracked_files": 368,
+    "user_owned_worktree_preserved": true
+  },
+  "substatuses": {
+    "theory": "CONDITIONALLY_VALID_BOUNDED_RBF_ROUTE_REAL_ASSUMPTIONS_UNVERIFIED",
+    "software": "LOCAL_SAFE_VERIFICATION_PASS_MYPY_DEBT_REMAINS",
+    "reference_data": "BLOCKED_USER_MUST_PROVIDE_CIFAR_REFERENCE",
+    "checkpoint_preflight": "NOT_RUN",
+    "generation": "NOT_RUN",
+    "features": "NOT_RUN_CACHE_V2_GATE_IMPLEMENTED",
+    "metric_reproduction": "NOT_RUN_HASH_BOUND_GATE_IMPLEMENTED",
+    "sanity_validation": "NOT_RUN",
+    "certificate_pilot": "NOT_RUN",
+    "multiplicity": "BONFERRONI_DIRECTIONAL_PATH_CONDITIONAL_EBH_EXPLORATORY",
+    "paper": "SCAFFOLD_COMPILES_NO_EMPIRICAL_RESULTS",
+    "release": "PROPOSED_MANIFEST_ONLY_LICENSE_AND_CITATION_MISSING"
+  },
+  "verified_absences": {
+    "validated_reference_manifest_rows": 0,
+    "real_checkpoint_preflight": false,
+    "real_generated_samples": false,
+    "real_feature_caches": false,
+    "real_metric_reproduction": false,
+    "real_sanity_controls": false,
+    "real_certificates": false,
+    "real_undecided_fraction": false,
+    "paper_evidence": false
+  },
+  "exact_next_action": {
+    "action": "VALIDATE_USER_SUPPLIED_CIFAR10_ARCHIVE",
+    "user_input_path": "data/sources/cifar-10-python.tar.gz",
+    "exact_command": "python3 -m certgen validate reference --source data/sources/cifar-10-python.tar.gz --explain",
+    "expected_artifact": "data/results/v9_cifar_reference_onramp.json",
+    "success_status": "READY_FOR_LOCAL_CIFAR_REFERENCE_MATERIALIZATION"
+  },
+  "stop_building": true,
+  "stop_building_reason": "Remaining critical progress depends on reference input and external real execution; no additional broad versioned infrastructure is justified.",
+  "final_verification": {
+    "status": "COMPLETED_LOCAL_SAFE",
+    "baseline_pytest": "183 passed in 6.93s",
+    "final_pytest": "212 passed in 6.84s; 0 failed; 0 skipped",
+    "statistical_fast_lane": "31 passed in 0.19s",
+    "artifact_contract_lane": "25 passed in 0.35s",
+    "compile_and_imports": "passed",
+    "ruff": "passed",
+    "mypy": "failed with 111 errors in 34 files; same aggregate count as baseline",
+    "notebook_static_analysis": "3/3 passed; no execution inference",
+    "paper_firewall": "passed",
+    "release_safety": "passed with legacy scanner",
+    "final_execution_audit": "BLOCKED_MISSING_REFERENCE_SAMPLES",
+    "v9_legacy_audit": "22/22 passed after compatibility repairs",
+    "forensic_coherence_audit": "8/8 passed",
+    "paper_compile": "passed; 5 pages; nonfatal overfull boxes"
+  }
+}

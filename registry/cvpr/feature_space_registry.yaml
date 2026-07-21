@@ -1,0 +1,154 @@
+schema_version: certgen.cvpr.feature_spaces.v1
+feature_spaces:
+- feature_space_id: inception
+  asset_policy: ONLINE_PREFLIGHT_DOWNLOAD
+  asset_manifest_required: true
+  online_preflight_supported: true
+  offline_cache_supported: true
+  expected_cache_size: planning_only_measure_in_preflight
+  model_identifier: torchvision_inception_v3_IMAGENET1K_V1
+  revision: torchvision_0.22.1__Inception_V3_Weights.IMAGENET1K_V1
+  package: torchvision
+  model_class: torchvision.models.Inception3
+  processor_class: torchvision.transforms._presets.ImageClassification
+  feature_definition: final_global_average_pool_before_fc_2048d
+  pre_normalization_dimension: 2048
+  post_normalization_dimension: 2048
+  projection_applied: false
+  l2_normalization_applied: false
+  expected_dimension: 2048
+  input_resolution: 299
+  resize: preprocessing_lock_required
+  crop: preprocessing_lock_required
+  interpolation: bilinear_lock_required
+  pixel_range: extractor_contract
+  normalization: ImageNet_lock_required
+  feature_normalization: none_or_explicit_l2_before_RBF
+  precision: float32_cache
+  batch_size_default: 64
+  device_support:
+  - cuda
+  - cpu_fallback
+  license: torchvision_bsd_3_clause_code__pretrained_weight_terms_not_separately_declared
+  license_status: exact_upstream_status_recorded_no_license_fabricated
+  weight_enum: Inception_V3_Weights.IMAGENET1K_V1
+  torchvision_package_version: 0.22.1
+  expected_files:
+  - inception_v3_google-0cc3c7bd.pth
+  preflight_batch_sizes: [1, 2, 4, 8, 16, 32, 64]
+  expected_preprocessing:
+    extractor_id: inception
+    model_identifier: torchvision_inception_v3_IMAGENET1K_V1
+    revision: torchvision_0.22.1__Inception_V3_Weights.IMAGENET1K_V1
+    processor_class: torchvision.transforms._presets.ImageClassification
+    input_resolution: 299
+    resize_size: 342
+    crop_size: 299
+    crop_mode: center
+    interpolation: bilinear
+    antialias: true
+    pixel_range: uint8_0_255_to_float_0_1
+    channel_order: RGB
+    mean: [0.485, 0.456, 0.406]
+    std: [0.229, 0.224, 0.225]
+    feature_normalization: none
+    precision: float32
+    output_dimension: 2048
+    package_versions:
+      torch: 2.7.1
+      torchvision: 0.22.1
+  cache_schema_version: certgen.feature_cache.v2
+  status: adapter_exists_real_cache_not_run
+  claim_allowed: false
+- feature_space_id: clip
+  asset_policy: ONLINE_PREFLIGHT_DOWNLOAD
+  asset_manifest_required: true
+  online_preflight_supported: true
+  offline_cache_supported: true
+  expected_cache_size: planning_only_measure_in_preflight
+  model_identifier: openai/clip-vit-large-patch14
+  revision: 32bd64288804d66eefd0ccbe215aa642df71cc41
+  package: transformers
+  model_class: transformers.CLIPModel
+  processor_class: transformers.CLIPProcessor
+  feature_definition: projected_image_embedding_from_CLIPModel.get_image_features
+  pre_normalization_dimension: 768
+  post_normalization_dimension: 768
+  projection_applied: true
+  l2_normalization_applied: true
+  expected_dimension: 768
+  input_resolution: 224
+  resize: processor_lock_required
+  crop: processor_lock_required
+  interpolation: processor_lock_required
+  pixel_range: processor_contract
+  normalization: processor_lock_required
+  feature_normalization: l2_required_for_bounded_RBF_route
+  precision: float32_cache
+  batch_size_default: 64
+  device_support:
+  - cuda
+  - cpu_fallback
+  license: upstream_model_repository_has_no_explicit_weight_license
+  license_status: manual_research_use_and_redistribution_review_required_no_license_fabricated
+  redistribution_allowed: false
+  public_archive_included: false
+  user_provided: true
+  private_mount_required: true
+  license_source: https://huggingface.co/openai/clip-vit-large-patch14
+  expected_files:
+  - config.json
+  - preprocessor_config.json
+  - model.safetensors
+  preflight_batch_sizes: [1, 2, 4, 8, 16, 32, 64]
+  expected_preprocessing:
+    extractor_id: clip
+    model_identifier: openai/clip-vit-large-patch14
+    revision: 32bd64288804d66eefd0ccbe215aa642df71cc41
+    processor_class: CLIPProcessor
+    input_resolution: 224
+    resize_size: 224
+    crop_size: [224, 224]
+    crop_mode: center
+    interpolation: bicubic
+    antialias: true
+    pixel_range: uint8_0_255_to_float_0_1
+    channel_order: RGB
+    mean: [0.48145466, 0.4578275, 0.40821073]
+    std: [0.26862954, 0.26130258, 0.27577711]
+    feature_normalization: l2
+    precision: float32
+    output_dimension: 768
+    package_versions:
+      torch: 2.7.1
+      transformers: 4.53.2
+  cache_schema_version: certgen.feature_cache.v2
+  status: adapter_exists_real_cache_not_run
+  claim_allowed: false
+- feature_space_id: dinov2
+  asset_policy: ONLINE_PREFLIGHT_DOWNLOAD
+  asset_manifest_required: true
+  online_preflight_supported: true
+  offline_cache_supported: true
+  expected_cache_size: planning_only_measure_in_preflight
+  model_identifier: DINOv2_candidate_encoder
+  revision: TBD_PIN_AFTER_PREFLIGHT
+  package: timm_or_transformers_to_be_frozen
+  expected_dimension: TBD_BY_SELECTED_VARIANT
+  input_resolution: TBD_BY_SELECTED_VARIANT
+  resize: preprocessing_lock_required
+  crop: preprocessing_lock_required
+  interpolation: preprocessing_lock_required
+  pixel_range: extractor_contract
+  normalization: selected_encoder_contract
+  feature_normalization: l2_required_for_bounded_RBF_route
+  precision: float32_cache
+  batch_size_default: 32
+  device_support:
+  - cuda
+  - cpu_fallback
+  license: model_and_package_review_required
+  cache_schema_version: certgen.feature_cache.v2
+  status: planned_adapter_contract_real_preflight_required
+  claim_allowed: false
+claim_allowed: false

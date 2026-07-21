@@ -1,0 +1,10 @@
+descriptive:
+- FID_FD
+- polynomial_KID
+- precision_recall_or_density_coverage_if_feasible
+certificate_capable:
+- bounded_RBF_MMD_Inception
+- bounded_RBF_MMD_CLIP
+- bounded_RBF_MMD_DINO
+status: planning_only
+claim_allowed: false

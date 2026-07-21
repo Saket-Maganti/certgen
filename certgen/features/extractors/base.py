@@ -12,6 +12,7 @@ evidence is a separate validation + reproduction gate.
 
 from __future__ import annotations
 
+import importlib.metadata
 import importlib.util
 import json
 from dataclasses import dataclass
@@ -39,6 +40,15 @@ class FeatureExtractor:
     name: str
     feature_dim: int
     heavy_dependencies: list[str]
+
+    def _resolved_model_metadata(self) -> dict[str, Any]:
+        return {
+            "model_id": getattr(self, "resolved_model_id", None),
+            "model_revision": getattr(self, "resolved_model_revision", None),
+            "weights_id": getattr(self, "resolved_weights_id", None),
+            "weights_url": getattr(self, "resolved_weights_url", None),
+            "license_status": getattr(self, "resolved_license_status", "unknown"),
+        }
 
     def is_available(self) -> bool:
         return all(importlib.util.find_spec(dep) is not None for dep in self.heavy_dependencies)
@@ -132,6 +142,9 @@ class FeatureExtractor:
 
         resolved_device = self._resolve_device(device)
         model, transform = self._load_backbone(resolved_device, model_id, preprocessing)
+        model_metadata = self._resolved_model_metadata()
+        if not model_metadata.get("model_id") or not model_metadata.get("model_revision"):
+            raise ValueError(f"{self.name} did not declare a resolved model id and immutable revision/weights id")
         features = np.asarray(self._embed_paths(model, transform, paths, resolved_device, batch_size), dtype=np.float32)
         if features.ndim != 2 or features.shape[0] != len(paths):
             raise ValueError(f"extractor produced features of shape {features.shape} for {len(paths)} inputs")
@@ -148,12 +161,22 @@ class FeatureExtractor:
         array_info = save_feature_npz(features, feature_path)
         sidecar = {
             "extractor": self.name,
-            "model_id": model_id,
+            "model_id": model_metadata["model_id"],
+            "requested_model_id": model_id,
+            "model_revision": model_metadata["model_revision"],
+            "weights_id": model_metadata["weights_id"],
+            "weights_url": model_metadata["weights_url"],
             "feature_type": self.name,
             "feature_dim": int(features.shape[1]),
             "num_items": int(features.shape[0]),
             "sample_ids": sample_ids,
             "preprocessing": preprocessing or {},
+            "source": model_metadata,
+            "dependency_versions": {
+                dependency: importlib.metadata.version(dependency)
+                for dependency in self.heavy_dependencies
+                if importlib.util.find_spec(dependency) is not None
+            },
             "device": resolved_device,
             "feature_path": str(feature_path),
             "shape": array_info["shape"],
@@ -174,6 +197,8 @@ class FeatureExtractor:
             "sidecar_path": str(sidecar_path),
             "num_items": int(features.shape[0]),
             "feature_dim": int(features.shape[1]),
+            "model_id": model_metadata["model_id"],
+            "model_revision": model_metadata["model_revision"],
             "hash": array_info["hash"],
             "evidence_status": evidence_status,
             "claim_allowed": False,

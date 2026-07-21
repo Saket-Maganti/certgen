@@ -1,0 +1,20 @@
+{
+  "blockers": [
+    "R1 source package not ready: BLOCKED_MISSING_REFERENCE_SAMPLES"
+  ],
+  "claim_allowed": false,
+  "command": "commands/r1c_kaggle_feature_extraction/00_extract_inception_clip_t4x2.sh",
+  "copy_back_destination": "data/features/cifar10_r1",
+  "expected_outputs": [
+    "data/features/cifar10_r1/cifar10_r1_inception.npz",
+    "data/features/cifar10_r1/cifar10_r1_inception.sidecar.json",
+    "data/features/cifar10_r1/cifar10_r1_clip.npz",
+    "data/features/cifar10_r1/cifar10_r1_clip.sidecar.json",
+    "data/features/cifar10_r1/split/<role>_inception.npz",
+    "data/features/cifar10_r1/split/<role>_clip.npz"
+  ],
+  "passed": false,
+  "r1_status_code": "BLOCKED_MISSING_REFERENCE_SAMPLES",
+  "stage": "r1c_kaggle_feature_extraction",
+  "status_code": "BLOCKED_SOURCE_PACKAGE_NOT_READY"
+}

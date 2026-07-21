@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://certgen.local/schemas/cvpr/image_manifest.schema.json",
+  "title": "CertGen CVPR canonical image-manifest row",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "sample_id",
+    "role",
+    "model_id",
+    "relative_image_path",
+    "image_hash",
+    "seed",
+    "prompt_or_class_id",
+    "width",
+    "height",
+    "mode",
+    "source_run_id",
+    "source_manifest_hash"
+  ],
+  "properties": {
+    "sample_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+    "role": {"enum": ["reference", "model", "control_null_a", "control_null_b", "control_obvious_clean", "control_obvious_corrupted"]},
+    "model_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+    "relative_image_path": {"type": "string", "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\).+$"},
+    "image_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "seed": {"type": ["integer", "null"], "minimum": 0},
+    "prompt_or_class_id": {"type": ["string", "integer", "null"]},
+    "width": {"type": "integer", "minimum": 1},
+    "height": {"type": "integer", "minimum": 1},
+    "mode": {"enum": ["RGB", "RGBA", "L"]},
+    "source_run_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+    "source_manifest_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

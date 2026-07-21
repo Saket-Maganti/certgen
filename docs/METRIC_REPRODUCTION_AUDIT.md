@@ -5,7 +5,7 @@
 - Metric: `kid`
 - Computed value: `-0.0006626310233905919`
 - Reproduction status: `not_applicable_no_expected_value`
-- Evidence status: `real_features_validated`
+- Evidence status: `synthetic_only`
 - Claim allowed: `False`
 
 ## Errors

@@ -1,0 +1,105 @@
+kind: features
+run_id: cifar10__features__1k__multi__TBD_CONFIG_HASH__TBD_TIMESTAMP
+mode: force_new_run
+benchmark_id: cifar10
+scale: 1k
+requested_gpu_count: 2
+allow_single_gpu_fallback: false
+asset_policy: OFFLINE_PACKAGED_CACHE
+network_allowed: false
+environment_profile: kaggle_t4x2_features
+asset_manifest_hash: TBD_IMPORTED_EXTRACTOR_ASSET_MANIFEST_HASH
+required_disk_bytes: TBD_FROM_RUNTIME_PLAN
+source_manifest_hash: TBD_GENERATION_AND_REFERENCE_MANIFEST_HASH
+reference_draw_plan: TBD_EMBED_VALIDATED_PRECOMMITTED_DRAW_PLAN
+reference_draw_plan_hash: TBD_DRAW_PLAN_HASH
+expected_role_counts:
+  reference: TBD_REFERENCE_COUNT
+  generated: TBD_GENERATED_COUNT
+expected_model_ids:
+  - google_ddpm_cifar10_candidate
+  - frank_ddpm_ema_cifar10_candidate
+  - frank_cfm_cifar10_candidate
+extractors:
+  - feature_space_id: inception
+    model_identifier: torchvision_inception_v3_IMAGENET1K_V1
+    revision: torchvision_0.22.1_weight_enum_IMAGENET1K_V1
+    expected_dimension: 2048
+    precision: float32
+    batch_size: 64
+    local_files_only: true
+    expected_preprocessing:
+      extractor_id: inception
+      model_identifier: torchvision_inception_v3_IMAGENET1K_V1
+      revision: torchvision_0.22.1_weight_enum_IMAGENET1K_V1
+      processor_class: torchvision.transforms.Compose
+      input_resolution: 299
+      resize_size: 342
+      crop_size: 299
+      crop_mode: center
+      interpolation: bilinear
+      antialias: true
+      pixel_range: uint8_0_255_to_float_0_1
+      channel_order: RGB
+      mean: [0.485, 0.456, 0.406]
+      std: [0.229, 0.224, 0.225]
+      feature_normalization: none
+      precision: float32
+      output_dimension: 2048
+      package_versions: {torch: 2.7.1, torchvision: 0.22.1}
+  - feature_space_id: clip
+    model_identifier: openai/clip-vit-large-patch14
+    revision: 32bd64288804d66eefd0ccbe215aa642df71cc41
+    expected_dimension: 768
+    precision: float32
+    batch_size: 64
+    local_files_only: true
+    expected_preprocessing:
+      extractor_id: clip
+      model_identifier: openai/clip-vit-large-patch14
+      revision: 32bd64288804d66eefd0ccbe215aa642df71cc41
+      processor_class: TBD_OBSERVED_PROCESSOR_CLASS
+      input_resolution: TBD_OBSERVED_INPUT_RESOLUTION
+      resize_size: TBD_OBSERVED_RESIZE
+      crop_size: TBD_OBSERVED_CROP
+      crop_mode: TBD_OBSERVED_CROP_MODE
+      interpolation: TBD_OBSERVED_INTERPOLATION
+      antialias: true
+      pixel_range: uint8_0_255_to_float_0_1
+      channel_order: RGB
+      mean: TBD_OBSERVED_MEAN
+      std: TBD_OBSERVED_STD
+      feature_normalization: l2
+      precision: float32
+      output_dimension: 768
+      package_versions: {torch: 2.7.1, transformers: 4.53.2}
+  - feature_space_id: dinov2
+    model_identifier: TBD_SELECTED_DINOV2_MODEL
+    revision: TBD_PINNED_DINOV2_REVISION
+    expected_dimension: TBD_SELECTED_DINOV2_DIMENSION
+    precision: float32
+    batch_size: 32
+    local_files_only: true
+    expected_preprocessing:
+      extractor_id: dinov2
+      model_identifier: TBD_SELECTED_DINOV2_MODEL
+      revision: TBD_PINNED_DINOV2_REVISION
+      processor_class: TBD_OBSERVED_PROCESSOR_CLASS
+      input_resolution: TBD_OBSERVED_INPUT_RESOLUTION
+      resize_size: TBD_OBSERVED_RESIZE
+      crop_size: TBD_OBSERVED_CROP
+      crop_mode: TBD_OBSERVED_CROP_MODE
+      interpolation: TBD_OBSERVED_INTERPOLATION
+      antialias: true
+      pixel_range: uint8_0_255_to_float_0_1
+      channel_order: RGB
+      mean: TBD_OBSERVED_MEAN
+      std: TBD_OBSERVED_STD
+      feature_normalization: l2
+      precision: float32
+      output_dimension: TBD_SELECTED_DINOV2_DIMENSION
+      package_versions: {torch: 2.7.1, transformers: 4.53.2}
+image_shards: TBD_REPLACE_WITH_ROLE_AND_SAMPLE_ID_INDEX_SHARDS
+evidence_class: run_log_only
+claim_allowed: false
+configuration_hash: TBD_FREEZE_AFTER_GENERATION_IMPORT_AND_DRAW_PLAN

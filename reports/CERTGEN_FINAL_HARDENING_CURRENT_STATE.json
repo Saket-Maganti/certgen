@@ -1,0 +1,26 @@
+{
+  "schema_version": "certgen.cvpr.final_runtime_hardening_state.v1",
+  "top_level_status": "CVPR_RUNTIME_HARDENED_BLOCKED_BY_REFERENCE_INPUT",
+  "classification": "VERIFIED_LOCAL_RUNTIME_CONTRACTS_ONLY",
+  "runtime_hardening": "COMPLETE_LOCAL_SAFE",
+  "known_defects": "11_CONFIRMED_11_REPAIRED",
+  "new_defects": "LOCAL_FAILURE_INJECTION_GAPS_FOUND_AND_REPAIRED",
+  "notebooks": "5_OF_5_STATIC_AND_FIXTURE_READY_NOT_REAL_KAGGLE_TESTED",
+  "reference": "BLOCKED_USER_MUST_PROVIDE_CIFAR_REFERENCE",
+  "checkpoint_preflight": "NOT_RUN_REAL_KAGGLE",
+  "generation": "NOT_RUN_REAL_MODEL",
+  "feature_extraction": "NOT_RUN_REAL_MODEL",
+  "metric_reproduction": "NOT_RUN_REAL_CACHE",
+  "certificate": "IMPLEMENTED_NOT_RUN_REAL_EVIDENCE",
+  "partial_ranking": "IMPLEMENTED_NOT_RUN_REAL_EVIDENCE",
+  "paper_evidence": "BLOCKED",
+  "archive": "BUILDER_AND_PORTABLE_PROBE_VERIFIED_FINAL_HASH_RECORDED_EXTERNALLY",
+  "exact_next_action": {
+    "command": "python3 -m certgen validate reference --source data/sources/cifar-10-python.tar.gz --explain",
+    "expected_output": "data/results/v9_cifar_reference_onramp.json",
+    "required_status": "READY_FOR_LOCAL_CIFAR_REFERENCE_MATERIALIZATION"
+  },
+  "evidence_class": "planning_only",
+  "not_empirical_evidence": true,
+  "claim_allowed": false
+}

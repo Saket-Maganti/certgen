@@ -5,11 +5,11 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-import numpy as np
 
 from certgen.certs.io import load_feature_array
 from certgen.core.io import write_json
 from certgen.features.cache_validate import validate_v3_feature_cache
+from certgen.gates.evidence_classification import classify_inputs
 from certgen.metrics.fid import frechet_distance
 from certgen.metrics.cmmd import cmmd_rbf
 from certgen.metrics.kid import kid_polynomial
@@ -55,7 +55,7 @@ def run_metric_reproduction_audit(config_path: str | Path, out: str | Path, json
         rigorous_certification_supported = True
         fid_descriptive_only = False
     elif metric in {"mmd", "mmd_rbf"}:
-        computed = unbiased_mmd2(model_features, ref_features, kernel="rbf")
+        computed = unbiased_mmd2(model_features, ref_features, kernel="rbf", normalize="l2")
         rigorous_certification_supported = True
         fid_descriptive_only = False
     elif metric.startswith("fid") or metric.startswith("fd"):
@@ -79,6 +79,16 @@ def run_metric_reproduction_audit(config_path: str | Path, out: str | Path, json
             warnings.append("computed metric outside expected tolerance")
     else:
         warnings.append("no published reproduction claim possible")
+    detected_class, evidence_reason = classify_inputs(
+        [ref["npz"], model["npz"]],
+        [ref["sidecar"], model["sidecar"]],
+    )
+    if detected_class == "synthetic_only":
+        evidence_status = "synthetic_only"
+    elif str(config.get("evidence_status", "")) in {"synthetic_only", "smoke_only"}:
+        evidence_status = str(config["evidence_status"])
+    else:
+        evidence_status = "real_features_validated" if not errors else "real_features_unvalidated"
     payload = {
         "audit_name": "metric_reproduction",
         "metric": metric,
@@ -92,7 +102,8 @@ def run_metric_reproduction_audit(config_path: str | Path, out: str | Path, json
         "fid_descriptive_only": fid_descriptive_only,
         "errors": errors,
         "warnings": warnings,
-        "evidence_status": "real_features_validated" if not errors else "real_features_unvalidated",
+        "evidence_status": evidence_status,
+        "evidence_boundary_reason": evidence_reason,
         "claim_allowed": False,
     }
     lines = ["# Metric Reproduction Audit", "", "`NO_REAL_EVIDENCE`", "", f"- Metric: `{metric}`", f"- Computed value: `{payload['computed_value']}`", f"- Reproduction status: `{reproduction_status}`", f"- Evidence status: `{payload['evidence_status']}`", "- Claim allowed: `False`", "", "## Errors"]

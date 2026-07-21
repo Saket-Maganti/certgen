@@ -1,0 +1,11 @@
+{
+  "claim_allowed": false,
+  "consensus_eligibility": "all registered primary lanes valid, decided, and directionally identical",
+  "decided_and_unresolved": "representation-specific edge only; consensus remains unresolved",
+  "direct_agreement": "consensus eligible only when every valid registered feature lane decides the same direction",
+  "direction_disagreement": "representation-specific conclusion; never silently pooled and not an implementation error if contracts match",
+  "frozen_before_results": true,
+  "invalid_feature_lane": "exclude that lane from representation-specific output but block consensus eligibility",
+  "representation_specific_conclusion": "must name the feature space and retain certificate lineage",
+  "schema_version": "certgen.maximum_ceiling.cross_feature_policy.v1"
+}

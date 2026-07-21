@@ -1,0 +1,79 @@
+schema_version: certgen.cvpr.sanity_gate_config.v1
+run_id: TBD_REAL_RUN_REQUIRED
+gates:
+- gate_id: null_reference_split
+  family: null
+  control_type: reference_split_vs_reference_split
+  inputs: {artifact_ids: [TBD_TWO_INDEPENDENT_REFERENCE_SPLITS]}
+  measured_values: {value: null}
+  tolerances: {max_absolute: TBD_PREREGISTERED}
+- gate_id: null_same_model
+  family: null
+  control_type: same_model_independent_samples
+  inputs: {artifact_ids: [TBD_SAME_CHECKPOINT_INDEPENDENT_SAMPLES]}
+  measured_values: {value: null}
+  tolerances: {max_absolute: TBD_PREREGISTERED}
+- gate_id: null_repeated_batching
+  family: null
+  control_type: repeated_batching
+  inputs: {artifact_ids: [TBD_SAME_ROWS_DIFFERENT_BATCHING]}
+  measured_values: {value: null}
+  tolerances: {max_absolute: TBD_PREREGISTERED}
+- gate_id: null_repeated_shard_merge
+  family: null
+  control_type: repeated_shard_merge
+  inputs: {artifact_ids: [TBD_SAME_SHARDS_REPEATED_MERGE]}
+  measured_values: {value: null}
+  tolerances: {max_absolute: TBD_PREREGISTERED}
+- gate_id: gap_reference_corruption
+  family: obvious_gap
+  control_type: reference_vs_severe_corruption
+  inputs: {artifact_ids: [TBD_INDEPENDENT_REFERENCE_AND_SEVERE_CORRUPTION]}
+  measured_values: {gap: null}
+  tolerances: {minimum_gap: TBD_PREREGISTERED, expected_sign: 1}
+- gate_id: gap_quality_degradation
+  family: obvious_gap
+  control_type: high_quality_vs_intentionally_degraded
+  inputs: {artifact_ids: [TBD_HIGH_QUALITY_AND_DEGRADED]}
+  measured_values: {gap: null}
+  tolerances: {minimum_gap: TBD_PREREGISTERED, expected_sign: 1}
+- gate_id: gap_corruption_ladder
+  family: obvious_gap
+  control_type: noise_blur_compression_ladder
+  inputs: {artifact_ids: [TBD_FIXED_CORRUPTION_LADDER]}
+  measured_values: {gap: null}
+  tolerances: {minimum_gap: TBD_PREREGISTERED, expected_sign: 1}
+- gate_id: direction_corruption_severity
+  family: direction
+  control_type: corruption_severity_aggregate
+  inputs: {ordered_severities: [TBD_PREREGISTERED]}
+  measured_values: {ordered_values: []}
+  tolerances: {expected_direction: increasing, minimum_aggregate_step: TBD_PREREGISTERED}
+- gate_id: direction_certificate_ordering
+  family: direction
+  control_type: certificate_controlled_ordering
+  inputs: {artifact_ids: [TBD_CONTROLLED_ORDER_CERTIFICATES]}
+  measured_values: {ordered_values: []}
+  tolerances: {expected_direction: increasing, minimum_aggregate_step: TBD_PREREGISTERED}
+- gate_id: protocol_identity_rejection
+  family: protocol
+  control_type: identity_mismatch_rejection
+  inputs:
+    cases:
+    - mismatch_field: preprocessing_hash
+      baseline: {preprocessing_hash: TBD_BASELINE}
+      candidate: {preprocessing_hash: TBD_DIFFERENT}
+    - mismatch_field: feature_space
+      baseline: {feature_space: TBD_BASELINE}
+      candidate: {feature_space: TBD_DIFFERENT}
+    - mismatch_field: bandwidth
+      baseline: {bandwidth: TBD_BASELINE}
+      candidate: {bandwidth: TBD_DIFFERENT}
+    - mismatch_field: reference_population_hash
+      baseline: {reference_population_hash: TBD_BASELINE}
+      candidate: {reference_population_hash: TBD_DIFFERENT}
+  measured_values: {}
+  tolerances: {all_mismatches_must_be_rejected: true}
+evidence_class: sanity_artifact
+claim_allowed: false
+configuration_hash: TBD_FREEZE_WITH_CERTGEN_CONFIGURATION_HASH

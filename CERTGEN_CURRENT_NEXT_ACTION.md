@@ -1,0 +1,3 @@
+# Current next action
+
+Upload `artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip` (SHA-256 `6e5b22cd6ddce4155e762b6d2afa8fc3299fecd524cc10ac3c3de678c1ff8057`) to Kaggle and run `notebooks/kaggle/certgen_kaggle_environment_diagnostic_t4x2.ipynb` with GPU `T4 x2`. Enable Internet only for dependency installation; no private assets are required. Download `certgen_kaggle_environment_diagnostic_output.zip` to `data/kaggle_returns/diagnostic/`, then run `CUDA_VISIBLE_DEVICES="" CERTGEN_CPU_ONLY=1 python3 scripts/run_all_available_cpu_stages.py --resume --explain`.

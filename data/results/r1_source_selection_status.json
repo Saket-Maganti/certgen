@@ -1,0 +1,91 @@
+{
+  "status": "blocked",
+  "status_code": "BLOCKED_MISSING_REAL_SOURCES",
+  "claim_allowed": false,
+  "promote_to_paper_evidence": false,
+  "generated_at": "2026-07-08",
+  "selected_benchmark": "cifar10",
+  "verified_sources_count": 3,
+  "blocked_sources_count": 4,
+  "selected_source_records_total": 4,
+  "verified_sources": [
+    {
+      "source_id": "google/ddpm-cifar10-32",
+      "source_type": "checkpoint",
+      "license_status": "verified_free",
+      "sample_status": "blocked_checkpoint_generation_needed"
+    },
+    {
+      "source_id": "FrankCCCCC/ddpm_ema_cifar10",
+      "source_type": "checkpoint",
+      "license_status": "verified_free",
+      "sample_status": "blocked_checkpoint_generation_needed"
+    },
+    {
+      "source_id": "FrankCCCCC/cfm-cifar10-32",
+      "source_type": "checkpoint",
+      "license_status": "verified_free",
+      "sample_status": "blocked_checkpoint_generation_needed"
+    }
+  ],
+  "blocked_sources": [
+    {
+      "source_id": "cifar10_reference_dataset",
+      "reason": "reference dataset dimensions and split are verified but license remains unknown and local sample files are not materialized"
+    },
+    {
+      "source_id": "minimal_diffusion_cifar10_released_50k",
+      "reason": "released CIFAR-10 synthetic image asset is advertised but the downloadable artifact and asset license were not locally verified"
+    },
+    {
+      "source_id": "openai_improved_diffusion_cifar10",
+      "reason": "public MIT code exists but no concrete CIFAR-10 released sample artifact was verified in R1"
+    },
+    {
+      "source_id": "nvlabs_edm_cifar10",
+      "reason": "repository license is CC BY-NC-SA 4.0 and not selected for the public/free R1 source lock"
+    }
+  ],
+  "candidate_model_pairs_selected": [
+    {
+      "pair_id": "cifar10_null_split_reference_vs_reference",
+      "role": "null_calibration_pair",
+      "model_a": "cifar10_test_split_a",
+      "model_b": "cifar10_test_split_b",
+      "status": "blocked_missing_local_reference_samples"
+    },
+    {
+      "pair_id": "cifar10_reference_vs_corruption_sanity",
+      "role": "obvious_gap_sanity_pair",
+      "model_a": "cifar10_reference_samples",
+      "model_b": "deterministic_corruption_of_same_reference_samples",
+      "status": "blocked_missing_local_reference_samples"
+    },
+    {
+      "pair_id": "google_ddpm_vs_frank_cfm",
+      "role": "medium_gap_pair",
+      "model_a": "google/ddpm-cifar10-32",
+      "model_b": "FrankCCCCC/cfm-cifar10-32",
+      "status": "blocked_missing_generated_samples"
+    },
+    {
+      "pair_id": "google_ddpm_vs_frank_ddpm_ema",
+      "role": "close_gap_pair",
+      "model_a": "google/ddpm-cifar10-32",
+      "model_b": "FrankCCCCC/ddpm_ema_cifar10",
+      "status": "blocked_missing_generated_samples"
+    },
+    {
+      "pair_id": "google_ddpm_preprocessing_sensitivity",
+      "role": "preprocessing_sensitivity_pair",
+      "model_a": "google/ddpm-cifar10-32_primary_preprocessing",
+      "model_b": "google/ddpm-cifar10-32_alternate_locked_preprocessing",
+      "status": "blocked_until_primary_samples_exist"
+    }
+  ],
+  "kaggle_feature_extraction_can_run": false,
+  "kaggle_feature_extraction_command": null,
+  "exact_blocker": "No feature-extraction-ready local sample package exists: CIFAR-10 reference sample files are absent locally and selected public checkpoints still require generated sample materialization before GPU feature extraction.",
+  "next_local_validation_command": "python3 -m certgen.cli.run_cifar10_real_pilot --provenance-ledger registry/provenance/cifar10_r1_ledger.csv --sample-manifest registry/manifests/cifar10_r1_samples.jsonl --preprocessing-lock configs/preprocessing_locks/cifar10_inception_bilinear_299.json --feature-cache-dir data/features/cifar10_r1 --metric-reproduction-audit data/results/cifar10_r1_metric_reproduction.json --out-json data/results/r1_cifar10_status.json --report docs/R1_CIFAR10_REAL_PILOT_READINESS.md",
+  "no_fake_results": true
+}

@@ -1,0 +1,68 @@
+kind: generation
+run_id: cifar10__generation__1k__none__TBD_CONFIG_HASH__TBD_TIMESTAMP
+mode: force_new_run
+benchmark_id: cifar10
+scale: 1k
+samples_per_model: 1000
+network_allowed: false
+asset_policy: OFFLINE_PACKAGED_CACHE
+environment_profile: kaggle_t4x2_generation
+asset_manifest_hash: TBD_IMPORTED_PREFLIGHT_ASSET_MANIFEST_HASH
+reference_manifest_hash: TBD_VALIDATED_REFERENCE_MANIFEST_HASH
+required_disk_bytes: TBD_FROM_RUNTIME_PLAN
+requested_gpu_count: 2
+allow_single_gpu_fallback: false
+preflight_configuration_hash: TBD_IMPORTED_PREFLIGHT_CONFIGURATION_HASH
+models:
+  - model_id: google_ddpm_cifar10_candidate
+    checkpoint_or_sample_source: google/ddpm-cifar10-32
+    revision: 267b167dc01f0e4e61923ea244e8b988f84deb80
+    batch_size: 64
+    minimum_batch_size: 1
+    scheduler: checkpoint_default_to_be_verified
+    inference_steps: 1000
+    guidance_scale: 1.0
+    precision: float16
+    resolution: [32, 32]
+    width: 32
+    height: 32
+    capabilities:
+      supports_batching: true
+      supports_generator_list: true
+      supports_resume: true
+  - model_id: frank_ddpm_ema_cifar10_candidate
+    checkpoint_or_sample_source: FrankCCCCC/ddpm_ema_cifar10
+    revision: 6aa387f240fbb00d0e003f93a3b994f56dd98dc2
+    batch_size: 64
+    minimum_batch_size: 1
+    scheduler: checkpoint_default_to_be_verified
+    inference_steps: 1000
+    guidance_scale: 1.0
+    precision: float16
+    resolution: [32, 32]
+    width: 32
+    height: 32
+    capabilities:
+      supports_batching: true
+      supports_generator_list: true
+      supports_resume: true
+  - model_id: frank_cfm_cifar10_candidate
+    checkpoint_or_sample_source: FrankCCCCC/cfm-cifar10-32
+    revision: b3f30358497e11ce5011c00614c9b0521262f51c
+    batch_size: 64
+    minimum_batch_size: 1
+    scheduler: checkpoint_default_to_be_verified
+    inference_steps: 1000
+    guidance_scale: 1.0
+    precision: float16
+    resolution: [32, 32]
+    width: 32
+    height: 32
+    capabilities:
+      supports_batching: false
+      supports_generator_list: false
+      supports_resume: true
+seed_shards: TBD_REPLACE_WITH_TWO_DISJOINT_EXPLICIT_SEED_LISTS_PER_MODEL
+evidence_class: run_log_only
+claim_allowed: false
+configuration_hash: TBD_FREEZE_AFTER_SUCCESSFUL_PREFLIGHT_IMPORT

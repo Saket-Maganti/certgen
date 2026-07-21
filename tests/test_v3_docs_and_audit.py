@@ -37,6 +37,7 @@ def test_v3_docs_exist_and_command_index_mentions_clis():
     assert "descriptive-only" in open("docs/FID_POLICY_V3.md", encoding="utf-8").read()
 
 
+@pytest.mark.integration_audit
 def test_v3_final_audit_runs(tmp_path):
     if os.environ.get("CERTGEN_SKIP_V3_AUDIT_TEST") == "1":
         pytest.skip("avoid recursive V3 audit")

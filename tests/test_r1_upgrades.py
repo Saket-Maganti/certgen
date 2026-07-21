@@ -13,7 +13,7 @@ from certgen.features.extractors import EXTRACTORS
 from certgen.features.extractors.base import OptionalDependencyMissing
 from certgen.stats.cs import confidence_sequence
 from certgen.stats.design_contracts import CSConfig
-from certgen.stats.e_values import betting_e_value, e_value_decided
+from certgen.stats.e_values import betting_e_process, betting_e_value, e_value_decided
 
 
 def test_e_bh_known_example():
@@ -37,7 +37,7 @@ def test_e_bh_rejects_invalid_inputs():
         e_bh([-1.0, 2.0], 0.05)
 
 
-def test_betting_evalue_agrees_with_cs_decision():
+def test_point_null_evalue_rejects_obvious_gap_but_is_not_directional():
     obvious = [-0.8] * 80
     config = CSConfig(alpha=0.05, budget_units=80, lower_bound=-1, upper_bound=1, method="betting")
     cs = confidence_sequence(obvious, config)
@@ -46,6 +46,7 @@ def test_betting_evalue_agrees_with_cs_decision():
     assert decided_by_cs is True
     assert e_value_decided(e, 0.05) is True
     assert e >= 1.0 / 0.05
+    assert cs.time_uniform is False
 
 
 def test_betting_evalue_null_not_decided():
@@ -54,6 +55,12 @@ def test_betting_evalue_null_not_decided():
     e = betting_e_value(null, config)
     assert e < 1.0 / 0.05
     assert e_value_decided(e, 0.05) is False
+
+
+def test_betting_evalue_rejects_out_of_bounds_instead_of_clipping():
+    config = CSConfig(alpha=0.05, budget_units=2, lower_bound=-1, upper_bound=1, method="betting")
+    with pytest.raises(ValueError, match="outside"):
+        betting_e_process([0.0, 1.1], config)
 
 
 def test_audit_comparisons_with_fdr_undecided_fraction():
@@ -66,6 +73,9 @@ def test_audit_comparisons_with_fdr_undecided_fraction():
     assert audit["num_decided"] == 1
     assert audit["undecided_fraction"] == pytest.approx(2.0 / 3.0)
     assert audit["comparisons"][0]["decided_under_fdr"] is True
+    assert audit["comparisons"][0]["point_null_rejected_under_fdr"] is True
+    assert audit["directional_claim_supported"] is False
+    assert audit["global_optional_stopping_supported"] is False
     assert audit["claim_allowed"] is False
 
 
@@ -101,7 +111,16 @@ def test_real_extraction_plumbing_with_injected_backbone(tmp_path, monkeypatch):
     extractor = EXTRACTORS["inception_v3_pool3"]()
     monkeypatch.setattr(extractor, "is_available", lambda: True)
     monkeypatch.setattr(extractor, "_resolve_device", lambda device: "cpu")
-    monkeypatch.setattr(extractor, "_load_backbone", lambda device, model_id, preprocessing: (object(), None))
+
+    def load_stub(device, model_id, preprocessing):
+        extractor.resolved_model_id = "stub-weights"
+        extractor.resolved_model_revision = "fixture-revision"
+        extractor.resolved_weights_id = "fixture-weights"
+        extractor.resolved_weights_url = None
+        extractor.resolved_license_status = "synthetic_fixture"
+        return object(), None
+
+    monkeypatch.setattr(extractor, "_load_backbone", load_stub)
     monkeypatch.setattr(extractor, "_embed_paths", lambda model, transform, paths, device, batch_size: np.ones((len(paths), 2048), dtype=np.float32))
 
     result = extractor.extract(
@@ -120,6 +139,7 @@ def test_real_extraction_plumbing_with_injected_backbone(tmp_path, monkeypatch):
     sidecar = json.loads((tmp_path / "out" / "inception_v3_pool3_features.json").read_text())
     assert sidecar["sample_ids"] == ["a", "b"]
     assert sidecar["model_id"] == "stub-weights"
+    assert sidecar["model_revision"] == "fixture-revision"
     assert sidecar["claim_allowed"] is False
     assert sidecar["hash"] == result["hash"]
 

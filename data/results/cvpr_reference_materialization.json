@@ -1,0 +1,30 @@
+{
+  "batch_counts": {
+    "test": 10000,
+    "train": 0
+  },
+  "claim_allowed": false,
+  "counts_by_split": {
+    "test": 10000
+  },
+  "dataset": "cifar10",
+  "evidence_status": "r1a_sample_package_non_evidence",
+  "license_status": "cifar10_source_license_requires_release_review",
+  "out_manifest": "registry/manifests/cvpr/cifar10_reference.jsonl",
+  "rows": 10000,
+  "source_id": "cifar10_reference",
+  "source_layout": "official_python_batches_exported_to_ppm",
+  "source_sha256": "6d958be074577803d12ecdefd02955f39262c83c16fe9348329d7fe0b5c001ce",
+  "source_url": "https://www.cs.toronto.edu/~kriz/cifar.html",
+  "source_validation": {
+    "claim_allowed": false,
+    "layout": "official_cifar_tarball",
+    "passed": true,
+    "reason": "official tarball hash and member contract passed",
+    "source": "data/sources/cifar-10-python.tar.gz",
+    "source_sha256": "6d958be074577803d12ecdefd02955f39262c83c16fe9348329d7fe0b5c001ce"
+  },
+  "split_requested": "test",
+  "status_code": "REFERENCE_MATERIALIZED",
+  "validation_status": "passed"
+}

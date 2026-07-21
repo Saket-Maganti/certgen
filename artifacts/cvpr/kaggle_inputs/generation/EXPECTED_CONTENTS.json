@@ -1,0 +1,17 @@
+{
+  "claim_allowed": false,
+  "fixture_payload_allowed": false,
+  "package_type": "certgen_generation_1k_input",
+  "required_members": [
+    "configuration.yaml",
+    "bundle_manifest.json",
+    "package_integrity_manifest.json",
+    "notebook.ipynb",
+    "requirements/stage.lock",
+    "expected_output_schema.json",
+    "WORKER_CONTRACT.md",
+    "VALIDATION_AND_HANDOFF.md"
+  ],
+  "restricted_weights_allowed": false,
+  "stage": "generation"
+}

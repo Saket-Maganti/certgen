@@ -13,7 +13,7 @@ from typing import Any
 def make_jsonable(value: Any) -> Any:
     """Convert dataclasses and common scalar types into stable JSON values."""
 
-    if dataclasses.is_dataclass(value):
+    if dataclasses.is_dataclass(value) and not isinstance(value, type):
         return {k: make_jsonable(v) for k, v in dataclasses.asdict(value).items()}
     if isinstance(value, Enum):
         return value.value

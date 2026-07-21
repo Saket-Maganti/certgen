@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import argparse
-import json
 import os
 import subprocess
 import sys
@@ -24,8 +23,6 @@ from certgen.gates.fid_policy_gate import validate_fid_certificate_request
 from certgen.metrics.fid import frechet_distance
 from certgen.metrics.kid import kid_polynomial
 from certgen.metrics.registry import metric_record_from_registry
-from certgen.pilots.registry import read_csv_rows
-from certgen.reporting.certificate_report import certificate_report_markdown
 from certgen.schemas.comparison import ComparisonRecord
 from certgen.schemas.dataset import DatasetRecord
 

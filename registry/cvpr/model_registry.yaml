@@ -1,0 +1,317 @@
+schema_version: certgen.cvpr.models.v1
+models:
+- task: image_generation
+  license: apache-2.0
+  license_source: https://huggingface.co/google/ddpm-cifar10-32
+  authentication_required: false
+  released_samples_available: not_verified
+  checkpoint_available: not_verified
+  sample_count_available: not_verified
+  generation_cost_estimate: planning_only_hardware_dependent
+  feature_only_possible: unknown
+  preflight_required: true
+  status: candidate_metadata_unverified
+  claim_allowed: false
+  model_id: google_ddpm_cifar10_candidate
+  asset_policy: ONLINE_PREFLIGHT_DOWNLOAD
+  asset_manifest_required: true
+  online_preflight_supported: true
+  offline_cache_supported: true
+  expected_cache_size: planning_only_measure_in_preflight
+  display_name: Google DDPM CIFAR-10 candidate
+  family: DDPM
+  benchmark_id: cifar10
+  architecture: DDPM
+  checkpoint_or_sample_source: google/ddpm-cifar10-32
+  revision: 267b167dc01f0e4e61923ea244e8b988f84deb80
+  resolution: 32x32
+  conditioning: unconditional
+  adapter: diffusers_DDPMPipeline_preflight_required
+  expected_files:
+  - model_index.json
+  blocker: real load, license, scheduler, and output validation not run
+  cvpr_recognition: pilot baseline candidate
+- task: image_generation
+  license: apache-2.0
+  license_source: https://huggingface.co/FrankCCCCC/ddpm_ema_cifar10
+  authentication_required: false
+  released_samples_available: not_verified
+  checkpoint_available: not_verified
+  sample_count_available: not_verified
+  generation_cost_estimate: planning_only_hardware_dependent
+  feature_only_possible: unknown
+  preflight_required: true
+  status: candidate_metadata_unverified
+  claim_allowed: false
+  model_id: frank_ddpm_ema_cifar10_candidate
+  asset_policy: ONLINE_PREFLIGHT_DOWNLOAD
+  asset_manifest_required: true
+  online_preflight_supported: true
+  offline_cache_supported: true
+  expected_cache_size: planning_only_measure_in_preflight
+  display_name: DDPM EMA CIFAR-10 candidate
+  family: DDPM
+  benchmark_id: cifar10
+  architecture: DDPM_EMA
+  checkpoint_or_sample_source: FrankCCCCC/ddpm_ema_cifar10
+  revision: 6aa387f240fbb00d0e003f93a3b994f56dd98dc2
+  resolution: 32x32
+  conditioning: unconditional
+  adapter: diffusers_DDPMPipeline_preflight_required
+  expected_files:
+  - model_index.json
+  blocker: real load, provenance, license, and output validation not run
+  cvpr_recognition: pilot within-family candidate
+- task: image_generation
+  license: unverified_requires_manual_review
+  authentication_required: unknown
+  released_samples_available: not_verified
+  checkpoint_available: not_verified
+  sample_count_available: not_verified
+  generation_cost_estimate: planning_only_hardware_dependent
+  feature_only_possible: unknown
+  preflight_required: true
+  status: candidate_metadata_unverified
+  claim_allowed: false
+  model_id: frank_cfm_cifar10_candidate
+  asset_policy: ONLINE_PREFLIGHT_DOWNLOAD
+  asset_manifest_required: true
+  online_preflight_supported: true
+  offline_cache_supported: true
+  expected_cache_size: planning_only_measure_in_preflight
+  display_name: CFM CIFAR-10 candidate
+  family: flow_matching
+  benchmark_id: cifar10
+  architecture: repository_label_CFM_adapter_unverified
+  checkpoint_or_sample_source: FrankCCCCC/cfm-cifar10-32
+  revision: b3f30358497e11ce5011c00614c9b0521262f51c
+  resolution: 32x32
+  conditioning: unconditional
+  adapter: highest_risk_DDPMPipeline_interpretation_requires_preflight
+  blocker: architecture/adapter semantics, real load, license, and outputs unverified
+  cvpr_recognition: cross-family pilot candidate
+- task: image_generation
+  license: unverified_requires_manual_review
+  authentication_required: unknown
+  released_samples_available: not_verified
+  checkpoint_available: not_verified
+  sample_count_available: not_verified
+  generation_cost_estimate: planning_only_hardware_dependent
+  feature_only_possible: unknown
+  preflight_required: true
+  status: candidate_metadata_unverified
+  claim_allowed: false
+  model_id: adm_guided_diffusion_candidate
+  asset_policy: ONLINE_PREFLIGHT_DOWNLOAD
+  asset_manifest_required: true
+  online_preflight_supported: true
+  offline_cache_supported: true
+  expected_cache_size: planning_only_measure_in_preflight
+  display_name: Adm Guided Diffusion Candidate
+  family: ADM_guided_diffusion
+  benchmark_id: imagenet_class_conditional_candidate
+  architecture: ADM_guided_diffusion
+  checkpoint_or_sample_source: TBD_MANUAL_SOURCE_VERIFICATION
+  revision: TBD_PINNED_REVISION
+  resolution: TBD
+  conditioning: benchmark_dependent
+  adapter: TBD_AFTER_SOURCE_VERIFICATION
+  blocker: planning entry only; no availability, license, or adapter claim
+  cvpr_recognition: recognized diffusion family
+- task: image_generation
+  license: unverified_requires_manual_review
+  authentication_required: unknown
+  released_samples_available: not_verified
+  checkpoint_available: not_verified
+  sample_count_available: not_verified
+  generation_cost_estimate: planning_only_hardware_dependent
+  feature_only_possible: unknown
+  preflight_required: true
+  status: candidate_metadata_unverified
+  claim_allowed: false
+  model_id: edm_candidate
+  asset_policy: ONLINE_PREFLIGHT_DOWNLOAD
+  asset_manifest_required: true
+  online_preflight_supported: true
+  offline_cache_supported: true
+  expected_cache_size: planning_only_measure_in_preflight
+  display_name: Edm Candidate
+  family: EDM
+  benchmark_id: ffhq_candidate
+  architecture: EDM
+  checkpoint_or_sample_source: TBD_MANUAL_SOURCE_VERIFICATION
+  revision: TBD_PINNED_REVISION
+  resolution: TBD
+  conditioning: benchmark_dependent
+  adapter: TBD_AFTER_SOURCE_VERIFICATION
+  blocker: planning entry only; no availability, license, or adapter claim
+  cvpr_recognition: recognized diffusion design
+- task: image_generation
+  license: unverified_requires_manual_review
+  authentication_required: unknown
+  released_samples_available: not_verified
+  checkpoint_available: not_verified
+  sample_count_available: not_verified
+  generation_cost_estimate: planning_only_hardware_dependent
+  feature_only_possible: unknown
+  preflight_required: true
+  status: candidate_metadata_unverified
+  claim_allowed: false
+  model_id: latent_diffusion_candidate
+  asset_policy: ONLINE_PREFLIGHT_DOWNLOAD
+  asset_manifest_required: true
+  online_preflight_supported: true
+  offline_cache_supported: true
+  expected_cache_size: planning_only_measure_in_preflight
+  display_name: Latent Diffusion Candidate
+  family: latent_diffusion
+  benchmark_id: text_to_image_public_prompts_candidate
+  architecture: latent_diffusion
+  checkpoint_or_sample_source: TBD_MANUAL_SOURCE_VERIFICATION
+  revision: TBD_PINNED_REVISION
+  resolution: TBD
+  conditioning: benchmark_dependent
+  adapter: TBD_AFTER_SOURCE_VERIFICATION
+  blocker: planning entry only; no availability, license, or adapter claim
+  cvpr_recognition: recognized latent family
+- task: image_generation
+  license: unverified_requires_manual_review
+  authentication_required: unknown
+  released_samples_available: not_verified
+  checkpoint_available: not_verified
+  sample_count_available: not_verified
+  generation_cost_estimate: planning_only_hardware_dependent
+  feature_only_possible: unknown
+  preflight_required: true
+  status: candidate_metadata_unverified
+  claim_allowed: false
+  model_id: dit_candidate
+  asset_policy: ONLINE_PREFLIGHT_DOWNLOAD
+  asset_manifest_required: true
+  online_preflight_supported: true
+  offline_cache_supported: true
+  expected_cache_size: planning_only_measure_in_preflight
+  display_name: Dit Candidate
+  family: DiT
+  benchmark_id: imagenet_class_conditional_candidate
+  architecture: DiT
+  checkpoint_or_sample_source: TBD_MANUAL_SOURCE_VERIFICATION
+  revision: TBD_PINNED_REVISION
+  resolution: TBD
+  conditioning: benchmark_dependent
+  adapter: TBD_AFTER_SOURCE_VERIFICATION
+  blocker: planning entry only; no availability, license, or adapter claim
+  cvpr_recognition: recognized transformer generator
+- task: image_generation
+  license: unverified_requires_manual_review
+  authentication_required: unknown
+  released_samples_available: not_verified
+  checkpoint_available: not_verified
+  sample_count_available: not_verified
+  generation_cost_estimate: planning_only_hardware_dependent
+  feature_only_possible: unknown
+  preflight_required: true
+  status: candidate_metadata_unverified
+  claim_allowed: false
+  model_id: consistency_candidate
+  asset_policy: ONLINE_PREFLIGHT_DOWNLOAD
+  asset_manifest_required: true
+  online_preflight_supported: true
+  offline_cache_supported: true
+  expected_cache_size: planning_only_measure_in_preflight
+  display_name: Consistency Candidate
+  family: consistency_or_accelerated
+  benchmark_id: imagenet_class_conditional_candidate
+  architecture: consistency_or_accelerated
+  checkpoint_or_sample_source: TBD_MANUAL_SOURCE_VERIFICATION
+  revision: TBD_PINNED_REVISION
+  resolution: TBD
+  conditioning: benchmark_dependent
+  adapter: TBD_AFTER_SOURCE_VERIFICATION
+  blocker: planning entry only; no availability, license, or adapter claim
+  cvpr_recognition: accelerated generation family
+- task: image_generation
+  license: unverified_requires_manual_review
+  authentication_required: unknown
+  released_samples_available: not_verified
+  checkpoint_available: not_verified
+  sample_count_available: not_verified
+  generation_cost_estimate: planning_only_hardware_dependent
+  feature_only_possible: unknown
+  preflight_required: true
+  status: candidate_metadata_unverified
+  claim_allowed: false
+  model_id: stylegan_candidate
+  asset_policy: ONLINE_PREFLIGHT_DOWNLOAD
+  asset_manifest_required: true
+  online_preflight_supported: true
+  offline_cache_supported: true
+  expected_cache_size: planning_only_measure_in_preflight
+  display_name: Stylegan Candidate
+  family: StyleGAN
+  benchmark_id: ffhq_candidate
+  architecture: StyleGAN
+  checkpoint_or_sample_source: TBD_MANUAL_SOURCE_VERIFICATION
+  revision: TBD_PINNED_REVISION
+  resolution: TBD
+  conditioning: benchmark_dependent
+  adapter: TBD_AFTER_SOURCE_VERIFICATION
+  blocker: planning entry only; no availability, license, or adapter claim
+  cvpr_recognition: recognized GAN family
+- task: image_generation
+  license: unverified_requires_manual_review
+  authentication_required: unknown
+  released_samples_available: not_verified
+  checkpoint_available: not_verified
+  sample_count_available: not_verified
+  generation_cost_estimate: planning_only_hardware_dependent
+  feature_only_possible: unknown
+  preflight_required: true
+  status: candidate_metadata_unverified
+  claim_allowed: false
+  model_id: biggan_candidate
+  asset_policy: ONLINE_PREFLIGHT_DOWNLOAD
+  asset_manifest_required: true
+  online_preflight_supported: true
+  offline_cache_supported: true
+  expected_cache_size: planning_only_measure_in_preflight
+  display_name: Biggan Candidate
+  family: BigGAN
+  benchmark_id: imagenet_class_conditional_candidate
+  architecture: BigGAN
+  checkpoint_or_sample_source: TBD_MANUAL_SOURCE_VERIFICATION
+  revision: TBD_PINNED_REVISION
+  resolution: TBD
+  conditioning: benchmark_dependent
+  adapter: TBD_AFTER_SOURCE_VERIFICATION
+  blocker: planning entry only; no availability, license, or adapter claim
+  cvpr_recognition: recognized class-conditional GAN
+- task: image_generation
+  license: unverified_requires_manual_review
+  authentication_required: unknown
+  released_samples_available: not_verified
+  checkpoint_available: not_verified
+  sample_count_available: not_verified
+  generation_cost_estimate: planning_only_hardware_dependent
+  feature_only_possible: unknown
+  preflight_required: true
+  status: candidate_metadata_unverified
+  claim_allowed: false
+  model_id: open_text_to_image_candidate
+  asset_policy: ONLINE_PREFLIGHT_DOWNLOAD
+  asset_manifest_required: true
+  online_preflight_supported: true
+  offline_cache_supported: true
+  expected_cache_size: planning_only_measure_in_preflight
+  display_name: Open Text To Image Candidate
+  family: open_text_to_image
+  benchmark_id: text_to_image_public_prompts_candidate
+  architecture: open_text_to_image
+  checkpoint_or_sample_source: TBD_MANUAL_SOURCE_VERIFICATION
+  revision: TBD_PINNED_REVISION
+  resolution: TBD
+  conditioning: benchmark_dependent
+  adapter: TBD_AFTER_SOURCE_VERIFICATION
+  blocker: planning entry only; no availability, license, or adapter claim
+  cvpr_recognition: modern text-to-image lane
+claim_allowed: false

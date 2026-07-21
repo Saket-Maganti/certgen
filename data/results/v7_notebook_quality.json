@@ -1,0 +1,17 @@
+{
+  "ok": true,
+  "results": [
+    {
+      "forbidden": [],
+      "missing": [],
+      "ok": true,
+      "path": "notebooks/kaggle/v7_certgen_cifar10_generation_t4x2_bookrun.ipynb"
+    },
+    {
+      "forbidden": [],
+      "missing": [],
+      "ok": true,
+      "path": "notebooks/kaggle/v7_certgen_cifar10_feature_extraction_t4x2_bookrun.ipynb"
+    }
+  ]
+}

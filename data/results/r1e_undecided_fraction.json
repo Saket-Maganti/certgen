@@ -1,0 +1,24 @@
+{
+  "blockers": [
+    "feature cache missing: reference_inception",
+    "feature cache missing: google_ddpm_inception",
+    "feature cache missing: frank_ddpm_ema_inception",
+    "feature cache missing: frank_cfm_inception",
+    "feature cache missing: reference_clip",
+    "feature cache missing: google_ddpm_clip",
+    "feature cache missing: frank_ddpm_ema_clip",
+    "feature cache missing: frank_cfm_clip"
+  ],
+  "claim_allowed": false,
+  "decided": 0,
+  "evidence_status": "blocked_no_real_pilot",
+  "not_paper_claim": true,
+  "null_calibration_decision_status": "not_run",
+  "obvious_gap_sanity_decision_status": "not_run",
+  "passed": false,
+  "single_benchmark_only": true,
+  "status_code": "BLOCKED_R1D_NOT_READY",
+  "undecided": 0,
+  "undecided_fraction": null,
+  "valid_pilot_comparisons": 0
+}

@@ -5,14 +5,18 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "certgen"
 version = "0.5.0"
-description = "Anytime-valid, metric-agnostic decision certificates for generative-model comparison"
+description = "Anytime-valid bounded-kernel decision certificates for generative-model comparison"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
   "numpy>=1.24",
+  "packaging>=23",
   "scipy>=1.10",
   "PyYAML>=6.0",
 ]
+
+[project.scripts]
+certgen = "certgen.__main__:main"
 
 [project.optional-dependencies]
 test = ["pytest>=8"]
@@ -21,3 +25,8 @@ vision = ["torch", "torchvision", "transformers", "timm"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["."]
+addopts = "-m 'not integration_audit'"
+markers = [
+  "integration_audit: explicitly runs historical full-suite audit wrappers; excluded from the default non-recursive lane",
+  "recursive_audit: compatibility alias for explicitly invoked recursive audit coverage",
+]

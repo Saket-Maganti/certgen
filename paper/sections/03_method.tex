@@ -3,17 +3,32 @@
 \subsection{Problem Setup}
 For models $A$ and $B$ and reference set $R$, CertGen tracks $\Delta=d(A,R)-d(B,R)$ under a declared metric, preprocessing lock, and sample budget.
 
-\subsection{Metrics as Black-Box Discrepancy Functions}
-The framework is metric-agnostic at the protocol level, while rigorous certificate support depends on whether the metric admits a valid bounded stream or estimator.
+\subsection{Metric Capability Boundary}
+The surrounding protocol can register many descriptive metrics, but the current
+claim-capable certificate is not metric-agnostic. It is limited to the
+implemented bounded RBF-kernel stream described below.
 
-\subsection{Clean-Core Streams}
-The clean-core scaffold covers KID/MMD/CMMD-style streams where sample units can be bounded or clipped and monitored with confidence sequences.
+\subsection{Clean-Core Stream}
+The clean core uses non-overlapping disjoint pairs from mutually independent IID
+samples from $A$, $B$, and $R$. Each unit is the difference between linear-time
+RBF-MMD-squared contributions for $(A,R)$ and $(B,R)$. Feature normalization and
+a prospectively fixed RBF bandwidth are part of the estimand. No empirical
+clipping is used to manufacture boundedness.
 
 \subsection{Anytime-Valid Decision Certificate}
-The certificate monitors a betting confidence sequence on the bounded per-block stream and stops when the interval excludes zero (certifying a direction) or reports not-decided at budget. Because the underlying object is a betting e-process, the decision is valid under continuous monitoring and optional stopping, and the same process evaluated at the point null $\Delta=0$ is a per-comparison e-value.
+The primary certificate monitors a union-Hoeffding confidence sequence for the
+bounded stream and stops when the interval excludes zero, or reports
+not-decided at the maximum budget. This route is time-uniform under the stated
+sampling and protocol assumptions. The finite-grid betting interval remains an
+engineering diagnostic and is not claim-capable.
 
 \subsection{Multiple Comparisons and Dependence}
-A leaderboard audit is many simultaneous decisions sharing one reference set. We collect the per-comparison e-values and apply e-BH, which controls the false discovery rate under arbitrary dependence, so the reported decided/undecided split is multiplicity-safe rather than a count of uncorrected per-pair tests. Reused samples, references, and feature caches are additionally surfaced as dependence diagnostics.
+A leaderboard audit contains many decisions and may reuse a reference pool. The
+primary protocol predeclares the family and applies Bonferroni correction to the
+time-uniform pairwise certificates. Point-null e-values and e-BH are reported
+only as exploratory diagnostics until direction and cross-stream adaptive
+stopping are covered by a proof. Pairwise certificates are not promoted to a
+global total ranking.
 
 \subsection{FID/FD Policy}
 FID and FD-style metrics are descriptive unless a separate rigorous functional treatment is implemented and audited.

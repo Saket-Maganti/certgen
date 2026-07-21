@@ -1,0 +1,23 @@
+{
+  "BLOCKED_ONLY_BY_REAL_INPUTS_AND_REAL_EXECUTION": true,
+  "LIVE_CHECKOUT_VERIFICATION": {
+    "default_tests": "274 passed, 4 deselected",
+    "integration_audit": "4 passed, 274 deselected",
+    "maximum_ceiling_audit": "19/19 passed",
+    "status": "PASS"
+  },
+  "PORTABLE_ARCHIVE_VERIFICATION": {
+    "member_count": 823,
+    "notebook_static": "5/5 passed",
+    "portable_tests": "10 passed",
+    "synthetic_rehearsal": "COMPLETE_BUILDER_FAITHFUL_SYNTHETIC_REHEARSAL_PASS",
+    "status": "ARCHIVE_VERIFIED"
+  },
+  "claim_allowed": false,
+  "evidence_status": "no_real_execution_evidence",
+  "exact_next_command": "python3 -m certgen validate reference --source data/sources/cifar-10-python.tar.gz --explain",
+  "known_local_defect": null,
+  "replacement_status": "REPLACEMENT_VERIFIED",
+  "schema_version": "certgen.maximum_ceiling.current_state.v1",
+  "status": "CERTGEN_MAX_CEILING_PRE_RUN_READY"
+}

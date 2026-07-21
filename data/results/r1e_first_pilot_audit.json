@@ -1,0 +1,48 @@
+{
+  "audit_name": "r1e_first_pilot_audit",
+  "blockers": [
+    "feature cache missing: reference_inception",
+    "feature cache missing: google_ddpm_inception",
+    "feature cache missing: frank_ddpm_ema_inception",
+    "feature cache missing: frank_cfm_inception",
+    "feature cache missing: reference_clip",
+    "feature cache missing: google_ddpm_clip",
+    "feature cache missing: frank_ddpm_ema_clip",
+    "feature cache missing: frank_cfm_clip"
+  ],
+  "certificates": [],
+  "checks": [
+    {
+      "detail": "none",
+      "name": "no_claim_allowed_true",
+      "passed": true
+    },
+    {
+      "detail": "not_run",
+      "name": "null_calibration_included_if_run",
+      "passed": true
+    },
+    {
+      "detail": "not_run",
+      "name": "obvious_gap_included_if_run",
+      "passed": true
+    },
+    {
+      "detail": [],
+      "name": "no_fid_certificate",
+      "passed": true
+    },
+    {
+      "detail": "data/results/r1e_undecided_fraction.json",
+      "name": "undecided_fraction_not_paper_claim",
+      "passed": true
+    }
+  ],
+  "checks_passed": 5,
+  "checks_total": 5,
+  "claim_allowed": false,
+  "passed": true,
+  "pilot_status": "BLOCKED_R1D_NOT_READY",
+  "status_code": "R1E_AUDIT_PASSED_BLOCKED",
+  "undecided_fraction_path": "data/results/r1e_undecided_fraction.json"
+}

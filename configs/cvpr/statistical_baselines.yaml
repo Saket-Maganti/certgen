@@ -1,0 +1,9 @@
+baselines:
+- fixed_n_point_estimate
+- fixed_n_bootstrap_interval
+- naive_repeated_peeking_negative_control
+- bonferroni_fixed_n
+- certgen_union_hoeffding
+- closest_applicable_sequential_kernel_baseline_TBD
+status: planning_only
+claim_allowed: false

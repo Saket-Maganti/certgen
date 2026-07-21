@@ -27,6 +27,11 @@ def test_empirical_bernstein_metadata_present():
         [-0.2, -0.1, -0.3, -0.2],
         CSConfig(alpha=0.05, budget_units=4, lower_bound=-1, upper_bound=1, method="empirical_bernstein"),
     )
-    assert result.time_uniform is True
-    assert result.method_label == "empirical_bernstein_conservative_v2"
-    assert result.theory_status == "conservative_practical"
+    assert result.time_uniform is False
+    assert result.method_label == "empirical_bernstein_diagnostic_v3"
+    assert result.theory_status == "diagnostic_only_proof_obligation_unresolved"
+
+
+def test_budget_must_be_positive_integer():
+    with pytest.raises(ValueError, match="budget_units"):
+        confidence_sequence([0.0], CSConfig(alpha=0.05, budget_units=0, lower_bound=-1, upper_bound=1))

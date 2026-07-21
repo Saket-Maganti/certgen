@@ -27,3 +27,16 @@ def test_unbounded_stream_rejected():
     stream = ComparisonStream("cmp", "mmd_rbf", [0.1], evidence_status="smoke_only")
     with pytest.raises(ValueError, match="bounded"):
         make_clean_metric_certificate(stream, CSConfig(0.05, 1, -1, 1))
+
+
+def test_experimental_betting_grid_cannot_issue_directional_certificate():
+    cert = make_clean_metric_certificate(_bounded_stream([-0.95] * 64), CSConfig(0.05, 64, -1, 1, method="betting"))
+    assert cert.decision == "not_decided_at_budget"
+    assert cert.time_uniform is False
+    assert any("METHOD_NOT_CERTIFICATE_CAPABLE" in item for item in cert.limitations)
+
+
+def test_claim_capable_certificate_records_first_crossing_not_full_budget():
+    cert = make_clean_metric_certificate(_bounded_stream([-0.95] * 200), CSConfig(0.05, 200, -1, 1, method="hoeffding"))
+    assert cert.decision == "A_certified_better"
+    assert cert.sample_units_seen < cert.budget_units

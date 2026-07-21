@@ -1,0 +1,28 @@
+{
+  "blockers": [
+    "WAITING_FOR_KAGGLE_DIAGNOSTIC"
+  ],
+  "claim_allowed": false,
+  "evidence_boundary": "Local software and planning/input validation only; not model or paper evidence.",
+  "exact_next_command": "Upload artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip and run notebooks/kaggle/certgen_kaggle_environment_diagnostic_t4x2.ipynb on GPU T4 x2.",
+  "final_verification": {
+    "changed_code_mypy": "PASS (23 source files at measured run)",
+    "default_pytest": "290 passed, 4 deselected",
+    "historical_full_mypy": "111 errors in 34 files (unchanged)",
+    "integration_audits": "4 passed, 290 deselected",
+    "notebook_determinism": "PASS",
+    "paper_compile": "PASS (5 pages; three nonfatal overfull boxes)",
+    "release": "ARCHIVE_VERIFIED",
+    "ruff": "PASS"
+  },
+  "phase": "reference_study_draw_and_diagnostic_input_complete",
+  "readiness_status": "WAITING_FOR_KAGGLE_DIAGNOSTIC",
+  "real_evidence_status": "none",
+  "reference_candidate_present": true,
+  "reference_candidate_validated": true,
+  "reference_present": true,
+  "schema_version": "certgen.final_run_ready.current_state.v1",
+  "selected_profile": "cifar_integrity_minimal",
+  "top_level_status": "WAITING_FOR_KAGGLE_DIAGNOSTIC",
+  "updated_at_utc": "2026-07-21T17:30:52Z"
+}

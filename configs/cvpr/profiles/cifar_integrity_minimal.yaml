@@ -1,0 +1,33 @@
+schema_version: certgen.cvpr.pilot_profile.v1
+profile_id: cifar_integrity_minimal
+purpose: Prove end-to-end CIFAR-10 lineage, packaging, runtime, and nonclaim decision continuity.
+benchmark: cifar10
+models:
+  - google_ddpm_cifar10_candidate
+  - frank_ddpm_ema_cifar10_candidate
+extractors:
+  - inception
+  - clip
+generation_count: 1000
+reference_count: 1000
+sample_budgets:
+  - 1000
+feature_spaces:
+  - inception
+  - clip
+metrics:
+  - rbf_mmd
+comparison_family: cvpr_primary_cifar10
+comparisons:
+  - checkpoint_variant
+controls:
+  - null_reference_split
+  - obvious_gap_corruption
+controls_in_confirmatory_family: false
+controls_claim_allowed: false
+selection_policy: prospective_membership_frozen_before_any_result_inspection
+scale_up_rules:
+  - stop_and_interpret_after_1k
+  - create_a_new_study_version_before_10k_or_50k
+evidence_class: pilot_only
+claim_allowed: false

@@ -1,0 +1,17 @@
+injected_failure,expected_detector,expected_status,recovery_command,actual_result,synthetic_validation_only,not_empirical_evidence,claim_allowed
+interrupted_kaggle_job,completion_marker_validator,BLOCKED_REAL_EXECUTION,resume same immutable shard assignments,PASS,True,True,False
+partial_zip,secure_zip_importer,STALE_ARTIFACT,copy or rebuild the final ZIP from validated shards,PASS,True,True,False
+duplicate_image,image_manifest_validator,LOCAL_DEFECT,regenerate the affected deterministic image shard,PASS,True,True,False
+corrupt_png,image_decoder,STALE_ARTIFACT,rerun the owning generation shard,PASS,True,True,False
+missing_feature_shard,feature_merge_validator,BLOCKED_REAL_EXECUTION,rerun only the missing feature shard,PASS,True,True,False
+wrong_extractor_revision,asset_manifest_validator,STALE_ARTIFACT,restart feature stage with the frozen extractor revision,PASS,True,True,False
+changed_preprocessing,preprocessing_hash_gate,STALE_ARTIFACT,invalidate features and all downstream stages,PASS,True,True,False
+changed_study_hash,study_identity_gate,STALE_ARTIFACT,start a new run identity,PASS,True,True,False
+stale_completion_marker,worker_contract_validator,STALE_ARTIFACT,discard the marker and validate the shard,PASS,True,True,False
+wrong_worker_contract,worker_contract_validator,LOCAL_DEFECT,regenerate notebook/package with current worker contract,PASS,True,True,False
+disk_exhaustion,stage_doctor_disk_check,LOCAL_DEFECT,free space and resume from validated shards,PASS,True,True,False
+oom_fallback_exhaustion,batch_fallback_controller,BLOCKED_REAL_EXECUTION,reduce the frozen batch schedule without changing samples,PASS,True,True,False
+missing_certificate_bundle,family_operational_gate,BLOCKED_REAL_EXECUTION,rebuild the missing canonical input bundle,PASS,True,True,False
+incomplete_family_coverage,ranking_coverage_gate,BLOCKED_REAL_EXECUTION,issue the missing frozen-family certificate,PASS,True,True,False
+ranking_attempted_too_early,ranking_coverage_gate,BLOCKED_REAL_EXECUTION,complete every family certificate first,PASS,True,True,False
+restricted_weight_in_public_archive,public_release_exclusion_gate,LOCAL_DEFECT,remove restricted weights and rebuild the public archive,PASS,True,True,False

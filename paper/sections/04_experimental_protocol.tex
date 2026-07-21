@@ -1,5 +1,16 @@
 \section{Experimental Protocol}
 
-Benchmarks and model pairs are selected only after provenance gates pass. Each run requires released samples or reproducible checkpoints, a preprocessing lock, validated feature caches, metric reproduction checks, and a non-claim pilot before any evidence-candidate promotion.
+Benchmarks and model pairs are selected prospectively from the CVPR benchmark,
+model, comparison, and feature-space registries, and are frozen before the
+affected outcomes are inspected. Each run requires released samples or
+reproducible checkpoints, a reference-draw plan, an immutable preprocessing and
+extractor lock, validated feature caches, metric reproduction checks, null and
+obvious-gap controls, and a frozen Bonferroni family before a non-claim
+certificate pilot. The planned feature-specific outputs are certified edges,
+unresolved pairs, censored samples-to-decision, and disagreements across
+Inception, CLIP, and DINO-style representations. A total ranking is never
+imputed from missing or unresolved edges.
 
-Primary pilot endpoint: first-benchmark undecided fraction among preselected contestable model pairs. The endpoint is not yet measured: TBD_REAL_RUN_REQUIRED.
+Primary pilot endpoint: first-benchmark resolution and censoring status among
+preselected contestable model pairs. The endpoint is not yet measured:
+\texttt{TBD\_REAL\_RUN\_REQUIRED}.

@@ -2,9 +2,7 @@
 
 from __future__ import annotations
 
-import dataclasses
 import json
-from enum import Enum
 from pathlib import Path
 from typing import Any
 

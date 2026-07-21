@@ -1,0 +1,7 @@
+# Python==3.11.*
+-c kaggle-constraints.txt
+-r kaggle-base.lock
+safetensors==0.5.3
+huggingface-hub==0.34.3
+diffusers==0.34.0
+accelerate==1.8.1

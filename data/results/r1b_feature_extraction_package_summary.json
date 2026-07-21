@@ -1,0 +1,13 @@
+{
+  "claim_allowed": false,
+  "errors": [
+    "Reference manifest is empty or missing real local CIFAR-10 samples.",
+    "Generated pilot manifest is empty because Kaggle generation has not been run."
+  ],
+  "evidence_status": "sample_package_only",
+  "feature_extraction_ready": false,
+  "out_manifest": "registry/manifests/cifar10_r1_feature_extraction_samples.jsonl",
+  "passed": false,
+  "status_code": "BLOCKED_MISSING_REFERENCE_SAMPLES",
+  "warnings": []
+}

@@ -1,0 +1,26 @@
+{
+  "archive_member_count": 1239,
+  "archive_root": "certGen",
+  "expected_sha256": "d1a144dfa317f766b4c86e108a605de9a346e5e0cbb071b2f29d70e17bf530af",
+  "git_branch_preserved": "master",
+  "git_head_preserved": "bff335aa648fd19e2fa7e3cfea293a6ca519a68b",
+  "git_metadata_preserved": true,
+  "observed_sha256": "d1a144dfa317f766b4c86e108a605de9a346e5e0cbb071b2f29d70e17bf530af",
+  "preserved_user_owned_inputs": [],
+  "replacement_verified": true,
+  "rollback_directory_deleted": true,
+  "schema_version": "certgen.maximum_ceiling.replacement_audit.v1",
+  "staging_directory_deleted": true,
+  "stale_source_carried_forward": false,
+  "status": "REPLACEMENT_VERIFIED",
+  "transactional_swap": true,
+  "verification": {
+    "compileall": "PASS",
+    "focused_post_cache_tests": "9 passed",
+    "final_pre_run_audit": "CVPR_100_PERCENT_PRE_RUN_READY, 24/24",
+    "notebook_static": "PASS, 5/5",
+    "portable_archive": "ARCHIVE_VERIFIED",
+    "readiness": "RUN_READY_WAITING_FOR_REFERENCE"
+  },
+  "claim_allowed": false
+}

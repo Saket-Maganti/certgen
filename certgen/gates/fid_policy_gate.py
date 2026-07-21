@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from certgen.core.enums import EvidenceStatus, FidRigorStatus, MetricFamily, NON_EVIDENCE_STATUSES, normalize_enum_value
+from certgen.core.enums import FidRigorStatus, MetricFamily, NON_EVIDENCE_STATUSES, normalize_enum_value
 
 
 @dataclass

@@ -1,0 +1,51 @@
+schema_version: certgen.kaggle.asset_registry.v1
+assets:
+  - asset_id: google_ddpm_cifar10_candidate__asset
+    provider: huggingface
+    repository_or_mount: google/ddpm-cifar10-32 or /kaggle/input/certgen-private-assets/google_ddpm_cifar10_candidate
+    revision: 267b167dc01f0e4e61923ea244e8b988f84deb80
+    expected_files: [model_index.json, scheduler/scheduler_config.json, unet/config.json]
+    expected_hashes: USER_PROVIDED_ASSET_MANIFEST_REQUIRED
+    license_status: apache-2.0
+    redistribution_allowed: false
+    public_archive_included: false
+    private_mount_required: true
+    internet_required: false
+    loader: diffusers.DDPMPipeline.from_pretrained(local_files_only=True)
+  - asset_id: frank_ddpm_ema_cifar10_candidate__asset
+    provider: huggingface
+    repository_or_mount: FrankCCCCC/ddpm_ema_cifar10 or /kaggle/input/certgen-private-assets/frank_ddpm_ema_cifar10_candidate
+    revision: 6aa387f240fbb00d0e003f93a3b994f56dd98dc2
+    expected_files: [model_index.json, scheduler/scheduler_config.json, unet/config.json]
+    expected_hashes: USER_PROVIDED_ASSET_MANIFEST_REQUIRED
+    license_status: apache-2.0
+    redistribution_allowed: false
+    public_archive_included: false
+    private_mount_required: true
+    internet_required: false
+    loader: diffusers.DDPMPipeline.from_pretrained(local_files_only=True)
+  - asset_id: inception__asset
+    provider: torchvision
+    repository_or_mount: /kaggle/input/certgen-private-assets/inception
+    revision: torchvision-0.22.1-IMAGENET1K_V1
+    expected_files: [inception_v3_google-0cc3c7bd.pth]
+    expected_hashes: USER_PROVIDED_ASSET_MANIFEST_REQUIRED
+    license_status: torchvision_bsd_3_clause_code__weight_terms_require_review
+    redistribution_allowed: false
+    public_archive_included: false
+    private_mount_required: true
+    internet_required: false
+    loader: torchvision.models.inception_v3(weights=None) plus validated local state_dict
+  - asset_id: clip__asset
+    provider: huggingface
+    repository_or_mount: /kaggle/input/certgen-private-assets/clip-vit-large-patch14
+    revision: 32bd64288804d66eefd0ccbe215aa642df71cc41
+    expected_files: [config.json, preprocessor_config.json, model.safetensors]
+    expected_hashes: USER_PROVIDED_ASSET_MANIFEST_REQUIRED
+    license_status: manual_research_use_and_redistribution_review_required_no_license_fabricated
+    redistribution_allowed: false
+    public_archive_included: false
+    private_mount_required: true
+    internet_required: false
+    loader: transformers.CLIPVisionModelWithProjection.from_pretrained(local_files_only=True)
+claim_allowed: false

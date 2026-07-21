@@ -28,7 +28,7 @@
   "comparison_id": "smoke_a_vs_b",
   "created_at": "2026-06-23T14:05:23+00:00",
   "decision": "not_decided_at_budget",
-  "evidence_status": "real_pilot_non_claim",
+  "evidence_status": "synthetic_only",
   "feature_hashes": {
     "features_a_sha256": "1745ee38a76decca29315567655ef90b05b080c26e1743027bfffda47c20de33",
     "features_b_sha256": "37ba61c5f739a3a3189a4436de990e3864ff944c9928c5d061dd08f965dda0b7",

@@ -1,0 +1,30 @@
+schema_version: certgen.cvpr.model_adapter_capabilities.v1
+adapters:
+- adapter_id: diffusers_ddpm_pipeline
+  model_ids:
+  - google_ddpm_cifar10_candidate
+  - frank_ddpm_ema_cifar10_candidate
+  supports_batching: true
+  supports_generator_list: true
+  supports_class_conditioning: false
+  supports_prompt_batching: false
+  supports_scheduler_override: true
+  supports_mixed_precision: true
+  supports_resume: true
+  known_memory_risk: preflight_measurement_required
+  status: adapter_contract_fixture_validated_real_preflight_required
+  claim_allowed: false
+- adapter_id: cfm_candidate_preflight_only
+  model_ids:
+  - frank_cfm_cifar10_candidate
+  supports_batching: false
+  supports_generator_list: false
+  supports_class_conditioning: false
+  supports_prompt_batching: false
+  supports_scheduler_override: false
+  supports_mixed_precision: unknown_until_preflight
+  supports_resume: true
+  known_memory_risk: adapter_semantics_and_memory_unverified
+  status: blocked_real_adapter_preflight_required
+  claim_allowed: false
+claim_allowed: false

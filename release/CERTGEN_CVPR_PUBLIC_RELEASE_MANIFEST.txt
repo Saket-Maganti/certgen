@@ -1,0 +1,14 @@
+# Planning manifest; not a released package
+README.md
+pyproject.toml
+certgen/
+configs/cvpr/
+registry/cvpr/
+notebooks/kaggle/certgen_cvpr_*.ipynb
+tests/
+paper/
+docs/engineering/CERTGEN_CVPR_CANONICAL_ARCHITECTURE.md
+docs/engineering/CERTGEN_CVPR_CLI_REFERENCE.md
+CERTGEN_CVPR_COMPLETE_EXECUTION_AND_RUN_HANDBOOK.md
+LICENSE (required before release)
+CITATION.cff (required before release)

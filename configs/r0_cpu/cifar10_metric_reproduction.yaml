@@ -1,0 +1,14 @@
+audit_id: cifar10_r1_metric_reproduction
+metric: mmd_rbf
+reference_features:
+  npz: data/features/cifar10_r1/reference_inception.npz
+  sidecar: data/features/cifar10_r1/reference_inception.sidecar.json
+model_features:
+  npz: data/features/cifar10_r1/model_a_inception.npz
+  sidecar: data/features/cifar10_r1/model_a_inception.sidecar.json
+expected:
+  source: none
+sample_count: 50000
+seed: 0
+evidence_status: real_pilot_non_claim
+claim_allowed: false

@@ -1,0 +1,41 @@
+{
+  "all_scales": {
+    "10k": {
+      "checkpoint_preflight": "reuse 1k preflight unless checkpoints changed",
+      "cpu_certificate_pilot": "minutes",
+      "cpu_imports": "minutes, dominated by hashing",
+      "cpu_sanity_gates": "minutes",
+      "feature_extraction": "Inception 10-60 min; CLIP 30-120 min",
+      "generation": "1-8 hr/model planning estimate"
+    },
+    "1k": {
+      "checkpoint_preflight": "5-20 min on Kaggle T4x2",
+      "cpu_certificate_pilot": "seconds-minutes after gates pass",
+      "cpu_imports": "seconds-minutes",
+      "cpu_sanity_gates": "seconds-minutes",
+      "feature_extraction": "Inception 5-30 min; CLIP 10-45 min",
+      "generation": "30 min-3 hr total for three models on Kaggle T4x2"
+    },
+    "50k": {
+      "checkpoint_preflight": "reuse 1k preflight unless checkpoints changed",
+      "cpu_certificate_pilot": "minutes-tens of minutes",
+      "cpu_imports": "minutes-tens of minutes, dominated by hashing",
+      "cpu_sanity_gates": "minutes-tens of minutes",
+      "feature_extraction": "Inception 30-180 min; CLIP 1-6 hr",
+      "generation": "6-24+ hr/model planning estimate"
+    }
+  },
+  "claim_allowed": false,
+  "label": "planning estimates only, not empirical project results",
+  "no_fake_results": true,
+  "not_paper_evidence": true,
+  "planning_estimates": {
+    "checkpoint_preflight": "5-20 min on Kaggle T4x2",
+    "cpu_certificate_pilot": "seconds-minutes after gates pass",
+    "cpu_imports": "seconds-minutes",
+    "cpu_sanity_gates": "seconds-minutes",
+    "feature_extraction": "Inception 5-30 min; CLIP 10-45 min",
+    "generation": "30 min-3 hr total for three models on Kaggle T4x2"
+  },
+  "scale": "1k"
+}

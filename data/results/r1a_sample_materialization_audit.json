@@ -1,0 +1,92 @@
+{
+  "audit_name": "r1a_sample_materialization_audit",
+  "checks": [
+    {
+      "detail": "docs/R1A_CIFAR10_SAMPLE_MATERIALIZATION_POLICY.md",
+      "name": "r1a_policy_doc_exists",
+      "passed": true
+    },
+    {
+      "detail": "docs/CIFAR10_REFERENCE_MATERIALIZATION_R1A.md",
+      "name": "cifar10_reference_materialization_doc_exists",
+      "passed": true
+    },
+    {
+      "detail": "python -m certgen.data.build_cifar10_reference_manifest",
+      "name": "reference_manifest_builder_exists",
+      "passed": true
+    },
+    {
+      "detail": "docs/KAGGLE_T4X2_CIFAR10_GENERATION_R1A.md",
+      "name": "kaggle_generation_runbook_exists",
+      "passed": true
+    },
+    {
+      "detail": {
+        "FrankCCCCC/cfm-cifar10-32": {
+          "adapter_status": "ready_guarded_diffusers_ddpm_pipeline_per_model_card",
+          "expected_resolution": "32x32_rgb",
+          "note": "Flow-matching checkpoint uses DDPMPipeline per model card; execute mode remains a real-run validation gate.",
+          "pipeline_class": "DDPMPipeline"
+        },
+        "FrankCCCCC/ddpm_ema_cifar10": {
+          "adapter_status": "ready_guarded_diffusers_ddpm_pipeline",
+          "expected_resolution": "32x32_rgb",
+          "pipeline_class": "DDPMPipeline"
+        },
+        "google/ddpm-cifar10-32": {
+          "adapter_status": "ready_guarded_diffusers_ddpm_pipeline",
+          "expected_resolution": "32x32_rgb",
+          "pipeline_class": "DDPMPipeline"
+        }
+      },
+      "name": "generation_adapter_exists_or_blocked_status_documented",
+      "passed": true
+    },
+    {
+      "detail": "python -m certgen.generation.merge_sample_manifests",
+      "name": "manifest_merge_tool_exists",
+      "passed": true
+    },
+    {
+      "detail": "docs/R1A_CIFAR10_GENERATION_RUNTIME_ESTIMATES.md",
+      "name": "runtime_estimates_exist_and_are_planning_only",
+      "passed": true
+    },
+    {
+      "detail": "BLOCKED_MISSING_REFERENCE_SAMPLES",
+      "name": "r1_readiness_report_has_updated_blocker_taxonomy",
+      "passed": true
+    },
+    {
+      "detail": "no claim_allowed=true JSON artifacts",
+      "name": "no_claim_allowed_true",
+      "passed": true
+    },
+    {
+      "detail": "planning-only language present",
+      "name": "no_fake_empirical_results",
+      "passed": true
+    },
+    {
+      "detail": "no R1A certificate artifacts",
+      "name": "no_certificate_run_performed_for_r1a",
+      "passed": true
+    },
+    {
+      "detail": {
+        "kaggle_feature_extraction_ready": false,
+        "samples_missing": true
+      },
+      "name": "no_feature_extraction_claimed_if_samples_missing",
+      "passed": true
+    }
+  ],
+  "checks_passed": 12,
+  "checks_total": 12,
+  "claim_allowed": false,
+  "kaggle_feature_extraction_ready": false,
+  "kaggle_generation_ready": true,
+  "passed": true,
+  "r1_status_code": "BLOCKED_MISSING_REFERENCE_SAMPLES"
+}

@@ -1,0 +1,28 @@
+{
+  "claim_allowed": false,
+  "errors": [],
+  "expected_generated_count_per_model": 1000,
+  "expected_reference_count": 10000,
+  "generated_count": 0,
+  "image_policy": "manifest_paths",
+  "no_fake_results": true,
+  "not_paper_evidence": true,
+  "out_zip": "data/kaggle_inputs/certgen_cifar10_feature_extraction_1k_input.zip",
+  "package_type": "certgen_cifar10_feature_extraction_input",
+  "passed": false,
+  "reference_count": 0,
+  "roles": [
+    "reference",
+    "google_ddpm",
+    "frank_ddpm_ema",
+    "frank_cfm"
+  ],
+  "split_zip_policy": [
+    "reference.zip",
+    "generated_google_ddpm.zip",
+    "generated_frank_ddpm_ema.zip",
+    "generated_frank_cfm.zip",
+    "configs_and_manifests.zip"
+  ],
+  "status_code": "DRY_RUN"
+}

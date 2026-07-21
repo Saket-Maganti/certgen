@@ -1,0 +1,11 @@
+{
+  "claim_allowed": false,
+  "errors": [
+    "feature output ZIP missing: data/kaggle_outputs/certgen_cifar10_features_1k_outputs.zip"
+  ],
+  "no_fake_results": true,
+  "not_paper_evidence": true,
+  "passed": false,
+  "status_code": "BLOCKED_FEATURE_OUTPUT_ZIP_MISSING",
+  "zip_path": "data/kaggle_outputs/certgen_cifar10_features_1k_outputs.zip"
+}

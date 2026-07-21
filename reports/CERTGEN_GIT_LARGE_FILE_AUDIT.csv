@@ -1,0 +1,36 @@
+path,size_bytes,tracked,ignored,lfs_managed,classification,allowed_to_commit,reason
+.mypy_cache/3.11/cache.0.db,9297920,false,true,false,source_or_documentation,false,ignored generated artifact
+.mypy_cache/3.11/cache.1.db,9428992,false,true,false,source_or_documentation,false,ignored generated artifact
+.mypy_cache/3.11/cache.10.db,10522624,false,true,false,source_or_documentation,false,ignored generated artifact
+.mypy_cache/3.11/cache.11.db,10932224,false,true,false,source_or_documentation,false,ignored generated artifact
+.mypy_cache/3.11/cache.12.db,10432512,false,true,false,source_or_documentation,false,ignored generated artifact
+.mypy_cache/3.11/cache.13.db,8888320,false,true,false,source_or_documentation,false,ignored generated artifact
+.mypy_cache/3.11/cache.14.db,10149888,false,true,false,source_or_documentation,false,ignored generated artifact
+.mypy_cache/3.11/cache.15.db,8527872,false,true,false,source_or_documentation,false,ignored generated artifact
+.mypy_cache/3.11/cache.2.db,9404416,false,true,false,source_or_documentation,false,ignored generated artifact
+.mypy_cache/3.11/cache.3.db,9322496,false,true,false,source_or_documentation,false,ignored generated artifact
+.mypy_cache/3.11/cache.4.db,8445952,false,true,false,source_or_documentation,false,ignored generated artifact
+.mypy_cache/3.11/cache.5.db,10039296,false,true,false,source_or_documentation,false,ignored generated artifact
+.mypy_cache/3.11/cache.6.db,8941568,false,true,false,source_or_documentation,false,ignored generated artifact
+.mypy_cache/3.11/cache.7.db,7516160,false,true,false,source_or_documentation,false,ignored generated artifact
+.mypy_cache/3.11/cache.8.db,7991296,false,true,false,source_or_documentation,false,ignored generated artifact
+.mypy_cache/3.11/cache.9.db,8785920,false,true,false,source_or_documentation,false,ignored generated artifact
+cifar-10-python.tar.gz,170498071,false,true,false,raw_execution_input,false,raw/restricted execution data must remain local
+data/reference_materialized/6d958be074577803/cifar-10-batches-py/data_batch_1,31035704,false,true,false,raw_execution_input,false,raw/restricted execution data must remain local
+data/reference_materialized/6d958be074577803/cifar-10-batches-py/data_batch_2,31035320,false,true,false,raw_execution_input,false,raw/restricted execution data must remain local
+data/reference_materialized/6d958be074577803/cifar-10-batches-py/data_batch_3,31035999,false,true,false,raw_execution_input,false,raw/restricted execution data must remain local
+data/reference_materialized/6d958be074577803/cifar-10-batches-py/data_batch_4,31035696,false,true,false,raw_execution_input,false,raw/restricted execution data must remain local
+data/reference_materialized/6d958be074577803/cifar-10-batches-py/data_batch_5,31035623,false,true,false,raw_execution_input,false,raw/restricted execution data must remain local
+data/reference_materialized/6d958be074577803/cifar-10-batches-py/test_batch,31035526,false,true,false,raw_execution_input,false,raw/restricted execution data must remain local
+data/sources/cifar-10-python.tar.gz,170498071,false,true,false,raw_execution_input,false,raw/restricted execution data must remain local
+dist/certgen_cvpr_reproducibility.zip,1100263,false,true,false,generated_or_release_artifact,false,ignored generated artifact
+dist/certgen_execution_pass_20260721.zip,1107085,false,true,false,generated_or_release_artifact,false,ignored generated artifact
+dist/certgen_execution_pass_20260721_final.zip,1107103,false,true,false,generated_or_release_artifact,false,ignored generated artifact
+dist/certgen_execution_pass_20260721_final.zip.partial,1107143,false,true,false,generated_or_release_artifact,false,ignored generated artifact
+dist/certgen_execution_pass_20260721_final.zip.pre-final-cleanup,1107143,false,true,false,generated_or_release_artifact,false,ignored generated artifact
+dist/certgen_execution_pass_20260721_final.zip.stale,1107130,false,true,false,generated_or_release_artifact,false,ignored generated artifact
+dist/certgen_max_ceiling_pre_run.zip,1054231,false,true,false,generated_or_release_artifact,false,ignored generated artifact
+dist/quarantine/certgen_cvpr_reproducibility.20260721.manifest-collision.zip,1100235,false,true,false,generated_or_release_artifact,false,ignored generated artifact
+dist/quarantine/certgen_cvpr_reproducibility.20260721.orphaned-manifest.zip,1099990,false,true,false,generated_or_release_artifact,false,ignored generated artifact
+dist/quarantine/certgen_cvpr_reproducibility.20260721.private-path-rejected.zip,1100132,false,true,false,generated_or_release_artifact,false,ignored generated artifact
+registry/manifests/cvpr/cifar10_reference.jsonl,7640000,true,false,false,source_or_documentation,true,below the 90 MiB source-control gate

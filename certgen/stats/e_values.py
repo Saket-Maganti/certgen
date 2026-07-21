@@ -2,14 +2,15 @@
 
 The clean-core comparison stream estimates Delta_AB = d(A, R) - d(B, R) with
 per-unit values in a known bounded range. Testing whether a comparison is
-*decided* is the two-sided point-null test H0: E[Delta] = 0. The betting
-e-process used by :func:`certgen.stats.cs.betting_cs` evaluated at the single
-null mean is a genuine e-value (expectation <= 1 under H0), which is exactly the
-input required by e-BH multiplicity control across many comparisons.
+The betting process evaluated at one fixed null mean is a genuine e-value when
+the bounded stream satisfies ``E[Delta_t | F_{t-1}] = null_mean``.  Such a
+point-null e-value can be supplied to e-BH at a fixed, predeclared analysis time.
+It rejects equality only: it does not by itself certify a direction, a ranking,
+or globally stopped FDR control across dependent streams.
 
-These e-values are deliberately consistent with the confidence sequence: the
-terminal e-value crosses ``1 / alpha`` if and only if the betting CS excludes
-zero at the same budget, so the per-pair decision and the e-value agree.
+The finite-grid interval in :mod:`certgen.stats.cs` is experimental and has a
+separate unresolved continuum-inversion obligation.  No equivalence between
+that interval and this point-null e-value is asserted.
 """
 
 from __future__ import annotations
@@ -32,7 +33,9 @@ def _scaled_null(values: list[float], config: CSConfig, null_mean: float) -> tup
         raise ValueError("at least one stream value is required for an e-value")
     if not np.all(np.isfinite(arr)):
         raise ValueError("stream values must be finite")
-    scaled = np.clip((arr - config.lower_bound) / width, 0.0, 1.0)
+    if np.any(arr < config.lower_bound) or np.any(arr > config.upper_bound):
+        raise ValueError("stream value outside provided bounds")
+    scaled = (arr - config.lower_bound) / width
     return scaled, q0
 
 
@@ -64,7 +67,11 @@ def betting_e_value(values: list[float], config: CSConfig, null_mean: float = 0.
 
 
 def e_value_decided(e_value: float, alpha: float) -> bool:
-    """A comparison is decided at level alpha iff its e-value reaches 1 / alpha."""
+    """Legacy name: whether the point null is rejected at level ``alpha``.
+
+    ``True`` must not be relabelled as a directional certificate without a
+    separately valid directional confidence sequence or one-sided test.
+    """
 
     validate_alpha(alpha)
     return float(e_value) >= 1.0 / alpha

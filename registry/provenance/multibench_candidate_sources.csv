@@ -1,0 +1,6 @@
+benchmark,source_type,sample_availability,license,expected_compute,feature_extractors,metric_reproduction_availability,risk,status
+CIFAR-10,image,user_provided,check_required,low,inception;clip,pilot_only,reference_missing,blocked_until_reference
+FFHQ_CelebA_HQ,image,public_or_user_provided,license_review_required,medium,inception;clip,unknown,license_and_samples,planning_only
+ImageNet_64_256,image,user_or_public,license_review_required,high,inception;clip,unknown,compute_scale,later_scale
+LSUN,image,public_or_user_provided,license_review_required,high,inception;clip,unknown,domain_scope,optional
+video_FVD,video,not_ready,license_review_required,very_high,fvd_features,unknown,method_scope,stretch_only

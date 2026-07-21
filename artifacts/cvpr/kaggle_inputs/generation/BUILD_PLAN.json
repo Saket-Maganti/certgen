@@ -1,0 +1,15 @@
+{
+  "builder": "python3 -m certgen kaggle build-input --stage generation --scale 1k --study artifacts/cvpr/study/cifar_integrity_minimal.yaml",
+  "claim_allowed": false,
+  "current_boundary": "kaggle_diagnostic",
+  "fake_zip_created": false,
+  "required_inputs": [
+    "validated and materialized CIFAR-10 reference",
+    "frozen cifar_integrity_minimal study and 1k reference draw",
+    "imported real Kaggle preflight PASS with validated private asset manifests"
+  ],
+  "scale": "1k",
+  "schema_version": "certgen.phase1.blocked_kaggle_build_plan.v1",
+  "stage": "generation",
+  "status": "BLOCKED_REAL_STAGE_INPUTS_REQUIRED"
+}

@@ -6,6 +6,8 @@ import numpy as np
 
 
 def allocate_alpha(alpha: float, num_comparisons: int, policy: str) -> dict:
+    if not (0.0 < float(alpha) < 1.0):
+        raise ValueError("alpha must be in (0, 1)")
     if num_comparisons <= 0:
         raise ValueError("num_comparisons must be positive")
     if policy == "bonferroni":
@@ -39,8 +41,10 @@ def e_bh(e_values: list[float], alpha: float) -> dict:
         k* = max { k : e_(k) >= K / (alpha * k) }
 
     over the descending-sorted e-values e_(1) >= ... >= e_(K). This controls FDR
-    at level alpha under *arbitrary dependence* between the e-values -- which is
-    exactly the regime here, because every comparison shares one reference set.
+    at level alpha under arbitrary dependence between valid input e-values.
+    This function is a fixed-analysis-time multiplicity operator.  It does not
+    establish that locally stopped e-processes remain valid under a stopping
+    time chosen from the global, dependent multi-comparison filtration.
     """
 
     if not (0.0 < float(alpha) < 1.0):
@@ -66,6 +70,9 @@ def e_bh(e_values: list[float], alpha: float) -> dict:
         "num_rejections": int(k_star),
         "rejected_indices": rejected,
         "fdr_controlled_under_arbitrary_dependence": True,
+        "validity_scope": "fixed_predeclared_analysis_time_with_valid_marginal_evalues",
+        "global_optional_stopping_supported": False,
+        "directional_fdr_supported": False,
         "claim_allowed": False,
     }
 
@@ -75,8 +82,8 @@ def audit_comparisons_with_fdr(comparisons: list[dict], alpha: float) -> dict:
 
     ``comparisons`` is a list of dicts with at least ``comparison_id`` and
     ``e_value`` (terminal betting e-value for the point null Delta = 0). Returns a
-    per-comparison decided/undecided table plus the undecided fraction -- the
-    headline audit number -- with multiplicity handled by e-BH.
+    per-comparison point-null rejection table.  Rejection means evidence against
+    exact equality; it is not a directional certificate or ranking edge.
     """
 
     if not comparisons:
@@ -92,7 +99,8 @@ def audit_comparisons_with_fdr(comparisons: list[dict], alpha: float) -> dict:
                 "comparison_id": comparison.get("comparison_id", f"comparison_{index}"),
                 "e_value": float(comparison["e_value"]),
                 "decided_under_fdr": bool(decided),
-                "status": "decided" if decided else "undecided_at_budget",
+                "point_null_rejected_under_fdr": bool(decided),
+                "status": "point_null_rejected" if decided else "point_null_not_rejected_at_budget",
             }
         )
     num = len(comparisons)
@@ -105,6 +113,9 @@ def audit_comparisons_with_fdr(comparisons: list[dict], alpha: float) -> dict:
         "decided_fraction": float(decided_n / num),
         "undecided_fraction": float((num - decided_n) / num),
         "multiplicity_policy": "e_bh",
+        "estimand_scope": "point_null_mean_difference_equals_zero",
+        "directional_claim_supported": False,
+        "global_optional_stopping_supported": False,
         "comparisons": table,
         "claim_allowed": False,
         "labels": ["not_paper_claim", "requires_real_runs_and_scaling"],

@@ -1,0 +1,8 @@
+stage,minimum,maximum,unit,measurement_class,claim_allowed
+environment_diagnostic,5,20,minutes,PLANNING_ESTIMATE_NOT_MEASURED,false
+checkpoint_preflight,20,60,minutes,PLANNING_ESTIMATE_NOT_MEASURED,false
+two_model_1k_generation,45,180,minutes,PLANNING_ESTIMATE_NOT_MEASURED,false
+all_role_inception_clip_extraction,45,180,minutes,PLANNING_ESTIMATE_NOT_MEASURED,false
+kaggle_packaging_per_stage,5,25,minutes,PLANNING_ESTIMATE_NOT_MEASURED,false
+local_import_per_returned_zip,2,20,minutes,PLANNING_ESTIMATE_NOT_MEASURED,false
+complete_first_1k_pilot,5,10,hours,PLANNING_ESTIMATE_NOT_MEASURED,false

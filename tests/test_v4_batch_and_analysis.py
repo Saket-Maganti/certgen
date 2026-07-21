@@ -1,3 +1,5 @@
+import pytest
+
 from certgen.analysis.decidedness import build_decidedness_audit
 from certgen.analysis.ranking_stability import build_ranking_stability
 from certgen.certs.batch_certificate import run_batch_certificates
@@ -59,3 +61,31 @@ def test_v4_multiplicity_and_dependence_helpers():
     )
     assert warnings["a"]
     assert warnings["b"]
+
+
+def test_batch_bonferroni_counts_pairs_times_metrics(tmp_path):
+    features = make_v2_feature_fixtures(tmp_path / "features", seed=9)
+    config = {
+        "alpha": 0.05,
+        "alpha_policy": "bonferroni",
+        "budget_units": 8,
+        "method": "hoeffding",
+        "metrics": ["mmd_rbf", "cmmd_clip_mmd"],
+        "comparisons": [
+            {
+                "comparison_id": "c1",
+                "features_a": features["model_a_close"],
+                "features_b": features["model_b_far"],
+                "features_r": features["reference"],
+            },
+            {
+                "comparison_id": "c2",
+                "features_a": features["model_equal_1"],
+                "features_b": features["model_equal_2"],
+                "features_r": features["reference"],
+            },
+        ],
+    }
+    batch = run_batch_certificates(config, tmp_path / "batch.json", tmp_path / "batch.md")
+    assert batch["multiple_comparison_policy"]["family_size"] == 4
+    assert batch["multiple_comparison_policy"]["alpha_used"] == pytest.approx(0.0125)

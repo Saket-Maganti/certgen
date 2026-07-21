@@ -1,0 +1,38 @@
+schema_version: certgen.cvpr.metric_reproduction_config.v1
+gate_id: TBD_REAL_RUN_REQUIRED
+run_id: TBD_REAL_RUN_REQUIRED
+reference_cache:
+  features: TBD_VALIDATED_CACHE_V2_NPZ
+  sidecar: TBD_VALIDATED_CACHE_V2_SIDECAR
+  artifact_root: TBD_IMMUTABLE_IMPORT_ROOT
+  array_sha256: TBD_REAL_RUN_REQUIRED
+  ordered_sample_ids_sha256: TBD_REAL_RUN_REQUIRED
+  sample_count: 1000
+  role: reference
+generated_cache:
+  features: TBD_VALIDATED_CACHE_V2_NPZ
+  sidecar: TBD_VALIDATED_CACHE_V2_SIDECAR
+  artifact_root: TBD_IMMUTABLE_IMPORT_ROOT
+  array_sha256: TBD_REAL_RUN_REQUIRED
+  ordered_sample_ids_sha256: TBD_REAL_RUN_REQUIRED
+  sample_count: 1000
+  role: generated
+metric:
+  name: unbiased_mmd2
+  convention: unbiased_u_statistic_full_pairwise
+  feature_extractor_hash: TBD_REAL_RUN_REQUIRED
+  preprocessing_hash: TBD_REAL_RUN_REQUIRED
+  kernel:
+    name: rbf
+    normalize: l2
+    gamma: 0.5
+target:
+  class: cross_implementation_consistency
+  implementation_id: TBD_INDEPENDENT_IMPLEMENTATION
+  provenance: TBD_TARGET_VALUE_PROVENANCE
+  value: null
+  tolerance_abs: 1.0e-10
+  tolerance_rel: 1.0e-8
+evidence_class: sanity_artifact
+claim_allowed: false
+configuration_hash: TBD_FREEZE_WITH_CERTGEN_CONFIGURATION_HASH

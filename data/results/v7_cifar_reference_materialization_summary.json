@@ -1,0 +1,9 @@
+{
+  "status": "blocked",
+  "detected_path": null,
+  "layout": "unsupported_or_no_cifar10_data_found",
+  "blocker_code": "BLOCKED_MISSING_REFERENCE_SAMPLES",
+  "counts": {},
+  "claim_allowed": false,
+  "evidence_status": "NO_REAL_EVIDENCE"
+}

@@ -57,3 +57,15 @@ def test_clip_stream_metadata():
     assert clipped.metadata["num_clipped_low"] == 1
     assert clipped.metadata["num_clipped_high"] == 1
     assert clipped.metadata["fraction_clipped"] == 0.5
+
+
+def test_certified_rbf_stream_freezes_bandwidth_and_rejects_invalid_gamma():
+    rng = np.random.default_rng(4)
+    arrays = [rng.normal(size=(12, 8)) for _ in range(3)]
+    stream = mmd_difference_stream(*arrays, {"name": "rbf", "normalize": "l2"})
+    assert stream.metadata["kernel_config"]["gamma"] == 0.5
+    assert stream.metadata["bandwidth_protocol"] == "fixed_unit_sphere_gamma_0.5_v1"
+    assert stream.lower_bound == -3.0
+    assert stream.upper_bound == 3.0
+    with pytest.raises(ValueError, match="not certified-bounded|gamma"):
+        mmd_difference_stream(*arrays, {"name": "rbf", "normalize": "l2", "gamma": -1.0})

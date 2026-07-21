@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import numpy as np
 
-from certgen.metrics.kernels import kernel_matrix, polynomial_kernel, rbf_kernel
+from certgen.metrics.kernels import kernel_matrix
 
 
 def _as_2d_float(array: np.ndarray) -> np.ndarray:

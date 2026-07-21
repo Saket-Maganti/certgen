@@ -24,7 +24,7 @@ def _comparison(metric_name="mmd_rbf"):
 def test_negative_delta_stream_certifies_a_status_in_smoke_mode():
     cert = make_decision_certificate(
         _comparison(),
-        [-0.95] * 64,
+        [-3.0] * 64,
         0.05,
         64,
         metric_record_from_registry("mmd_rbf"),
@@ -37,7 +37,7 @@ def test_negative_delta_stream_certifies_a_status_in_smoke_mode():
 def test_positive_delta_stream_certifies_b_status_in_smoke_mode():
     cert = make_decision_certificate(
         _comparison(),
-        [0.95] * 64,
+        [3.0] * 64,
         0.05,
         64,
         metric_record_from_registry("cmmd_clip_mmd"),

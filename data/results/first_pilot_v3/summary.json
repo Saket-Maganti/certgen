@@ -16,7 +16,9 @@
       "feature_cache_valid": true
     }
   ],
-  "evidence_status": "real_pilot_non_claim",
+  "evidence_boundary_reason": "input path or sidecar identifies smoke, fixture, or synthetic provenance",
+  "evidence_status": "synthetic_only",
+  "input_evidence_class": "synthetic_only",
   "mode": "real_features",
   "paper_claim_allowed": false,
   "pilot_id": "smoke_pilot_v3",

@@ -44,6 +44,9 @@ def polynomial_kernel(x: np.ndarray, y: np.ndarray, *, degree: int = 3, gamma: f
 def rbf_kernel(x: np.ndarray, y: np.ndarray, *, gamma: float | None = None) -> np.ndarray:
     x, y = _validate_pair(x, y)
     gamma = gamma if gamma is not None else 1.0 / max(1, x.shape[1])
+    gamma = float(gamma)
+    if not np.isfinite(gamma) or gamma <= 0.0:
+        raise ValueError("RBF gamma must be finite and strictly positive")
     x_norm = np.sum(x * x, axis=1)[:, None]
     y_norm = np.sum(y * y, axis=1)[None, :]
     distances = np.maximum(x_norm + y_norm - 2.0 * x @ y.T, 0.0)
@@ -68,7 +71,14 @@ def kernel_matrix(x: np.ndarray, y: np.ndarray, kernel_config: dict | None = Non
             coef0=float(kernel_config.get("coef0", 1.0)),
         )
     if name in {"rbf", "mmd_rbf"}:
-        return rbf_kernel(x, y, gamma=kernel_config.get("gamma"))
+        gamma = kernel_config.get("gamma")
+        if gamma is None and normalize in {True, "l2", "unit", "unit_l2"}:
+            # Unit-normalized features have squared distances in [0, 4], so an
+            # inverse-feature-dimension default collapses toward a constant
+            # kernel for high-dimensional CLIP/Inception features.  This fixed
+            # value is data-independent and therefore can be preregistered.
+            gamma = 0.5
+        return rbf_kernel(x, y, gamma=gamma)
     raise ValueError(f"unsupported kernel: {name}")
 
 
@@ -76,15 +86,27 @@ def certified_kernel_bounds(kernel_config: dict | None = None) -> dict:
     kernel_config = kernel_config or {"name": "rbf", "normalize": "l2"}
     name = kernel_config.get("name") or kernel_config.get("kernel") or "polynomial"
     if name in {"rbf", "mmd_rbf", "cmmd_clip_mmd"}:
+        gamma = kernel_config.get("gamma")
+        if gamma is not None and (not np.isfinite(float(gamma)) or float(gamma) <= 0.0):
+            return {
+                "kernel_name": "rbf",
+                "bounded_by_construction": False,
+                "reason": "RBF gamma must be finite and strictly positive",
+            }
         return {
             "kernel_name": "rbf",
             "feature_normalization": kernel_config.get("normalize") or "l2",
+            "gamma": None if gamma is None else float(gamma),
+            "bandwidth_protocol": kernel_config.get("bandwidth_protocol", "unspecified"),
             "kernel_lower": 0.0,
             "kernel_upper": 1.0,
             "mmd_contribution_lower": -2.0,
             "mmd_contribution_upper": 2.0,
-            "delta_lower": -4.0,
-            "delta_upper": 4.0,
+            # The implementation uses the same reference pair for A and B, so
+            # k(R1, R2) cancels exactly.  Three [0,1] terms enter positively and
+            # three negatively in each difference contribution.
+            "delta_lower": -3.0,
+            "delta_upper": 3.0,
             "bounded_by_construction": True,
         }
     return {

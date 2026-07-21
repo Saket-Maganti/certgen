@@ -1,0 +1,8 @@
+task_id,priority,owner,location,input,output,dependency,CPU_or_GPU,planning_runtime,evidence_produced,claim_permission,completion_test
+CVPR-RUN-001,P0,user/researcher,local,official local CIFAR-10 source,validated reference onramp,none,CPU,minutes,cache artifact only,false,REFERENCE_SOURCE_VALID
+CVPR-RUN-002,P1,researcher,Kaggle,preflight package,preflight ZIP,reference materialized,T4x2,5-30 minutes,run log,false,all per-model preflights pass and import validates
+CVPR-RUN-003,P1,researcher,Kaggle,validated preflight,1k generation ZIP,CVPR-RUN-002,T4x2,30 minutes-3 hours,pilot sample artifact,false,all deterministic shards pass
+CVPR-RUN-004,P1,researcher,Kaggle,reference+generation package,Inception/CLIP/DINO caches,CVPR-RUN-003,T4x2,5-60 minutes per extractor,cache artifact,false,cache-v2 validation passes
+CVPR-RUN-005,P1,researcher,local,validated caches and frozen family,sanity+pilot certificates+partial ranking,CVPR-RUN-004,CPU,minutes,sanity and pilot artifacts,false,stop-and-interpret gate reached
+CVPR-RUN-006,P3,research team,multi-benchmark,successful pilot decision,credible CVPR evidence matrix,explicit scale-up approval,mixed,days-weeks,candidate paper evidence,separate gate only,multi-benchmark immutable lineage and paper firewall pass
+CVPR-NOBUILD-001,REJECTED,none,none,idea only,none,none,none,none,none,false,"do not build web dashboards, video pipelines, FID certificates, complex e-BH, or another prompt-pack version before pilot"

@@ -1,0 +1,25 @@
+ablations:
+- alpha
+- maximum_budget
+- bandwidth
+- bandwidth_selection_protocol
+- reference_split
+- reference_sampling
+- feature_space
+- normalization
+- preprocessing
+- Bonferroni_family_size
+- model_pair_family
+- seed_partition
+- scale_1k_10k_50k
+- resume_boundary
+- synthetic_dependence_violation
+negative_controls:
+- null_pairs
+- same_checkpoint_independent_seeds
+- identical_cached_features
+- corrupted_manifests
+- mixed_preprocessing_rejection
+- mixed_reference_rejection
+status: planning_only
+claim_allowed: false

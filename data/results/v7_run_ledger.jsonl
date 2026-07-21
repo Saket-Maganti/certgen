@@ -1,0 +1,1 @@
+{"blocker_code": "BLOCKED_MISSING_REFERENCE_SAMPLES", "claim_allowed": false, "command": "autodetect_cifar10_root", "evidence_status": "NO_REAL_EVIDENCE", "hashes": {}, "inputs": [], "notes": "No CIFAR root provided in local data", "outputs": [], "run_log_only": true, "stage": "reference", "status": "blocked", "timestamp": "2026-07-09T08:26:58.118773+00:00"}

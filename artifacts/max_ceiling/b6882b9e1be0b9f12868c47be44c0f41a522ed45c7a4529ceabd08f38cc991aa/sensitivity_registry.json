@@ -1,0 +1,98 @@
+{
+  "claim_allowed": false,
+  "confirmatory_family_inflation_prohibited": true,
+  "frozen_before_results": true,
+  "lanes": [
+    {
+      "classification": "PRIMARY",
+      "factor": "feature_space",
+      "frozen": true,
+      "lane_id": "primary_feature_spaces",
+      "values": [
+        "inception",
+        "clip"
+      ]
+    },
+    {
+      "classification": "PRIMARY",
+      "factor": "rbf_bandwidth_rule",
+      "frozen": true,
+      "lane_id": "primary_rbf_bandwidth",
+      "values": [
+        "prospectively_fixed_unit_sphere_gamma_0.5_v1"
+      ]
+    },
+    {
+      "classification": "SECONDARY_CONFIRMATORY",
+      "factor": "bounded_support",
+      "frozen": true,
+      "lane_id": "support_bound",
+      "values": [
+        "[-3,3]_mmd_difference"
+      ]
+    },
+    {
+      "classification": "SENSITIVITY",
+      "factor": "reference_seed",
+      "frozen": true,
+      "lane_id": "reference_draw_seeds",
+      "values": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "classification": "SENSITIVITY",
+      "factor": "model_generation_seed",
+      "frozen": true,
+      "lane_id": "generation_seeds",
+      "values": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "classification": "SECONDARY_CONFIRMATORY",
+      "factor": "sample_budget",
+      "frozen": true,
+      "lane_id": "sample_budgets",
+      "values": [
+        1000,
+        10000,
+        50000
+      ]
+    },
+    {
+      "classification": "SENSITIVITY",
+      "factor": "deterministic_corruption_severity",
+      "frozen": true,
+      "lane_id": "corruption_severity",
+      "values": [
+        "fixed_obvious_gap_v1"
+      ]
+    },
+    {
+      "classification": "EXPLORATORY",
+      "factor": "extractor_normalization",
+      "frozen": true,
+      "lane_id": "normalization",
+      "values": [
+        "registry_locked",
+        "optional_l2_sensitivity"
+      ]
+    },
+    {
+      "classification": "INVALID_FOR_CLAIM",
+      "factor": "outcome_dependent_lane_addition",
+      "frozen": true,
+      "lane_id": "posthoc_family_growth",
+      "values": [
+        "prohibited"
+      ]
+    }
+  ],
+  "schema_version": "certgen.maximum_ceiling.sensitivity.v1",
+  "study_hash": "b6882b9e1be0b9f12868c47be44c0f41a522ed45c7a4529ceabd08f38cc991aa"
+}

@@ -5,6 +5,8 @@
     "adjusted_for_multiplicity": true,
     "alpha_used": 0.025,
     "claim_allowed": false,
+    "family_definition": "cartesian product of predeclared comparisons and metrics in this batch",
+    "family_size": 2,
     "policy": "bonferroni"
   },
   "rows": [
@@ -14,8 +16,8 @@
       "alpha_used": 0.025,
       "claim_allowed": false,
       "comparison_id": "v4_smoke_a_close_vs_b_far",
-      "cs_lower": -1.1159977680000002,
-      "cs_upper": 0.6839986319999998,
+      "cs_lower": -1.15499769,
+      "cs_upper": 0.21599956799999998,
       "decision": "undecided",
       "dependence_warning": [
         "feature cache reused: data/smoke/v4/audit/features/reference.npz",
@@ -33,8 +35,8 @@
       "alpha_used": 0.025,
       "claim_allowed": false,
       "comparison_id": "v4_smoke_equal_models",
-      "cs_lower": -0.895998208,
-      "cs_upper": 0.8999981999999997,
+      "cs_lower": -0.671998656,
+      "cs_upper": 0.6779986439999997,
       "decision": "undecided",
       "dependence_warning": [
         "feature cache reused: data/smoke/v4/audit/features/reference.npz",

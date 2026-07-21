@@ -1,0 +1,21 @@
+schema_version: certgen.cvpr.family_registry.v1
+families:
+- family_id: cvpr_primary_cifar10
+  analysis_scope: all registered primary model pairs x 3 feature spaces x registered
+    budgets under one prospective interpretation
+  benchmark: cifar10
+  feature_space: separate_feature_specific_families_required_before_freeze
+  metric: rbf_mmd
+  kernel: rbf
+  bandwidth: gamma_0.5_fixed
+  model_pairs:
+  - checkpoint_variant
+  - cross_family
+  alpha_total: 0.05
+  number_of_hypotheses: TBD_EXACT_CARTESIAN_FREEZE
+  alpha_per_hypothesis: TBD_AFTER_FREEZE
+  status: planning_only_not_frozen
+  preregistered_at: null
+  configuration_hash: TBD_AFTER_FREEZE
+  claim_allowed: false
+claim_allowed: false

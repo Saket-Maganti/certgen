@@ -33,33 +33,45 @@ def make_clean_metric_certificate(
         raise ValueError("clean metric certificates require a bounded stream")
     require_bounded_stream(stream)
     result = confidence_sequence(stream.values, config)
-    decision = decision_from_interval(result.lower, result.upper)
+    chosen_state = result.states[-1]
+    decision = "not_decided_at_budget"
+    if result.time_uniform:
+        for state in result.states:
+            candidate = decision_from_interval(float(state["lower"]), float(state["upper"]))
+            if candidate != "not_decided_at_budget":
+                chosen_state = state
+                decision = candidate
+                break
+    sample_units_seen = int(chosen_state["n"])
+    limitations = [
+        "NO_REAL_EVIDENCE",
+        "R0 clean-core certificate path over bounded kernel-derived streams",
+        "Claim export remains blocked until real provenance and registry gates pass",
+    ]
+    if not result.time_uniform:
+        limitations.append("METHOD_NOT_CERTIFICATE_CAPABLE: unresolved time-uniform proof obligation")
     return DecisionCertificate(
         metric_label=stream.metric_label,
         comparison_id=stream.comparison_id,
         alpha=config.alpha,
         method_label=result.method_label,
         time_uniform=result.time_uniform,
-        sample_units_seen=result.sample_units_seen,
+        sample_units_seen=sample_units_seen,
         budget_units=result.budget_units,
-        mean_estimate=result.mean_estimate,
-        lower=result.lower,
-        upper=result.upper,
+        mean_estimate=float(chosen_state["mean"]),
+        lower=float(chosen_state["lower"]),
+        upper=float(chosen_state["upper"]),
         decision=decision,
         evidence_status=stream.evidence_status,
         theory_status=result.theory_status,
         boundedness_metadata=stream.metadata.get("boundedness_metadata", {}),
         created_at=utc_now_iso(),
         feature_hashes=feature_hashes or {},
-        stream_hash=stable_hash_json(stream.values),
+        stream_hash=stable_hash_json(stream.values[:sample_units_seen]),
         command_provenance=command_provenance or {},
         software_version="0.2.0",
         claim_allowed=False,
-        limitations=[
-            "NO_REAL_EVIDENCE",
-            "R0 clean-core certificate path over bounded kernel-derived streams",
-            "Claim export remains blocked until real provenance and registry gates pass",
-        ],
+        limitations=limitations,
     )
 
 

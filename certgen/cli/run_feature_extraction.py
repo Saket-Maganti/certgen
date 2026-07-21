@@ -10,7 +10,6 @@ to evidence is a separate cache-validation and metric-reproduction gate.
 from __future__ import annotations
 
 import argparse
-from pathlib import Path
 
 from certgen.core.io import read_json, write_json
 from certgen.features.extractors import EXTRACTORS

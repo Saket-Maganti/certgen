@@ -1,0 +1,3 @@
+# CertGen CVPR Maximum Research Ceiling
+
+The strongest honest identity is a visual generative-model evaluation audit producing optional-stopping-valid pairwise decisions and partial rankings, not a new metric or general theorem. Pilot-only work demonstrates execution. A minimum CVPR study needs multiple recognizable model families, at least two credible image benchmarks, three representations, controls, baselines, visual panels, sensitivity, and a frozen claim audit. A strong study additionally needs stable cross-benchmark findings and a material practical consequence. Video is optional only after the image core succeeds.

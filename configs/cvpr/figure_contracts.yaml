@@ -1,0 +1,98 @@
+figures:
+- figure_id: headline_partial_ranking
+  figure_type: headline_partial_ranking
+  approved_input_artifacts:
+  - TBD_PAPER_APPROVED_ARTIFACT_ID
+  schema: certgen.cvpr.figure_request.v1
+  configuration_hash: TBD_REAL_RUN_REQUIRED
+  claim_gate_status: BLOCKED_NO_PAPER_EVIDENCE
+  output_path: paper/figures/headline_partial_ranking.pdf
+  caption_metadata:
+    status: placeholder
+  limitations:
+  - TBD_REAL_RUN_REQUIRED
+- figure_id: anytime_trajectory
+  figure_type: anytime_trajectory
+  approved_input_artifacts:
+  - TBD_PAPER_APPROVED_ARTIFACT_ID
+  schema: certgen.cvpr.figure_request.v1
+  configuration_hash: TBD_REAL_RUN_REQUIRED
+  claim_gate_status: BLOCKED_NO_PAPER_EVIDENCE
+  output_path: paper/figures/anytime_trajectory.pdf
+  caption_metadata:
+    status: placeholder
+  limitations:
+  - TBD_REAL_RUN_REQUIRED
+- figure_id: decidedness_vs_budget
+  figure_type: decidedness_vs_budget
+  approved_input_artifacts:
+  - TBD_PAPER_APPROVED_ARTIFACT_ID
+  schema: certgen.cvpr.figure_request.v1
+  configuration_hash: TBD_REAL_RUN_REQUIRED
+  claim_gate_status: BLOCKED_NO_PAPER_EVIDENCE
+  output_path: paper/figures/decidedness_vs_budget.pdf
+  caption_metadata:
+    status: placeholder
+  limitations:
+  - TBD_REAL_RUN_REQUIRED
+- figure_id: samples_to_decision
+  figure_type: samples_to_decision
+  approved_input_artifacts:
+  - TBD_PAPER_APPROVED_ARTIFACT_ID
+  schema: certgen.cvpr.figure_request.v1
+  configuration_hash: TBD_REAL_RUN_REQUIRED
+  claim_gate_status: BLOCKED_NO_PAPER_EVIDENCE
+  output_path: paper/figures/samples_to_decision.pdf
+  caption_metadata:
+    status: placeholder
+  limitations:
+  - TBD_REAL_RUN_REQUIRED
+- figure_id: protocol_sensitivity
+  figure_type: protocol_sensitivity
+  approved_input_artifacts:
+  - TBD_PAPER_APPROVED_ARTIFACT_ID
+  schema: certgen.cvpr.figure_request.v1
+  configuration_hash: TBD_REAL_RUN_REQUIRED
+  claim_gate_status: BLOCKED_NO_PAPER_EVIDENCE
+  output_path: paper/figures/protocol_sensitivity.pdf
+  caption_metadata:
+    status: placeholder
+  limitations:
+  - TBD_REAL_RUN_REQUIRED
+- figure_id: compute_savings
+  figure_type: compute_savings
+  approved_input_artifacts:
+  - TBD_PAPER_APPROVED_ARTIFACT_ID
+  schema: certgen.cvpr.figure_request.v1
+  configuration_hash: TBD_REAL_RUN_REQUIRED
+  claim_gate_status: BLOCKED_NO_PAPER_EVIDENCE
+  output_path: paper/figures/compute_savings.pdf
+  caption_metadata:
+    status: placeholder
+  limitations:
+  - TBD_REAL_RUN_REQUIRED
+- figure_id: visual_model_pair_gallery
+  figure_type: visual_model_pair_gallery
+  approved_input_artifacts:
+  - TBD_PAPER_APPROVED_ARTIFACT_ID
+  schema: certgen.cvpr.figure_request.v1
+  configuration_hash: TBD_REAL_RUN_REQUIRED
+  claim_gate_status: BLOCKED_NO_PAPER_EVIDENCE
+  output_path: paper/figures/visual_model_pair_gallery.pdf
+  caption_metadata:
+    status: placeholder
+  limitations:
+  - TBD_REAL_RUN_REQUIRED
+- figure_id: controlled_failure_gallery
+  figure_type: controlled_failure_gallery
+  approved_input_artifacts:
+  - TBD_PAPER_APPROVED_ARTIFACT_ID
+  schema: certgen.cvpr.figure_request.v1
+  configuration_hash: TBD_REAL_RUN_REQUIRED
+  claim_gate_status: BLOCKED_NO_PAPER_EVIDENCE
+  output_path: paper/figures/controlled_failure_gallery.pdf
+  caption_metadata:
+    status: placeholder
+  limitations:
+  - TBD_REAL_RUN_REQUIRED
+claim_allowed: false

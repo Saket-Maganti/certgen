@@ -1,0 +1,218 @@
+{
+  "audit_name": "CERTGEN_CVPR_REAL_EXECUTION_CLOSURE_LOCAL_AUDIT",
+  "checks": {
+    "blocked_honest_next_action": {
+      "detail": {
+        "CPU_or_GPU": "GPU",
+        "action": "RUN_KAGGLE_ENVIRONMENT_DIAGNOSTIC",
+        "blocker": "WAITING_FOR_KAGGLE_DIAGNOSTIC",
+        "canonical_handbook": "CERTGEN_CVPR_100_PERCENT_PRE_RUN_EXECUTION_HANDBOOK.md",
+        "claim_allowed": false,
+        "claim_permission": false,
+        "cpu_or_gpu": "GPU",
+        "cwd": ".",
+        "estimated_runtime": "5-20 minutes planning estimate",
+        "evidence_allowed": false,
+        "evidence_class": "run_log_only",
+        "exact_command": "Upload artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip and run notebooks/kaggle/certgen_kaggle_environment_diagnostic_t4x2.ipynb on GPU T4 x2",
+        "execution_location": "Kaggle T4x2",
+        "expected_input": "artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip",
+        "expected_output": "certgen_kaggle_environment_diagnostic_output.zip",
+        "expected_output_artifact": "data/kaggle_returns/diagnostic",
+        "failure_recovery": "Preserve immutable inputs and logs; correct only the failing gate, then rerun the same canonical command.",
+        "input": "artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip",
+        "input_artifact_ids": [],
+        "input_paths": [
+          "artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip"
+        ],
+        "kaggle_or_local": "Kaggle T4x2",
+        "legacy_compatibility": "LEGACY_COMPATIBILITY_ONLY_NOT_CANONICAL_GUIDANCE",
+        "location": "Kaggle",
+        "network_policy": "KAGGLE_INTERNET_ON_INSTALL; no model-asset network access",
+        "network_requirement": "KAGGLE_INTERNET_ON_INSTALL; no model-asset network access",
+        "no_fake_results": true,
+        "not_paper_evidence": true,
+        "notebook_path": "notebooks/kaggle/certgen_kaggle_environment_diagnostic_t4x2.ipynb",
+        "planning_runtime": "5-20 minutes planning estimate",
+        "reason": "The reference, frozen study, and registered draw are ready; the two-GPU environment diagnostic is the first unresolved external boundary.",
+        "status": "KAGGLE_DIAGNOSTIC_REQUIRED",
+        "success_validator": "CUDA_VISIBLE_DEVICES=\"\" CERTGEN_CPU_ONLY=1 python3 scripts/run_all_available_cpu_stages.py --resume --explain"
+      },
+      "passed": true
+    },
+    "complete_stage_machine": {
+      "detail": "18/18",
+      "passed": true
+    },
+    "current_state_taxonomy": {
+      "detail": "WAITING_FOR_KAGGLE_DIAGNOSTIC",
+      "passed": true
+    },
+    "no_claim_allowed_true_json": {
+      "detail": "none",
+      "passed": true
+    },
+    "notebook_static_contract": {
+      "detail": {
+        "claim_allowed": false,
+        "fixture_runtime_required": true,
+        "passed": true,
+        "real_run_required": true,
+        "results": [
+          {
+            "claim_allowed": false,
+            "errors": [],
+            "passed": true,
+            "path": "notebooks/kaggle/certgen_cvpr_checkpoint_preflight_t4x2.ipynb",
+            "real_kaggle_tested": false,
+            "static_only": true
+          },
+          {
+            "claim_allowed": false,
+            "errors": [],
+            "passed": true,
+            "path": "notebooks/kaggle/certgen_cvpr_cifar10_generation_t4x2_1k.ipynb",
+            "real_kaggle_tested": false,
+            "static_only": true
+          },
+          {
+            "claim_allowed": false,
+            "errors": [],
+            "passed": true,
+            "path": "notebooks/kaggle/certgen_cvpr_generation_t4x2_generic.ipynb",
+            "real_kaggle_tested": false,
+            "static_only": true
+          },
+          {
+            "claim_allowed": false,
+            "errors": [],
+            "passed": true,
+            "path": "notebooks/kaggle/certgen_cvpr_feature_extraction_t4x2_1k.ipynb",
+            "real_kaggle_tested": false,
+            "static_only": true
+          },
+          {
+            "claim_allowed": false,
+            "errors": [],
+            "passed": true,
+            "path": "notebooks/kaggle/certgen_cvpr_feature_extraction_t4x2_generic.ipynb",
+            "real_kaggle_tested": false,
+            "static_only": true
+          }
+        ],
+        "static_only": true
+      },
+      "passed": true
+    },
+    "paper_firewall": {
+      "detail": [],
+      "passed": true
+    },
+    "registries": {
+      "detail": {
+        "checks": [
+          {
+            "claim_allowed": false,
+            "errors": [],
+            "passed": true,
+            "path": "registry/cvpr/benchmark_registry.yaml",
+            "rows": 6
+          },
+          {
+            "claim_allowed": false,
+            "errors": [],
+            "passed": true,
+            "path": "registry/cvpr/model_registry.yaml",
+            "rows": 11
+          },
+          {
+            "claim_allowed": false,
+            "errors": [],
+            "passed": true,
+            "path": "registry/cvpr/feature_space_registry.yaml",
+            "rows": 3
+          },
+          {
+            "claim_allowed": false,
+            "errors": [],
+            "passed": true,
+            "path": "registry/cvpr/model_adapter_capabilities.yaml",
+            "rows": 2
+          },
+          {
+            "claim_allowed": false,
+            "errors": [],
+            "passed": true,
+            "path": "registry/cvpr/comparison_registry.csv",
+            "rows": 10
+          },
+          {
+            "claim_allowed": false,
+            "errors": [],
+            "passed": true,
+            "path": "registry/cvpr/published_claim_registry.csv",
+            "rows": 0
+          },
+          {
+            "claim_allowed": false,
+            "computed_configuration_hash": "4ea35f2e8c522521cf642b553bef4dbfe169388d52440f1aa8a899d52ffa0092",
+            "declared_configuration_hash": "TBD_FREEZE_WITH_CERTGEN",
+            "errors": [],
+            "frozen": false,
+            "passed": true,
+            "path": "configs/cvpr/certgen_cvpr_preregistration_template.yaml"
+          }
+        ],
+        "claim_allowed": false,
+        "passed": true
+      },
+      "passed": true
+    },
+    "required_deliverables": {
+      "detail": "all present",
+      "passed": true
+    }
+  },
+  "checks_passed": 8,
+  "checks_total": 8,
+  "claim_allowed": false,
+  "exact_next_action": {
+    "CPU_or_GPU": "GPU",
+    "action": "RUN_KAGGLE_ENVIRONMENT_DIAGNOSTIC",
+    "blocker": "WAITING_FOR_KAGGLE_DIAGNOSTIC",
+    "canonical_handbook": "CERTGEN_CVPR_100_PERCENT_PRE_RUN_EXECUTION_HANDBOOK.md",
+    "claim_allowed": false,
+    "claim_permission": false,
+    "cpu_or_gpu": "GPU",
+    "cwd": ".",
+    "estimated_runtime": "5-20 minutes planning estimate",
+    "evidence_allowed": false,
+    "evidence_class": "run_log_only",
+    "exact_command": "Upload artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip and run notebooks/kaggle/certgen_kaggle_environment_diagnostic_t4x2.ipynb on GPU T4 x2",
+    "execution_location": "Kaggle T4x2",
+    "expected_input": "artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip",
+    "expected_output": "certgen_kaggle_environment_diagnostic_output.zip",
+    "expected_output_artifact": "data/kaggle_returns/diagnostic",
+    "failure_recovery": "Preserve immutable inputs and logs; correct only the failing gate, then rerun the same canonical command.",
+    "input": "artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip",
+    "input_artifact_ids": [],
+    "input_paths": [
+      "artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip"
+    ],
+    "kaggle_or_local": "Kaggle T4x2",
+    "legacy_compatibility": "LEGACY_COMPATIBILITY_ONLY_NOT_CANONICAL_GUIDANCE",
+    "location": "Kaggle",
+    "network_policy": "KAGGLE_INTERNET_ON_INSTALL; no model-asset network access",
+    "network_requirement": "KAGGLE_INTERNET_ON_INSTALL; no model-asset network access",
+    "no_fake_results": true,
+    "not_paper_evidence": true,
+    "notebook_path": "notebooks/kaggle/certgen_kaggle_environment_diagnostic_t4x2.ipynb",
+    "planning_runtime": "5-20 minutes planning estimate",
+    "reason": "The reference, frozen study, and registered draw are ready; the two-GPU environment diagnostic is the first unresolved external boundary.",
+    "status": "KAGGLE_DIAGNOSTIC_REQUIRED",
+    "success_validator": "CUDA_VISIBLE_DEVICES=\"\" CERTGEN_CPU_ONLY=1 python3 scripts/run_all_available_cpu_stages.py --resume --explain"
+  },
+  "not_empirical_evidence": true,
+  "passed": true,
+  "top_level_status": "WAITING_FOR_KAGGLE_DIAGNOSTIC"
+}

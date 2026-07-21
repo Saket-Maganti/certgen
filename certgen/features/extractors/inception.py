@@ -38,7 +38,13 @@ class InceptionV3Pool3Extractor(FeatureExtractor):
         mean, std = _NORMALIZATION.get(str(preprocessing.get("normalization", "inception")), _NORMALIZATION["inception"])
         interpolation = getattr(transforms.InterpolationMode, interp_name)
 
-        model = inception_v3(weights=Inception_V3_Weights.IMAGENET1K_V1, aux_logits=True)
+        weights = Inception_V3_Weights.IMAGENET1K_V1
+        model = inception_v3(weights=weights, aux_logits=True)
+        self.resolved_model_id = "torchvision/inception_v3"
+        self.resolved_model_revision = "Inception_V3_Weights.IMAGENET1K_V1"
+        self.resolved_weights_id = weights.name
+        self.resolved_weights_url = weights.url
+        self.resolved_license_status = "unknown"
         model.fc = torch.nn.Identity()
         model.eval().to(device)
 

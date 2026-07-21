@@ -1,0 +1,95 @@
+{
+  "baseline": {
+    "branch": "master",
+    "head": "bff335aa648fd19e2fa7e3cfea293a6ca519a68b"
+  },
+  "boundary": "kaggle_diagnostic",
+  "canonical_next_action": {
+    "CPU_or_GPU": "CPU",
+    "action": "PREPARE_PREFLIGHT_CONFIG",
+    "blocker": null,
+    "canonical_handbook": "CERTGEN_CVPR_100_PERCENT_PRE_RUN_EXECUTION_HANDBOOK.md",
+    "claim_allowed": false,
+    "claim_permission": false,
+    "cpu_or_gpu": "CPU",
+    "cwd": ".",
+    "estimated_runtime": "seconds-minutes",
+    "evidence_allowed": false,
+    "evidence_class": "planning_only",
+    "exact_command": "python3 -m certgen prepare preflight",
+    "execution_location": "local",
+    "expected_input": "model/feature registries plus explicit asset policy and license approvals",
+    "expected_output": "artifacts/cvpr/preflight/preflight_config.yaml",
+    "expected_output_artifact": "artifacts/cvpr/preflight/preflight_config.yaml",
+    "failure_recovery": "Preserve immutable inputs and logs; correct only the failing gate, then rerun the same canonical command.",
+    "input": "model/feature registries plus explicit asset policy and license approvals",
+    "input_artifact_ids": [],
+    "input_paths": [
+      "model/feature registries plus explicit asset policy and license approvals"
+    ],
+    "kaggle_or_local": "local",
+    "legacy_compatibility": "LEGACY_COMPATIBILITY_ONLY_NOT_CANONICAL_GUIDANCE",
+    "location": "CPU",
+    "network_policy": "explicit choice required",
+    "network_requirement": "explicit choice required",
+    "no_fake_results": true,
+    "not_paper_evidence": true,
+    "notebook_path": null,
+    "planning_runtime": "seconds-minutes",
+    "reason": "The canonical CIFAR reference manifest is materialized.",
+    "status": "PREFLIGHT_CONFIG_REQUIRED",
+    "success_validator": "python3 -m certgen audit registries"
+  },
+  "captured_utc": "2026-07-20T18:33:26.716107Z",
+  "cifar_present": true,
+  "cifar_source": "data/sources/cifar-10-python.tar.gz",
+  "claim_allowed": false,
+  "cpu_only": true,
+  "diagnostic_imported": false,
+  "exact_next_action": "Upload artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip and run notebooks/kaggle/certgen_kaggle_environment_diagnostic_t4x2.ipynb on GPU T4 x2",
+  "exit_code": 11,
+  "kaggle_inventory": {
+    "bundles": [
+      {
+        "errors": [],
+        "exists": true,
+        "path": "artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip",
+        "sha256": "52ac34e50dcc8bbb2b719bdf61c4137ec4b725e9e6d7ec1b95bece33c38ce7f4",
+        "stage": "diagnostic",
+        "valid": true
+      },
+      {
+        "errors": [],
+        "exists": true,
+        "path": "artifacts/cvpr/kaggle_inputs/preflight/certgen_cvpr_preflight_input.zip",
+        "sha256": "ffe1540c54628dc01fbe80e4b38bcd73d56225f30062505c37affd293167e433",
+        "stage": "preflight",
+        "valid": true
+      },
+      {
+        "blocked_plan": true,
+        "exists": false,
+        "path": "artifacts/cvpr/kaggle_inputs/generation",
+        "stage": "generation",
+        "valid": null
+      },
+      {
+        "blocked_plan": true,
+        "exists": false,
+        "path": "artifacts/cvpr/kaggle_inputs/features",
+        "stage": "features",
+        "valid": null
+      }
+    ],
+    "claim_allowed": false,
+    "schema_version": "certgen.phase1.kaggle_inventory.v1"
+  },
+  "known_local_defect": null,
+  "next_notebook": "notebooks/kaggle/certgen_kaggle_environment_diagnostic_t4x2.ipynb",
+  "phase1_status": "PHASE1_COMPLETE_WAITING_FOR_KAGGLE_DIAGNOSTIC",
+  "preflight_imported": false,
+  "reference_materialized": true,
+  "repository": ".",
+  "schema_version": "certgen.phase1.state.v1",
+  "updated_utc": "2026-07-21T09:13:52.978265Z"
+}

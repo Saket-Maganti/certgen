@@ -1,0 +1,6 @@
+benchmark,source_url,license,released_real_data,released_generated_samples,checkpoints,sample_count,feature_extraction_difficulty,expected_gpu_time,metric_reproduction_feasibility,reviewer_recognizability,status
+CIFAR-10,https://www.cs.toronto.edu/~kriz/cifar.html,reference license explicit required,yes,checkpoint generation pending,DDPM/CFM,1k pilot pending,low,T4x2 feature extraction,pending,high,current_blocked
+FFHQ/CelebA-HQ 256,dataset-specific,verify before use,likely,unknown,multiple GAN/diffusion candidates,unknown,medium,T4x2 likely,unknown,high,blocked_waiting_for_cifar_results
+ImageNet 64/128/256,dataset-specific,verify before use,yes,some released samples,class-conditional candidates,large,high,T4x2/heavier,unknown,high,blocked_waiting_for_cifar_results
+LSUN category,dataset-specific,verify before use,yes,unknown,category models,unknown,medium,T4x2 likely,unknown,medium,optional_waiting_for_cifar_results
+Video/FVD,dataset-specific,verify before use,varies,unknown,video generators,heavy,very_high,not selected,unknown,medium,stretch_only

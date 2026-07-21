@@ -3,7 +3,7 @@ from pathlib import Path
 from certgen.cli.plan_first_pilot import write_first_pilot_plan
 from certgen.cli.validate_registry import validate_registry
 from certgen.gates.claim_gate import scan_text_for_forbidden_claims
-from certgen.pilots.registry import plan_first_pilot_markdown, read_csv_rows
+from certgen.pilots.registry import read_csv_rows
 
 
 def test_registry_csv_templates_parse_and_validate():

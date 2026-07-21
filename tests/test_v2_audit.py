@@ -6,6 +6,7 @@ import pytest
 from certgen.audit.v2_audit import run_v2_audit
 
 
+@pytest.mark.integration_audit
 def test_v2_audit_runs_and_writes_outputs(tmp_path):
     if os.environ.get("CERTGEN_SKIP_V2_AUDIT_TEST") == "1":
         pytest.skip("skip recursive audit test inside V2 audit subprocess")

@@ -25,8 +25,8 @@ def test_bounded_kernel_streams_respect_declared_bounds_and_block_size():
     unblocked = mmd_difference_stream(a, b, r, {"name": "rbf", "normalize": "l2"}, seed=3, metric_label="mmd_rbf")
     blocked = mmd_difference_stream(a, b, r, {"name": "rbf", "normalize": "l2"}, seed=3, metric_label="mmd_rbf", block_size=5)
     assert unblocked.bounded is True
-    assert unblocked.lower_bound == -4.0
-    assert unblocked.upper_bound == 4.0
+    assert unblocked.lower_bound == -3.0
+    assert unblocked.upper_bound == 3.0
     assert all(unblocked.lower_bound <= value <= unblocked.upper_bound for value in unblocked.values)
     assert len(blocked.values) < len(unblocked.values)
     assert blocked.metadata["block_size"] == 5
@@ -57,7 +57,7 @@ def test_betting_cs_deterministic_and_null_not_decided():
     assert _first_decision_n(first.states) is None
 
 
-def test_obvious_gap_betting_decides_faster_than_union_hoeffding():
+def test_betting_grid_is_powerful_but_not_claim_capable():
     values = [-0.8] * 80
     betting = confidence_sequence(values, CSConfig(alpha=0.05, budget_units=80, lower_bound=-1, upper_bound=1, method="betting"))
     hoeffding = confidence_sequence(values, CSConfig(alpha=0.05, budget_units=80, lower_bound=-1, upper_bound=1, method="hoeffding"))
@@ -66,6 +66,9 @@ def test_obvious_gap_betting_decides_faster_than_union_hoeffding():
     assert betting_n is not None
     assert hoeffding_n is not None
     assert betting_n < hoeffding_n
+    assert betting.time_uniform is False
+    assert "continuum_coverage_unresolved" in betting.theory_status
+    assert hoeffding.time_uniform is True
 
 
 def test_claim_allowed_false_for_smoke_template_and_pilot_outputs(tmp_path):

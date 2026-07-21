@@ -137,7 +137,16 @@ def run_v2_audit(*, out: str | Path, json_out: str | Path) -> dict[str, Any]:
     except Exception as exc:
         add("heavy_dependencies_optional_lazy", False, str(exc))
 
-    add("no_gpu_command_in_tests", "cuda" not in " ".join(path.read_text(encoding="utf-8").lower() for path in Path("tests").glob("test_*.py")), "tests do not invoke GPU/CUDA")
+    try:
+        test_text = "\n".join(path.read_text(encoding="utf-8").lower() for path in Path("tests").glob("test_*.py"))
+        gpu_execution_markers = ["torch.cuda", "cuda().", "to('cuda')", 'to("cuda")']
+        add(
+            "no_gpu_command_in_tests",
+            not any(marker in test_text for marker in gpu_execution_markers),
+            "tests may mention CUDA policy strings but do not execute GPU/CUDA code",
+        )
+    except Exception as exc:
+        add("no_gpu_command_in_tests", False, str(exc))
 
     handoff = Path("docs/V2_SINGLE_FILE_HANDOFF.md")
     if handoff.exists():

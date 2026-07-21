@@ -1,0 +1,55 @@
+kind: preflight
+run_id: cifar10__checkpoint-preflight__tiny__none__TBD_CONFIG_HASH__TBD_TIMESTAMP
+mode: force_new_run
+asset_policy: ONLINE_PREFLIGHT_DOWNLOAD
+internet_enabled: true
+network_allowed: true
+environment_profile: kaggle_t4x2_preflight
+required_disk_bytes: TBD_FROM_ASSET_PLAN
+requested_gpu_count: 2
+allow_single_gpu_fallback: false
+tiny_images_per_model: 2
+models:
+  - model_id: google_ddpm_cifar10_candidate
+    checkpoint_or_sample_source: google/ddpm-cifar10-32
+    revision: 267b167dc01f0e4e61923ea244e8b988f84deb80
+    preflight_seed: 1000
+    preflight_steps: 2
+  - model_id: frank_ddpm_ema_cifar10_candidate
+    checkpoint_or_sample_source: FrankCCCCC/ddpm_ema_cifar10
+    revision: 6aa387f240fbb00d0e003f93a3b994f56dd98dc2
+    preflight_seed: 2000
+    preflight_steps: 2
+  - model_id: frank_cfm_cifar10_candidate
+    checkpoint_or_sample_source: FrankCCCCC/cfm-cifar10-32
+    revision: b3f30358497e11ce5011c00614c9b0521262f51c
+    preflight_seed: 3000
+    preflight_steps: 2
+assets:
+  - asset_id: google_ddpm_cifar10_candidate__asset
+    model_or_extractor_id: google_ddpm_cifar10_candidate
+    revision: 267b167dc01f0e4e61923ea244e8b988f84deb80
+    source: google/ddpm-cifar10-32
+    license: TBD_MANUAL_APPROVAL
+    authentication_required: false
+    policy: ONLINE_PREFLIGHT_DOWNLOAD
+    expected_files: [model_index.json, scheduler/scheduler_config.json, unet/config.json, unet/diffusion_pytorch_model.safetensors]
+  - asset_id: frank_ddpm_ema_cifar10_candidate__asset
+    model_or_extractor_id: frank_ddpm_ema_cifar10_candidate
+    revision: 6aa387f240fbb00d0e003f93a3b994f56dd98dc2
+    source: FrankCCCCC/ddpm_ema_cifar10
+    license: TBD_MANUAL_APPROVAL
+    authentication_required: false
+    policy: ONLINE_PREFLIGHT_DOWNLOAD
+    expected_files: [model_index.json, scheduler/scheduler_config.json, unet/config.json, unet/diffusion_pytorch_model.safetensors]
+  - asset_id: frank_cfm_cifar10_candidate__asset
+    model_or_extractor_id: frank_cfm_cifar10_candidate
+    revision: b3f30358497e11ce5011c00614c9b0521262f51c
+    source: FrankCCCCC/cfm-cifar10-32
+    license: TBD_MANUAL_APPROVAL
+    authentication_required: false
+    policy: ONLINE_PREFLIGHT_DOWNLOAD
+    expected_files: TBD_PREFLIGHT_FILE_INVENTORY_AFTER_ADAPTER_REVIEW
+evidence_class: non_evidence_preflight
+claim_allowed: false
+configuration_hash: TBD_FREEZE_AFTER_LICENSE_AUTH_AND_NETWORK_REVIEW

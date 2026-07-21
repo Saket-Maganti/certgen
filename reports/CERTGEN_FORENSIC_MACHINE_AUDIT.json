@@ -1,0 +1,57 @@
+{
+  "audit_is_empirical_evidence": false,
+  "audit_name": "CERTGEN_FORENSIC_REPOSITORY_COHERENCE_AUDIT",
+  "checks": [
+    {
+      "detail": "all present",
+      "name": "required_consolidated_artifacts_exist",
+      "passed": true
+    },
+    {
+      "detail": "none",
+      "name": "no_machine_readable_claim_allowed_true",
+      "passed": true
+    },
+    {
+      "detail": "reports/CERTGEN_CURRENT_STATE.json",
+      "name": "current_state_is_valid_json",
+      "passed": true
+    },
+    {
+      "detail": "LOCAL_RESEARCH_CORE_VALID_BLOCKED_BY_REFERENCE_INPUT",
+      "name": "one_recognized_top_level_status",
+      "passed": true
+    },
+    {
+      "detail": false,
+      "name": "current_state_blocks_empirical_claims",
+      "passed": true
+    },
+    {
+      "detail": {
+        "action": "VALIDATE_USER_SUPPLIED_CIFAR10_ARCHIVE",
+        "exact_command": "python3 -m certgen validate reference --source data/sources/cifar-10-python.tar.gz --explain",
+        "expected_artifact": "data/results/v9_cifar_reference_onramp.json",
+        "success_status": "READY_FOR_LOCAL_CIFAR_REFERENCE_MATERIALIZATION",
+        "user_input_path": "data/sources/cifar-10-python.tar.gz"
+      },
+      "name": "singular_executable_next_action",
+      "passed": true
+    },
+    {
+      "detail": "passed",
+      "name": "metric_capability_boundary_is_conservative",
+      "passed": true
+    },
+    {
+      "detail": "passed",
+      "name": "claim_evidence_ledger_has_no_promoted_claim",
+      "passed": true
+    }
+  ],
+  "checks_passed": 8,
+  "checks_total": 8,
+  "claim_allowed": false,
+  "passed": true,
+  "project_status": "LOCAL_RESEARCH_CORE_VALID_BLOCKED_BY_REFERENCE_INPUT"
+}

@@ -14,20 +14,19 @@ CertGen frames model comparison as a decision problem. Given released samples or
 reproducible feature caches, a reference set, a preprocessing lock, and a metric
 stream, it asks whether the optional-stopping-safe uncertainty interval for the
 paired discrepancy $\Delta_{AB}=d(A,R)-d(B,R)$ excludes zero before the sample
-budget is exhausted. Validity is provided by a betting confidence sequence on the
-bounded per-block stream, so the decision survives continuous monitoring; the
-same e-process yields an e-value per comparison, and e-BH controls the false
-discovery rate across an entire leaderboard under the arbitrary dependence
-induced by a shared reference set. Two outputs follow naturally: a
+budget is exhausted. The current claim-capable implementation uses a
+time-uniform union-Hoeffding sequence on non-overlapping bounded RBF-MMD
+contributions and Bonferroni correction for a prospectively declared comparison
+family. Two outputs follow naturally: a
 \emph{samples-to-decision} number (how cheaply a real win can be certified, i.e.,
 a compute-savings story for evaluation) and a leaderboard \emph{audit} (what
 fraction of reported wins are statistically decided at the budgets actually
 used).
 
 CertGen is a decision layer, not a new metric, and the statistics are borrowed
-rather than invented. It separates clean-core metrics with bounded streamable
-estimators (MMD, CMMD) from descriptive metrics such as FID and FD-DINOv2, and it
+rather than invented. It separates the implemented bounded RBF-MMD stream from
+descriptive metrics such as FID, polynomial KID, and FD-DINOv2, and it
 gates every claim behind a provenance ledger, a preprocessing lock, and a
 reproduction check so that an audit on real benchmarks is defensible. The
 empirical audit sentence is reserved for claim-eligible real runs:
-TBD\_REAL\_RUN\_REQUIRED.
+\texttt{TBD\_REAL\_RUN\_REQUIRED}.

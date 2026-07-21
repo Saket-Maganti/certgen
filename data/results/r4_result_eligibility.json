@@ -1,0 +1,11 @@
+{
+  "blockers": [
+    "No real pilot/full output has passed result eligibility and claim gates."
+  ],
+  "claim_allowed": false,
+  "eligible_for_paper_injection": false,
+  "figures_updated": [],
+  "passed": true,
+  "status_code": "NO_ELIGIBLE_PAPER_OUTPUTS",
+  "tables_updated": []
+}

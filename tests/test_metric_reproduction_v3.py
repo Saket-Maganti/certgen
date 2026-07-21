@@ -1,8 +1,10 @@
 import numpy as np
+import pytest
 
 from certgen.audit.metric_reproduction import run_metric_reproduction_audit
 from certgen.core.hashing import file_sha256
 from certgen.core.io import write_json
+from certgen.metrics.mmd import unbiased_mmd2
 
 
 def _cache(tmp_path, name, arr):
@@ -67,3 +69,30 @@ def test_metric_reproduction_mismatch_and_fid_descriptive(tmp_path):
     result = run_metric_reproduction_audit(config, tmp_path / "out.md", tmp_path / "out.json")
     assert result["fid_descriptive_only"] is True
     assert result["rigorous_certification_supported"] is False
+
+
+def test_mmd_rbf_reproduction_matches_certificate_l2_convention(tmp_path):
+    reference = np.array([[1.0, 0.0], [2.0, 0.0], [3.0, 0.0], [4.0, 0.0]])
+    model = np.array([[1.0, 1.0], [2.0, 1.0], [3.0, 1.0], [4.0, 1.0]])
+    ref_npz, ref_json = _cache(tmp_path, "ref", reference)
+    model_npz, model_json = _cache(tmp_path, "model", model)
+    expected = unbiased_mmd2(model, reference, kernel="rbf", normalize="l2")
+    unnormalised = unbiased_mmd2(model, reference, kernel="rbf")
+    assert expected != pytest.approx(unnormalised)
+
+    config = tmp_path / "cfg.json"
+    write_json(
+        {
+            "metric": "mmd_rbf",
+            "reference_features": {"npz": str(ref_npz), "sidecar": str(ref_json)},
+            "model_features": {"npz": str(model_npz), "sidecar": str(model_json)},
+            "expected": {"source": "internal_fixture", "value": expected, "tolerance_abs": 1e-12},
+            "sample_count": 4,
+        },
+        config,
+    )
+
+    result = run_metric_reproduction_audit(config, tmp_path / "out.md", tmp_path / "out.json")
+
+    assert result["computed_value"] == pytest.approx(expected)
+    assert result["within_tolerance"] is True

@@ -1,0 +1,8 @@
+{
+  "claim_allowed": false,
+  "csv_out": "registry/multibench/benchmark_availability_r3.csv",
+  "passed": true,
+  "reason": "CIFAR-10 pilot has not produced real gated results yet.",
+  "selected_next_benchmark": null,
+  "status_code": "BLOCKED_WAITING_FOR_CIFAR_RESULTS"
+}

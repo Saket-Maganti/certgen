@@ -19,10 +19,11 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--budget-units", type=int, required=True)
     parser.add_argument("--clip-lower", type=float, default=None, help="Legacy ignored flag; certified bounds come from the kernel.")
     parser.add_argument("--clip-upper", type=float, default=None, help="Legacy ignored flag; certified bounds come from the kernel.")
-    parser.add_argument("--method", default="betting", choices=["betting", "hoeffding", "empirical_bernstein"])
+    parser.add_argument("--method", default="hoeffding", choices=["hoeffding", "betting", "empirical_bernstein"])
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--block-size", type=int, default=None)
     parser.add_argument("--metric-reproduction-audit", default=None)
+    parser.add_argument("--reference-draw-plan", default=None)
     parser.add_argument("--out", required=True)
     parser.add_argument("--evidence-status", default="smoke_only")
     parser.add_argument("--kernel-config-json", default=None)
@@ -41,6 +42,7 @@ def main(argv: list[str] | None = None) -> int:
             "seed": args.seed,
             "block_size": args.block_size,
             "metric_reproduction_audit": args.metric_reproduction_audit,
+            "reference_draw_plan": args.reference_draw_plan,
         },
         comparison_id=args.comparison_id,
         evidence_status=args.evidence_status,

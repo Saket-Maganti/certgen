@@ -45,7 +45,7 @@ class CSConfig:
     budget_units: int
     lower_bound: float
     upper_bound: float
-    method: str = "betting"
+    method: str = "hoeffding"
     seed: int = 0
 
 

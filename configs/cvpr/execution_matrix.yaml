@@ -1,0 +1,706 @@
+schema_version: certgen.cvpr.execution_matrix.v1
+estimate_label: planning estimate; hardware-dependent; not an empirical project result
+runs:
+- run_id_template: <benchmark>__local_validation__preflight__<feature>__<hash>__<timestamp>
+  benchmark: config_driven
+  model: registry_driven
+  feature_space: registry_driven
+  scale: preflight
+  stage: local_validation
+  class: Class A
+  CPU_GPU: CPU
+  location: local
+  expected_input: compilation/tests/audits
+  expected_output: reports/CERTGEN_CVPR_FINAL_AUDIT.json
+  prerequisite: none
+  priority: P0
+  runtime_estimate: seconds to minutes
+  memory_estimate: hardware-dependent planning estimate
+  resumability: hash-bound per-shard where applicable
+  evidence_class: planning_only
+  claim_allowed: false
+- run_id_template: <benchmark>__reference_materialization__preflight__<feature>__<hash>__<timestamp>
+  benchmark: config_driven
+  model: registry_driven
+  feature_space: registry_driven
+  scale: preflight
+  stage: reference_materialization
+  class: Class B
+  CPU_GPU: CPU
+  location: local
+  expected_input: user-provided reference
+  expected_output: reference manifest
+  prerequisite: valid source
+  priority: P0
+  runtime_estimate: minutes
+  memory_estimate: hardware-dependent planning estimate
+  resumability: hash-bound per-shard where applicable
+  evidence_class: planning_only
+  claim_allowed: false
+- run_id_template: <benchmark>__checkpoint_preflight__preflight__<feature>__<hash>__<timestamp>
+  benchmark: config_driven
+  model: registry_driven
+  feature_space: registry_driven
+  scale: preflight
+  stage: checkpoint_preflight
+  class: Class C
+  CPU_GPU: T4x2
+  location: Kaggle
+  expected_input: preflight input ZIP
+  expected_output: preflight output ZIP
+  prerequisite: reference materialized
+  priority: P1
+  runtime_estimate: 5-30 minutes
+  memory_estimate: hardware-dependent planning estimate
+  resumability: hash-bound per-shard where applicable
+  evidence_class: planning_only
+  claim_allowed: false
+- run_id_template: <benchmark>__local_validation__1k__<feature>__<hash>__<timestamp>
+  benchmark: config_driven
+  model: registry_driven
+  feature_space: registry_driven
+  scale: 1k
+  stage: local_validation
+  class: Class A
+  CPU_GPU: CPU
+  location: local
+  expected_input: compilation/tests/audits
+  expected_output: reports/CERTGEN_CVPR_FINAL_AUDIT.json
+  prerequisite: none
+  priority: P0
+  runtime_estimate: seconds to minutes
+  memory_estimate: hardware-dependent planning estimate
+  resumability: hash-bound per-shard where applicable
+  evidence_class: planning_only
+  claim_allowed: false
+- run_id_template: <benchmark>__reference_materialization__1k__<feature>__<hash>__<timestamp>
+  benchmark: config_driven
+  model: registry_driven
+  feature_space: registry_driven
+  scale: 1k
+  stage: reference_materialization
+  class: Class B
+  CPU_GPU: CPU
+  location: local
+  expected_input: user-provided reference
+  expected_output: reference manifest
+  prerequisite: valid source
+  priority: P0
+  runtime_estimate: minutes
+  memory_estimate: hardware-dependent planning estimate
+  resumability: hash-bound per-shard where applicable
+  evidence_class: planning_only
+  claim_allowed: false
+- run_id_template: <benchmark>__checkpoint_preflight__1k__<feature>__<hash>__<timestamp>
+  benchmark: config_driven
+  model: registry_driven
+  feature_space: registry_driven
+  scale: 1k
+  stage: checkpoint_preflight
+  class: Class C
+  CPU_GPU: T4x2
+  location: Kaggle
+  expected_input: preflight input ZIP
+  expected_output: preflight output ZIP
+  prerequisite: reference materialized
+  priority: P1
+  runtime_estimate: 5-30 minutes
+  memory_estimate: hardware-dependent planning estimate
+  resumability: hash-bound per-shard where applicable
+  evidence_class: planning_only
+  claim_allowed: false
+- run_id_template: <benchmark>__generation_1k__1k__<feature>__<hash>__<timestamp>
+  benchmark: config_driven
+  model: registry_driven
+  feature_space: registry_driven
+  scale: 1k
+  stage: generation_1k
+  class: Class D
+  CPU_GPU: T4x2
+  location: Kaggle
+  expected_input: validated preflight
+  expected_output: generation ZIP
+  prerequisite: preflight imported
+  priority: P1
+  runtime_estimate: 30 minutes-3 hours
+  memory_estimate: hardware-dependent planning estimate
+  resumability: hash-bound per-shard where applicable
+  evidence_class: planning_only
+  claim_allowed: false
+- run_id_template: <benchmark>__features_1k__1k__<feature>__<hash>__<timestamp>
+  benchmark: config_driven
+  model: registry_driven
+  feature_space: registry_driven
+  scale: 1k
+  stage: features_1k
+  class: Class E
+  CPU_GPU: T4x2
+  location: Kaggle
+  expected_input: reference+generation package
+  expected_output: feature ZIP
+  prerequisite: generation imported
+  priority: P1
+  runtime_estimate: 5-60 minutes per extractor planning range
+  memory_estimate: hardware-dependent planning estimate
+  resumability: hash-bound per-shard where applicable
+  evidence_class: planning_only
+  claim_allowed: false
+- run_id_template: <benchmark>__import_validation__1k__<feature>__<hash>__<timestamp>
+  benchmark: config_driven
+  model: registry_driven
+  feature_space: registry_driven
+  scale: 1k
+  stage: import_validation
+  class: Class F
+  CPU_GPU: CPU
+  location: local
+  expected_input: copied-back ZIPs
+  expected_output: hash-addressed imports
+  prerequisite: ZIP copied back
+  priority: P1
+  runtime_estimate: seconds-tens of minutes
+  memory_estimate: hardware-dependent planning estimate
+  resumability: hash-bound per-shard where applicable
+  evidence_class: planning_only
+  claim_allowed: false
+- run_id_template: <benchmark>__metric_sanity__1k__<feature>__<hash>__<timestamp>
+  benchmark: config_driven
+  model: registry_driven
+  feature_space: registry_driven
+  scale: 1k
+  stage: metric_sanity
+  class: Class G
+  CPU_GPU: CPU
+  location: local
+  expected_input: validated caches
+  expected_output: gate results
+  prerequisite: caches validated
+  priority: P1
+  runtime_estimate: seconds-minutes
+  memory_estimate: hardware-dependent planning estimate
+  resumability: hash-bound per-shard where applicable
+  evidence_class: planning_only
+  claim_allowed: false
+- run_id_template: <benchmark>__certificate_pilot__1k__<feature>__<hash>__<timestamp>
+  benchmark: config_driven
+  model: registry_driven
+  feature_space: registry_driven
+  scale: 1k
+  stage: certificate_pilot
+  class: Class H
+  CPU_GPU: CPU
+  location: local
+  expected_input: frozen family+features
+  expected_output: pilot certificates
+  prerequisite: sanity pass
+  priority: P1
+  runtime_estimate: seconds-minutes
+  memory_estimate: hardware-dependent planning estimate
+  resumability: hash-bound per-shard where applicable
+  evidence_class: planning_only
+  claim_allowed: false
+- run_id_template: <benchmark>__ranking_sensitivity__1k__<feature>__<hash>__<timestamp>
+  benchmark: config_driven
+  model: registry_driven
+  feature_space: registry_driven
+  scale: 1k
+  stage: ranking_sensitivity
+  class: Class I
+  CPU_GPU: CPU
+  location: local
+  expected_input: compatible certificates
+  expected_output: partial ranking
+  prerequisite: pilot complete
+  priority: P2
+  runtime_estimate: seconds-minutes
+  memory_estimate: hardware-dependent planning estimate
+  resumability: hash-bound per-shard where applicable
+  evidence_class: planning_only
+  claim_allowed: false
+- run_id_template: <benchmark>__figures__1k__<feature>__<hash>__<timestamp>
+  benchmark: config_driven
+  model: registry_driven
+  feature_space: registry_driven
+  scale: 1k
+  stage: figures
+  class: Class J
+  CPU_GPU: CPU
+  location: local
+  expected_input: approved artifacts
+  expected_output: figures
+  prerequisite: figure gate
+  priority: P3
+  runtime_estimate: minutes
+  memory_estimate: hardware-dependent planning estimate
+  resumability: hash-bound per-shard where applicable
+  evidence_class: planning_only
+  claim_allowed: false
+- run_id_template: <benchmark>__literature_audit__1k__<feature>__<hash>__<timestamp>
+  benchmark: config_driven
+  model: registry_driven
+  feature_space: registry_driven
+  scale: 1k
+  stage: literature_audit
+  class: Class K
+  CPU_GPU: CPU
+  location: local/manual
+  expected_input: frozen claim registry
+  expected_output: audit tables
+  prerequisite: protocol freeze
+  priority: P3
+  runtime_estimate: days of manual curation
+  memory_estimate: hardware-dependent planning estimate
+  resumability: hash-bound per-shard where applicable
+  evidence_class: planning_only
+  claim_allowed: false
+- run_id_template: <benchmark>__paper_promotion__1k__<feature>__<hash>__<timestamp>
+  benchmark: config_driven
+  model: registry_driven
+  feature_space: registry_driven
+  scale: 1k
+  stage: paper_promotion
+  class: Class L
+  CPU_GPU: CPU
+  location: local
+  expected_input: complete lineage
+  expected_output: approved evidence IDs
+  prerequisite: all gates
+  priority: P3
+  runtime_estimate: minutes-hours
+  memory_estimate: hardware-dependent planning estimate
+  resumability: hash-bound per-shard where applicable
+  evidence_class: planning_only
+  claim_allowed: false
+- run_id_template: <benchmark>__local_validation__10k__<feature>__<hash>__<timestamp>
+  benchmark: config_driven
+  model: registry_driven
+  feature_space: registry_driven
+  scale: 10k
+  stage: local_validation
+  class: Class A
+  CPU_GPU: CPU
+  location: local
+  expected_input: compilation/tests/audits
+  expected_output: reports/CERTGEN_CVPR_FINAL_AUDIT.json
+  prerequisite: none
+  priority: P0
+  runtime_estimate: seconds to minutes
+  memory_estimate: hardware-dependent planning estimate
+  resumability: hash-bound per-shard where applicable
+  evidence_class: planning_only
+  claim_allowed: false
+- run_id_template: <benchmark>__reference_materialization__10k__<feature>__<hash>__<timestamp>
+  benchmark: config_driven
+  model: registry_driven
+  feature_space: registry_driven
+  scale: 10k
+  stage: reference_materialization
+  class: Class B
+  CPU_GPU: CPU
+  location: local
+  expected_input: user-provided reference
+  expected_output: reference manifest
+  prerequisite: valid source
+  priority: P0
+  runtime_estimate: minutes
+  memory_estimate: hardware-dependent planning estimate
+  resumability: hash-bound per-shard where applicable
+  evidence_class: planning_only
+  claim_allowed: false
+- run_id_template: <benchmark>__checkpoint_preflight__10k__<feature>__<hash>__<timestamp>
+  benchmark: config_driven
+  model: registry_driven
+  feature_space: registry_driven
+  scale: 10k
+  stage: checkpoint_preflight
+  class: Class C
+  CPU_GPU: T4x2
+  location: Kaggle
+  expected_input: preflight input ZIP
+  expected_output: preflight output ZIP
+  prerequisite: reference materialized
+  priority: P1
+  runtime_estimate: 5-30 minutes
+  memory_estimate: hardware-dependent planning estimate
+  resumability: hash-bound per-shard where applicable
+  evidence_class: planning_only
+  claim_allowed: false
+- run_id_template: <benchmark>__generation_1k__10k__<feature>__<hash>__<timestamp>
+  benchmark: config_driven
+  model: registry_driven
+  feature_space: registry_driven
+  scale: 10k
+  stage: generation_1k
+  class: Class D
+  CPU_GPU: T4x2
+  location: Kaggle
+  expected_input: validated preflight
+  expected_output: generation ZIP
+  prerequisite: preflight imported
+  priority: P1
+  runtime_estimate: 30 minutes-3 hours
+  memory_estimate: hardware-dependent planning estimate
+  resumability: hash-bound per-shard where applicable
+  evidence_class: planning_only
+  claim_allowed: false
+- run_id_template: <benchmark>__features_1k__10k__<feature>__<hash>__<timestamp>
+  benchmark: config_driven
+  model: registry_driven
+  feature_space: registry_driven
+  scale: 10k
+  stage: features_1k
+  class: Class E
+  CPU_GPU: T4x2
+  location: Kaggle
+  expected_input: reference+generation package
+  expected_output: feature ZIP
+  prerequisite: generation imported
+  priority: P1
+  runtime_estimate: 5-60 minutes per extractor planning range
+  memory_estimate: hardware-dependent planning estimate
+  resumability: hash-bound per-shard where applicable
+  evidence_class: planning_only
+  claim_allowed: false
+- run_id_template: <benchmark>__import_validation__10k__<feature>__<hash>__<timestamp>
+  benchmark: config_driven
+  model: registry_driven
+  feature_space: registry_driven
+  scale: 10k
+  stage: import_validation
+  class: Class F
+  CPU_GPU: CPU
+  location: local
+  expected_input: copied-back ZIPs
+  expected_output: hash-addressed imports
+  prerequisite: ZIP copied back
+  priority: P1
+  runtime_estimate: seconds-tens of minutes
+  memory_estimate: hardware-dependent planning estimate
+  resumability: hash-bound per-shard where applicable
+  evidence_class: planning_only
+  claim_allowed: false
+- run_id_template: <benchmark>__metric_sanity__10k__<feature>__<hash>__<timestamp>
+  benchmark: config_driven
+  model: registry_driven
+  feature_space: registry_driven
+  scale: 10k
+  stage: metric_sanity
+  class: Class G
+  CPU_GPU: CPU
+  location: local
+  expected_input: validated caches
+  expected_output: gate results
+  prerequisite: caches validated
+  priority: P1
+  runtime_estimate: seconds-minutes
+  memory_estimate: hardware-dependent planning estimate
+  resumability: hash-bound per-shard where applicable
+  evidence_class: planning_only
+  claim_allowed: false
+- run_id_template: <benchmark>__certificate_pilot__10k__<feature>__<hash>__<timestamp>
+  benchmark: config_driven
+  model: registry_driven
+  feature_space: registry_driven
+  scale: 10k
+  stage: certificate_pilot
+  class: Class H
+  CPU_GPU: CPU
+  location: local
+  expected_input: frozen family+features
+  expected_output: pilot certificates
+  prerequisite: sanity pass
+  priority: P1
+  runtime_estimate: seconds-minutes
+  memory_estimate: hardware-dependent planning estimate
+  resumability: hash-bound per-shard where applicable
+  evidence_class: planning_only
+  claim_allowed: false
+- run_id_template: <benchmark>__ranking_sensitivity__10k__<feature>__<hash>__<timestamp>
+  benchmark: config_driven
+  model: registry_driven
+  feature_space: registry_driven
+  scale: 10k
+  stage: ranking_sensitivity
+  class: Class I
+  CPU_GPU: CPU
+  location: local
+  expected_input: compatible certificates
+  expected_output: partial ranking
+  prerequisite: pilot complete
+  priority: P2
+  runtime_estimate: seconds-minutes
+  memory_estimate: hardware-dependent planning estimate
+  resumability: hash-bound per-shard where applicable
+  evidence_class: planning_only
+  claim_allowed: false
+- run_id_template: <benchmark>__figures__10k__<feature>__<hash>__<timestamp>
+  benchmark: config_driven
+  model: registry_driven
+  feature_space: registry_driven
+  scale: 10k
+  stage: figures
+  class: Class J
+  CPU_GPU: CPU
+  location: local
+  expected_input: approved artifacts
+  expected_output: figures
+  prerequisite: figure gate
+  priority: P3
+  runtime_estimate: minutes
+  memory_estimate: hardware-dependent planning estimate
+  resumability: hash-bound per-shard where applicable
+  evidence_class: planning_only
+  claim_allowed: false
+- run_id_template: <benchmark>__literature_audit__10k__<feature>__<hash>__<timestamp>
+  benchmark: config_driven
+  model: registry_driven
+  feature_space: registry_driven
+  scale: 10k
+  stage: literature_audit
+  class: Class K
+  CPU_GPU: CPU
+  location: local/manual
+  expected_input: frozen claim registry
+  expected_output: audit tables
+  prerequisite: protocol freeze
+  priority: P3
+  runtime_estimate: days of manual curation
+  memory_estimate: hardware-dependent planning estimate
+  resumability: hash-bound per-shard where applicable
+  evidence_class: planning_only
+  claim_allowed: false
+- run_id_template: <benchmark>__paper_promotion__10k__<feature>__<hash>__<timestamp>
+  benchmark: config_driven
+  model: registry_driven
+  feature_space: registry_driven
+  scale: 10k
+  stage: paper_promotion
+  class: Class L
+  CPU_GPU: CPU
+  location: local
+  expected_input: complete lineage
+  expected_output: approved evidence IDs
+  prerequisite: all gates
+  priority: P3
+  runtime_estimate: minutes-hours
+  memory_estimate: hardware-dependent planning estimate
+  resumability: hash-bound per-shard where applicable
+  evidence_class: planning_only
+  claim_allowed: false
+- run_id_template: <benchmark>__local_validation__50k__<feature>__<hash>__<timestamp>
+  benchmark: config_driven
+  model: registry_driven
+  feature_space: registry_driven
+  scale: 50k
+  stage: local_validation
+  class: Class A
+  CPU_GPU: CPU
+  location: local
+  expected_input: compilation/tests/audits
+  expected_output: reports/CERTGEN_CVPR_FINAL_AUDIT.json
+  prerequisite: none
+  priority: P0
+  runtime_estimate: seconds to minutes
+  memory_estimate: hardware-dependent planning estimate
+  resumability: hash-bound per-shard where applicable
+  evidence_class: planning_only
+  claim_allowed: false
+- run_id_template: <benchmark>__reference_materialization__50k__<feature>__<hash>__<timestamp>
+  benchmark: config_driven
+  model: registry_driven
+  feature_space: registry_driven
+  scale: 50k
+  stage: reference_materialization
+  class: Class B
+  CPU_GPU: CPU
+  location: local
+  expected_input: user-provided reference
+  expected_output: reference manifest
+  prerequisite: valid source
+  priority: P0
+  runtime_estimate: minutes
+  memory_estimate: hardware-dependent planning estimate
+  resumability: hash-bound per-shard where applicable
+  evidence_class: planning_only
+  claim_allowed: false
+- run_id_template: <benchmark>__checkpoint_preflight__50k__<feature>__<hash>__<timestamp>
+  benchmark: config_driven
+  model: registry_driven
+  feature_space: registry_driven
+  scale: 50k
+  stage: checkpoint_preflight
+  class: Class C
+  CPU_GPU: T4x2
+  location: Kaggle
+  expected_input: preflight input ZIP
+  expected_output: preflight output ZIP
+  prerequisite: reference materialized
+  priority: P1
+  runtime_estimate: 5-30 minutes
+  memory_estimate: hardware-dependent planning estimate
+  resumability: hash-bound per-shard where applicable
+  evidence_class: planning_only
+  claim_allowed: false
+- run_id_template: <benchmark>__generation_1k__50k__<feature>__<hash>__<timestamp>
+  benchmark: config_driven
+  model: registry_driven
+  feature_space: registry_driven
+  scale: 50k
+  stage: generation_1k
+  class: Class D
+  CPU_GPU: T4x2
+  location: Kaggle
+  expected_input: validated preflight
+  expected_output: generation ZIP
+  prerequisite: preflight imported
+  priority: P1
+  runtime_estimate: 30 minutes-3 hours
+  memory_estimate: hardware-dependent planning estimate
+  resumability: hash-bound per-shard where applicable
+  evidence_class: planning_only
+  claim_allowed: false
+- run_id_template: <benchmark>__features_1k__50k__<feature>__<hash>__<timestamp>
+  benchmark: config_driven
+  model: registry_driven
+  feature_space: registry_driven
+  scale: 50k
+  stage: features_1k
+  class: Class E
+  CPU_GPU: T4x2
+  location: Kaggle
+  expected_input: reference+generation package
+  expected_output: feature ZIP
+  prerequisite: generation imported
+  priority: P1
+  runtime_estimate: 5-60 minutes per extractor planning range
+  memory_estimate: hardware-dependent planning estimate
+  resumability: hash-bound per-shard where applicable
+  evidence_class: planning_only
+  claim_allowed: false
+- run_id_template: <benchmark>__import_validation__50k__<feature>__<hash>__<timestamp>
+  benchmark: config_driven
+  model: registry_driven
+  feature_space: registry_driven
+  scale: 50k
+  stage: import_validation
+  class: Class F
+  CPU_GPU: CPU
+  location: local
+  expected_input: copied-back ZIPs
+  expected_output: hash-addressed imports
+  prerequisite: ZIP copied back
+  priority: P1
+  runtime_estimate: seconds-tens of minutes
+  memory_estimate: hardware-dependent planning estimate
+  resumability: hash-bound per-shard where applicable
+  evidence_class: planning_only
+  claim_allowed: false
+- run_id_template: <benchmark>__metric_sanity__50k__<feature>__<hash>__<timestamp>
+  benchmark: config_driven
+  model: registry_driven
+  feature_space: registry_driven
+  scale: 50k
+  stage: metric_sanity
+  class: Class G
+  CPU_GPU: CPU
+  location: local
+  expected_input: validated caches
+  expected_output: gate results
+  prerequisite: caches validated
+  priority: P1
+  runtime_estimate: seconds-minutes
+  memory_estimate: hardware-dependent planning estimate
+  resumability: hash-bound per-shard where applicable
+  evidence_class: planning_only
+  claim_allowed: false
+- run_id_template: <benchmark>__certificate_pilot__50k__<feature>__<hash>__<timestamp>
+  benchmark: config_driven
+  model: registry_driven
+  feature_space: registry_driven
+  scale: 50k
+  stage: certificate_pilot
+  class: Class H
+  CPU_GPU: CPU
+  location: local
+  expected_input: frozen family+features
+  expected_output: pilot certificates
+  prerequisite: sanity pass
+  priority: P1
+  runtime_estimate: seconds-minutes
+  memory_estimate: hardware-dependent planning estimate
+  resumability: hash-bound per-shard where applicable
+  evidence_class: planning_only
+  claim_allowed: false
+- run_id_template: <benchmark>__ranking_sensitivity__50k__<feature>__<hash>__<timestamp>
+  benchmark: config_driven
+  model: registry_driven
+  feature_space: registry_driven
+  scale: 50k
+  stage: ranking_sensitivity
+  class: Class I
+  CPU_GPU: CPU
+  location: local
+  expected_input: compatible certificates
+  expected_output: partial ranking
+  prerequisite: pilot complete
+  priority: P2
+  runtime_estimate: seconds-minutes
+  memory_estimate: hardware-dependent planning estimate
+  resumability: hash-bound per-shard where applicable
+  evidence_class: planning_only
+  claim_allowed: false
+- run_id_template: <benchmark>__figures__50k__<feature>__<hash>__<timestamp>
+  benchmark: config_driven
+  model: registry_driven
+  feature_space: registry_driven
+  scale: 50k
+  stage: figures
+  class: Class J
+  CPU_GPU: CPU
+  location: local
+  expected_input: approved artifacts
+  expected_output: figures
+  prerequisite: figure gate
+  priority: P3
+  runtime_estimate: minutes
+  memory_estimate: hardware-dependent planning estimate
+  resumability: hash-bound per-shard where applicable
+  evidence_class: planning_only
+  claim_allowed: false
+- run_id_template: <benchmark>__literature_audit__50k__<feature>__<hash>__<timestamp>
+  benchmark: config_driven
+  model: registry_driven
+  feature_space: registry_driven
+  scale: 50k
+  stage: literature_audit
+  class: Class K
+  CPU_GPU: CPU
+  location: local/manual
+  expected_input: frozen claim registry
+  expected_output: audit tables
+  prerequisite: protocol freeze
+  priority: P3
+  runtime_estimate: days of manual curation
+  memory_estimate: hardware-dependent planning estimate
+  resumability: hash-bound per-shard where applicable
+  evidence_class: planning_only
+  claim_allowed: false
+- run_id_template: <benchmark>__paper_promotion__50k__<feature>__<hash>__<timestamp>
+  benchmark: config_driven
+  model: registry_driven
+  feature_space: registry_driven
+  scale: 50k
+  stage: paper_promotion
+  class: Class L
+  CPU_GPU: CPU
+  location: local
+  expected_input: complete lineage
+  expected_output: approved evidence IDs
+  prerequisite: all gates
+  priority: P3
+  runtime_estimate: minutes-hours
+  memory_estimate: hardware-dependent planning estimate
+  resumability: hash-bound per-shard where applicable
+  evidence_class: planning_only
+  claim_allowed: false
+claim_allowed: false

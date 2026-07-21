@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from pathlib import Path
 
-import numpy as np
 
 from certgen.certs.io import load_feature_array
 from certgen.core.enums import NON_EVIDENCE_STATUSES

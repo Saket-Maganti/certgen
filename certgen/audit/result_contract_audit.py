@@ -5,7 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-from certgen.core.io import read_json, write_json
+from certgen.core.io import write_json
 from certgen.reporting.result_contracts import PLACEHOLDER_TOKEN, load_result_contracts, validate_result_contracts
 
 

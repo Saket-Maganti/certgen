@@ -1,45 +1,49 @@
 {
   "blockers": [
-    "provenance ledger missing: registry/provenance/cifar10_r1_ledger.csv",
-    "manifest: sample manifest missing: registry/manifests/cifar10_r1_samples.jsonl",
+    "manifest: line 1: local sample path missing: data/sources/cifar10_r1/reference/cifar10_test_000000.png",
+    "manifest: line 2: local sample path missing: data/sources/cifar10_r1/reference/cifar10_test_000001.png",
+    "manifest: line 3: local sample path missing: data/sources/cifar10_r1/google_ddpm_cifar10_32/seed_000000.png",
+    "manifest: line 4: local sample path missing: data/sources/cifar10_r1/google_ddpm_cifar10_32/seed_000001.png",
+    "manifest: line 5: local sample path missing: data/sources/cifar10_r1/frank_cfm_cifar10_32/seed_000000.png",
+    "manifest: line 6: local sample path missing: data/sources/cifar10_r1/frank_cfm_cifar10_32/seed_000001.png",
     "features: feature cache missing for reference_inception: reference_inception.npz and/or reference_inception.sidecar.json",
     "features: feature cache missing for model_a_inception: model_a_inception.npz and/or model_a_inception.sidecar.json",
     "features: feature cache missing for model_b_inception: model_b_inception.npz and/or model_b_inception.sidecar.json",
     "features: feature cache missing for reference_clip: reference_clip.npz and/or reference_clip.sidecar.json",
     "features: feature cache missing for model_a_clip: model_a_clip.npz and/or model_a_clip.sidecar.json",
     "features: feature cache missing for model_b_clip: model_b_clip.npz and/or model_b_clip.sidecar.json",
-    "metric reproduction audit missing: data/results/cifar10_r1_metric_reproduction.json"
+    "metric reproduction audit exists but within_tolerance is not true"
   ],
   "candidates": [
     {
-      "candidate_id": "cifar10_null_real_split",
+      "candidate_id": "cifar10_null_split_reference_vs_reference",
       "purpose": "same-source CIFAR-10 split-vs-split calibration",
       "role": "null_calibration_pair",
-      "status": "candidate_requires_real_manifest"
+      "status": "selected_blocked_missing_local_reference_samples"
     },
     {
-      "candidate_id": "cifar10_obvious_gap_corruption_sanity",
+      "candidate_id": "cifar10_reference_vs_corruption_sanity",
       "purpose": "reference samples versus clearly corrupted/noise replacement samples for software sanity only",
       "role": "obvious_gap_sanity_pair",
-      "status": "candidate_requires_real_reference_manifest"
+      "status": "selected_blocked_missing_local_reference_samples"
     },
     {
-      "candidate_id": "cifar10_medium_gap_public_baseline_pair",
-      "purpose": "public released-sample baseline versus stronger public released-sample model",
+      "candidate_id": "google_ddpm_vs_frank_cfm",
+      "purpose": "Apache-2.0 DDPM checkpoint versus Apache-2.0 CIFAR flow-matching checkpoint after generated samples exist",
       "role": "medium_gap_pair",
-      "status": "candidate_requires_source_selection"
+      "status": "selected_blocked_missing_generated_samples"
     },
     {
-      "candidate_id": "cifar10_close_gap_two_strong_models",
-      "purpose": "two strong public CIFAR-10 generators with similar reported metric values",
+      "candidate_id": "google_ddpm_vs_frank_ddpm_ema",
+      "purpose": "two Apache-2.0 DDPM-style CIFAR-10 checkpoints after generated samples exist",
       "role": "close_gap_pair",
-      "status": "candidate_requires_source_selection"
+      "status": "selected_blocked_missing_generated_samples"
     },
     {
-      "candidate_id": "cifar10_preprocessing_sensitivity_pair",
-      "purpose": "same samples under declared preprocessing-lock variant if local sources permit",
+      "candidate_id": "google_ddpm_preprocessing_sensitivity",
+      "purpose": "same generated samples under the primary preprocessing lock and a later explicitly locked variant",
       "role": "preprocessing_sensitivity_pair",
-      "status": "candidate_requires_primary_ready_path"
+      "status": "selected_blocked_until_primary_samples_exist"
     }
   ],
   "certificate_metrics_when_ready": [
@@ -47,12 +51,21 @@
     "cmmd_clip_mmd"
   ],
   "claim_allowed": false,
+  "cpu_commands_after_feature_caches": [
+    "commands/r0_cpu/01_validate_provenance.sh",
+    "commands/r0_cpu/02_validate_feature_caches.sh",
+    "commands/r0_cpu/03_reproduce_metric_from_features.sh",
+    "commands/r0_cpu/04_run_clean_core_certificates_cpu.sh",
+    "commands/r0_cpu/06_generate_pilot_report_cpu.sh"
+  ],
   "descriptive_only_metrics": [
     "kid_polynomial",
     "fid_inception",
     "fd_dinov2"
   ],
+  "estimated_kaggle_runtime_if_needed": "planning estimate only: Inception 50k CIFAR images ~10-40 min; CLIP ~20-90 min; DINOv2 ~30-120 min on T4x2",
   "exact_next_command": "python3 -m certgen.cli.run_cifar10_real_pilot --provenance-ledger registry/provenance/cifar10_r1_ledger.csv --sample-manifest registry/manifests/cifar10_r1_samples.jsonl --preprocessing-lock configs/preprocessing_locks/cifar10_inception_bilinear_299.json --feature-cache-dir data/features/cifar10_r1 --metric-reproduction-audit data/results/cifar10_r1_metric_reproduction.json --out-json data/results/r1_cifar10_status.json --report docs/R1_CIFAR10_REAL_PILOT_READINESS.md",
+  "feature_cache_status": "missing_or_unvalidated",
   "gates": {
     "feature_caches": {
       "checked": [],
@@ -68,6 +81,74 @@
       "warnings": []
     },
     "metric_reproduction": {
+      "blockers": [
+        "feature cache missing: reference_inception",
+        "feature cache missing: google_ddpm_inception",
+        "feature cache missing: frank_ddpm_ema_inception",
+        "feature cache missing: frank_cfm_inception",
+        "feature cache missing: reference_clip",
+        "feature cache missing: google_ddpm_clip",
+        "feature cache missing: frank_ddpm_ema_clip",
+        "feature cache missing: frank_cfm_clip"
+      ],
+      "claim_allowed": false,
+      "evidence_status": "real_features_unvalidated",
+      "feature_cache_checks": [
+        {
+          "cache_id": "reference_inception",
+          "detail": "missing data/features/cifar10_r1/split/reference_inception.npz or data/features/cifar10_r1/split/reference_inception.sidecar.json",
+          "status": "missing"
+        },
+        {
+          "cache_id": "google_ddpm_inception",
+          "detail": "missing data/features/cifar10_r1/split/google_ddpm_inception.npz or data/features/cifar10_r1/split/google_ddpm_inception.sidecar.json",
+          "status": "missing"
+        },
+        {
+          "cache_id": "frank_ddpm_ema_inception",
+          "detail": "missing data/features/cifar10_r1/split/frank_ddpm_ema_inception.npz or data/features/cifar10_r1/split/frank_ddpm_ema_inception.sidecar.json",
+          "status": "missing"
+        },
+        {
+          "cache_id": "frank_cfm_inception",
+          "detail": "missing data/features/cifar10_r1/split/frank_cfm_inception.npz or data/features/cifar10_r1/split/frank_cfm_inception.sidecar.json",
+          "status": "missing"
+        },
+        {
+          "cache_id": "reference_clip",
+          "detail": "missing data/features/cifar10_r1/split/reference_clip.npz or data/features/cifar10_r1/split/reference_clip.sidecar.json",
+          "status": "missing"
+        },
+        {
+          "cache_id": "google_ddpm_clip",
+          "detail": "missing data/features/cifar10_r1/split/google_ddpm_clip.npz or data/features/cifar10_r1/split/google_ddpm_clip.sidecar.json",
+          "status": "missing"
+        },
+        {
+          "cache_id": "frank_ddpm_ema_clip",
+          "detail": "missing data/features/cifar10_r1/split/frank_ddpm_ema_clip.npz or data/features/cifar10_r1/split/frank_ddpm_ema_clip.sidecar.json",
+          "status": "missing"
+        },
+        {
+          "cache_id": "frank_cfm_clip",
+          "detail": "missing data/features/cifar10_r1/split/frank_cfm_clip.npz or data/features/cifar10_r1/split/frank_cfm_clip.sidecar.json",
+          "status": "missing"
+        }
+      ],
+      "metric_reproduction_status": "missing_or_not_within_tolerance",
+      "not_paper_claim": true,
+      "passed": false,
+      "ready_for_cpu_certificate_pilot": false,
+      "role_counts": {},
+      "sanity_gates": {
+        "all_features_finite": true,
+        "clip_feature_dim_stable": false,
+        "inception_feature_dim_stable": false,
+        "no_duplicate_sample_ids_within_role_cache": true,
+        "required_roles_present": false
+      },
+      "stage": "r1d_metric_reproduction_and_sanity",
+      "status_code": "BLOCKED_FEATURE_EXTRACTION_NOT_RUN",
       "within_tolerance": false
     },
     "preprocessing_lock": {
@@ -77,56 +158,179 @@
       "warnings": []
     },
     "provenance": {
-      "errors": [
-        "provenance ledger missing"
-      ],
-      "passed": false,
-      "rows": 0,
-      "warnings": []
+      "claim_allowed": false,
+      "errors": [],
+      "evidence_status": "planned_only",
+      "passed": true,
+      "rows": 4,
+      "warnings": [
+        "row 2: reported_metric_value unknown",
+        "row 2: license unknown",
+        "row 3: reported_sample_count unknown",
+        "row 3: sample_count_available unknown",
+        "row 3: checkpoint generation needed later",
+        "row 4: sample_count_available unknown",
+        "row 4: checkpoint generation needed later",
+        "row 5: reported_metric_value unknown",
+        "row 5: reported_sample_count unknown",
+        "row 5: sample_count_available unknown",
+        "row 5: checkpoint generation needed later"
+      ]
     },
     "sample_manifest": {
       "errors": [
-        "sample manifest missing: registry/manifests/cifar10_r1_samples.jsonl"
+        "line 1: local sample path missing: data/sources/cifar10_r1/reference/cifar10_test_000000.png",
+        "line 2: local sample path missing: data/sources/cifar10_r1/reference/cifar10_test_000001.png",
+        "line 3: local sample path missing: data/sources/cifar10_r1/google_ddpm_cifar10_32/seed_000000.png",
+        "line 4: local sample path missing: data/sources/cifar10_r1/google_ddpm_cifar10_32/seed_000001.png",
+        "line 5: local sample path missing: data/sources/cifar10_r1/frank_cfm_cifar10_32/seed_000000.png",
+        "line 6: local sample path missing: data/sources/cifar10_r1/frank_cfm_cifar10_32/seed_000001.png"
       ],
       "passed": false,
-      "rows": 0,
-      "warnings": []
+      "rows": 6,
+      "warnings": [
+        "line 1: sha256 absent",
+        "line 2: sha256 absent",
+        "line 3: sha256 absent",
+        "line 4: sha256 absent",
+        "line 5: sha256 absent",
+        "line 6: sha256 absent"
+      ]
     }
   },
+  "generation_adapter_statuses": {
+    "FrankCCCCC/cfm-cifar10-32": {
+      "adapter_status": "ready_guarded_diffusers_ddpm_pipeline_per_model_card",
+      "expected_resolution": "32x32_rgb",
+      "note": "Flow-matching checkpoint uses DDPMPipeline per model card; execute mode remains a real-run validation gate.",
+      "pipeline_class": "DDPMPipeline",
+      "revision": "b3f30358497e11ce5011c00614c9b0521262f51c"
+    },
+    "FrankCCCCC/ddpm_ema_cifar10": {
+      "adapter_status": "ready_guarded_diffusers_ddpm_pipeline",
+      "expected_resolution": "32x32_rgb",
+      "pipeline_class": "DDPMPipeline",
+      "revision": "6aa387f240fbb00d0e003f93a3b994f56dd98dc2"
+    },
+    "google/ddpm-cifar10-32": {
+      "adapter_status": "ready_guarded_diffusers_ddpm_pipeline",
+      "expected_resolution": "32x32_rgb",
+      "pipeline_class": "DDPMPipeline",
+      "revision": "267b167dc01f0e4e61923ea244e8b988f84deb80"
+    }
+  },
+  "kaggle_clip_feature_extraction_command": null,
+  "kaggle_feature_extraction_command": null,
+  "kaggle_feature_extraction_needed": true,
+  "kaggle_feature_extraction_ready": false,
+  "kaggle_inception_feature_extraction_command": null,
+  "license_status": "not_verified",
+  "metric_reproduction_status": "missing_or_not_within_tolerance",
   "promote_to_paper_evidence": false,
   "ready_for_r1": false,
   "replacement_candidates": [
     {
-      "candidate_id": "cifar10_null_real_split",
-      "purpose": "same-source CIFAR-10 split-vs-split calibration",
-      "role": "null_calibration_pair",
-      "status": "candidate_requires_real_manifest"
+      "candidate_id": "minimal_diffusion_cifar10_released_50k",
+      "reason": "README advertises released CIFAR-10 synthetic images but the downloadable artifact was not locally verified in R1.",
+      "status": "blocked_until_asset_license_and_google_drive_artifact_are_verified"
     },
     {
-      "candidate_id": "cifar10_obvious_gap_corruption_sanity",
-      "purpose": "reference samples versus clearly corrupted/noise replacement samples for software sanity only",
-      "role": "obvious_gap_sanity_pair",
-      "status": "candidate_requires_real_reference_manifest"
+      "candidate_id": "openai_improved_diffusion_cifar10",
+      "reason": "MIT code is public but R1 did not verify a concrete CIFAR-10 generated-sample artifact.",
+      "status": "blocked_until_checkpoint_or_released_samples_are_verified"
     },
     {
-      "candidate_id": "cifar10_medium_gap_public_baseline_pair",
-      "purpose": "public released-sample baseline versus stronger public released-sample model",
-      "role": "medium_gap_pair",
-      "status": "candidate_requires_source_selection"
-    },
-    {
-      "candidate_id": "cifar10_close_gap_two_strong_models",
-      "purpose": "two strong public CIFAR-10 generators with similar reported metric values",
-      "role": "close_gap_pair",
-      "status": "candidate_requires_source_selection"
-    },
-    {
-      "candidate_id": "cifar10_preprocessing_sensitivity_pair",
-      "purpose": "same samples under declared preprocessing-lock variant if local sources permit",
-      "role": "preprocessing_sensitivity_pair",
-      "status": "candidate_requires_primary_ready_path"
+      "candidate_id": "nvlabs_edm_cifar10",
+      "reason": "Repository license is CC BY-NC-SA 4.0 and is not selected for the public/free R1 source lock.",
+      "status": "blocked_license_noncommercial"
     }
   ],
+  "sample_availability": "not_verified",
+  "sample_materialization": {
+    "generated_counts_by_role": {
+      "model_a": 2,
+      "model_b": 2
+    },
+    "generated_rows": 4,
+    "generated_samples_materialized": false,
+    "generation_blockers": [
+      "blocked_checkpoint_generation_needed",
+      "blocked_checkpoint_generation_needed",
+      "blocked_checkpoint_generation_needed",
+      "blocked_checkpoint_generation_needed"
+    ],
+    "manifest_invalid": [],
+    "missing_generated_paths": [
+      "data/sources/cifar10_r1/google_ddpm_cifar10_32/seed_000000.png",
+      "data/sources/cifar10_r1/google_ddpm_cifar10_32/seed_000001.png",
+      "data/sources/cifar10_r1/frank_cfm_cifar10_32/seed_000000.png",
+      "data/sources/cifar10_r1/frank_cfm_cifar10_32/seed_000001.png"
+    ],
+    "missing_reference_paths": [
+      "data/sources/cifar10_r1/reference/cifar10_test_000000.png",
+      "data/sources/cifar10_r1/reference/cifar10_test_000001.png"
+    ],
+    "reference_materialized": false,
+    "reference_rows": 2
+  },
+  "selected_benchmark": "cifar10",
+  "selected_candidate_model_pairs": [
+    {
+      "model_a": "cifar10_test_split_a",
+      "model_b": "cifar10_test_split_b",
+      "pair_id": "cifar10_null_split_reference_vs_reference",
+      "role": "null_calibration_pair",
+      "status": "blocked_missing_local_reference_samples"
+    },
+    {
+      "model_a": "cifar10_reference_samples",
+      "model_b": "deterministic_corruption_of_same_reference_samples",
+      "pair_id": "cifar10_reference_vs_corruption_sanity",
+      "role": "obvious_gap_sanity_pair",
+      "status": "blocked_missing_local_reference_samples"
+    },
+    {
+      "model_a": "google/ddpm-cifar10-32",
+      "model_b": "FrankCCCCC/cfm-cifar10-32",
+      "pair_id": "google_ddpm_vs_frank_cfm",
+      "role": "medium_gap_pair",
+      "status": "blocked_missing_generated_samples"
+    },
+    {
+      "model_a": "google/ddpm-cifar10-32",
+      "model_b": "FrankCCCCC/ddpm_ema_cifar10",
+      "pair_id": "google_ddpm_vs_frank_ddpm_ema",
+      "role": "close_gap_pair",
+      "status": "blocked_missing_generated_samples"
+    },
+    {
+      "model_a": "google/ddpm-cifar10-32_primary_preprocessing",
+      "model_b": "google/ddpm-cifar10-32_alternate_locked_preprocessing",
+      "pair_id": "google_ddpm_preprocessing_sensitivity",
+      "role": "preprocessing_sensitivity_pair",
+      "status": "blocked_until_primary_samples_exist"
+    }
+  ],
+  "source_status": "not_verified",
   "status": "blocked",
-  "warnings": []
+  "status_code": "BLOCKED_MISSING_REFERENCE_SAMPLES",
+  "warnings": [
+    "provenance: row 2: reported_metric_value unknown",
+    "provenance: row 2: license unknown",
+    "provenance: row 3: reported_sample_count unknown",
+    "provenance: row 3: sample_count_available unknown",
+    "provenance: row 3: checkpoint generation needed later",
+    "provenance: row 4: sample_count_available unknown",
+    "provenance: row 4: checkpoint generation needed later",
+    "provenance: row 5: reported_metric_value unknown",
+    "provenance: row 5: reported_sample_count unknown",
+    "provenance: row 5: sample_count_available unknown",
+    "provenance: row 5: checkpoint generation needed later",
+    "manifest: line 1: sha256 absent",
+    "manifest: line 2: sha256 absent",
+    "manifest: line 3: sha256 absent",
+    "manifest: line 4: sha256 absent",
+    "manifest: line 5: sha256 absent",
+    "manifest: line 6: sha256 absent"
+  ]
 }

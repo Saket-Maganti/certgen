@@ -15,6 +15,11 @@ def validate_bounds(lower: float, upper: float) -> None:
         raise ValueError("lower bound must be smaller than upper bound")
 
 
+def validate_budget_units(budget_units: int) -> None:
+    if isinstance(budget_units, bool) or int(budget_units) != budget_units or int(budget_units) <= 0:
+        raise ValueError("budget_units must be a positive integer")
+
+
 def hoeffding_union_radius(n: int, alpha: float, lower: float, upper: float) -> float:
     validate_alpha(alpha)
     validate_bounds(lower, upper)
@@ -25,10 +30,11 @@ def hoeffding_union_radius(n: int, alpha: float, lower: float, upper: float) -> 
 
 
 def empirical_bernstein_radius(n: int, alpha: float, lower: float, upper: float, sample_variance: float) -> float:
-    """Conservative practical empirical-Bernstein-style radius.
+    """Uncertified empirical-Bernstein-style diagnostic radius.
 
-    Assumptions: bounded observations in [lower, upper]. This is a practical
-    V2 bound with an explicit union schedule, not a new theoretical result.
+    This formula is retained for historical synthetic diagnostics.  The
+    repository does not currently pin it to a directly applicable theorem, so
+    callers must not label it anytime-valid or use it to issue certificates.
     """
 
     validate_alpha(alpha)

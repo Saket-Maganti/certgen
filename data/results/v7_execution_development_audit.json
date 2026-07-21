@@ -1,0 +1,21 @@
+{
+  "all_checks_pass": true,
+  "checks": {
+    "cifar_autodetect": true,
+    "feature_bookrun": true,
+    "feature_importer": true,
+    "generation_bookrun": true,
+    "generation_importer": true,
+    "notebook_validator": true,
+    "paper_result_gate": true,
+    "run_ledger": true,
+    "scale_lanes": true
+  },
+  "claim_allowed": false,
+  "claim_allowed_true_hits": [],
+  "current_blocker": "BLOCKED_MISSING_REFERENCE_SAMPLES",
+  "evidence_status": "NO_REAL_EVIDENCE",
+  "next_kaggle_step": "Run generation bookrun after reference materialization package exists.",
+  "next_local_cpu_command": "CIFAR_SEARCH_ROOT=/path/to/cifar bash commands/v7_cpu_execution/01_auto_materialize_cifar_reference.sh",
+  "status_code": "BLOCKED_MISSING_REFERENCE_SAMPLES"
+}

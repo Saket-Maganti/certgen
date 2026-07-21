@@ -1,0 +1,44 @@
+{
+  "schema_version": "certgen.final_100_percent.current_state.v1",
+  "phase": "final_audit_and_portable_verification_complete",
+  "top_level_status": "CVPR_100_PERCENT_PRE_RUN_READY",
+  "sub_status": "BLOCKED_ONLY_BY_REAL_INPUTS_AND_REAL_EXECUTION",
+  "claim_allowed": false,
+  "real_evidence_status": "none",
+  "LIVE_CHECKOUT_VERIFICATION": {
+    "test_count": 263,
+    "integration_count": 4,
+    "audit_count": 62,
+    "notebook_count": 5,
+    "mypy_critical": "PASS_39_SOURCE_FILES",
+    "mypy_full_debt": "111_ERRORS_IN_34_FILES_UNCHANGED_293_FILES_CHECKED",
+    "paper_build": "PASS_5_PAGES_3_NONFATAL_OVERFULL_BOXES",
+    "git_checks": "PASS_BASELINE_DIRTY_INTAKE_RECORDED"
+  },
+  "PORTABLE_ARCHIVE_VERIFICATION": {
+    "member_count": 779,
+    "archive_hash": "88423240a9b7132ac3fd0ee063d1a2c7d28f74d52f98821bb43d7a72178fdea0",
+    "verification_started_at_utc": "2026-07-18T08:20:33.665+00:00",
+    "verification_completed_at_utc": "2026-07-18T08:20:36.560+00:00",
+    "verification_duration_seconds": 2.895,
+    "portable_test_count": 10,
+    "notebook_static_count": 5,
+    "synthetic_rehearsal_status": "COMPLETE_BUILDER_FAITHFUL_SYNTHETIC_REHEARSAL_PASS",
+    "git_dependent_tests_skipped_or_replaced": "Declared in release/CERTGEN_PORTABLE_TEST_MANIFEST.json",
+    "required_files": "PASS",
+    "forbidden_metadata": "PASS"
+  },
+  "repair_status": {
+    "worker_version_contract": "IMPLEMENTED_FOCUSED_PASS",
+    "reference_draw_builder": "IMPLEMENTED_FIXTURE_PASS",
+    "control_builder": "IMPLEMENTED_FIXTURE_PASS",
+    "certificate_input_builder": "IMPLEMENTED_FIXTURE_PASS",
+    "artifact_driven_next_action": "IMPLEMENTED_FOCUSED_PASS",
+    "family_operational_gate": "IMPLEMENTED_FIXTURE_PASS",
+    "clip_redistribution_policy": "ENFORCED",
+    "live_portable_reporting_separation": "IMPLEMENTED",
+    "complete_synthetic_rehearsal": "PASS"
+  },
+  "blockers": ["BLOCKED_USER_MUST_PROVIDE_CIFAR_REFERENCE", "REAL_KAGGLE_EXECUTION_REQUIRED"],
+  "evidence_boundary": "Local software and synthetic fixture validation only; not empirical evidence."
+}

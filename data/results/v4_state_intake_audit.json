@@ -364,7 +364,31 @@
     },
     {
       "detail": "ok",
+      "name": "artifact_data/results/v7_multibench_candidate_validation.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v9_runtime_budget_plan.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v6_generation_output_validation_summary.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
       "name": "artifact_data/results/v5_final_audit.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/r1b_feature_extraction_package_summary.json",
       "passed": true,
       "warning": false
     },
@@ -382,6 +406,30 @@
     },
     {
       "detail": "ok",
+      "name": "artifact_data/results/v7_cifar_reference_materialization_summary.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v6_feature_input_zip_manifest.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/r4_result_eligibility.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/r1b_cifar10_reference_summary.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
       "name": "artifact_data/results/certificate_replay.replayed_certificate.json",
       "passed": true,
       "warning": false
@@ -389,6 +437,12 @@
     {
       "detail": "ok",
       "name": "artifact_data/results/v3_intake_audit.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v7_paper_result_gate.json",
       "passed": true,
       "warning": false
     },
@@ -412,7 +466,19 @@
     },
     {
       "detail": "ok",
+      "name": "artifact_data/results/cvpr_paper_firewall.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
       "name": "artifact_data/results/v4_final_audit.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/r2_scale_go_nogo.json",
       "passed": true,
       "warning": false
     },
@@ -424,13 +490,31 @@
     },
     {
       "detail": "ok",
+      "name": "artifact_data/results/v9_cifar_reference_onramp.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
       "name": "artifact_data/results/v5_state_intake.json",
       "passed": true,
       "warning": false
     },
     {
       "detail": "ok",
+      "name": "artifact_data/results/v9_paper_firewall.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
       "name": "artifact_data/results/v5_release_safety.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/r1a_sample_materialization_audit.json",
       "passed": true,
       "warning": false
     },
@@ -472,7 +556,43 @@
     },
     {
       "detail": "ok",
+      "name": "artifact_data/results/r1b_generated_manifest_summary.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v7_metric_sanity_gates.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v9_notebook_static_analysis.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/r0_cpu_gpu_audit.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
       "name": "artifact_data/results/v3_final_audit.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v7_execution_development_audit.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v9_exact_next_action.json",
       "passed": true,
       "warning": false
     },
@@ -484,7 +604,43 @@
     },
     {
       "detail": "ok",
+      "name": "artifact_data/results/v7_notebook_quality.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
       "name": "artifact_data/results/metric_reproduction_audit.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v9_repo_snapshot_status.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/r1e_first_pilot_audit.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v6_feature_output_validation_summary.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/r1e_undecided_fraction.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v6_generation_input_zip_manifest.json",
       "passed": true,
       "warning": false
     },
@@ -496,7 +652,31 @@
     },
     {
       "detail": "ok",
+      "name": "artifact_data/results/v7_checkpoint_preflight_status.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/v9_execution_supercharger_audit.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
       "name": "artifact_data/results/r0_technical_correction_audit.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/r1c_feature_extraction_status.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/r3_multibench_availability.json",
       "passed": true,
       "warning": false
     },
@@ -508,7 +688,25 @@
     },
     {
       "detail": "ok",
+      "name": "artifact_data/results/v9_execution_dashboard.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/r1d_metric_reproduction.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
       "name": "artifact_data/results/v2_final_audit.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/final_execution_audit.json",
       "passed": true,
       "warning": false
     },
@@ -520,13 +718,31 @@
     },
     {
       "detail": "ok",
+      "name": "artifact_data/results/r1_source_selection_status.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
       "name": "artifact_data/results/r1_cifar10_status.json",
       "passed": true,
       "warning": false
     },
     {
       "detail": "ok",
+      "name": "artifact_data/results/cvpr_reference_materialization.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
       "name": "artifact_data/results/v5_claim_contract_audit.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/r1b_generation_package_audit.json",
       "passed": true,
       "warning": false
     },
@@ -623,6 +839,24 @@
     {
       "detail": "ok",
       "name": "artifact_data/results/v4/paper_artifacts/paper_artifacts_spec.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/results/r0_cpu/provenance_validation.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/kaggle_uploads/certgen-generation/manifest.json",
+      "passed": true,
+      "warning": false
+    },
+    {
+      "detail": "ok",
+      "name": "artifact_data/kaggle_uploads/certgen-features/manifest.json",
       "passed": true,
       "warning": false
     },
@@ -725,9 +959,9 @@
   ],
   "claim_allowed": false,
   "evidence_status": "dry_run_only",
-  "num_checks": 120,
+  "num_checks": 159,
   "num_failed": 0,
-  "num_passed": 120,
+  "num_passed": 159,
   "passed": true,
   "warnings": []
 }

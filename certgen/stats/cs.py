@@ -6,7 +6,13 @@ from math import log
 
 import numpy as np
 
-from certgen.stats.bounds import empirical_bernstein_radius, hoeffding_union_radius, validate_alpha, validate_bounds
+from certgen.stats.bounds import (
+    empirical_bernstein_radius,
+    hoeffding_union_radius,
+    validate_alpha,
+    validate_bounds,
+    validate_budget_units,
+)
 from certgen.stats.design_contracts import CSConfig, CSResult
 
 
@@ -25,6 +31,7 @@ def _validate_values(values: list[float], lower: float, upper: float) -> list[fl
 
 def confidence_sequence(values: list[float], config: CSConfig) -> CSResult:
     validate_alpha(config.alpha)
+    validate_budget_units(config.budget_units)
     values = _validate_values(values[: config.budget_units], config.lower_bound, config.upper_bound)
     if config.method in {"betting", "betting_mixture", "betting_cs"}:
         return betting_cs(values, config)
@@ -45,8 +52,8 @@ def hoeffding_cs(values: list[float], config: CSConfig) -> CSResult:
         states.append({"n": float(n), "mean": mean, "lower": mean - radius, "upper": mean + radius})
     final = states[-1]
     return CSResult(
-        method_label="time_uniform_hoeffding_union_bound_v2",
-        theory_status="conservative_valid_for_bounded_streams",
+        method_label="time_uniform_hoeffding_union_bound_v3",
+        theory_status="valid_for_bounded_conditionally_mean_stationary_streams",
         time_uniform=True,
         sample_units_seen=len(values),
         budget_units=config.budget_units,
@@ -68,9 +75,9 @@ def empirical_bernstein_cs(values: list[float], config: CSConfig) -> CSResult:
         states.append({"n": float(n), "mean": mean, "lower": mean - radius, "upper": mean + radius})
     final = states[-1]
     return CSResult(
-        method_label="empirical_bernstein_conservative_v2",
-        theory_status="conservative_practical",
-        time_uniform=True,
+        method_label="empirical_bernstein_diagnostic_v3",
+        theory_status="diagnostic_only_proof_obligation_unresolved",
+        time_uniform=False,
         sample_units_seen=len(values),
         budget_units=config.budget_units,
         mean_estimate=final["mean"],
@@ -94,20 +101,25 @@ def _betting_lambdas(q_grid: np.ndarray) -> np.ndarray:
 
 
 def betting_cs(values: list[float], config: CSConfig) -> CSResult:
-    """Invert bounded-mean betting e-processes.
+    """Experimental finite-grid inversion of bounded-mean e-processes.
 
     For each candidate mean q on the [0, 1] scale, the process mixes fixed
     nonnegative bets of the form prod_t (1 + lambda (Y_t - q)). Each component
     is a test martingale under E[Y_t | past] = q when Y_t is in [0, 1], and the
-    uniform mixture remains an e-process. The returned interval is a
-    grid-expanded inversion of the e-value threshold 1 / alpha.
+    uniform mixture remains an e-process *at that candidate q*.  The current
+    implementation evaluates only a finite grid and fills the hull of accepted
+    grid points.  No continuum-coverage proof for that numerical inversion is
+    implemented, so this result is deliberately not labelled time-uniform and
+    must not issue a directional certificate.  The point-null e-value helper in
+    :mod:`certgen.stats.e_values` has a narrower, separately documented scope.
     """
 
     validate_alpha(config.alpha)
     validate_bounds(config.lower_bound, config.upper_bound)
+    validate_budget_units(config.budget_units)
+    values = _validate_values(values[: config.budget_units], config.lower_bound, config.upper_bound)
     width = config.upper_bound - config.lower_bound
     scaled = (np.asarray(values, dtype=float) - config.lower_bound) / width
-    scaled = np.clip(scaled, 0.0, 1.0)
     grid_size = 2001
     q_grid = np.linspace(1e-6, 1.0 - 1e-6, grid_size)
     q_step = float(q_grid[1] - q_grid[0])
@@ -153,9 +165,9 @@ def betting_cs(values: list[float], config: CSConfig) -> CSResult:
 
     final = states[-1]
     return CSResult(
-        method_label="betting_mixture_bounded_mean_r0",
-        theory_status="betting_e_process_valid_for_bounded_streams",
-        time_uniform=True,
+        method_label="betting_mixture_finite_grid_diagnostic_v3",
+        theory_status="experimental_grid_inversion_continuum_coverage_unresolved",
+        time_uniform=False,
         sample_units_seen=len(values),
         budget_units=config.budget_units,
         mean_estimate=final["mean"],

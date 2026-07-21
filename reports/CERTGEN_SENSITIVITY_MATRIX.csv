@@ -1,0 +1,10 @@
+lane_id,factor,values,classification,frozen
+primary_feature_spaces,feature_space,"[""inception"", ""clip""]",PRIMARY,True
+primary_rbf_bandwidth,rbf_bandwidth_rule,"[""prospectively_fixed_unit_sphere_gamma_0.5_v1""]",PRIMARY,True
+support_bound,bounded_support,"[""[-3,3]_mmd_difference""]",SECONDARY_CONFIRMATORY,True
+reference_draw_seeds,reference_seed,"[0, 1, 2]",SENSITIVITY,True
+generation_seeds,model_generation_seed,"[0, 1, 2]",SENSITIVITY,True
+sample_budgets,sample_budget,"[1000, 10000, 50000]",SECONDARY_CONFIRMATORY,True
+corruption_severity,deterministic_corruption_severity,"[""fixed_obvious_gap_v1""]",SENSITIVITY,True
+normalization,extractor_normalization,"[""registry_locked"", ""optional_l2_sensitivity""]",EXPLORATORY,True
+posthoc_family_growth,outcome_dependent_lane_addition,"[""prohibited""]",INVALID_FOR_CLAIM,True

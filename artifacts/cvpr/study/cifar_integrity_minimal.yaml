@@ -1,0 +1,161 @@
+study_id: certgen_cvpr_cifar_integrity_minimal
+version: 1
+primary_question: Which prospectively selected comparisons are directionally decided
+  by bounded RBF-MMD evidence?
+primary_outcomes:
+- family-wise-valid pairwise decisions
+- certified partial ranking
+secondary_outcomes:
+- cross-feature agreement
+- ranking stability
+- samples to first decision
+benchmarks:
+- cifar10
+models:
+- google_ddpm_cifar10_candidate
+- frank_ddpm_ema_cifar10_candidate
+model_pairs:
+- comparison_id: checkpoint_variant
+  model_a: google_ddpm_cifar10_candidate
+  model_b: frank_ddpm_ema_cifar10_candidate
+  comparison_type: same family different checkpoint
+controls:
+- null_reference_split
+- obvious_gap_corruption
+controls_in_confirmatory_family: false
+controls_claim_allowed: false
+feature_spaces:
+- inception
+- clip
+metrics:
+- rbf_mmd
+kernel:
+  name: rbf
+  normalize: l2
+  gamma: 0.5
+bandwidth_protocol: prospectively_fixed_unit_sphere_gamma_0.5_v1
+alpha: 0.05
+multiplicity_families:
+- cvpr_primary_cifar10
+sample_budgets:
+- 1000
+stopping_rule: first_boundary_crossing_union_hoeffding
+stream_seed: 0
+reference_draw_protocol: iid_with_replacement_from_fixed_empirical_population_precommitted
+reference_count: 1000
+generation_count: 1000
+sanity_thresholds:
+  null_max_absolute: 0.05
+  obvious_gap_minimum: 1.0e-08
+  repeated_batching_max_feature_difference: 1.0e-05
+  repeated_batching_max_metric_difference: 1.0e-07
+  repeated_shard_merge_max_feature_difference: 0.0
+  repeated_shard_merge_max_metric_difference: 0.0
+  corruption_ladder_minimum_aggregate_step: 1.0e-08
+feature_definitions:
+  inception:
+    model_identifier: torchvision_inception_v3_IMAGENET1K_V1
+    revision: torchvision_0.22.1__Inception_V3_Weights.IMAGENET1K_V1
+    model_class: torchvision.models.Inception3
+    processor_class: torchvision.transforms._presets.ImageClassification
+    feature_definition: final_global_average_pool_before_fc_2048d
+    expected_dimension: 2048
+    projection_applied: false
+    l2_normalization_applied: false
+    expected_preprocessing:
+      extractor_id: inception
+      model_identifier: torchvision_inception_v3_IMAGENET1K_V1
+      revision: torchvision_0.22.1__Inception_V3_Weights.IMAGENET1K_V1
+      processor_class: torchvision.transforms._presets.ImageClassification
+      input_resolution: 299
+      resize_size: 342
+      crop_size: 299
+      crop_mode: center
+      interpolation: bilinear
+      antialias: true
+      pixel_range: uint8_0_255_to_float_0_1
+      channel_order: RGB
+      mean:
+      - 0.485
+      - 0.456
+      - 0.406
+      std:
+      - 0.229
+      - 0.224
+      - 0.225
+      feature_normalization: none
+      precision: float32
+      output_dimension: 2048
+      package_versions:
+        torch: 2.7.1
+        torchvision: 0.22.1
+  clip:
+    model_identifier: openai/clip-vit-large-patch14
+    revision: 32bd64288804d66eefd0ccbe215aa642df71cc41
+    model_class: transformers.CLIPModel
+    processor_class: transformers.CLIPProcessor
+    feature_definition: projected_image_embedding_from_CLIPModel.get_image_features
+    expected_dimension: 768
+    projection_applied: true
+    l2_normalization_applied: true
+    expected_preprocessing:
+      extractor_id: clip
+      model_identifier: openai/clip-vit-large-patch14
+      revision: 32bd64288804d66eefd0ccbe215aa642df71cc41
+      processor_class: CLIPProcessor
+      input_resolution: 224
+      resize_size: 224
+      crop_size:
+      - 224
+      - 224
+      crop_mode: center
+      interpolation: bicubic
+      antialias: true
+      pixel_range: uint8_0_255_to_float_0_1
+      channel_order: RGB
+      mean:
+      - 0.48145466
+      - 0.4578275
+      - 0.40821073
+      std:
+      - 0.26862954
+      - 0.26130258
+      - 0.27577711
+      feature_normalization: l2
+      precision: float32
+      output_dimension: 768
+      package_versions:
+        torch: 2.7.1
+        transformers: 4.53.2
+model_revisions:
+  google_ddpm_cifar10_candidate: 267b167dc01f0e4e61923ea244e8b988f84deb80
+  frank_ddpm_ema_cifar10_candidate: 6aa387f240fbb00d0e003f93a3b994f56dd98dc2
+preprocessing_hash: ef0aaf34828f70010d4fbe1b7dbef78d2660a389064b098ca46ac5f802018005
+exclusion_rules:
+- invalid provenance or license approval
+- asset or preprocessing mismatch
+- nonfinite or incomplete features
+- failed metric reproduction or sanity gate
+failure_rules:
+- fail closed; never substitute models, extractors, or pairs after outcomes are inspected
+resume_rules:
+- same study, configuration, asset, image-manifest, stream-order, draw, and alpha
+  hashes only
+missing_data_rules:
+- block the affected comparison; do not impute
+censoring_rules:
+- UNDECIDED_AT_BUDGET is right-censored at the registered maximum budget
+claim_thresholds:
+- lineage, sanity, family, certificate, and paper gates must separately pass
+scale_up_rules:
+- stop_and_interpret_after_1k
+- create_a_new_study_version_before_10k_or_50k
+pivot_rules:
+- a scientific pivot requires a new prospective study version
+profile_id: cifar_integrity_minimal
+profile_hash: 29267d52e3c91dc51fc6a9605a181e162b2e452945f0646e3eeea847285b647e
+selection_policy: prospective_membership_frozen_before_any_result_inspection
+frozen: true
+evidence_class: pilot_only
+claim_allowed: false
+configuration_hash: b6882b9e1be0b9f12868c47be44c0f41a522ed45c7a4529ceabd08f38cc991aa

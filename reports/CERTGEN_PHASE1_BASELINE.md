@@ -1,0 +1,513 @@
+# CertGen Phase 1 baseline
+
+- Captured UTC: `2026-07-20T18:33:26.716107Z`
+- Repository: `.`
+- Branch: `master`
+- HEAD: `bff335aa648fd19e2fa7e3cfea293a6ca519a68b`
+- Preservation policy: existing tracked changes, deletions, and untracked files are user-owned and must not be reset, cleaned, or overwritten without validation.
+- CPU policy for compatible commands: `CUDA_VISIBLE_DEVICES="" CERTGEN_CPU_ONLY=1`
+
+## `git status --short` before Phase 1 changes
+
+```text
+ M .gitignore
+ M README.md
+ M certgen/analysis/block_size_sensitivity.py
+ M certgen/analysis/decidedness.py
+ M certgen/audit/metric_reproduction.py
+ M certgen/audit/result_contract_audit.py
+ M certgen/audit/v2_audit.py
+ M certgen/audit/v5_state_intake.py
+ M certgen/certs/api.py
+ M certgen/certs/batch_certificate.py
+ M certgen/certs/clean_core.py
+ M certgen/certs/confidence_sequence.py
+ M certgen/certs/io.py
+ M certgen/certs/multiple_comparisons.py
+ M certgen/certs/replay.py
+ M certgen/cli/certify_clean_metric.py
+ M certgen/cli/run_feature_extraction.py
+ M certgen/cli/v1_audit.py
+ M certgen/commands/generate_v5_command_bundle.py
+ M certgen/core/enums.py
+ M certgen/core/io.py
+ M certgen/features/cache_validate.py
+ M certgen/features/extractors/base.py
+ M certgen/features/extractors/clip.py
+ M certgen/features/extractors/inception.py
+ M certgen/features/validate_cache.py
+ M certgen/gates/fid_policy_gate.py
+ M certgen/metrics/kernels.py
+ M certgen/metrics/mmd.py
+ M certgen/metrics/streams.py
+ M certgen/pilot/orchestrator.py
+ M certgen/pilots/registry.py
+ M certgen/pipeline/cifar10_real_pilot.py
+ M certgen/stats/bounds.py
+ M certgen/stats/cs.py
+ M certgen/stats/design_contracts.py
+ M certgen/stats/e_values.py
+ D certgen_prompt_pack_v1/00_GLOBAL_RULES_FOR_ALL_PROMPTS.md
+ D certgen_prompt_pack_v1/01_BOOTSTRAP_REPO_SCAFFOLD.md
+ D certgen_prompt_pack_v1/02_SCHEMAS_MANIFESTS_AND_CLAIM_GATES.md
+ D certgen_prompt_pack_v1/03_FEATURES_AND_METRICS_FOUNDATION.md
+ D certgen_prompt_pack_v1/04_CERTIFICATE_CORE_CLEAN_METRICS.md
+ D certgen_prompt_pack_v1/05_FID_POLICY_AND_DESCRIPTIVE_HANDLING.md
+ D certgen_prompt_pack_v1/06_PILOT_REGISTRY_AND_AUDIT_SCAFFOLD.md
+ D certgen_prompt_pack_v1/07_REPORTING_DOCS_REPRODUCIBILITY.md
+ D certgen_prompt_pack_v1/08_FINAL_V1_AUDIT_AND_HANDOFF.md
+ D certgen_prompt_pack_v1/09_ONE_SHOT_MEGAPROMPT_V1.md
+ D certgen_prompt_pack_v1/10_PROMPT_PACK_V1_CHANGELOG.md
+ D certgen_prompt_pack_v1/CERTGEN_PROJECT_MASTER_CONTEXT.md
+ D certgen_prompt_pack_v1/README_PROMPT_PACK_V1.md
+ D certgen_prompt_pack_v2/00_V2_GLOBAL_RULES_AND_BOUNDARIES.md
+ D certgen_prompt_pack_v2/01_V2_STATISTICAL_CORE_DESIGN.md
+ D certgen_prompt_pack_v2/02_IMPLEMENT_LINEAR_TIME_MMD_STREAMS.md
+ D certgen_prompt_pack_v2/03_EMPIRICAL_BERNSTEIN_AND_E_PROCESS_CS.md
+ D certgen_prompt_pack_v2/04_OPTIONAL_STOPPING_VALIDITY_LAB.md
+ D certgen_prompt_pack_v2/05_CLEAN_METRIC_CERTIFICATE_API.md
+ D certgen_prompt_pack_v2/06_CMMD_KID_MMD_INTEGRATION_TESTS.md
+ D certgen_prompt_pack_v2/07_FEATURE_CACHE_AND_PREPROCESSING_CONTRACTS.md
+ D certgen_prompt_pack_v2/08_DRY_RUN_FIRST_PILOT_PATH.md
+ D certgen_prompt_pack_v2/09_REGISTRY_UPGRADES_AND_RELEASED_SAMPLE_AVAILABILITY.md
+ D certgen_prompt_pack_v2/10_FID_POLICY_REINFORCEMENT_AND_BLOCK_EXPERIMENT.md
+ D certgen_prompt_pack_v2/11_REPORTING_CERTIFICATE_CARDS.md
+ D certgen_prompt_pack_v2/12_V2_FINAL_AUDIT_AND_HANDOFF.md
+ D certgen_prompt_pack_v2/13_ONE_SHOT_MEGAPROMPT_V2.md
+ D certgen_prompt_pack_v2/14_PROMPT_PACK_V2_CHANGELOG.md
+ D certgen_prompt_pack_v2/CERTGEN_PROJECT_MASTER_CONTEXT_V2_ADDENDUM.md
+ D certgen_prompt_pack_v2/README_PROMPT_PACK_V2.md
+ D certgen_prompt_pack_v3/00_V3_GLOBAL_RULES_AND_BOUNDARIES.md
+ D certgen_prompt_pack_v3/01_V3_PROJECT_STATE_INTAKE_AUDIT.md
+ D certgen_prompt_pack_v3/02_V3_RELEASED_SAMPLE_PROVENANCE_LEDGER.md
+ D certgen_prompt_pack_v3/03_V3_REAL_FEATURE_CACHE_CONTRACTS.md
+ D certgen_prompt_pack_v3/04_V3_DRY_RUN_FEATURE_EXTRACTION_ADAPTERS.md
+ D certgen_prompt_pack_v3/05_V3_PREPROCESSING_AND_METRIC_REPRODUCTION_AUDIT.md
+ D certgen_prompt_pack_v3/06_V3_FIRST_BENCHMARK_PILOT_ORCHESTRATOR.md
+ D certgen_prompt_pack_v3/07_V3_CERTIFICATE_REPLAY_AND_DETERMINISM.md
+ D certgen_prompt_pack_v3/08_V3_PILOT_REPORT_CARDS_AND_NO_CLAIM_GATES.md
+ D certgen_prompt_pack_v3/09_V3_REGISTRY_SCHEMA_AND_AVAILABILITY_TABLES.md
+ D certgen_prompt_pack_v3/10_V3_OPTIONAL_STOPPING_LAB_UPGRADE.md
+ D certgen_prompt_pack_v3/11_V3_DOCS_COMMANDS_AND_REPRODUCIBILITY_POLISH.md
+ D certgen_prompt_pack_v3/12_V3_FINAL_AUDIT_AND_HANDOFF.md
+ D certgen_prompt_pack_v3/13_ONE_SHOT_MEGAPROMPT_V3.md
+ D certgen_prompt_pack_v3/14_PROMPT_PACK_V3_CHANGELOG.md
+ D certgen_prompt_pack_v3/CERTGEN_PROJECT_MASTER_CONTEXT_V3_ADDENDUM.md
+ D certgen_prompt_pack_v3/README_PROMPT_PACK_V3.md
+ D certgen_prompt_pack_v4/00_V4_GLOBAL_RULES_AND_CVPR_BOUNDARIES.md
+ D certgen_prompt_pack_v4/01_V4_STATE_INTAKE_AND_DESTRUCTIVE_AUDIT.md
+ D certgen_prompt_pack_v4/02_V4_PROVENANCE_TO_REAL_RUN_PIPELINE.md
+ D certgen_prompt_pack_v4/03_V4_FEATURE_EXTRACTION_NOTEBOOK_GENERATORS.md
+ D certgen_prompt_pack_v4/04_V4_PREPROCESSING_LOCKS_AND_METRIC_REPRODUCTION.md
+ D certgen_prompt_pack_v4/05_V4_ADVANCED_CERTIFICATION_AND_MULTIPLE_COMPARISONS.md
+ D certgen_prompt_pack_v4/06_V4_RANKING_STABILITY_AND_DECIDEDNESS_AUDIT.md
+ D certgen_prompt_pack_v4/07_V4_FIRST_REAL_PILOT_CONTROLLER_AND_GO_NOGO.md
+ D certgen_prompt_pack_v4/08_V4_LITERATURE_AUDIT_INGESTION_AND_CLAIM_TRACE.md
+ D certgen_prompt_pack_v4/09_V4_PAPER_FIGURES_TABLES_AND_RESULT_CARDS.md
+ D certgen_prompt_pack_v4/10_V4_CVPR_PAPER_SCAFFOLD_AND_RELATED_WORK_BOARD.md
+ D certgen_prompt_pack_v4/11_V4_REVIEWER_ATTACK_HARNESS_AND_RESPONSE_BANK.md
+ D certgen_prompt_pack_v4/12_V4_REPRODUCIBILITY_CAPSULE_AND_RELEASE_SAFETY.md
+ D certgen_prompt_pack_v4/13_V4_FINAL_AUDIT_AND_HANDOFF.md
+ D certgen_prompt_pack_v4/14_ONE_SHOT_MEGAPROMPT_V4.md
+ D certgen_prompt_pack_v4/15_PROMPT_PACK_V4_CHANGELOG.md
+ D certgen_prompt_pack_v4/CERTGEN_PROJECT_MASTER_CONTEXT_V4_ADDENDUM.md
+ D certgen_prompt_pack_v4/README_PROMPT_PACK_V4.md
+ D certgen_prompt_pack_v5/00_V5_GLOBAL_RULES_AND_STOP_CONDITION.md
+ D certgen_prompt_pack_v5/01_V5_STATE_INTAKE_AND_GAP_AUDIT.md
+ D certgen_prompt_pack_v5/02_V5_CVPR_PAPER_IDENTITY_AND_CLAIM_CONTRACT.md
+ D certgen_prompt_pack_v5/03_V5_REAL_CITATION_RELATED_WORK_BOARD.md
+ D certgen_prompt_pack_v5/04_V5_PREREGISTRATION_AND_ANALYSIS_PLAN_LOCK.md
+ D certgen_prompt_pack_v5/05_V5_RESULT_CONTRACTS_TABLES_AND_FIGURE_MANIFESTS.md
+ D certgen_prompt_pack_v5/06_V5_PAPER_SCAFFOLD_MAIN_TEX.md
+ D certgen_prompt_pack_v5/07_V5_SUPPLEMENT_PROOF_AND_STATISTICAL_APPENDIX.md
+ D certgen_prompt_pack_v5/08_V5_REPRODUCIBILITY_ARTIFACT_AND_ANONYMITY_CAPSULE.md
+ D certgen_prompt_pack_v5/09_V5_EXECUTION_RUNBOOKS_AND_COMMAND_BUNDLES.md
+ D certgen_prompt_pack_v5/10_V5_RESULT_INJECTION_AND_CLAIM_TRACE_SYSTEM.md
+ D certgen_prompt_pack_v5/11_V5_REVIEWER_SIMULATOR_AND_AUTHOR_RESPONSE_BANK.md
+ D certgen_prompt_pack_v5/12_V5_CVPR_READINESS_SCORECARD_AND_KILL_LIST.md
+ D certgen_prompt_pack_v5/13_V5_FINAL_AUDIT_AND_HANDOFF.md
+ D certgen_prompt_pack_v5/14_ONE_SHOT_MEGAPROMPT_V5.md
+ D certgen_prompt_pack_v5/15_PROMPT_PACK_V5_CHANGELOG.md
+ D certgen_prompt_pack_v5/CERTGEN_PROJECT_MASTER_CONTEXT_V5_ADDENDUM.md
+ D certgen_prompt_pack_v5/README_PROMPT_PACK_V5.md
+ M data/results/certificate_replay.json
+ M data/results/certificate_replay.replayed_certificate.json
+ M data/results/first_pilot_v3/certificates/smoke_a_vs_b_kid_polynomial.json
+ M data/results/first_pilot_v3/certificates/smoke_a_vs_b_mmd_rbf.json
+ M data/results/first_pilot_v3/summary.json
+ M data/results/metric_reproduction_audit.json
+ M data/results/r0_technical_correction_audit.json
+ M data/results/r1_cifar10_status.json
+ M data/results/v4/batch_certificates.json
+ M data/results/v4/certificates/v4_smoke_a_close_vs_b_far_mmd_rbf.json
+ M data/results/v4/certificates/v4_smoke_equal_models_mmd_rbf.json
+ M data/results/v4/decidedness_audit.csv
+ M data/results/v4/decidedness_audit.json
+ M data/results/v4_metric_reproduction_audit.json
+ M data/results/v4_release_safety.json
+ M data/results/v4_state_intake_audit.json
+ M data/results/v5_state_intake.json
+ M data/smoke/v2/certificates/audit_smoke_mmd_rbf.json
+ M docs/FIRST_PILOT_V3_REPORT.md
+ M docs/METRIC_REPRODUCTION_AUDIT.md
+ M docs/R1_CIFAR10_REAL_PILOT_READINESS.md
+ M docs/V4_METRIC_REPRODUCTION_AUDIT.md
+ M docs/V4_RELEASE_SAFETY_REPORT.md
+ M docs/V4_STATE_INTAKE_AUDIT.md
+ M paper/figures/README.md
+ M paper/main.tex
+ M paper/sections/00_abstract.tex
+ M paper/sections/01_introduction.tex
+ M paper/sections/02_related_work.tex
+ M paper/sections/03_method.tex
+ M paper/sections/04_experimental_protocol.tex
+ M paper/sections/05_results_placeholder.tex
+ M paper/sections/abstract_placeholder.tex
+ M paper/sections/method.tex
+ M paper/supplement/03_mmd_kid_cmmd_streams.tex
+ M paper/supplement/04_multiple_comparisons_dependence.tex
+ M paper/supplement/07_additional_tables_placeholders.tex
+ M pyproject.toml
+ M tests/test_certificate.py
+ M tests/test_certify_clean_metric_cli.py
+ M tests/test_clean_core_certificate.py
+ M tests/test_confidence_sequences.py
+ M tests/test_feature_cache_schema.py
+ M tests/test_feature_cache_v3.py
+ M tests/test_metric_reproduction_v3.py
+ M tests/test_mmd_streams.py
+ M tests/test_r0_technical_correction.py
+ M tests/test_r1_upgrades.py
+ M tests/test_registry_reporting.py
+ M tests/test_v2_audit.py
+ M tests/test_v3_docs_and_audit.py
+ M tests/test_v4_audit.py
+ M tests/test_v4_batch_and_analysis.py
+ M tests/test_v5_audit.py
+?? AUTORUN_BLOCKERS.md
+?? AUTORUN_BLOCKERS_V2.md
+?? AUTORUN_LEDGER.jsonl
+?? AUTORUN_LEDGER_V2.jsonl
+?? AUTORUN_STATUS.md
+?? AUTORUN_STATUS_V2.md
+?? CERTGEN_CVPR_100_PERCENT_PRE_RUN_EXECUTION_HANDBOOK.md
+?? CERTGEN_CVPR_100_PERCENT_PRE_RUN_READINESS_REPORT.md
+?? CERTGEN_CVPR_COMPLETE_EXECUTION_AND_RUN_HANDBOOK.md
+?? CERTGEN_CVPR_FINAL_EXECUTION_HANDBOOK.md
+?? CERTGEN_CVPR_FINAL_RUNTIME_HARDENING_REPORT.md
+?? CERTGEN_CVPR_FINAL_RUN_READY_CLOSURE_REPORT.md
+?? CERTGEN_CVPR_FINAL_RUN_READY_EXECUTION_HANDBOOK.md
+?? CERTGEN_CVPR_MAX_PREEXECUTION_BUILD_REPORT.md
+?? CERTGEN_CVPR_REAL_EXECUTION_CLOSURE_REPORT.md
+?? CERTGEN_CVPR_RUN_READY_EXECUTION_HANDBOOK.md
+?? CERTGEN_FORENSIC_AUDIT_AND_MAXIMUM_CEILING_REPORT.md
+?? CERTGEN_MAX_CEILING_EXECUTION_HANDBOOK.md
+?? CERTGEN_MAX_CEILING_PRE_RUN_READINESS_REPORT.md
+?? CERTGEN_MAX_CEILING_SINGLE_FILE_HANDOFF.md
+?? CERTGEN_POST_CACHE_FINAL_FIX_REPORT.md
+?? CITATION.cff
+?? LICENSE
+?? certGen_report.md
+?? certGen_report_v2.md
+?? certgen/__main__.py
+?? certgen/audit/cvpr_final_audit.py
+?? certgen/audit/final_execution_audit.py
+?? certgen/audit/final_pre_run_audit.py
+?? certgen/audit/forensic_final_audit.py
+?? certgen/audit/forensic_inventory.py
+?? certgen/audit/r0_cpu_gpu_audit.py
+?? certgen/audit/r0_technical_correction_audit.py
+?? certgen/audit/r1a_sample_materialization_audit.py
+?? certgen/audit/r1b_generation_package_audit.py
+?? certgen/audit/r1e_first_pilot_audit.py
+?? certgen/audit/v7_execution_development_audit.py
+?? certgen/audit/v9_execution_supercharger_audit.py
+?? certgen/cli/build_reference_draw_plan.py
+?? certgen/cli/run_v6_execution_gate.py
+?? certgen/cvpr/
+?? certgen/data/
+?? certgen/features/cache_v2.py
+?? certgen/features/extract.py
+?? certgen/features/merge_shards.py
+?? certgen/features/split_by_role.py
+?? certgen/gates/evidence_classification.py
+?? certgen/generation/
+?? certgen/max_ceiling/
+?? certgen/notebooks/cvpr_factory.py
+?? certgen/notebooks/cvpr_runtime.py
+?? certgen/notebooks/cvpr_static_analyzer.py
+?? certgen/notebooks/environment_bootstrap.py
+?? certgen/notebooks/final_zip.py
+?? certgen/notebooks/generation_runtime.py
+?? certgen/notebooks/kaggle_io.py
+?? certgen/notebooks/model_assets.py
+?? certgen/notebooks/network_policy.py
+?? certgen/notebooks/preprocessing_contract.py
+?? certgen/notebooks/run_state.py
+?? certgen/notebooks/subprocess_orchestrator.py
+?? certgen/notebooks/v9_static_analyzer.py
+?? certgen/notebooks/validate_kaggle_notebooks.py
+?? certgen/notebooks/worker_contract.py
+?? certgen/notebooks/workers/
+?? certgen/packaging/
+?? certgen/paper/audit_result_injection_gate.py
+?? certgen/paper/v9_paper_firewall.py
+?? certgen/pipeline/v6_execution.py
+?? certgen/pipeline/v9_execution_dashboard.py
+?? certgen/pipeline/v9_next_action.py
+?? certgen/pipeline/v9_runtime_budget_planner.py
+?? certgen/registry/validate_multibench_candidates.py
+?? certgen/release/archive.py
+?? certgen/runledger/
+?? certgen/stats/reference_sampling.py
+?? certgen/visualization/
+?? commands/r0_cpu/
+?? commands/r1b_cpu/
+?? commands/r1b_kaggle_generation/
+?? commands/r1c_kaggle_feature_extraction/
+?? commands/r1d_cpu/
+?? commands/r1e_cpu/
+?? commands/r2_cpu/
+?? commands/r2_kaggle_feature_extraction/
+?? commands/r2_kaggle_generation/
+?? commands/v6_cpu_execution/
+?? commands/v7_cpu_execution/
+?? commands/v8_cpu_execution/
+?? commands/v9_cpu_execution/
+?? configs/certgen_r0_cpu_first.yaml
+?? configs/cvpr/
+?? configs/r0_cpu/
+?? configs/v7_scale_lanes/
+?? data/artifact_registry.jsonl
+?? data/kaggle_uploads/
+?? data/results/cvpr_paper_firewall.json
+?? data/results/final_execution_audit.json
+?? data/results/r0_cpu/
+?? data/results/r0_cpu_gpu_audit.json
+?? data/results/r1_source_selection_status.json
+?? data/results/r1a_sample_materialization_audit.json
+?? data/results/r1b_cifar10_reference_summary.json
+?? data/results/r1b_feature_extraction_package_summary.json
+?? data/results/r1b_generated_manifest_summary.json
+?? data/results/r1b_generation_package_audit.json
+?? data/results/r1c_feature_extraction_status.json
+?? data/results/r1d_metric_reproduction.json
+?? data/results/r1e_first_pilot_audit.json
+?? data/results/r1e_undecided_fraction.json
+?? data/results/r2_scale_go_nogo.json
+?? data/results/r3_multibench_availability.json
+?? data/results/r4_result_eligibility.json
+?? data/results/v6_feature_input_zip_manifest.json
+?? data/results/v6_feature_output_validation_summary.json
+?? data/results/v6_generation_input_zip_manifest.json
+?? data/results/v6_generation_output_validation_summary.json
+?? data/results/v7_checkpoint_preflight_status.json
+?? data/results/v7_cifar_reference_materialization_summary.json
+?? data/results/v7_execution_development_audit.json
+?? data/results/v7_metric_sanity_gates.json
+?? data/results/v7_multibench_candidate_validation.json
+?? data/results/v7_notebook_quality.json
+?? data/results/v7_paper_result_gate.json
+?? data/results/v7_run_ledger.jsonl
+?? data/results/v9_cifar_reference_onramp.json
+?? data/results/v9_exact_next_action.json
+?? data/results/v9_execution_dashboard.json
+?? data/results/v9_execution_supercharger_audit.json
+?? data/results/v9_notebook_static_analysis.json
+?? data/results/v9_paper_firewall.json
+?? data/results/v9_repo_snapshot_status.json
+?? data/results/v9_runtime_budget_plan.json
+?? dist/
+?? docs/CERTGEN_CVPR_EVIDENCE_PROMOTION_POLICY.md
+?? docs/CERTGEN_CVPR_EXACT_NEXT_ACTION.md
+?? docs/CERTGEN_CVPR_EXECUTION_CRITICAL_PATH.md
+?? docs/CERTGEN_CVPR_MAXIMUM_RESEARCH_CEILING.md
+?? docs/CERTGEN_CVPR_PAPER_FIREWALL_REPORT.md
+?? docs/CERTGEN_CVPR_SINGLE_FILE_HANDOFF.md
+?? docs/CERTGEN_CVPR_STAGE_STATE_MACHINE.md
+?? docs/CERTGEN_EXACT_NEXT_ACTION.md
+?? docs/CERTGEN_EXECUTION_CRITICAL_PATH.md
+?? docs/CERTGEN_MAXIMUM_RESEARCH_CEILING.md
+?? docs/CERTGEN_SINGLE_FILE_HANDOFF.md
+?? docs/CIFAR10_REFERENCE_MATERIALIZATION_R1A.md
+?? docs/COMMAND_INDEX_R0.md
+?? docs/FINAL_EXECUTION_AUDIT.md
+?? docs/KAGGLE_CIFAR10_FEATURE_EXTRACTION_T4X2_NOTEBOOK_GUIDE.md
+?? docs/KAGGLE_CIFAR10_GENERATION_T4X2_NOTEBOOK_GUIDE.md
+?? docs/KAGGLE_T4X2_CIFAR10_GENERATION_R1A.md
+?? docs/KAGGLE_T4X2_FEATURE_EXTRACTION_RUNBOOK_R0.md
+?? docs/KAGGLE_T4X2_FEATURE_EXTRACTION_RUNTIME_ESTIMATES_V6.md
+?? docs/KAGGLE_T4X2_GENERATION_RUNTIME_ESTIMATES_V6.md
+?? docs/KAGGLE_T4X2_PARALLEL_SEED_GENERATION_RUNBOOK_R0.md
+?? docs/R0_CPU_GPU_AUDIT.md
+?? docs/R0_CPU_GPU_EXECUTION_POLICY.md
+?? docs/R0_CPU_PROVENANCE_VALIDATION.md
+?? docs/R0_RUNTIME_ESTIMATES_CPU_AND_KAGGLE_T4X2.md
+?? docs/R0_TECHNICAL_CORRECTION_AUDIT.md
+?? docs/R1A_CIFAR10_GENERATION_RUNTIME_ESTIMATES.md
+?? docs/R1A_CIFAR10_SAMPLE_MATERIALIZATION_POLICY.md
+?? docs/R1A_SAMPLE_MATERIALIZATION_AUDIT.md
+?? docs/R1B_GENERATION_PACKAGE_AUDIT.md
+?? docs/R1C_KAGGLE_FEATURE_EXTRACTION_REPORT.md
+?? docs/R1D_METRIC_REPRODUCTION_REPORT.md
+?? docs/R1E_FIRST_CERTIFICATE_PILOT_REPORT.md
+?? docs/R1E_FIRST_PILOT_AUDIT.md
+?? docs/R1_SOURCE_SELECTION_AND_PROVENANCE_REPORT.md
+?? docs/R2_SCALE_GO_NOGO_REPORT.md
+?? docs/R3_MULTI_BENCHMARK_AVAILABILITY_REPORT.md
+?? docs/R4_PAPER_INJECTION_AUDIT.md
+?? docs/R4_RESULT_ELIGIBILITY_REPORT.md
+?? docs/V5_RELEASE_SAFETY_REPORT.md
+?? docs/V6_CPU_AND_KAGGLE_MASTER_EXECUTION_RUNBOOK.md
+?? docs/V7_CHECKPOINT_ADAPTER_FAILURE_PLAYBOOK.md
+?? docs/V7_CIFAR_REFERENCE_ONRAMP_REPORT.md
+?? docs/V7_EXECUTION_DASHBOARD.md
+?? docs/V7_EXECUTION_DEVELOPMENT_AUDIT.md
+?? docs/V7_EXECUTION_UPGRADE_PLAN.md
+?? docs/V7_FIRST_PILOT_LIMITATIONS.md
+?? docs/V7_FIRST_PILOT_REPORT.md
+?? docs/V7_IMPORT_RECOVERY_REPORT.md
+?? docs/V7_KAGGLE_COPYBACK_AND_RECOVERY.md
+?? docs/V7_KAGGLE_DATASET_UPLOAD_GUIDE.md
+?? docs/V7_KAGGLE_FEATURE_EXTRACTION_BOOKRUN_GUIDE.md
+?? docs/V7_KAGGLE_GENERATION_BOOKRUN_GUIDE.md
+?? docs/V7_METRIC_SANITY_GATE_REPORT.md
+?? docs/V7_MULTI_BENCHMARK_CANDIDATE_ONRAMP.md
+?? docs/V7_NOTEBOOK_QUALITY_REPORT.md
+?? docs/V7_PAPER_RESULT_GATE_REPORT.md
+?? docs/V7_REPO_HEALTH_AND_ARCHIVE_REPORT.md
+?? docs/V7_SCALE_LANES_1K_10K_50K.md
+?? docs/V7_SINGLE_FILE_HANDOFF.md
+?? docs/V8_KAGGLE_COPYBACK_AND_IMPORT_GUIDE.md
+?? docs/V9_CIFAR_REFERENCE_SUPER_ONRAMP.md
+?? docs/V9_EXACT_NEXT_ACTION.md
+?? docs/V9_EXECUTION_DASHBOARD.md
+?? docs/V9_EXECUTION_SUPERCHARGER_AUDIT.md
+?? docs/V9_KAGGLE_CHECKPOINT_PREFLIGHT_GUIDE.md
+?? docs/V9_KAGGLE_FEATURE_EXTRACTION_HARDENED_GUIDE.md
+?? docs/V9_KAGGLE_GENERATION_HARDENED_GUIDE.md
+?? docs/V9_NOTEBOOK_STATIC_ANALYSIS.md
+?? docs/V9_PAPER_FIREWALL_REPORT.md
+?? docs/V9_REPO_SNAPSHOT_AND_WORKTREE_STATUS.md
+?? docs/V9_RUNTIME_BUDGET_PLAN.md
+?? docs/analysis/CERTGEN_CERTIFICATE_LINEAGE_CARD.md
+?? docs/analysis/CERTGEN_CLAIM_EVIDENCE_PROTOCOL.md
+?? docs/analysis/CERTGEN_COMPUTE_ACCOUNTING_CONTRACT.md
+?? docs/analysis/CERTGEN_COMPUTE_ACCOUNTING_PROTOCOL.md
+?? docs/analysis/CERTGEN_CROSS_FEATURE_AGREEMENT_PROTOCOL.md
+?? docs/analysis/CERTGEN_CROSS_FEATURE_CONSENSUS_POLICY.md
+?? docs/analysis/CERTGEN_FIGURE_TABLE_DATA_CONTRACTS.md
+?? docs/analysis/CERTGEN_PARTIAL_RANKING_PROVENANCE.md
+?? docs/analysis/CERTGEN_PILOT_STOP_GO_PROTOCOL.md
+?? docs/analysis/CERTGEN_POINT_VS_CERTIFIED_RANKING_CONTRACT.md
+?? docs/analysis/CERTGEN_QUALITATIVE_GALLERY_CONTRACT.md
+?? docs/analysis/CERTGEN_RANKING_STABILITY_PROTOCOL.md
+?? docs/analysis/CERTGEN_RESOLUTION_PLANNING_PROTOCOL.md
+?? docs/engineering/
+?? docs/execution/CERTGEN_ARTIFACT_DRIVEN_NEXT_ACTION.md
+?? docs/execution/CERTGEN_BATCH_AND_OOM_PROTOCOL.md
+?? docs/execution/CERTGEN_BUILDER_FAITHFUL_SYNTHETIC_TEST.md
+?? docs/execution/CERTGEN_CANONICAL_PREPARE_COMMANDS.md
+?? docs/execution/CERTGEN_CERTIFICATE_INPUT_BUNDLE_CONTRACT.md
+?? docs/execution/CERTGEN_CHECKPOINT_REGISTRY.csv
+?? docs/execution/CERTGEN_CLEAN_ARCHIVE_GUIDE.md
+?? docs/execution/CERTGEN_CLIP_FEATURE_DEFINITION.md
+?? docs/execution/CERTGEN_CONTROL_ARTIFACT_PROTOCOL.md
+?? docs/execution/CERTGEN_CVPR_COPYBACK_AND_IMPORT_GUIDE.md
+?? docs/execution/CERTGEN_CVPR_FAILURE_RECOVERY_PLAYBOOK.md
+?? docs/execution/CERTGEN_CVPR_KAGGLE_T4X2_GUIDE.md
+?? docs/execution/CERTGEN_CVPR_RUNTIME_AND_RESOURCE_PLAN.md
+?? docs/execution/CERTGEN_DETERMINISTIC_REPLAY_PROTOCOL.md
+?? docs/execution/CERTGEN_FAILURE_AND_RESUME_PLAYBOOK.md
+?? docs/execution/CERTGEN_FAILURE_REHEARSAL_PROTOCOL.md
+?? docs/execution/CERTGEN_FEATURE_IMAGE_PACKAGING_PROTOCOL.md
+?? docs/execution/CERTGEN_FEATURE_PACKAGE_AND_MERGE_CONTRACT.md
+?? docs/execution/CERTGEN_GENERATION_PACKAGE_CONTRACT.md
+?? docs/execution/CERTGEN_GPU_QUEUE_SCHEDULER.md
+?? docs/execution/CERTGEN_IMAGE_MANIFEST_CONTRACT.md
+?? docs/execution/CERTGEN_INCEPTION_ASSET_ADAPTER.md
+?? docs/execution/CERTGEN_KAGGLE_ENVIRONMENT_BOOTSTRAP.md
+?? docs/execution/CERTGEN_KAGGLE_NOTEBOOK_FORENSIC_AUDIT.md
+?? docs/execution/CERTGEN_LOCAL_ASSET_LOADING_CONTRACT.md
+?? docs/execution/CERTGEN_MODEL_ADAPTER_CONTRACT.md
+?? docs/execution/CERTGEN_MODEL_ASSET_POLICY.md
+?? docs/execution/CERTGEN_OPERATIONAL_FAMILY_GATE.md
+?? docs/execution/CERTGEN_OUTPUT_SCHEMA_AND_IMPORT_CONTRACT.md
+?? docs/execution/CERTGEN_PILOT_PROFILE_PROTOCOL.md
+?? docs/execution/CERTGEN_PORTABLE_ARCHIVE_CONTRACT.md
+?? docs/execution/CERTGEN_PREPROCESSING_OBSERVED_CONTRACT.md
+?? docs/execution/CERTGEN_PROVENANCE_DAG_CONTRACT.md
+?? docs/execution/CERTGEN_REAL_EXTRACTOR_PREFLIGHT_PROTOCOL.md
+?? docs/execution/CERTGEN_REAL_MODEL_PREFLIGHT_PROTOCOL.md
+?? docs/execution/CERTGEN_REFERENCE_DRAW_PLAN_PROTOCOL.md
+?? docs/execution/CERTGEN_RESUME_AND_FINAL_ZIP_RECOVERY.md
+?? docs/execution/CERTGEN_RESUME_RESTART_FORCE_PROTOCOL.md
+?? docs/execution/CERTGEN_RUNTIME_CALIBRATION_PROTOCOL.md
+?? docs/execution/CERTGEN_RUN_CAPSULE_PROTOCOL.md
+?? docs/execution/CERTGEN_SCALE_LADDER_PROTOCOL.md
+?? docs/execution/CERTGEN_T4X2_SUBPROCESS_ARCHITECTURE.md
+?? docs/execution/CERTGEN_WORKER_VERSION_CONTRACT.md
+?? docs/experiments/
+?? docs/legal/
+?? docs/metrics/
+?? docs/research/
+?? docs/theory/
+?? notebooks/kaggle/
+?? paper/CERTGEN_CLAIM_HIERARCHY.md
+?? paper/CERTGEN_CVPR_CLAIM_CONTRACT.md
+?? paper/CERTGEN_CVPR_FIGURE_CONTRACTS.md
+?? paper/CERTGEN_CVPR_PAPER_BUILD_REPORT.md
+?? paper/CERTGEN_CVPR_RESULT_TABLE_CONTRACTS.md
+?? paper/CERTGEN_CVPR_REVIEWER_REPAIR_MATRIX.csv
+?? paper/CERTGEN_CVPR_REVIEWER_SIMULATION.md
+?? paper/CERTGEN_FIGURE_AND_TABLE_SPEC.md
+?? paper/CERTGEN_PAPER_REDESIGN_PLAN.md
+?? paper/CERTGEN_REVIEWER_REPAIR_MATRIX.csv
+?? paper/CERTGEN_REVIEWER_SIMULATION.md
+?? paper/CERTGEN_VENUE_CEILING_MATRIX.md
+?? promptpacks/
+?? registry/cvpr/
+?? registry/manifests/cifar10_r1_generated_pilot_1000.jsonl
+?? registry/manifests/cifar10_r1_reference.jsonl
+?? registry/manifests/cifar10_r1_samples.jsonl
+?? registry/multibench/
+?? registry/provenance/cifar10_r1_ledger.csv
+?? registry/provenance/multibench_candidate_sources.csv
+?? release/CERTGEN_CVPR_INTERNAL_ARCHIVE_CANDIDATES.txt
+?? release/CERTGEN_CVPR_PUBLIC_RELEASE_MANIFEST.txt
+?? release/CERTGEN_INTERNAL_ARCHIVE_CANDIDATES.txt
+?? release/CERTGEN_PORTABLE_TEST_MANIFEST.json
+?? release/CERTGEN_PUBLIC_RELEASE_MANIFEST.txt
+?? reports/
+?? schemas/
+?? scripts/
+?? tests/test_archive_portable.py
+?? tests/test_cvpr_architecture.py
+?? tests/test_cvpr_extended_synthetic.py
+?? tests/test_cvpr_gates.py
+?? tests/test_cvpr_runtime_planner.py
+?? tests/test_cvpr_statistical_contract.py
+?? tests/test_engineering_evidence_safety.py
+?? tests/test_feature_cache_v2_contract.py
+?? tests/test_final_100_percent_pre_run.py
+?? tests/test_final_run_ready_closure.py
+?? tests/test_final_runtime_hardening.py
+?? tests/test_forensic_final_audit.py
+?? tests/test_forensic_inventory.py
+?? tests/test_maximum_ceiling.py
+?? tests/test_post_cache_final_closure.py
+?? tests/test_r0_cpu_gpu_execution.py
+?? tests/test_r1_source_selection.py
+?? tests/test_r1a_sample_materialization.py
+?? tests/test_r1b_generation_package.py
+?? tests/test_real_execution_closure.py
+?? tests/test_reference_draw_plan.py
+?? tests/test_v6_cpu_kaggle_packaging.py
+?? tests/test_v6_execution_gates.py
+?? tests/test_v7_cifar_autodetect.py
+?? tests/test_v7_importers.py
+?? tests/test_v7_multibench_candidates.py
+?? tests/test_v7_notebook_quality.py
+?? tests/test_v7_runledger.py
+?? tests/test_v9_execution_supercharger.py
+```

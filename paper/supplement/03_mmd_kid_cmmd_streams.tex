@@ -1,3 +1,8 @@
 \section{MMD, KID, and CMMD Streams}
 
-The clean-core certificate targets discrepancy estimators that can be represented as bounded or clipped stream terms. KID/MMD/CMMD-style streams are monitored through the declared confidence sequence. Feature extraction and preprocessing remain locked before real runs.
+The claim-capable clean-core certificate targets the implemented
+non-overlapping disjoint-pair difference of two RBF-MMD-squared estimators.
+Feature extraction, preprocessing, normalization, and bandwidth are locked
+before the stream is observed. Polynomial KID and unimplemented CMMD variants
+do not inherit this guarantee. Empirical clipping is diagnostic only unless the
+clipped estimand is prospectively defined and scientifically justified.

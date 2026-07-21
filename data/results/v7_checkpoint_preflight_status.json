@@ -1,0 +1,30 @@
+{
+  "checkpoints": [
+    {
+      "blocker_code": "RUN_ON_KAGGLE_WITH_MODEL_ACCESS",
+      "checkpoint_id": "google/ddpm-cifar10-32",
+      "claim_allowed": false,
+      "evidence_status": "run_log_only",
+      "retryable": true,
+      "status": "planned_only"
+    },
+    {
+      "blocker_code": "RUN_ON_KAGGLE_WITH_MODEL_ACCESS",
+      "checkpoint_id": "FrankCCCCC/ddpm_ema_cifar10",
+      "claim_allowed": false,
+      "evidence_status": "run_log_only",
+      "retryable": true,
+      "status": "planned_only"
+    },
+    {
+      "blocker_code": "RUN_ON_KAGGLE_WITH_MODEL_ACCESS",
+      "checkpoint_id": "FrankCCCCC/cfm-cifar10-32",
+      "claim_allowed": false,
+      "evidence_status": "run_log_only",
+      "retryable": true,
+      "status": "planned_only"
+    }
+  ],
+  "claim_allowed": false,
+  "evidence_status": "run_log_only"
+}

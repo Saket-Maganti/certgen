@@ -50,25 +50,36 @@ def validate_v3_feature_cache(
     preprocessing = sidecar.get("preprocessing") or {}
     source = sidecar.get("source") or {}
     hashes = sidecar.get("hashes") or {}
-    if sidecar.get("n_samples") != int(arr.shape[0] if arr.ndim == 2 else -1):
+    expected_n_samples = sidecar.get("n_samples", sidecar.get("num_items"))
+    expected_feature_dim = sidecar.get("feature_dim")
+    if expected_n_samples != int(arr.shape[0] if arr.ndim == 2 else -1):
         errors.append("n_samples mismatch")
-    if sidecar.get("feature_dim") != int(arr.shape[1] if arr.ndim == 2 else -1):
+    if expected_feature_dim != int(arr.shape[1] if arr.ndim == 2 else -1):
         errors.append("feature_dim mismatch")
-    for field in ["resize", "interpolation", "crop", "normalization"]:
-        if preprocessing.get(field) in {None, "", "default", "unknown", "TBD"}:
-            errors.append(f"preprocessing.{field} missing or vague")
+    resize_value = preprocessing.get("resize", preprocessing.get("image_size", preprocessing.get("resize_policy")))
+    if resize_value in {None, "", "default", "unknown", "TBD"}:
+        errors.append("preprocessing.resize missing or vague")
+    if preprocessing.get("interpolation") in {None, "", "default", "unknown", "TBD"}:
+        errors.append("preprocessing.interpolation missing or vague")
+    crop_value = preprocessing.get("crop", preprocessing.get("crop_policy", "none"))
+    if crop_value in {"", "default", "unknown", "TBD"}:
+        errors.append("preprocessing.crop missing or vague")
+    if preprocessing.get("normalization") in {None, "", "default", "unknown", "TBD"}:
+        errors.append("preprocessing.normalization missing or vague")
     if source.get("license_status") in {"restricted", "not_allowed"}:
         errors.append("source license blocks use")
     elif source.get("license_status") == "unknown":
         warnings.append("license unknown")
     if not sidecar.get("created_by"):
         warnings.append("created_by absent")
-    if not hashes.get("source_manifest_sha256"):
+    source_manifest_hash = hashes.get("source_manifest_sha256") or sidecar.get("source_manifest_sha256")
+    if not source_manifest_hash:
         warnings.append("source_manifest_sha256 absent")
     actual = file_sha256(features_path)
-    if strict_hash and hashes.get("features_sha256") != actual:
+    declared_features_hash = hashes.get("features_sha256") or sidecar.get("features_sha256") or sidecar.get("hash")
+    if strict_hash and declared_features_hash != actual:
         errors.append("features_sha256 mismatch")
-    extractor = sidecar.get("feature_extractor", "")
+    extractor = sidecar.get("feature_extractor") or sidecar.get("extractor") or sidecar.get("feature_type", "")
     if metric and metric.lower().startswith("fid") and "inception" not in extractor and extractor != "custom":
         errors.append("feature extractor incompatible with requested FID metric")
     evidence_status = "real_features_validated" if not errors else "real_features_unvalidated"

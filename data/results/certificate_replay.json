@@ -1,9 +1,9 @@
 {
   "claim_allowed": false,
-  "evidence_status": "real_pilot_non_claim",
+  "evidence_status": "synthetic_only",
   "original_decision": "not_decided_at_budget",
-  "original_stream_hash": "6ed27eeba38f18689c4d4b6f0c5212c4736a62ef6249ec6c67846bcef7876777",
+  "original_stream_hash": "3ca7ba109c2aae95d80e9ef0a7a748d4f81f26a6e12f66735c45a6a44620675c",
   "replay_status": "passed",
   "replayed_decision": "not_decided_at_budget",
-  "replayed_stream_hash": "6ed27eeba38f18689c4d4b6f0c5212c4736a62ef6249ec6c67846bcef7876777"
+  "replayed_stream_hash": "3ca7ba109c2aae95d80e9ef0a7a748d4f81f26a6e12f66735c45a6a44620675c"
 }

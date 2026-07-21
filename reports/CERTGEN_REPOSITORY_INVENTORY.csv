@@ -1,0 +1,1006 @@
+path,purpose,current_or_legacy,source_or_generated,evidence_class,safe_to_release,action_needed,tracked,ignored,size_bytes
+.gitignore,repository metadata or historical process artifact,current,source,NOT_EVIDENCE,false,review_before_release,true,false,582
+AUTORUN_BLOCKERS.md,repository metadata or historical process artifact,current,source,NOT_EVIDENCE,false,review_before_release,false,false,442
+AUTORUN_BLOCKERS_V2.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,233
+AUTORUN_LEDGER.jsonl,repository metadata or historical process artifact,current,source,NOT_EVIDENCE,false,review_before_release,false,false,14253
+AUTORUN_LEDGER_V2.jsonl,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,20495
+AUTORUN_STATUS.md,repository metadata or historical process artifact,current,source,NOT_EVIDENCE,false,review_before_release,false,false,360
+AUTORUN_STATUS_V2.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,1009
+CERTGEN_FORENSIC_AUDIT_AND_MAXIMUM_CEILING_REPORT.md,repository metadata or historical process artifact,current,source,NOT_EVIDENCE,false,review_before_release,false,false,22147
+README.md,repository metadata or historical process artifact,current,source,NOT_EVIDENCE,true,none,true,false,1436
+certGen_report.md,repository metadata or historical process artifact,current,source,NOT_EVIDENCE,false,review_before_release,false,false,19425
+certGen_report_v2.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,26574
+certgen/__init__.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,46
+certgen/__main__.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,5309
+certgen/analysis/__init__.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,27
+certgen/analysis/block_size_sensitivity.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,4135
+certgen/analysis/decidedness.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,2083
+certgen/analysis/ranking_stability.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,1173
+certgen/analysis/samples_to_decision.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,1326
+certgen/audit/__init__.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,34
+certgen/audit/analysis_plan_audit.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,4157
+certgen/audit/claim_contract.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,8652
+certgen/audit/claim_trace_audit_v5.py,package implementation,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,1670
+certgen/audit/cvpr_readiness.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,3374
+certgen/audit/final_execution_audit.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,683
+certgen/audit/forensic_final_audit.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,9165
+certgen/audit/forensic_inventory.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,8467
+certgen/audit/metric_reproduction.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,5694
+certgen/audit/paper_scaffold_audit.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,2420
+certgen/audit/preprocessing_lock_audit.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,388
+certgen/audit/proof_obligation_audit.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,3909
+certgen/audit/r0_cpu_gpu_audit.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,11780
+certgen/audit/r0_technical_correction_audit.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,297
+certgen/audit/r1a_sample_materialization_audit.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,8027
+certgen/audit/r1b_generation_package_audit.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,7586
+certgen/audit/r1e_first_pilot_audit.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,1693
+certgen/audit/related_work_audit.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,4405
+certgen/audit/release_safety_v5.py,package implementation,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,3656
+certgen/audit/result_contract_audit.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,1473
+certgen/audit/reviewer_harness_audit.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,2044
+certgen/audit/v2_audit.py,package implementation,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,7794
+certgen/audit/v3_final.py,package implementation,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,11857
+certgen/audit/v3_intake.py,package implementation,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,4807
+certgen/audit/v4_audit.py,package implementation,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,22193
+certgen/audit/v4_state_intake.py,package implementation,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,5368
+certgen/audit/v5_audit.py,package implementation,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,11514
+certgen/audit/v5_state_intake.py,package implementation,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,7422
+certgen/audit/v7_execution_development_audit.py,package implementation,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,3356
+certgen/audit/v9_execution_supercharger_audit.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,11320
+certgen/certs/__init__.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,36
+certgen/certs/api.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,12461
+certgen/certs/batch_certificate.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,3814
+certgen/certs/clean_core.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,3134
+certgen/certs/confidence_sequence.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,2806
+certgen/certs/decision.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,4486
+certgen/certs/fid_policy.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,1421
+certgen/certs/io.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,2535
+certgen/certs/multiple_comparisons.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,5173
+certgen/certs/replay.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,3581
+certgen/certs/sensitivity.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,892
+certgen/certs/stopping.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,387
+certgen/cli/__init__.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,45
+certgen/cli/audit_metric_reproduction.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,782
+certgen/cli/build_decidedness_audit.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,788
+certgen/cli/build_paper_artifacts.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,1515
+certgen/cli/build_ranking_stability_report.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,714
+certgen/cli/build_real_run_plan.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,908
+certgen/cli/build_reference_draw_plan.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,1938
+certgen/cli/certify_clean_metric.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,2667
+certgen/cli/check_fid_policy.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,707
+certgen/cli/generate_feature_notebook.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,854
+certgen/cli/lock_preprocessing.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,726
+certgen/cli/make_smoke_artifacts.py,package implementation,current,source,SYNTHETIC_ONLY,true,none,true,false,8550
+certgen/cli/plan_feature_extraction.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,2693
+certgen/cli/plan_first_pilot.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,1098
+certgen/cli/plan_first_pilot_v2.py,package implementation,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,920
+certgen/cli/r0_technical_audit.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,10995
+certgen/cli/render_availability_table.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,704
+certgen/cli/render_certificate_card.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,653
+certgen/cli/render_pilot_report.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,636
+certgen/cli/replay_certificate.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,769
+certgen/cli/run_batch_certificates.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,709
+certgen/cli/run_cifar10_real_pilot.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,1491
+certgen/cli/run_feature_extraction.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,3581
+certgen/cli/run_first_pilot.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,821
+certgen/cli/run_first_real_pilot.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,949
+certgen/cli/run_optional_stopping_lab.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,709
+certgen/cli/run_release_safety_scan.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,1503
+certgen/cli/run_reviewer_attack_harness.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,1166
+certgen/cli/run_v6_execution_gate.py,package implementation,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,1784
+certgen/cli/v1_audit.py,package implementation,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,9648
+certgen/cli/v2_audit.py,package implementation,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,673
+certgen/cli/v3_audit.py,package implementation,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,671
+certgen/cli/v3_intake_audit.py,package implementation,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,774
+certgen/cli/v4_audit.py,package implementation,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,185
+certgen/cli/v5_audit.py,package implementation,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,193
+certgen/cli/v5_state_intake.py,package implementation,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,201
+certgen/cli/validate_config.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,2971
+certgen/cli/validate_feature_cache.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,1777
+certgen/cli/validate_provenance_ledger.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,1098
+certgen/cli/validate_registry.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,1044
+certgen/cli/validate_reported_claims.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,1409
+certgen/cli/validate_repro_capsule.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,1030
+certgen/cli/validate_v3_registry.py,package implementation,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,1427
+certgen/commands/__init__.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,30
+certgen/commands/generate_v5_command_bundle.py,package implementation,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,3186
+certgen/core/__init__.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,34
+certgen/core/enums.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,3577
+certgen/core/hashing.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,1467
+certgen/core/io.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,3826
+certgen/core/provenance.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,986
+certgen/core/status.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,1712
+certgen/data/__init__.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,66
+certgen/data/autodetect_cifar10_root.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,4514
+certgen/data/build_cifar10_r1_sample_package.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,7892
+certgen/data/build_cifar10_reference_manifest.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,12280
+certgen/data/cifar_reference_super_onramp.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,15894
+certgen/experiments/__init__.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,50
+certgen/experiments/optional_stopping_lab.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,5799
+certgen/experiments/r1_cpu_validation.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,10058
+certgen/features/__init__.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,41
+certgen/features/cache_contracts.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,383
+certgen/features/cache_schema.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,732
+certgen/features/cache_v2.py,package implementation,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,18731
+certgen/features/cache_validate.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,5448
+certgen/features/extract.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,5498
+certgen/features/extract_clip.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,712
+certgen/features/extract_dinov2.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,720
+certgen/features/extract_inception.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,732
+certgen/features/extractors/__init__.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,511
+certgen/features/extractors/base.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,9095
+certgen/features/extractors/clip.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,2448
+certgen/features/extractors/dinov2.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,1871
+certgen/features/extractors/inception.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,2699
+certgen/features/merge_shards.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,4690
+certgen/features/preprocessing.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,581
+certgen/features/split_by_role.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,7143
+certgen/features/validate_cache.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,2333
+certgen/fixtures/__init__.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,49
+certgen/fixtures/make_v2_feature_fixtures.py,package implementation,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2184
+certgen/gates/__init__.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,51
+certgen/gates/claim_gate.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,2968
+certgen/gates/evidence_classification.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,2462
+certgen/gates/evidence_gate.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,2641
+certgen/gates/fid_policy_gate.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,2329
+certgen/generation/__init__.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,47
+certgen/generation/checkpoint_adapters.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,1174
+certgen/generation/generate_cifar10_diffusers.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,10341
+certgen/generation/generate_samples.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,1103
+certgen/generation/merge_sample_manifests.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,4493
+certgen/generation/preflight_check_cifar10_checkpoints.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,1039
+certgen/generation/validate_cifar10_generated_pilot.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,6286
+certgen/literature/__init__.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,44
+certgen/literature/claim_ingest.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,1477
+certgen/literature/claim_schema.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,606
+certgen/literature/claim_trace.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,1109
+certgen/metrics/__init__.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,59
+certgen/metrics/cmmd.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,1049
+certgen/metrics/fd_dinov2.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,843
+certgen/metrics/fid.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,1856
+certgen/metrics/kernels.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,4991
+certgen/metrics/kid.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,818
+certgen/metrics/mmd.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,2556
+certgen/metrics/registry.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,3760
+certgen/metrics/streams.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,9103
+certgen/notebooks/__init__.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,37
+certgen/notebooks/generate_feature_notebook.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,1495
+certgen/notebooks/v9_static_analyzer.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,6557
+certgen/notebooks/validate_kaggle_notebooks.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,1591
+certgen/packaging/__init__.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,114
+certgen/packaging/artifact_registry.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,5962
+certgen/packaging/build_kaggle_feature_input_zip.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,10020
+certgen/packaging/build_kaggle_generation_input_zip.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,7066
+certgen/packaging/common.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,13013
+certgen/packaging/import_kaggle_feature_outputs.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,4774
+certgen/packaging/import_kaggle_generation_outputs.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,4523
+certgen/packaging/kaggle_dataset_manifest.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,1285
+certgen/packaging/prepare_kaggle_dataset_folder.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,1407
+certgen/packaging/v9_import_repair.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,15441
+certgen/packaging/validate_cifar10_reference_manifest.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,5279
+certgen/packaging/validate_kaggle_feature_output_zip.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,4986
+certgen/packaging/validate_kaggle_generation_output_zip.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,7436
+certgen/paper/__init__.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,31
+certgen/paper/audit_result_injection_gate.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,1732
+certgen/paper/result_injection.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,4591
+certgen/paper/v9_paper_firewall.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,4792
+certgen/pilot/__init__.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,38
+certgen/pilot/first_pilot_v2.py,package implementation,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,3544
+certgen/pilot/orchestrator.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,5978
+certgen/pilots/__init__.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,30
+certgen/pilots/registry.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,4906
+certgen/pipeline/__init__.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,38
+certgen/pipeline/cifar10_real_pilot.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,26493
+certgen/pipeline/first_real_pilot.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,2044
+certgen/pipeline/v6_execution.py,package implementation,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,36258
+certgen/pipeline/v9_execution_dashboard.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,4865
+certgen/pipeline/v9_next_action.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,9007
+certgen/pipeline/v9_runtime_budget_planner.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,3065
+certgen/preprocess/__init__.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,27
+certgen/preprocess/locks.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,2300
+certgen/provenance/__init__.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,42
+certgen/provenance/ledger.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,926
+certgen/provenance/real_run_plan.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,3811
+certgen/registry/__init__.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,42
+certgen/registry/provenance.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,4729
+certgen/registry/schemas.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,975
+certgen/registry/v3_schema.py,package implementation,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,4257
+certgen/registry/validate.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,2860
+certgen/registry/validate_multibench_candidates.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,1531
+certgen/release/__init__.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,30
+certgen/release/capsule.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,1305
+certgen/release/license_scan.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,477
+certgen/release/privacy_scan.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,807
+certgen/reporting/__init__.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,32
+certgen/reporting/audit_summary.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,481
+certgen/reporting/certificate_card.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,2938
+certgen/reporting/certificate_report.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,1926
+certgen/reporting/figures.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,463
+certgen/reporting/optional_stopping_report.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,1244
+certgen/reporting/pilot_cards.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,2976
+certgen/reporting/result_cards.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,505
+certgen/reporting/result_contracts.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,5187
+certgen/reporting/tables.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,360
+certgen/reporting/v2_summary.py,package implementation,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,182
+certgen/review/__init__.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,31
+certgen/review/attacks.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,1673
+certgen/review/reviewer_simulator.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,2753
+certgen/review/score_simulator.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,497
+certgen/runledger/__init__.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,35
+certgen/runledger/ledger.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,2658
+certgen/runledger/render_dashboard.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,700
+certgen/runledger/update_stage.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,1037
+certgen/schemas/__init__.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,598
+certgen/schemas/audit_record.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,364
+certgen/schemas/certificate.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,516
+certgen/schemas/comparison.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,296
+certgen/schemas/dataset.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,288
+certgen/schemas/feature_manifest.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,344
+certgen/schemas/metric.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,279
+certgen/schemas/model.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,262
+certgen/stats/__init__.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,271
+certgen/stats/bounds.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,1712
+certgen/stats/cs.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,7255
+certgen/stats/dependence_diagnostics.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,1619
+certgen/stats/design_contracts.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,2336
+certgen/stats/e_values.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,3422
+certgen/stats/optional_stopping_lab.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,4315
+certgen/stats/reference_sampling.py,package implementation,current,source,NOT_EVIDENCE,true,none,false,false,9305
+certgen/stats/streams.py,package implementation,current,source,NOT_EVIDENCE,true,none,true,false,938
+certgen_prompt_pack_v1/00_GLOBAL_RULES_FOR_ALL_PROMPTS.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,3547
+certgen_prompt_pack_v1/01_BOOTSTRAP_REPO_SCAFFOLD.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,3596
+certgen_prompt_pack_v1/02_SCHEMAS_MANIFESTS_AND_CLAIM_GATES.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,4090
+certgen_prompt_pack_v1/03_FEATURES_AND_METRICS_FOUNDATION.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,3909
+certgen_prompt_pack_v1/04_CERTIFICATE_CORE_CLEAN_METRICS.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,3891
+certgen_prompt_pack_v1/05_FID_POLICY_AND_DESCRIPTIVE_HANDLING.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,3041
+certgen_prompt_pack_v1/06_PILOT_REGISTRY_AND_AUDIT_SCAFFOLD.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,3523
+certgen_prompt_pack_v1/07_REPORTING_DOCS_REPRODUCIBILITY.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,3115
+certgen_prompt_pack_v1/08_FINAL_V1_AUDIT_AND_HANDOFF.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2635
+certgen_prompt_pack_v1/09_ONE_SHOT_MEGAPROMPT_V1.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,5963
+certgen_prompt_pack_v1/10_PROMPT_PACK_V1_CHANGELOG.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,984
+certgen_prompt_pack_v1/CERTGEN_PROJECT_MASTER_CONTEXT.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,28283
+certgen_prompt_pack_v1/README_PROMPT_PACK_V1.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2346
+certgen_prompt_pack_v2/00_V2_GLOBAL_RULES_AND_BOUNDARIES.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2623
+certgen_prompt_pack_v2/01_V2_STATISTICAL_CORE_DESIGN.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,3897
+certgen_prompt_pack_v2/02_IMPLEMENT_LINEAR_TIME_MMD_STREAMS.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,4082
+certgen_prompt_pack_v2/03_EMPIRICAL_BERNSTEIN_AND_E_PROCESS_CS.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,4376
+certgen_prompt_pack_v2/04_OPTIONAL_STOPPING_VALIDITY_LAB.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,3545
+certgen_prompt_pack_v2/05_CLEAN_METRIC_CERTIFICATE_API.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,3714
+certgen_prompt_pack_v2/06_CMMD_KID_MMD_INTEGRATION_TESTS.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2983
+certgen_prompt_pack_v2/07_FEATURE_CACHE_AND_PREPROCESSING_CONTRACTS.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,3583
+certgen_prompt_pack_v2/08_DRY_RUN_FIRST_PILOT_PATH.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,3584
+certgen_prompt_pack_v2/09_REGISTRY_UPGRADES_AND_RELEASED_SAMPLE_AVAILABILITY.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,3390
+certgen_prompt_pack_v2/10_FID_POLICY_REINFORCEMENT_AND_BLOCK_EXPERIMENT.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,3346
+certgen_prompt_pack_v2/11_REPORTING_CERTIFICATE_CARDS.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,3147
+certgen_prompt_pack_v2/12_V2_FINAL_AUDIT_AND_HANDOFF.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,3123
+certgen_prompt_pack_v2/13_ONE_SHOT_MEGAPROMPT_V2.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,4027
+certgen_prompt_pack_v2/14_PROMPT_PACK_V2_CHANGELOG.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,1218
+certgen_prompt_pack_v2/CERTGEN_PROJECT_MASTER_CONTEXT_V2_ADDENDUM.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,3462
+certgen_prompt_pack_v2/README_PROMPT_PACK_V2.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2044
+certgen_prompt_pack_v3/00_V3_GLOBAL_RULES_AND_BOUNDARIES.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,3164
+certgen_prompt_pack_v3/01_V3_PROJECT_STATE_INTAKE_AUDIT.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2298
+certgen_prompt_pack_v3/02_V3_RELEASED_SAMPLE_PROVENANCE_LEDGER.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2886
+certgen_prompt_pack_v3/03_V3_REAL_FEATURE_CACHE_CONTRACTS.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2773
+certgen_prompt_pack_v3/04_V3_DRY_RUN_FEATURE_EXTRACTION_ADAPTERS.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2550
+certgen_prompt_pack_v3/05_V3_PREPROCESSING_AND_METRIC_REPRODUCTION_AUDIT.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2284
+certgen_prompt_pack_v3/06_V3_FIRST_BENCHMARK_PILOT_ORCHESTRATOR.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2765
+certgen_prompt_pack_v3/07_V3_CERTIFICATE_REPLAY_AND_DETERMINISM.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,1869
+certgen_prompt_pack_v3/08_V3_PILOT_REPORT_CARDS_AND_NO_CLAIM_GATES.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2067
+certgen_prompt_pack_v3/09_V3_REGISTRY_SCHEMA_AND_AVAILABILITY_TABLES.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2220
+certgen_prompt_pack_v3/10_V3_OPTIONAL_STOPPING_LAB_UPGRADE.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,1882
+certgen_prompt_pack_v3/11_V3_DOCS_COMMANDS_AND_REPRODUCIBILITY_POLISH.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,1649
+certgen_prompt_pack_v3/12_V3_FINAL_AUDIT_AND_HANDOFF.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2783
+certgen_prompt_pack_v3/13_ONE_SHOT_MEGAPROMPT_V3.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,3136
+certgen_prompt_pack_v3/14_PROMPT_PACK_V3_CHANGELOG.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,1626
+certgen_prompt_pack_v3/CERTGEN_PROJECT_MASTER_CONTEXT_V3_ADDENDUM.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2279
+certgen_prompt_pack_v3/README_PROMPT_PACK_V3.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,3949
+certgen_prompt_pack_v4/00_V4_GLOBAL_RULES_AND_CVPR_BOUNDARIES.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,3691
+certgen_prompt_pack_v4/01_V4_STATE_INTAKE_AND_DESTRUCTIVE_AUDIT.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2884
+certgen_prompt_pack_v4/02_V4_PROVENANCE_TO_REAL_RUN_PIPELINE.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2807
+certgen_prompt_pack_v4/03_V4_FEATURE_EXTRACTION_NOTEBOOK_GENERATORS.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2605
+certgen_prompt_pack_v4/04_V4_PREPROCESSING_LOCKS_AND_METRIC_REPRODUCTION.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2466
+certgen_prompt_pack_v4/05_V4_ADVANCED_CERTIFICATION_AND_MULTIPLE_COMPARISONS.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2410
+certgen_prompt_pack_v4/06_V4_RANKING_STABILITY_AND_DECIDEDNESS_AUDIT.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2300
+certgen_prompt_pack_v4/07_V4_FIRST_REAL_PILOT_CONTROLLER_AND_GO_NOGO.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2458
+certgen_prompt_pack_v4/08_V4_LITERATURE_AUDIT_INGESTION_AND_CLAIM_TRACE.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2161
+certgen_prompt_pack_v4/09_V4_PAPER_FIGURES_TABLES_AND_RESULT_CARDS.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2043
+certgen_prompt_pack_v4/10_V4_CVPR_PAPER_SCAFFOLD_AND_RELATED_WORK_BOARD.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2271
+certgen_prompt_pack_v4/11_V4_REVIEWER_ATTACK_HARNESS_AND_RESPONSE_BANK.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2009
+certgen_prompt_pack_v4/12_V4_REPRODUCIBILITY_CAPSULE_AND_RELEASE_SAFETY.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,1841
+certgen_prompt_pack_v4/13_V4_FINAL_AUDIT_AND_HANDOFF.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2271
+certgen_prompt_pack_v4/14_ONE_SHOT_MEGAPROMPT_V4.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,3014
+certgen_prompt_pack_v4/15_PROMPT_PACK_V4_CHANGELOG.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2090
+certgen_prompt_pack_v4/CERTGEN_PROJECT_MASTER_CONTEXT_V4_ADDENDUM.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,3454
+certgen_prompt_pack_v4/README_PROMPT_PACK_V4.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,3557
+certgen_prompt_pack_v5/00_V5_GLOBAL_RULES_AND_STOP_CONDITION.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2547
+certgen_prompt_pack_v5/01_V5_STATE_INTAKE_AND_GAP_AUDIT.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2161
+certgen_prompt_pack_v5/02_V5_CVPR_PAPER_IDENTITY_AND_CLAIM_CONTRACT.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2844
+certgen_prompt_pack_v5/03_V5_REAL_CITATION_RELATED_WORK_BOARD.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2589
+certgen_prompt_pack_v5/04_V5_PREREGISTRATION_AND_ANALYSIS_PLAN_LOCK.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2897
+certgen_prompt_pack_v5/05_V5_RESULT_CONTRACTS_TABLES_AND_FIGURE_MANIFESTS.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2634
+certgen_prompt_pack_v5/06_V5_PAPER_SCAFFOLD_MAIN_TEX.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2935
+certgen_prompt_pack_v5/07_V5_SUPPLEMENT_PROOF_AND_STATISTICAL_APPENDIX.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2447
+certgen_prompt_pack_v5/08_V5_REPRODUCIBILITY_ARTIFACT_AND_ANONYMITY_CAPSULE.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2046
+certgen_prompt_pack_v5/09_V5_EXECUTION_RUNBOOKS_AND_COMMAND_BUNDLES.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,1995
+certgen_prompt_pack_v5/10_V5_RESULT_INJECTION_AND_CLAIM_TRACE_SYSTEM.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,1997
+certgen_prompt_pack_v5/11_V5_REVIEWER_SIMULATOR_AND_AUTHOR_RESPONSE_BANK.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,1910
+certgen_prompt_pack_v5/12_V5_CVPR_READINESS_SCORECARD_AND_KILL_LIST.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,1841
+certgen_prompt_pack_v5/13_V5_FINAL_AUDIT_AND_HANDOFF.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2580
+certgen_prompt_pack_v5/14_ONE_SHOT_MEGAPROMPT_V5.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2761
+certgen_prompt_pack_v5/15_PROMPT_PACK_V5_CHANGELOG.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,1275
+certgen_prompt_pack_v5/CERTGEN_PROJECT_MASTER_CONTEXT_V5_ADDENDUM.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2492
+certgen_prompt_pack_v5/README_PROMPT_PACK_V5.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,4013
+certgen_prompt_pack_v6/00_GLOBAL_RULES_STOP_INFRASTRUCTURE.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,2711
+certgen_prompt_pack_v6/01_R0_TECHNICAL_CORRECTION_BETTING_CS_AND_BOUNDED_KERNELS.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,3480
+certgen_prompt_pack_v6/02_R1B_REFERENCE_MATERIALIZATION_AND_PACKAGE_GATE.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,2929
+certgen_prompt_pack_v6/03_KAGGLE_T4X2_GENERATION_1K_PER_MODEL.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,2708
+certgen_prompt_pack_v6/04_CPU_VALIDATE_GENERATED_MANIFESTS_AND_BUILD_PACKAGE.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,3050
+certgen_prompt_pack_v6/05_KAGGLE_T4X2_FEATURE_EXTRACTION_INCEPTION_CLIP.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,2100
+certgen_prompt_pack_v6/06_CPU_METRIC_REPRODUCTION_AND_SANITY_GATES.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,1973
+certgen_prompt_pack_v6/07_CPU_FIRST_CERTIFICATE_PILOT_AND_UNDECIDED_FRACTION.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,2718
+certgen_prompt_pack_v6/08_SCALE_TO_10K_AND_50K_IF_GATES_PASS.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,1911
+certgen_prompt_pack_v6/09_MULTI_BENCHMARK_EXPANSION_PLAN.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,1469
+certgen_prompt_pack_v6/10_CVPR_RESULT_INJECTION_AND_PAPER_POLISH.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,1923
+certgen_prompt_pack_v6/11_FINAL_EXECUTION_AUDIT_AND_STOP_RULE.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,1860
+certgen_prompt_pack_v6/12_ONE_SHOT_MEGA_PROMPT_ALL.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,2284
+certgen_prompt_pack_v6/13_CHANGELOG_AND_EXPECTED_FINAL_STATE.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,1353
+certgen_prompt_pack_v6/README_MEGA_PROMPT_PACK_V6.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,1924
+certgen_prompt_pack_v7_dev_runs/00_GLOBAL_RULES_AND_OBJECTIVE.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,2711
+certgen_prompt_pack_v7_dev_runs/01_LOCAL_DATA_ONRAMP_CIFAR_REFERENCE.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,2760
+certgen_prompt_pack_v7_dev_runs/02_KAGGLE_BOOKRUN_GENERATION_ORCHESTRATOR.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,3045
+certgen_prompt_pack_v7_dev_runs/03_KAGGLE_BOOKRUN_FEATURE_EXTRACTION_ORCHESTRATOR.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,2855
+certgen_prompt_pack_v7_dev_runs/04_CPU_OUTPUT_IMPORT_VALIDATE_RECOVER.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,2632
+certgen_prompt_pack_v7_dev_runs/05_RUN_LEDGER_AND_STAGE_DASHBOARD.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,2290
+certgen_prompt_pack_v7_dev_runs/06_MULTI_SCALE_1K_10K_50K_LANES.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,2514
+certgen_prompt_pack_v7_dev_runs/07_FAILURE_RECOVERY_AND_CHECKPOINT_ADAPTERS.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,2076
+certgen_prompt_pack_v7_dev_runs/08_METRIC_REPRODUCTION_EXTENSIONS.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,2173
+certgen_prompt_pack_v7_dev_runs/09_CERTIFICATE_PILOT_EXPANSION_AND_SENSITIVITY.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,2289
+certgen_prompt_pack_v7_dev_runs/10_MULTI_BENCHMARK_CANDIDATE_ONRAMP.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,2040
+certgen_prompt_pack_v7_dev_runs/11_KAGGLE_DATASET_PACKAGING_AUTOMATION.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,2046
+certgen_prompt_pack_v7_dev_runs/12_NOTEBOOK_QUALITY_AND_IDEMPOTENCE.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,1859
+certgen_prompt_pack_v7_dev_runs/13_PAPER_RESULT_GATE_AND_DRAFT_PLACEHOLDERS.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,2026
+certgen_prompt_pack_v7_dev_runs/14_DEVOPS_CLEANUP_GIT_ARCHIVE_RELEASE.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,2039
+certgen_prompt_pack_v7_dev_runs/15_FINAL_V7_AUDIT_AND_HANDOFF.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,2754
+certgen_prompt_pack_v7_dev_runs/16_ONE_SHOT_MEGA_PROMPT_V7.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,2959
+certgen_prompt_pack_v7_dev_runs/17_EXPECTED_FINAL_STATE.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,1772
+certgen_prompt_pack_v7_dev_runs/README_PROMPT_PACK_V7.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,2054
+certgen_prompt_pack_v8_final_pre_execution/00_GLOBAL_RULES_FINAL_PRE_EXECUTION_STOP.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,2153
+certgen_prompt_pack_v8_final_pre_execution/01_CIFAR_REFERENCE_GOD_TIER_ONRAMP.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,3034
+certgen_prompt_pack_v8_final_pre_execution/02_KAGGLE_T4X2_GENERATION_BOOKRUN_PLUS_INPUT_ZIPS.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,2724
+certgen_prompt_pack_v8_final_pre_execution/03_KAGGLE_T4X2_FEATURE_BOOKRUN_PLUS_ROLE_CACHES.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,2612
+certgen_prompt_pack_v8_final_pre_execution/04_LOCAL_IMPORT_RECOVERY_AND_REPAIR.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,2346
+certgen_prompt_pack_v8_final_pre_execution/05_RUN_LEDGER_DASHBOARD_AND_EXACT_NEXT_ACTION.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,1939
+certgen_prompt_pack_v8_final_pre_execution/06_MULTI_SCALE_LANES_AND_BUDGET_GATES.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,1885
+certgen_prompt_pack_v8_final_pre_execution/07_CHECKPOINT_ADAPTER_REAL_LOAD_PREFLIGHT.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,1898
+certgen_prompt_pack_v8_final_pre_execution/08_METRIC_SANITY_REPRODUCTION_AND_NO_FAKE_REPRODUCTION.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,2056
+certgen_prompt_pack_v8_final_pre_execution/09_CERTIFICATE_PILOT_EXPANSION_SENSITIVITY_AND_STOP.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,1995
+certgen_prompt_pack_v8_final_pre_execution/10_MULTI_BENCHMARK_EXECUTION_READY_ONRAMP.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,1754
+certgen_prompt_pack_v8_final_pre_execution/11_KAGGLE_DATASET_UPLOAD_AUTOMATION_AND_SECRETS_SCAN.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,1680
+certgen_prompt_pack_v8_final_pre_execution/12_NOTEBOOK_IDEMPOTENCE_AND_DRYRUN_VALIDATOR.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,1599
+certgen_prompt_pack_v8_final_pre_execution/13_PAPER_FIREWALL_AND_RESULT_PLACEHOLDERS_ONLY.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,1612
+certgen_prompt_pack_v8_final_pre_execution/14_DEVOPS_SAFE_SNAPSHOT_AND_DIRTY_WORKTREE_TRIAGE.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,1634
+certgen_prompt_pack_v8_final_pre_execution/15_FINAL_V8_AUDIT_AND_HANDOFF.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,2571
+certgen_prompt_pack_v8_final_pre_execution/16_ONE_SHOT_MEGA_PROMPT_V8.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,1815
+certgen_prompt_pack_v8_final_pre_execution/17_EXPECTED_FINAL_STATE.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,1285
+certgen_prompt_pack_v8_final_pre_execution/README_PROMPT_PACK_V8.md,repository metadata or historical process artifact,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,1864
+commands/r0_cpu/00_validate_environment_cpu.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,913
+commands/r0_cpu/01_validate_provenance.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,430
+commands/r0_cpu/02_validate_feature_caches.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,816
+commands/r0_cpu/03_reproduce_metric_from_features.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,408
+commands/r0_cpu/04_run_clean_core_certificates_cpu.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,1531
+commands/r0_cpu/05_run_optional_stopping_lab_cpu.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,348
+commands/r0_cpu/06_generate_pilot_report_cpu.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,917
+commands/r0_cpu/07_run_r0_audit_cpu.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,266
+commands/r1b_cpu/00_materialize_cifar10_reference_from_local_root.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,602
+commands/r1b_cpu/00b_materialize_cifar10_reference_from_official_archive.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,632
+commands/r1b_cpu/00c_validate_reference_manifest.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,625
+commands/r1b_cpu/01_validate_generated_manifests.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,631
+commands/r1b_cpu/02_build_feature_extraction_package.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,625
+commands/r1b_kaggle_generation/00_generate_1000_per_model_t4x2.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,1897
+commands/r1c_kaggle_feature_extraction/00_extract_inception_clip_t4x2.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,3820
+commands/r1d_cpu/00_validate_feature_caches.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,229
+commands/r1d_cpu/01_run_metric_sanity_gates.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,229
+commands/r1e_cpu/00_run_first_certificate_pilot.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,318
+commands/r2_cpu/00_validate_10k_package.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,160
+commands/r2_cpu/01_run_10k_certificates.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,160
+commands/r2_cpu/02_validate_50k_package.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,160
+commands/r2_cpu/03_run_50k_certificates.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,160
+commands/r2_kaggle_feature_extraction/00_extract_10k_inception_clip_t4x2.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,493
+commands/r2_kaggle_feature_extraction/01_extract_50k_inception_clip_t4x2.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,489
+commands/r2_kaggle_generation/00_generate_10000_per_model_t4x2.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,1547
+commands/r2_kaggle_generation/01_generate_50000_per_model_t4x2.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,409
+commands/v5/00_validate_state.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,221
+commands/v5/01_validate_provenance_ledger.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,375
+commands/v5/02_validate_or_materialize_feature_caches.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,457
+commands/v5/03_reproduce_metric_point_estimate.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,357
+commands/v5/04_run_first_clean_core_pilot_nonclaim.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,405
+commands/v5/05_render_pilot_report_card_nonclaim.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,293
+commands/v5/06_v5_final_audit.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,212
+commands/v6_cpu_execution/00_check_local_prereqs.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,456
+commands/v6_cpu_execution/01_materialize_reference_from_local_root.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,240
+commands/v6_cpu_execution/01b_materialize_reference_from_official_archive.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,293
+commands/v6_cpu_execution/02_validate_reference_manifest.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,449
+commands/v6_cpu_execution/03_create_kaggle_generation_input_zip.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,637
+commands/v6_cpu_execution/04_validate_copied_back_generation_outputs.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,678
+commands/v6_cpu_execution/05_build_feature_extraction_sample_package.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,160
+commands/v6_cpu_execution/06_create_kaggle_feature_extraction_input_zip.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,1018
+commands/v6_cpu_execution/07_validate_copied_back_feature_caches.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,464
+commands/v6_cpu_execution/08_split_feature_caches_by_role.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,980
+commands/v6_cpu_execution/09_run_metric_reproduction_and_sanity_gates.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,227
+commands/v6_cpu_execution/10_run_first_certificate_pilot_if_ready.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,316
+commands/v6_cpu_execution/11_run_final_execution_audit.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,246
+commands/v7_cpu_execution/01_auto_materialize_cifar_reference.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,340
+commands/v7_cpu_execution/02_create_generation_bookrun_zip.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,279
+commands/v7_cpu_execution/03_create_feature_bookrun_zip.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,272
+commands/v7_cpu_execution/04_import_generation_output_zip.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,274
+commands/v7_cpu_execution/05_import_feature_output_zip.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,266
+commands/v7_cpu_execution/06_render_execution_dashboard.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,213
+commands/v7_cpu_execution/07_prepare_10k_generation_zip_if_1k_passed.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,352
+commands/v7_cpu_execution/08_prepare_50k_generation_zip_if_10k_passed.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,342
+commands/v7_cpu_execution/09_prepare_kaggle_generation_dataset_folder.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,270
+commands/v7_cpu_execution/10_prepare_kaggle_feature_dataset_folder.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,263
+commands/v7_cpu_execution/11_repo_health_snapshot.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,103
+commands/v7_cpu_execution/12_archive_prompt_packs_and_old_reports.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,117
+commands/v8_cpu_execution/02_prepare_generation_bookrun_zip.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,106
+commands/v8_cpu_execution/03_prepare_feature_bookrun_zip.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,103
+commands/v8_cpu_execution/05_import_generation_zip_repair.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,193
+commands/v8_cpu_execution/06_import_feature_zip_repair.sh,execution wrapper,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,188
+commands/v9_cpu_execution/01_cifar_reference_super_onramp.sh,execution wrapper,current,source,NOT_EVIDENCE,false,review_before_release,false,false,413
+commands/v9_cpu_execution/02_import_checkpoint_preflight_zip.sh,execution wrapper,current,source,NOT_EVIDENCE,false,review_before_release,false,false,503
+commands/v9_cpu_execution/03_import_generation_zip_v9.sh,execution wrapper,current,source,NOT_EVIDENCE,false,review_before_release,false,false,500
+commands/v9_cpu_execution/04_import_feature_zip_v9.sh,execution wrapper,current,source,NOT_EVIDENCE,false,review_before_release,false,false,485
+commands/v9_cpu_execution/05_print_exact_next_action.sh,execution wrapper,current,source,NOT_EVIDENCE,false,review_before_release,false,false,247
+commands/v9_cpu_execution/06_repo_snapshot_status.sh,execution wrapper,current,source,NOT_EVIDENCE,false,review_before_release,false,false,2098
+configs/certgen_r0_cpu_first.yaml,execution configuration,current,source,NOT_EVIDENCE,true,none,false,false,998
+configs/certgen_v1_smoke.yaml,execution configuration,legacy,source,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,194
+configs/first_pilot_v3.yaml,execution configuration,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,334
+configs/metric_reproduction_v3_smoke.yaml,execution configuration,legacy,source,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,417
+configs/metric_reproduction_v4_smoke.json,execution configuration,legacy,source,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,529
+configs/optional_stopping_lab_v3.yaml,execution configuration,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,50
+configs/preprocessing_locks/cifar10_inception_bilinear_299.json,execution configuration,current,source,NOT_EVIDENCE,true,none,true,false,537
+configs/preprocessing_locks/v4_smoke_inception_lock.json,execution configuration,legacy,source,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,559
+configs/r0_cpu/cifar10_metric_reproduction.yaml,execution configuration,current,source,NOT_EVIDENCE,true,none,false,false,451
+configs/v4_batch_certificates_smoke.json,execution configuration,legacy,source,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,879
+configs/v4_dependence_smoke.json,execution configuration,legacy,source,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,879
+configs/v7_scale_lanes/cifar10_10k.yaml,execution configuration,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,119
+configs/v7_scale_lanes/cifar10_1k.yaml,execution configuration,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,119
+configs/v7_scale_lanes/cifar10_50k.yaml,execution configuration,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,119
+data/artifact_registry.jsonl,"input, fixture, cache, or generated result",current,source,NOT_EVIDENCE,false,review_before_release,false,false,897
+data/contracts/analysis_plan_lock_v5.json,"input, fixture, cache, or generated result",legacy,source,PLANNING_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,1519
+data/contracts/claim_contract_v5.json,"input, fixture, cache, or generated result",legacy,source,PLANNING_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,3625
+data/contracts/proof_obligations_v5.json,"input, fixture, cache, or generated result",legacy,source,PLANNING_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,2900
+data/contracts/result_contracts_v5.json,"input, fixture, cache, or generated result",legacy,source,PLANNING_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,8479
+data/contracts/result_injection_contract_v5.json,"input, fixture, cache, or generated result",legacy,source,PLANNING_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,827
+data/kaggle_inputs/certgen_cifar10_generation_1k_input.zip,"input, fixture, cache, or generated result",current,generated,RUN_LOG_ONLY,false,preserve_if_unique_register_hash_exclude_from_source_release,false,true,12357
+data/kaggle_uploads/certgen-features/README.md,"input, fixture, cache, or generated result",current,generated,RUN_LOG_ONLY,false,preserve_if_unique_register_hash_exclude_from_source_release,false,false,81
+data/kaggle_uploads/certgen-features/checksums.sha256,"input, fixture, cache, or generated result",current,generated,RUN_LOG_ONLY,false,preserve_if_unique_register_hash_exclude_from_source_release,false,false,76
+data/kaggle_uploads/certgen-features/manifest.json,"input, fixture, cache, or generated result",current,generated,RUN_LOG_ONLY,false,preserve_if_unique_register_hash_exclude_from_source_release,false,false,292
+data/kaggle_uploads/certgen-generation/README.md,"input, fixture, cache, or generated result",current,generated,RUN_LOG_ONLY,false,preserve_if_unique_register_hash_exclude_from_source_release,false,false,83
+data/kaggle_uploads/certgen-generation/checksums.sha256,"input, fixture, cache, or generated result",current,generated,RUN_LOG_ONLY,false,preserve_if_unique_register_hash_exclude_from_source_release,false,false,76
+data/kaggle_uploads/certgen-generation/manifest.json,"input, fixture, cache, or generated result",current,generated,RUN_LOG_ONLY,false,preserve_if_unique_register_hash_exclude_from_source_release,false,false,294
+data/results/analysis_plan_lock_hash_v5.txt,"input, fixture, cache, or generated result",legacy,generated,CACHE_ARTIFACT,false,retain_in_worktree_archive_from_public_release,true,false,65
+data/results/certificate_replay.json,"input, fixture, cache, or generated result",current,generated,SYNTHETIC_ONLY,false,preserve_if_unique_register_hash_exclude_from_source_release,true,false,381
+data/results/certificate_replay.replayed_certificate.json,"input, fixture, cache, or generated result",current,generated,SYNTHETIC_ONLY,false,preserve_if_unique_register_hash_exclude_from_source_release,true,false,2648
+data/results/cvpr_readiness_scorecard_v5.json,"input, fixture, cache, or generated result",legacy,generated,PLANNING_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,1173
+data/results/feature_extraction_plan.json,"input, fixture, cache, or generated result",current,generated,PLANNING_ONLY,false,preserve_if_unique_register_hash_exclude_from_source_release,true,false,561
+data/results/final_execution_audit.json,"input, fixture, cache, or generated result",current,generated,CACHE_ARTIFACT,false,preserve_if_unique_register_hash_exclude_from_source_release,false,false,1467
+data/results/first_pilot_v3/certificates/smoke_a_vs_b_kid_polynomial.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,1910
+data/results/first_pilot_v3/certificates/smoke_a_vs_b_mmd_rbf.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,2648
+data/results/first_pilot_v3/summary.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,739
+data/results/metric_reproduction_audit.json,"input, fixture, cache, or generated result",current,generated,SYNTHETIC_ONLY,false,preserve_if_unique_register_hash_exclude_from_source_release,true,false,724
+data/results/optional_stopping_lab_v3.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,4694
+data/results/provenance_ledger_validation.json,"input, fixture, cache, or generated result",current,generated,PLANNING_ONLY,false,preserve_if_unique_register_hash_exclude_from_source_release,true,false,368
+data/results/r0_cpu/provenance_validation.json,"input, fixture, cache, or generated result",legacy,generated,PLANNING_ONLY,false,retain_in_worktree_archive_from_public_release,false,false,621
+data/results/r0_cpu_gpu_audit.json,"input, fixture, cache, or generated result",legacy,generated,CACHE_ARTIFACT,false,retain_in_worktree_archive_from_public_release,false,false,4040
+data/results/r0_technical_correction_audit.json,"input, fixture, cache, or generated result",legacy,generated,CACHE_ARTIFACT,false,retain_in_worktree_archive_from_public_release,true,false,5796
+data/results/r1_cifar10_status.json,"input, fixture, cache, or generated result",legacy,generated,CACHE_ARTIFACT,false,retain_in_worktree_archive_from_public_release,true,false,15487
+data/results/r1_cpu_validation.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,4300
+data/results/r1_optional_stopping_lab.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,8350
+data/results/r1_source_selection_status.json,"input, fixture, cache, or generated result",legacy,generated,CACHE_ARTIFACT,false,retain_in_worktree_archive_from_public_release,false,false,3955
+data/results/r1a_sample_materialization_audit.json,"input, fixture, cache, or generated result",legacy,generated,CACHE_ARTIFACT,false,retain_in_worktree_archive_from_public_release,false,false,2874
+data/results/r1b_cifar10_reference_summary.json,"input, fixture, cache, or generated result",legacy,generated,CACHE_ARTIFACT,false,retain_in_worktree_archive_from_public_release,false,false,558
+data/results/r1b_feature_extraction_package_summary.json,"input, fixture, cache, or generated result",legacy,generated,CACHE_ARTIFACT,false,retain_in_worktree_archive_from_public_release,false,false,463
+data/results/r1b_generated_manifest_summary.json,"input, fixture, cache, or generated result",legacy,generated,CACHE_ARTIFACT,false,retain_in_worktree_archive_from_public_release,false,false,431
+data/results/r1b_generation_package_audit.json,"input, fixture, cache, or generated result",legacy,generated,CACHE_ARTIFACT,false,retain_in_worktree_archive_from_public_release,false,false,1806
+data/results/r1c_feature_extraction_status.json,"input, fixture, cache, or generated result",legacy,generated,CACHE_ARTIFACT,false,retain_in_worktree_archive_from_public_release,false,false,813
+data/results/r1d_metric_reproduction.json,"input, fixture, cache, or generated result",legacy,generated,PILOT_ARTIFACT_REQUIRES_PROVENANCE_AUDIT,false,retain_in_worktree_archive_from_public_release,false,false,2880
+data/results/r1e_first_pilot_audit.json,"input, fixture, cache, or generated result",legacy,generated,CACHE_ARTIFACT,false,retain_in_worktree_archive_from_public_release,false,false,1296
+data/results/r1e_undecided_fraction.json,"input, fixture, cache, or generated result",legacy,generated,PILOT_ARTIFACT_REQUIRES_PROVENANCE_AUDIT,false,retain_in_worktree_archive_from_public_release,false,false,806
+data/results/r2_scale_go_nogo.json,"input, fixture, cache, or generated result",legacy,generated,CACHE_ARTIFACT,false,retain_in_worktree_archive_from_public_release,false,false,331
+data/results/r3_multibench_availability.json,"input, fixture, cache, or generated result",legacy,generated,CACHE_ARTIFACT,false,retain_in_worktree_archive_from_public_release,false,false,273
+data/results/r4_result_eligibility.json,"input, fixture, cache, or generated result",legacy,generated,CACHE_ARTIFACT,false,retain_in_worktree_archive_from_public_release,false,false,283
+data/results/v1_final_audit.json,"input, fixture, cache, or generated result",legacy,generated,CACHE_ARTIFACT,false,retain_in_worktree_archive_from_public_release,true,false,2097
+data/results/v2_final_audit.json,"input, fixture, cache, or generated result",legacy,generated,CACHE_ARTIFACT,false,retain_in_worktree_archive_from_public_release,true,false,2022
+data/results/v2_first_pilot_plan.json,"input, fixture, cache, or generated result",legacy,generated,PLANNING_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,1074
+data/results/v2_optional_stopping_lab/summary.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,2883
+data/results/v3_availability_table.json,"input, fixture, cache, or generated result",legacy,generated,PLANNING_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,354
+data/results/v3_final_audit.json,"input, fixture, cache, or generated result",legacy,generated,PLANNING_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,3443
+data/results/v3_intake_audit.json,"input, fixture, cache, or generated result",legacy,generated,PLANNING_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,2272
+data/results/v3_registry_validation.json,"input, fixture, cache, or generated result",legacy,generated,PLANNING_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,244
+data/results/v4/batch_certificates.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,1569
+data/results/v4/certificates/v4_smoke_a_close_vs_b_far_kid_polynomial.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,1918
+data/results/v4/certificates/v4_smoke_a_close_vs_b_far_mmd_rbf.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,2695
+data/results/v4/certificates/v4_smoke_equal_models_kid_polynomial.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,1918
+data/results/v4/certificates/v4_smoke_equal_models_mmd_rbf.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,2694
+data/results/v4/decidedness_audit.csv,"input, fixture, cache, or generated result",legacy,generated,CACHE_ARTIFACT,false,retain_in_worktree_archive_from_public_release,true,false,717
+data/results/v4/decidedness_audit.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,1444
+data/results/v4/first_real_pilot/summary.json,"input, fixture, cache, or generated result",legacy,generated,PLANNING_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,366
+data/results/v4/paper_artifacts/paper_artifacts_spec.json,"input, fixture, cache, or generated result",legacy,generated,PLANNING_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,2091
+data/results/v4/ranking_stability.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,213
+data/results/v4/real_run_plan.json,"input, fixture, cache, or generated result",legacy,generated,PLANNING_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,1002
+data/results/v4/reported_claim_traces.json,"input, fixture, cache, or generated result",legacy,generated,CACHE_ARTIFACT,false,retain_in_worktree_archive_from_public_release,true,false,838
+data/results/v4/reviewer_attack_harness.json,"input, fixture, cache, or generated result",legacy,generated,CACHE_ARTIFACT,false,retain_in_worktree_archive_from_public_release,true,false,7278
+data/results/v4_final_audit.json,"input, fixture, cache, or generated result",legacy,generated,PLANNING_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,6313
+data/results/v4_metric_reproduction_audit.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,724
+data/results/v4_release_safety.json,"input, fixture, cache, or generated result",legacy,generated,CACHE_ARTIFACT,false,retain_in_worktree_archive_from_public_release,true,false,2281
+data/results/v4_state_intake_audit.json,"input, fixture, cache, or generated result",legacy,generated,PLANNING_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,24668
+data/results/v5_claim_contract_audit.json,"input, fixture, cache, or generated result",legacy,generated,PLANNING_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,162
+data/results/v5_final_audit.json,"input, fixture, cache, or generated result",legacy,generated,PLANNING_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,4621
+data/results/v5_related_work_audit.json,"input, fixture, cache, or generated result",legacy,generated,PLANNING_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,133
+data/results/v5_release_safety.json,"input, fixture, cache, or generated result",legacy,generated,PLANNING_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,158
+data/results/v5_reviewer_harness.json,"input, fixture, cache, or generated result",legacy,generated,PLANNING_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,563
+data/results/v5_state_intake.json,"input, fixture, cache, or generated result",legacy,generated,PLANNING_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,1675
+data/results/v6_feature_input_zip_manifest.json,"input, fixture, cache, or generated result",legacy,generated,CACHE_ARTIFACT,false,retain_in_worktree_archive_from_public_release,false,false,735
+data/results/v6_feature_output_validation_summary.json,"input, fixture, cache, or generated result",legacy,generated,CACHE_ARTIFACT,false,retain_in_worktree_archive_from_public_release,false,false,350
+data/results/v6_generation_input_zip_manifest.json,"input, fixture, cache, or generated result",legacy,generated,CACHE_ARTIFACT,false,retain_in_worktree_archive_from_public_release,false,false,1772
+data/results/v6_generation_output_validation_summary.json,"input, fixture, cache, or generated result",legacy,generated,CACHE_ARTIFACT,false,retain_in_worktree_archive_from_public_release,false,false,358
+data/results/v7_checkpoint_preflight_status.json,"input, fixture, cache, or generated result",legacy,generated,RUN_LOG_ONLY,false,retain_in_worktree_archive_from_public_release,false,false,835
+data/results/v7_cifar_reference_materialization_summary.json,"input, fixture, cache, or generated result",legacy,generated,PILOT_ARTIFACT_REQUIRES_PROVENANCE_AUDIT,false,retain_in_worktree_archive_from_public_release,false,false,241
+data/results/v7_execution_development_audit.json,"input, fixture, cache, or generated result",legacy,generated,PILOT_ARTIFACT_REQUIRES_PROVENANCE_AUDIT,false,retain_in_worktree_archive_from_public_release,false,false,756
+data/results/v7_metric_sanity_gates.json,"input, fixture, cache, or generated result",legacy,generated,PILOT_ARTIFACT_REQUIRES_PROVENANCE_AUDIT,false,retain_in_worktree_archive_from_public_release,false,false,230
+data/results/v7_multibench_candidate_validation.json,"input, fixture, cache, or generated result",legacy,generated,CACHE_ARTIFACT,false,retain_in_worktree_archive_from_public_release,false,false,111
+data/results/v7_notebook_quality.json,"input, fixture, cache, or generated result",legacy,generated,CACHE_ARTIFACT,false,retain_in_worktree_archive_from_public_release,false,false,358
+data/results/v7_paper_result_gate.json,"input, fixture, cache, or generated result",legacy,generated,CACHE_ARTIFACT,false,retain_in_worktree_archive_from_public_release,false,false,57
+data/results/v7_run_ledger.jsonl,"input, fixture, cache, or generated result",legacy,generated,CACHE_ARTIFACT,false,retain_in_worktree_archive_from_public_release,false,false,361
+data/results/v9_cifar_reference_onramp.json,"input, fixture, cache, or generated result",current,generated,CACHE_ARTIFACT,false,preserve_if_unique_register_hash_exclude_from_source_release,false,false,58667
+data/results/v9_exact_next_action.json,"input, fixture, cache, or generated result",current,generated,CACHE_ARTIFACT,false,preserve_if_unique_register_hash_exclude_from_source_release,false,false,658
+data/results/v9_execution_dashboard.json,"input, fixture, cache, or generated result",current,generated,CACHE_ARTIFACT,false,preserve_if_unique_register_hash_exclude_from_source_release,false,false,2064
+data/results/v9_execution_supercharger_audit.json,"input, fixture, cache, or generated result",current,generated,CACHE_ARTIFACT,false,preserve_if_unique_register_hash_exclude_from_source_release,false,false,5410
+data/results/v9_notebook_static_analysis.json,"input, fixture, cache, or generated result",current,generated,CACHE_ARTIFACT,false,preserve_if_unique_register_hash_exclude_from_source_release,false,false,602
+data/results/v9_paper_firewall.json,"input, fixture, cache, or generated result",current,generated,CACHE_ARTIFACT,false,preserve_if_unique_register_hash_exclude_from_source_release,false,false,1900
+data/results/v9_repo_snapshot_status.json,"input, fixture, cache, or generated result",current,generated,CACHE_ARTIFACT,false,preserve_if_unique_register_hash_exclude_from_source_release,false,false,10921
+data/results/v9_runtime_budget_plan.json,"input, fixture, cache, or generated result",current,generated,CACHE_ARTIFACT,false,preserve_if_unique_register_hash_exclude_from_source_release,false,false,1679
+data/smoke/v1/certificates/smoke_kid_certificate.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,920
+data/smoke/v1/features/model_a_features.npz,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,8084
+data/smoke/v1/features/model_b_features.npz,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,8054
+data/smoke/v1/features/reference_features.npz,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,8077
+data/smoke/v1/manifests/model_a_feature_manifest.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,443
+data/smoke/v1/manifests/model_b_feature_manifest.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,443
+data/smoke/v1/manifests/reference_feature_manifest.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,447
+data/smoke/v1/metrics/smoke_metrics.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,1164
+data/smoke/v1/provenance.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,436
+data/smoke/v1/reports/smoke_certificate_report.md,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,896
+data/smoke/v1/smoke_artifact.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,729
+data/smoke/v2/certificates/audit_smoke_kid.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,1887
+data/smoke/v2/certificates/audit_smoke_mmd_rbf.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,2666
+data/smoke/v2/certificates/smoke_pair_001_kid_certificate.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,1887
+data/smoke/v2/features/model_a_close.metadata.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,366
+data/smoke/v2/features/model_a_close.npz,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,3930
+data/smoke/v2/features/model_a_far.metadata.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,362
+data/smoke/v2/features/model_a_far.npz,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,3805
+data/smoke/v2/features/model_b_close.metadata.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,366
+data/smoke/v2/features/model_b_close.npz,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,3932
+data/smoke/v2/features/model_b_far.metadata.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,362
+data/smoke/v2/features/model_b_far.npz,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,3792
+data/smoke/v2/features/model_equal_1.metadata.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,366
+data/smoke/v2/features/model_equal_1.npz,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,3929
+data/smoke/v2/features/model_equal_2.metadata.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,366
+data/smoke/v2/features/model_equal_2.npz,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,3935
+data/smoke/v2/features/reference.metadata.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,358
+data/smoke/v2/features/reference.npz,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,3928
+data/smoke/v3/audit/features/model_a_close.metadata.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,373
+data/smoke/v3/audit/features/model_a_close.npz,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,3928
+data/smoke/v3/audit/features/model_a_close.v3_sidecar.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,735
+data/smoke/v3/audit/features/model_a_far.metadata.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,369
+data/smoke/v3/audit/features/model_a_far.npz,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,3815
+data/smoke/v3/audit/features/model_b_close.metadata.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,373
+data/smoke/v3/audit/features/model_b_close.npz,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,3939
+data/smoke/v3/audit/features/model_b_far.metadata.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,369
+data/smoke/v3/audit/features/model_b_far.npz,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,3819
+data/smoke/v3/audit/features/model_b_far.v3_sidecar.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,731
+data/smoke/v3/audit/features/model_equal_1.metadata.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,373
+data/smoke/v3/audit/features/model_equal_1.npz,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,3931
+data/smoke/v3/audit/features/model_equal_2.metadata.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,373
+data/smoke/v3/audit/features/model_equal_2.npz,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,3929
+data/smoke/v3/audit/features/nan.npz,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,222
+data/smoke/v3/audit/features/nan.v3_sidecar.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,711
+data/smoke/v3/audit/features/reference.metadata.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,365
+data/smoke/v3/audit/features/reference.npz,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,3929
+data/smoke/v3/audit/features/reference.v3_sidecar.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,729
+data/smoke/v3/audit/metric_repro.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,446
+data/smoke/v3/audit/metric_reproduction_gate.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,141
+data/smoke/v3/audit/pilot.yaml,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,689
+data/smoke/v4/audit/features/model_a_close.metadata.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,373
+data/smoke/v4/audit/features/model_a_close.npz,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,3934
+data/smoke/v4/audit/features/model_a_far.metadata.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,369
+data/smoke/v4/audit/features/model_a_far.npz,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,3813
+data/smoke/v4/audit/features/model_b_close.metadata.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,373
+data/smoke/v4/audit/features/model_b_close.npz,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,3929
+data/smoke/v4/audit/features/model_b_far.metadata.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,369
+data/smoke/v4/audit/features/model_b_far.npz,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,3813
+data/smoke/v4/audit/features/model_equal_1.metadata.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,373
+data/smoke/v4/audit/features/model_equal_1.npz,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,3928
+data/smoke/v4/audit/features/model_equal_2.metadata.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,373
+data/smoke/v4/audit/features/model_equal_2.npz,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,3932
+data/smoke/v4/audit/features/reference.metadata.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,365
+data/smoke/v4/audit/features/reference.npz,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,3930
+data/smoke/v4/metric_repro/features/model_a_close.metadata.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,380
+data/smoke/v4/metric_repro/features/model_a_close.npz,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,3930
+data/smoke/v4/metric_repro/features/model_a_close.v4_sidecar.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,751
+data/smoke/v4/metric_repro/features/model_a_far.metadata.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,376
+data/smoke/v4/metric_repro/features/model_a_far.npz,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,3813
+data/smoke/v4/metric_repro/features/model_b_close.metadata.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,380
+data/smoke/v4/metric_repro/features/model_b_close.npz,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,3922
+data/smoke/v4/metric_repro/features/model_b_far.metadata.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,376
+data/smoke/v4/metric_repro/features/model_b_far.npz,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,3801
+data/smoke/v4/metric_repro/features/model_equal_1.metadata.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,380
+data/smoke/v4/metric_repro/features/model_equal_1.npz,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,3925
+data/smoke/v4/metric_repro/features/model_equal_2.metadata.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,380
+data/smoke/v4/metric_repro/features/model_equal_2.npz,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,3939
+data/smoke/v4/metric_repro/features/reference.metadata.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,372
+data/smoke/v4/metric_repro/features/reference.npz,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,3931
+data/smoke/v4/metric_repro/features/reference.v4_sidecar.json,"input, fixture, cache, or generated result",legacy,generated,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,745
+docs/ANONYMITY_AND_RELEASE_POLICY.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,true,false,379
+docs/AUTHOR_RESPONSE_BANK_V4.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,107
+docs/CERTGEN_EXACT_NEXT_ACTION.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,2323
+docs/CERTGEN_EXECUTION_CRITICAL_PATH.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,4800
+docs/CERTGEN_MAXIMUM_RESEARCH_CEILING.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,4114
+docs/CERTGEN_SINGLE_FILE_HANDOFF.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,4847
+docs/CERTGEN_V1_README.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,459
+docs/CERTIFICATE_REPLAY_REPORT.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,true,false,96
+docs/CIFAR10_REFERENCE_MATERIALIZATION_R1A.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,3369
+docs/CLAIMS_POLICY.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,true,false,542
+docs/CLAIM_LANGUAGE_POLICY_V4.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,218
+docs/CLAIM_POLICY_V3.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,748
+docs/COMMAND_INDEX_R0.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,1626
+docs/COMMAND_INDEX_V1.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,1499
+docs/COMMAND_INDEX_V2.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,1874
+docs/COMMAND_INDEX_V3.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,3911
+docs/COMMAND_INDEX_V4.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,3183
+docs/COMMAND_INDEX_V5.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,1179
+docs/CVPR_KILL_LIST_V5.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,443
+docs/CVPR_PAPER_SCAFFOLD_V4.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,152
+docs/CVPR_READINESS_SCORECARD_V5.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,626
+docs/DECIDEDNESS_AND_RANKING_STABILITY_V4.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,175
+docs/EVIDENCE_STATUS_POLICY.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,true,false,357
+docs/FEATURE_CACHE_CONTRACT_V3.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,388
+docs/FEATURE_EXTRACTION_NOTEBOOKS_V4.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,265
+docs/FEATURE_EXTRACTION_PLAN.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,true,false,315
+docs/FEATURE_EXTRACTION_RUNBOOK_V3.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,502
+docs/FID_POLICY.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,true,false,655
+docs/FID_POLICY_V3.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,269
+docs/FINAL_EXECUTION_AUDIT.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,431
+docs/FIRST_PILOT_CHECKLIST.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,true,false,381
+docs/FIRST_PILOT_PLAN.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,true,false,518
+docs/FIRST_PILOT_V3_REPORT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,1238
+docs/FIRST_REAL_PILOT_CHECKLIST.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,true,false,401
+docs/FIRST_REAL_PILOT_GO_NO_GO_TEMPLATE.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,true,false,158
+docs/FIRST_REAL_PILOT_RUNBOOK_V4.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,171
+docs/KAGGLE_CIFAR10_FEATURE_EXTRACTION_T4X2_NOTEBOOK_GUIDE.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,2202
+docs/KAGGLE_CIFAR10_GENERATION_T4X2_NOTEBOOK_GUIDE.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,1750
+docs/KAGGLE_T4X2_CIFAR10_GENERATION_R1A.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,5761
+docs/KAGGLE_T4X2_FEATURE_EXTRACTION_RUNBOOK_R0.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,3674
+docs/KAGGLE_T4X2_FEATURE_EXTRACTION_RUNTIME_ESTIMATES_V6.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,673
+docs/KAGGLE_T4X2_GENERATION_RUNTIME_ESTIMATES_V6.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,825
+docs/KAGGLE_T4X2_PARALLEL_SEED_GENERATION_RUNBOOK_R0.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,2538
+docs/METRIC_REPRODUCTION_AUDIT.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,true,false,385
+docs/METRIC_REPRODUCTION_AUDIT_GUIDE.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,true,false,280
+docs/NO_RESULTS_YET.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,true,false,232
+docs/OPTIONAL_STOPPING_LAB_V3.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,1642
+docs/PAPER_ARTIFACTS_V4.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,138
+docs/PILOT_REPORT_CARD_TEMPLATE.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,true,false,282
+docs/PREPROCESSING_LOCKS_V4.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,243
+docs/PROVENANCE_LEDGER_GUIDE.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,true,false,346
+docs/PROVENANCE_LEDGER_VALIDATION.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,true,false,313
+docs/R0_COMMAND_INDEX.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,1418
+docs/R0_CPU_GPU_AUDIT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,3534
+docs/R0_CPU_GPU_EXECUTION_POLICY.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,1835
+docs/R0_CPU_PROVENANCE_VALIDATION.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,541
+docs/R0_RUNTIME_ESTIMATES_CPU_AND_KAGGLE_T4X2.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,2571
+docs/R0_TECHNICAL_CORRECTION_AUDIT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,4876
+docs/R0_TECHNICAL_CORRECTION_REPORT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,4019
+docs/R1A_CIFAR10_GENERATION_RUNTIME_ESTIMATES.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,1397
+docs/R1A_CIFAR10_SAMPLE_MATERIALIZATION_POLICY.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,2079
+docs/R1A_SAMPLE_MATERIALIZATION_AUDIT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,2106
+docs/R1B_GENERATION_PACKAGE_AUDIT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,1359
+docs/R1C_KAGGLE_FEATURE_EXTRACTION_REPORT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,406
+docs/R1D_METRIC_REPRODUCTION_REPORT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,2117
+docs/R1E_FIRST_CERTIFICATE_PILOT_REPORT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,609
+docs/R1E_FIRST_PILOT_AUDIT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,809
+docs/R1_CIFAR10_REAL_PILOT_READINESS.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,6542
+docs/R1_CPU_VALIDATION.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,1776
+docs/R1_OPTIONAL_STOPPING_LAB.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,1642
+docs/R1_SOURCE_SELECTION_AND_PROVENANCE_REPORT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,6501
+docs/R2_SCALE_GO_NOGO_REPORT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,274
+docs/R3_MULTI_BENCHMARK_AVAILABILITY_REPORT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,296
+docs/R4_PAPER_INJECTION_AUDIT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,252
+docs/R4_RESULT_ELIGIBILITY_REPORT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,222
+docs/REAL_RUN_PROVENANCE_PIPELINE_V4.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,166
+docs/RELATED_WORK_TASK_BOARD_V4.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,567
+docs/RELATED_WORK_TODO.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,397
+docs/RELEASE_SAFETY_V4.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,183
+docs/REPORTED_CLAIM_TRACE_GUIDE_V4.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,183
+docs/REPRODUCIBILITY_CAPSULE_V1.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,666
+docs/REPRODUCIBILITY_CAPSULE_V3.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,560
+docs/REPRODUCIBILITY_CAPSULE_V4.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,239
+docs/REVIEWER_ATTACKS_V1.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,707
+docs/REVIEWER_ATTACKS_V4.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,113
+docs/RUNBOOK_V1.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,274
+docs/SMOKE_CERTIFICATE_CARD.md,documentation or audit report,current,source,SYNTHETIC_ONLY,false,review_before_release,true,false,931
+docs/TROUBLESHOOTING_V3.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,446
+docs/V1_CERTIFICATE_CORE_REPORT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,585
+docs/V1_FID_POLICY_REPORT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,422
+docs/V1_FINAL_AUDIT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,1346
+docs/V1_METRICS_FOUNDATION_REPORT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,478
+docs/V1_PILOT_REGISTRY_REPORT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,324
+docs/V1_REPORTING_REPRODUCIBILITY_REPORT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,372
+docs/V1_SCHEMA_AND_GATE_REPORT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,533
+docs/V1_SINGLE_FILE_HANDOFF.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2102
+docs/V2_CLEAN_METRIC_CERTIFICATE_API.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,628
+docs/V2_CONFIDENCE_SEQUENCE_CORE.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,676
+docs/V2_FEATURE_CACHE_CONTRACT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,391
+docs/V2_FID_POLICY.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,669
+docs/V2_FINAL_AUDIT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,1271
+docs/V2_FIRST_PILOT_DRY_RUN.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,424
+docs/V2_FIRST_PILOT_PLAN.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,492
+docs/V2_FIXTURE_POLICY.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,271
+docs/V2_MMD_STREAMS.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,553
+docs/V2_OPTIONAL_STOPPING_LAB.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,1500
+docs/V2_REGISTRY_SCHEMA.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,406
+docs/V2_REPORTING.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,355
+docs/V2_SINGLE_FILE_HANDOFF.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,1528
+docs/V2_STATISTICAL_CORE_DESIGN.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,1284
+docs/V3_AVAILABILITY_TABLE.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,260
+docs/V3_FINAL_AUDIT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2059
+docs/V3_GLOBAL_RULES.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,646
+docs/V3_INTAKE_AUDIT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,1050
+docs/V3_REGISTRY_GUIDE.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,271
+docs/V3_REGISTRY_VALIDATION.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,149
+docs/V3_RUNBOOK.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,419
+docs/V3_SINGLE_FILE_HANDOFF.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,1433
+docs/V4_ADVANCED_CERTIFICATION.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,169
+docs/V4_BATCH_CERTIFICATE_REPORT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,518
+docs/V4_DECIDEDNESS_AUDIT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,125
+docs/V4_FINAL_AUDIT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,4844
+docs/V4_FIRST_REAL_PILOT_REPORT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,161
+docs/V4_METRIC_REPRODUCTION_AUDIT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,385
+docs/V4_PAPER_ARTIFACTS_REPORT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,120
+docs/V4_RANKING_STABILITY_REPORT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,109
+docs/V4_REAL_RUN_PLAN.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,355
+docs/V4_RELEASE_SAFETY_REPORT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,1096
+docs/V4_SINGLE_FILE_HANDOFF.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,3141
+docs/V4_STATE_INTAKE_AUDIT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,12469
+docs/V5_FINAL_AUDIT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2707
+docs/V5_SINGLE_FILE_HANDOFF.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,3423
+docs/V5_STATE_INTAKE.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,968
+docs/V5_STOP_CONDITION.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,405
+docs/V6_CPU_AND_KAGGLE_MASTER_EXECUTION_RUNBOOK.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,4604
+docs/V7_CHECKPOINT_ADAPTER_FAILURE_PLAYBOOK.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,227
+docs/V7_CIFAR_REFERENCE_ONRAMP_REPORT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,342
+docs/V7_EXECUTION_DASHBOARD.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,299
+docs/V7_EXECUTION_DEVELOPMENT_AUDIT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,402
+docs/V7_EXECUTION_UPGRADE_PLAN.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,337
+docs/V7_FIRST_PILOT_LIMITATIONS.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,181
+docs/V7_FIRST_PILOT_REPORT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,245
+docs/V7_IMPORT_RECOVERY_REPORT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,156
+docs/V7_KAGGLE_COPYBACK_AND_RECOVERY.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,354
+docs/V7_KAGGLE_DATASET_UPLOAD_GUIDE.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,274
+docs/V7_KAGGLE_FEATURE_EXTRACTION_BOOKRUN_GUIDE.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,280
+docs/V7_KAGGLE_GENERATION_BOOKRUN_GUIDE.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,235
+docs/V7_METRIC_SANITY_GATE_REPORT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,185
+docs/V7_MULTI_BENCHMARK_CANDIDATE_ONRAMP.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,159
+docs/V7_NOTEBOOK_QUALITY_REPORT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,328
+docs/V7_PAPER_RESULT_GATE_REPORT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,95
+docs/V7_REPO_HEALTH_AND_ARCHIVE_REPORT.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,212
+docs/V7_SCALE_LANES_1K_10K_50K.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,303
+docs/V7_SINGLE_FILE_HANDOFF.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,588
+docs/V8_KAGGLE_COPYBACK_AND_IMPORT_GUIDE.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,533
+docs/V9_CIFAR_REFERENCE_SUPER_ONRAMP.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,31919
+docs/V9_EXACT_NEXT_ACTION.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,633
+docs/V9_EXECUTION_DASHBOARD.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,1206
+docs/V9_EXECUTION_SUPERCHARGER_AUDIT.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,3109
+docs/V9_KAGGLE_CHECKPOINT_PREFLIGHT_GUIDE.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,819
+docs/V9_KAGGLE_FEATURE_EXTRACTION_HARDENED_GUIDE.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,794
+docs/V9_KAGGLE_GENERATION_HARDENED_GUIDE.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,723
+docs/V9_NOTEBOOK_STATIC_ANALYSIS.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,462
+docs/V9_PAPER_FIREWALL_REPORT.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,145
+docs/V9_REPO_SNAPSHOT_AND_WORKTREE_STATUS.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,919
+docs/V9_RUNTIME_BUDGET_PLAN.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,498
+docs/analysis/ANALYSIS_PLAN_AMENDMENT_POLICY.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,true,false,368
+docs/analysis/ANALYSIS_PLAN_LOCK_V5.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,377
+docs/analysis/PREREGISTRATION_V5.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,508
+docs/engineering/CERTGEN_ARCHITECTURE_AUDIT.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,5452
+docs/engineering/CERTGEN_CANONICAL_INTERFACE.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,3144
+docs/execution/CERTGEN_CHECKPOINT_REGISTRY.csv,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,1806
+docs/execution/CERTGEN_FAILURE_AND_RESUME_PLAYBOOK.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,3799
+docs/execution/CERTGEN_KAGGLE_NOTEBOOK_FORENSIC_AUDIT.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,3441
+docs/execution/V5_COMMAND_BUNDLES.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,251
+docs/execution/V5_REAL_PILOT_RUNBOOK.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,537
+docs/experiments/CERTGEN_BENCHMARK_CANDIDATE_MATRIX.csv,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,10230
+docs/experiments/CERTGEN_LITERATURE_AUDIT_PROTOCOL.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,4595
+docs/experiments/CERTGEN_MAXIMUM_CEILING_STUDY.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,10319
+docs/experiments/CERTGEN_MINIMUM_CREDIBLE_STUDY.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,10360
+docs/experiments/CERTGEN_PREREGISTRATION_PROTOCOL.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,10553
+docs/experiments/CERTGEN_PROSPECTIVE_COMPARISON_REGISTRY.csv,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,13610
+docs/experiments/CERTGEN_SCALE_UP_AND_STOP_RULES.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,6411
+docs/metrics/CERTGEN_CACHE_SCHEMA_V2.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,8621
+docs/metrics/CERTGEN_FEATURE_PIPELINE_AUDIT.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,9063
+docs/metrics/CERTGEN_METRIC_REPRODUCTION_PROTOCOL.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,9470
+docs/paper/ALLOWED_PRE_RUN_CLAIMS.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,true,false,473
+docs/paper/CLAIM_CONTRACT.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,true,false,463
+docs/paper/CLAIM_TRACE_PROTOCOL.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,true,false,332
+docs/paper/CVPR_PAPER_IDENTITY.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,true,false,663
+docs/paper/FIGURE_MANIFEST_V5.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,629
+docs/paper/FORBIDDEN_CLAIMS.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,true,false,490
+docs/paper/PAPER_BUILD_GUIDE.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,true,false,428
+docs/paper/PROOF_OBLIGATION_TRACKER.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,true,false,267
+docs/paper/RESULT_INJECTION_PROTOCOL.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,true,false,338
+docs/paper/TABLE_MANIFEST_V5.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,889
+docs/related_work/CITATION_VERIFICATION_PROTOCOL.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,true,false,516
+docs/related_work/CITATION_VERIFICATION_TODO_V5.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,1184
+docs/related_work/RELATED_WORK_BOARD_V5.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,1756
+docs/related_work/RELATED_WORK_SECTION_SCAFFOLD.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,true,false,610
+docs/release/ANONYMITY_AND_PRIVACY_AUDIT_V5.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,121
+docs/reproducibility/DATA_AND_SAMPLE_PROVENANCE_POLICY.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,true,false,276
+docs/reproducibility/ENVIRONMENT_V5.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,326
+docs/reproducibility/FEATURE_CACHE_FORMAT.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,true,false,314
+docs/reproducibility/REPRODUCIBILITY_CAPSULE_V5.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,596
+docs/reproducibility/ZERO_COST_EXECUTION_GUIDE.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,true,false,277
+docs/research/CERTGEN_CLAIM_AND_CONTRIBUTION_CONTRACT.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,4703
+docs/research/CERTGEN_CLOSEST_WORK_MATRIX.csv,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,6365
+docs/research/CERTGEN_NOVELTY_FORENSIC_AUDIT.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,10363
+docs/review/AUTHOR_RESPONSE_BANK_V5.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,344
+docs/review/REVIEWER_ATTACKS_V5.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,683
+docs/review/REVIEWER_SCORE_SIMULATOR_V5.md,documentation or audit report,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,126
+docs/theory/CERTGEN_ASSUMPTION_LEDGER.csv,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,5334
+docs/theory/CERTGEN_FORMAL_ESTIMAND_AND_STREAM.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,7060
+docs/theory/CERTGEN_METRIC_CAPABILITY_REGISTRY.csv,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,2496
+docs/theory/CERTGEN_MULTIPLICITY_PROTOCOL.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,3709
+docs/theory/CERTGEN_STATISTICAL_VALIDITY_AUDIT.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,8063
+docs/theory/CERTGEN_THEOREM_AND_PROOF_OBLIGATIONS.md,documentation or audit report,current,source,NOT_EVIDENCE,false,review_before_release,false,false,6770
+notebooks/generated/kaggle_inception_features.py,remote execution asset,current,generated,NOT_EVIDENCE,false,preserve_if_unique_register_hash_exclude_from_source_release,true,false,993
+notebooks/kaggle/certgen_cifar10_feature_extraction_t4x2_1k.ipynb,remote execution asset,current,source,NOT_EVIDENCE,true,none,false,false,8041
+notebooks/kaggle/certgen_cifar10_generation_t4x2_1k.ipynb,remote execution asset,current,source,NOT_EVIDENCE,true,none,false,false,6923
+notebooks/kaggle/v7_certgen_cifar10_feature_extraction_t4x2_bookrun.ipynb,remote execution asset,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,5256
+notebooks/kaggle/v7_certgen_cifar10_generation_t4x2_bookrun.ipynb,remote execution asset,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,6046
+notebooks/kaggle/v8_certgen_cifar10_feature_extraction_t4x2_bookrun.ipynb,remote execution asset,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,7714
+notebooks/kaggle/v8_certgen_cifar10_generation_t4x2_bookrun.ipynb,remote execution asset,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,7741
+notebooks/kaggle/v8_checkpoint_preflight_t4x2.ipynb,remote execution asset,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,7442
+notebooks/kaggle/v9_checkpoint_real_load_preflight_t4x2.ipynb,remote execution asset,current,source,NOT_EVIDENCE,true,none,false,false,6947
+notebooks/kaggle/v9_cifar10_feature_extraction_t4x2_1k_hardened.ipynb,remote execution asset,current,source,NOT_EVIDENCE,true,none,false,false,12637
+notebooks/kaggle/v9_cifar10_generation_t4x2_1k_hardened.ipynb,remote execution asset,current,source,NOT_EVIDENCE,true,none,false,false,13562
+paper/CERTGEN_CLAIM_HIERARCHY.md,manuscript source,current,source,MISSING_EMPIRICAL_EVIDENCE,true,retain_placeholders_until_claim_gate_passes,false,false,3389
+paper/CERTGEN_FIGURE_AND_TABLE_SPEC.md,manuscript source,current,source,MISSING_EMPIRICAL_EVIDENCE,true,retain_placeholders_until_claim_gate_passes,false,false,4193
+paper/CERTGEN_PAPER_REDESIGN_PLAN.md,manuscript source,current,source,MISSING_EMPIRICAL_EVIDENCE,true,retain_placeholders_until_claim_gate_passes,false,false,5238
+paper/CERTGEN_REVIEWER_REPAIR_MATRIX.csv,manuscript source,current,source,MISSING_EMPIRICAL_EVIDENCE,true,retain_placeholders_until_claim_gate_passes,false,false,2599
+paper/CERTGEN_REVIEWER_SIMULATION.md,manuscript source,current,source,MISSING_EMPIRICAL_EVIDENCE,true,retain_placeholders_until_claim_gate_passes,false,false,4940
+paper/CERTGEN_VENUE_CEILING_MATRIX.md,manuscript source,current,source,MISSING_EMPIRICAL_EVIDENCE,true,retain_placeholders_until_claim_gate_passes,false,false,3180
+paper/README.md,manuscript source,current,source,MISSING_EMPIRICAL_EVIDENCE,true,retain_placeholders_until_claim_gate_passes,true,false,125
+paper/figures/README.md,manuscript source,current,source,MISSING_EMPIRICAL_EVIDENCE,true,retain_placeholders_until_claim_gate_passes,true,false,71
+paper/main.tex,manuscript source,current,source,MISSING_EMPIRICAL_EVIDENCE,true,retain_placeholders_until_claim_gate_passes,true,false,476
+paper/sections/00_abstract.tex,manuscript source,current,source,MISSING_EMPIRICAL_EVIDENCE,true,retain_placeholders_until_claim_gate_passes,true,false,1076
+paper/sections/01_introduction.tex,manuscript source,current,source,MISSING_EMPIRICAL_EVIDENCE,true,retain_placeholders_until_claim_gate_passes,true,false,2038
+paper/sections/02_related_work.tex,manuscript source,current,source,MISSING_EMPIRICAL_EVIDENCE,true,retain_placeholders_until_claim_gate_passes,true,false,4488
+paper/sections/03_method.tex,manuscript source,current,source,MISSING_EMPIRICAL_EVIDENCE,true,retain_placeholders_until_claim_gate_passes,true,false,1845
+paper/sections/04_experimental_protocol.tex,manuscript source,current,source,MISSING_EMPIRICAL_EVIDENCE,true,retain_placeholders_until_claim_gate_passes,true,false,482
+paper/sections/05_results_placeholder.tex,manuscript source,current,source,MISSING_EMPIRICAL_EVIDENCE,true,retain_placeholders_until_claim_gate_passes,true,false,662
+paper/sections/06_limitations_ethics.tex,manuscript source,current,source,MISSING_EMPIRICAL_EVIDENCE,true,retain_placeholders_until_claim_gate_passes,true,false,636
+paper/sections/07_conclusion.tex,manuscript source,current,source,MISSING_EMPIRICAL_EVIDENCE,true,retain_placeholders_until_claim_gate_passes,true,false,247
+paper/sections/abstract_placeholder.tex,manuscript source,current,source,MISSING_EMPIRICAL_EVIDENCE,true,retain_placeholders_until_claim_gate_passes,true,false,234
+paper/sections/ethics_reproducibility.tex,manuscript source,current,source,MISSING_EMPIRICAL_EVIDENCE,true,retain_placeholders_until_claim_gate_passes,true,false,113
+paper/sections/experiments_placeholder.tex,manuscript source,current,source,MISSING_EMPIRICAL_EVIDENCE,true,retain_placeholders_until_claim_gate_passes,true,false,176
+paper/sections/introduction.tex,manuscript source,current,source,MISSING_EMPIRICAL_EVIDENCE,true,retain_placeholders_until_claim_gate_passes,true,false,121
+paper/sections/limitations.tex,manuscript source,current,source,MISSING_EMPIRICAL_EVIDENCE,true,retain_placeholders_until_claim_gate_passes,true,false,104
+paper/sections/method.tex,manuscript source,current,source,MISSING_EMPIRICAL_EVIDENCE,true,retain_placeholders_until_claim_gate_passes,true,false,153
+paper/supplement/01_certificate_details.tex,manuscript source,current,source,MISSING_EMPIRICAL_EVIDENCE,true,retain_placeholders_until_claim_gate_passes,true,false,336
+paper/supplement/02_optional_stopping_validity.tex,manuscript source,current,source,MISSING_EMPIRICAL_EVIDENCE,true,retain_placeholders_until_claim_gate_passes,true,false,402
+paper/supplement/03_mmd_kid_cmmd_streams.tex,manuscript source,current,source,MISSING_EMPIRICAL_EVIDENCE,true,retain_placeholders_until_claim_gate_passes,true,false,484
+paper/supplement/04_multiple_comparisons_dependence.tex,manuscript source,current,source,MISSING_EMPIRICAL_EVIDENCE,true,retain_placeholders_until_claim_gate_passes,true,false,650
+paper/supplement/05_fid_fd_policy.tex,manuscript source,current,source,MISSING_EMPIRICAL_EVIDENCE,true,retain_placeholders_until_claim_gate_passes,true,false,406
+paper/supplement/06_reproducibility_details.tex,manuscript source,current,source,MISSING_EMPIRICAL_EVIDENCE,true,retain_placeholders_until_claim_gate_passes,true,false,368
+paper/supplement/07_additional_tables_placeholders.tex,manuscript source,current,source,MISSING_EMPIRICAL_EVIDENCE,true,retain_placeholders_until_claim_gate_passes,true,false,197
+paper/supplement.tex,manuscript source,current,source,MISSING_EMPIRICAL_EVIDENCE,true,retain_placeholders_until_claim_gate_passes,true,false,465
+paper/tables/README.md,manuscript source,current,source,MISSING_EMPIRICAL_EVIDENCE,true,retain_placeholders_until_claim_gate_passes,true,false,69
+pyproject.toml,repository metadata or historical process artifact,current,source,NOT_EVIDENCE,true,none,true,false,590
+registry/audit_claims_template.csv,provenance or study registry,current,source,PLANNING_ONLY,false,review_before_release,true,false,216
+registry/candidate_benchmarks_template.csv,provenance or study registry,current,source,PLANNING_ONLY,false,review_before_release,true,false,192
+registry/candidate_model_pairs_template.csv,provenance or study registry,current,source,PLANNING_ONLY,false,review_before_release,true,false,362
+registry/feature_caches/smoke_feature_cache_manifest.json,provenance or study registry,current,source,SYNTHETIC_ONLY,false,review_before_release,true,false,900
+registry/manifests/cifar10_r1_generated_pilot_1000.jsonl,provenance or study registry,current,source,PLANNING_ONLY,false,review_before_release,false,false,1
+registry/manifests/cifar10_r1_reference.jsonl,provenance or study registry,current,source,PLANNING_ONLY,false,review_before_release,false,false,1
+registry/manifests/cifar10_r1_samples.jsonl,provenance or study registry,current,source,PLANNING_ONLY,false,review_before_release,false,false,3190
+registry/manifests/first_pilot_samples_template.jsonl,provenance or study registry,current,source,PLANNING_ONLY,false,review_before_release,true,false,125
+registry/multibench/benchmark_availability_r3.csv,provenance or study registry,current,source,PLANNING_ONLY,false,review_before_release,false,false,1070
+registry/provenance/cifar10_r1_ledger.csv,provenance or study registry,current,source,PLANNING_ONLY,false,review_before_release,false,false,2691
+registry/provenance/multibench_candidate_sources.csv,provenance or study registry,current,source,PLANNING_ONLY,false,review_before_release,false,false,711
+registry/provenance/released_sample_ledger_template.csv,provenance or study registry,current,source,PLANNING_ONLY,false,review_before_release,true,false,653
+registry/provenance/v4_plan_ledger_template.csv,provenance or study registry,legacy,source,PLANNING_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,697
+registry/real_run_plan_template.json,provenance or study registry,current,source,PLANNING_ONLY,false,review_before_release,true,false,183
+registry/related_work/related_work_board_v5.csv,provenance or study registry,legacy,source,PLANNING_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,4021
+registry/released_sample_ledger_template.csv,provenance or study registry,current,source,PLANNING_ONLY,false,review_before_release,true,false,612
+registry/reported_metric_claims_v4_smoke.csv,provenance or study registry,legacy,source,SYNTHETIC_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,679
+registry/reported_metric_claims_v4_template.csv,provenance or study registry,legacy,source,PLANNING_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,575
+registry/templates/candidate_model_pairs_template.csv,provenance or study registry,current,source,PLANNING_ONLY,false,review_before_release,true,false,513
+registry/templates/feature_cache_manifest_template.json,provenance or study registry,current,source,PLANNING_ONLY,false,review_before_release,true,false,626
+registry/templates/reported_metric_claims_template.csv,provenance or study registry,current,source,PLANNING_ONLY,false,review_before_release,true,false,262
+registry/v3/benchmarks_template.csv,provenance or study registry,legacy,source,PLANNING_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,149
+registry/v3/feature_caches_template.csv,provenance or study registry,legacy,source,PLANNING_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,232
+registry/v3/model_pairs_template.csv,provenance or study registry,legacy,source,PLANNING_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,418
+release/CERTGEN_INTERNAL_ARCHIVE_CANDIDATES.txt,release contract or manifest,current,source,NOT_EVIDENCE,true,none,false,false,918
+release/CERTGEN_PUBLIC_RELEASE_MANIFEST.txt,release contract or manifest,current,source,NOT_EVIDENCE,true,none,false,false,1303
+release/README.md,release contract or manifest,current,source,NOT_EVIDENCE,true,none,true,false,134
+release/capsule_manifest_v4.json,release contract or manifest,legacy,source,PLANNING_ONLY,false,retain_in_worktree_archive_from_public_release,true,false,348
+reports/CERTGEN_BASELINE_REPRODUCTION.md,consolidated forensic audit output,current,source,NOT_EVIDENCE,false,review_before_release,false,false,6554
+reports/CERTGEN_CLAIM_EVIDENCE_LEDGER.csv,consolidated forensic audit output,current,source,NOT_EVIDENCE,false,review_before_release,false,false,7010
+reports/CERTGEN_COMMAND_LEDGER.csv,consolidated forensic audit output,current,source,NOT_EVIDENCE,false,review_before_release,false,false,9392
+reports/CERTGEN_CURRENT_STATE.json,consolidated forensic audit output,current,source,NOT_EVIDENCE,false,review_before_release,false,false,3263
+reports/CERTGEN_EVIDENCE_BOUNDARY_AUDIT.md,consolidated forensic audit output,current,source,NOT_EVIDENCE,false,review_before_release,false,false,4161
+reports/CERTGEN_FORENSIC_MACHINE_AUDIT.json,consolidated forensic audit output,current,source,NOT_EVIDENCE,false,review_before_release,false,false,1671
+reports/CERTGEN_FORENSIC_MACHINE_AUDIT.md,consolidated forensic audit output,current,source,NOT_EVIDENCE,false,review_before_release,false,false,1199
+reports/CERTGEN_REMAINING_WORK_PRIORITIZED.md,consolidated forensic audit output,current,source,NOT_EVIDENCE,false,review_before_release,false,false,7173
+reports/CERTGEN_REPAIR_CHANGELOG.md,consolidated forensic audit output,current,source,NOT_EVIDENCE,false,review_before_release,false,false,7901
+reports/CERTGEN_REPOSITORY_INVENTORY.csv,consolidated forensic audit output,current,source,NOT_EVIDENCE,false,review_before_release,false,false,162540
+reports/CERTGEN_REPOSITORY_INVENTORY.json,consolidated forensic audit output,current,source,NOT_EVIDENCE,false,review_before_release,false,false,415611
+tests/test_certificate.py,automated verification,current,source,NOT_EVIDENCE,true,none,true,false,2932
+tests/test_certificate_reporting.py,automated verification,current,source,NOT_EVIDENCE,true,none,true,false,1718
+tests/test_certify_clean_metric_cli.py,automated verification,current,source,NOT_EVIDENCE,true,none,true,false,4132
+tests/test_claim_gate.py,automated verification,current,source,NOT_EVIDENCE,true,none,true,false,976
+tests/test_clean_core_certificate.py,automated verification,current,source,NOT_EVIDENCE,true,none,true,false,2068
+tests/test_confidence_sequences.py,automated verification,current,source,NOT_EVIDENCE,true,none,true,false,1635
+tests/test_engineering_evidence_safety.py,automated verification,current,source,NOT_EVIDENCE,true,none,false,false,8984
+tests/test_evidence_status.py,automated verification,current,source,NOT_EVIDENCE,true,none,true,false,853
+tests/test_feature_cache_schema.py,automated verification,current,source,NOT_EVIDENCE,true,none,true,false,2515
+tests/test_feature_cache_v2_contract.py,automated verification,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,4069
+tests/test_feature_cache_v3.py,automated verification,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2186
+tests/test_feature_extraction_plan.py,automated verification,current,source,NOT_EVIDENCE,true,none,true,false,1588
+tests/test_fid_policy_gate.py,automated verification,current,source,NOT_EVIDENCE,true,none,true,false,1542
+tests/test_fid_policy_v2.py,automated verification,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,1080
+tests/test_first_pilot_v2.py,automated verification,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2820
+tests/test_first_pilot_v3.py,automated verification,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2751
+tests/test_forensic_final_audit.py,automated verification,current,source,NOT_EVIDENCE,true,none,false,false,612
+tests/test_forensic_inventory.py,automated verification,current,source,NOT_EVIDENCE,true,none,false,false,1200
+tests/test_imports.py,automated verification,current,source,NOT_EVIDENCE,true,none,true,false,339
+tests/test_metric_reproduction_v3.py,automated verification,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,4147
+tests/test_metrics.py,automated verification,current,source,NOT_EVIDENCE,true,none,true,false,1608
+tests/test_mmd_streams.py,automated verification,current,source,NOT_EVIDENCE,true,none,true,false,2737
+tests/test_optional_stopping_lab.py,automated verification,current,source,NOT_EVIDENCE,true,none,true,false,916
+tests/test_provenance_ledger.py,automated verification,current,source,NOT_EVIDENCE,true,none,true,false,2618
+tests/test_r0_cpu_gpu_execution.py,automated verification,current,source,NOT_EVIDENCE,true,none,false,false,4702
+tests/test_r0_technical_correction.py,automated verification,current,source,NOT_EVIDENCE,true,none,true,false,4211
+tests/test_r1_source_selection.py,automated verification,current,source,NOT_EVIDENCE,true,none,false,false,3643
+tests/test_r1_upgrades.py,automated verification,current,source,NOT_EVIDENCE,true,none,true,false,7053
+tests/test_r1a_sample_materialization.py,automated verification,current,source,NOT_EVIDENCE,true,none,false,false,8242
+tests/test_r1b_generation_package.py,automated verification,current,source,NOT_EVIDENCE,true,none,false,false,8711
+tests/test_reference_draw_plan.py,automated verification,current,source,NOT_EVIDENCE,true,none,false,false,4330
+tests/test_registry_reporting.py,automated verification,current,source,NOT_EVIDENCE,true,none,true,false,2149
+tests/test_registry_v2.py,automated verification,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2417
+tests/test_registry_v3_and_lab.py,automated verification,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,1207
+tests/test_replay_and_pilot_report_v3.py,automated verification,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,1861
+tests/test_schemas.py,automated verification,current,source,NOT_EVIDENCE,true,none,true,false,1844
+tests/test_smoke_artifact_non_evidence.py,automated verification,current,source,SYNTHETIC_ONLY,true,none,true,false,1220
+tests/test_smoke_config.py,automated verification,current,source,SYNTHETIC_ONLY,true,none,true,false,301
+tests/test_v2_audit.py,automated verification,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,662
+tests/test_v2_clean_metric_integration.py,automated verification,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,1871
+tests/test_v3_docs_and_audit.py,automated verification,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,1542
+tests/test_v3_intake_audit.py,automated verification,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,1114
+tests/test_v3_status_policy.py,automated verification,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,389
+tests/test_v4_audit.py,automated verification,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,525
+tests/test_v4_batch_and_analysis.py,automated verification,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,3574
+tests/test_v4_claims_paper_review_release.py,automated verification,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2302
+tests/test_v4_state_and_planning.py,automated verification,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2913
+tests/test_v5_audit.py,automated verification,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,579
+tests/test_v5_claim_contract.py,automated verification,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,797
+tests/test_v5_command_bundle.py,automated verification,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,597
+tests/test_v5_paper_proof_release.py,automated verification,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,941
+tests/test_v5_related_work_and_analysis.py,automated verification,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,1583
+tests/test_v5_result_contracts_and_injection.py,automated verification,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,2046
+tests/test_v5_reviewer_readiness.py,automated verification,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,860
+tests/test_v5_state_intake.py,automated verification,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,true,false,507
+tests/test_v6_cpu_kaggle_packaging.py,automated verification,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,11980
+tests/test_v6_execution_gates.py,automated verification,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,5630
+tests/test_v7_cifar_autodetect.py,automated verification,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,1186
+tests/test_v7_importers.py,automated verification,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,2375
+tests/test_v7_multibench_candidates.py,automated verification,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,1363
+tests/test_v7_notebook_quality.py,automated verification,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,1071
+tests/test_v7_runledger.py,automated verification,legacy,source,NOT_EVIDENCE,false,retain_in_worktree_archive_from_public_release,false,false,866
+tests/test_v9_execution_supercharger.py,automated verification,current,source,NOT_EVIDENCE,true,none,false,false,8999

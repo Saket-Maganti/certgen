@@ -12,11 +12,15 @@ from certgen.stats.dependence_diagnostics import dependence_warnings
 
 def run_batch_certificates(config: dict, out_json: str | Path, report: str | Path) -> dict:
     comparisons = config.get("comparisons", [])
-    policy = allocate_alpha(float(config.get("alpha", 0.05)), max(1, len(comparisons)), config.get("alpha_policy", "bonferroni"))
+    metrics = config.get("metrics", ["mmd_rbf"])
+    family_size = max(1, len(comparisons) * len(metrics))
+    policy = allocate_alpha(float(config.get("alpha", 0.05)), family_size, config.get("alpha_policy", "bonferroni"))
+    policy["family_size"] = family_size
+    policy["family_definition"] = "cartesian product of predeclared comparisons and metrics in this batch"
     dep = dependence_warnings(comparisons)
     rows = []
     for comp in comparisons:
-        for metric in config.get("metrics", ["mmd_rbf"]):
+        for metric in metrics:
             cert_path = Path(out_json).parent / "certificates" / f"{comp['comparison_id']}_{metric}.json"
             cert = certify_clean_metric_comparison(
                 comp["features_a"],
@@ -27,7 +31,7 @@ def run_batch_certificates(config: dict, out_json: str | Path, report: str | Pat
                 {
                     "alpha": policy["alpha_used"],
                     "budget_units": int(config.get("budget_units", 20)),
-                    "method": config.get("method", "betting"),
+                    "method": config.get("method", "hoeffding"),
                     "seed": int(comp.get("seed", config.get("seed", 0))),
                     "block_size": config.get("block_size"),
                 },

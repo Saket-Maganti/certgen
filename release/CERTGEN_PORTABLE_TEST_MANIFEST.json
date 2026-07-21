@@ -1,0 +1,19 @@
+{
+  "schema_version": "certgen.portable_test_manifest.v1",
+  "tests": [
+    {
+      "path": "tests/test_archive_portable.py",
+      "reason": "Verifies source importability, required notebook paths, and archive-safe metadata without Git history."
+    },
+    {
+      "path": "tests/test_real_execution_closure.py",
+      "reason": "Exercises the portable execution contracts and synthetic nonclaim closure without private inputs."
+    }
+  ],
+  "additional_checks": [
+    "python -m certgen audit notebooks",
+    "python -m certgen synthetic-runtime --out-dir .portable_synthetic"
+  ],
+  "git_dependent_tests_skipped_or_replaced": "Git-history and dirty-worktree checks are intentionally excluded; archive member and hash validation replaces them.",
+  "claim_allowed": false
+}

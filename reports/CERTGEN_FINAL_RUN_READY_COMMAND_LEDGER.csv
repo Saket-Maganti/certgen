@@ -1,0 +1,45 @@
+command_id,phase,command,working_directory,start_utc,end_utc,duration_seconds,exit_code,passed,failed,skipped_or_deselected,warnings,evidence_boundary
+baseline_compileall,baseline,"python3 -m compileall -q certgen tests",.,2026-07-18T03:42:01.485Z,2026-07-18T03:42:01.579Z,0.094,0,1,0,0,none,software_validation_only
+baseline_imports,baseline,"python3 -c <10 critical imports>",.,2026-07-18T03:42:40.068Z,2026-07-18T03:42:40.235Z,0.168,0,10,0,0,none,software_validation_only
+baseline_default_tests,baseline,"python3 -m pytest -q",.,2026-07-18T03:42:40.235Z,2026-07-18T03:42:45.243Z,5.008,0,250,0,4,none,local_fixture_validation_only
+baseline_integration,baseline,"python3 -m pytest -q -m integration_audit",.,2026-07-18T03:42:45.243Z,2026-07-18T03:43:05.800Z,20.557,0,4,0,250,none,integration_validation_only
+baseline_statistical,baseline,"python3 -m pytest -q tests/test_confidence_sequences.py tests/test_mmd_streams.py tests/test_clean_core_certificate.py tests/test_reference_draw_plan.py tests/test_certificate.py tests/test_v4_batch_and_analysis.py",.,2026-07-18T03:43:05.800Z,2026-07-18T03:43:06.474Z,0.674,0,31,0,0,none,synthetic_statistical_contract_only
+baseline_artifact,baseline,"python3 -m pytest -q tests/test_cvpr_architecture.py tests/test_cvpr_extended_synthetic.py tests/test_feature_cache_v2_contract.py",.,2026-07-18T03:43:06.474Z,2026-07-18T03:43:08.837Z,2.364,0,15,0,0,none,artifact_contract_only
+baseline_runtime_hardening,baseline,"python3 -m pytest -q tests/test_final_runtime_hardening.py tests/test_archive_portable.py",.,2026-07-18T03:43:08.837Z,2026-07-18T03:43:10.204Z,1.366,0,11,0,0,none,fixture_runtime_only
+baseline_real_execution_closure,baseline,"python3 -m pytest -q tests/test_real_execution_closure.py",.,2026-07-18T03:43:10.204Z,2026-07-18T03:43:11.713Z,1.510,0,9,0,0,none,fixture_runtime_only
+baseline_notebook_static,baseline,"python3 -m certgen audit notebooks",.,2026-07-18T03:43:11.713Z,2026-07-18T03:43:11.835Z,0.121,0,5,0,0,real_kaggle_untested,static_notebook_validation_only
+baseline_notebook_determinism,baseline,"python3 -m certgen.notebooks.cvpr_factory twice and compare SHA-256",.,2026-07-18T03:43:11.835Z,2026-07-18T03:43:11.937Z,0.103,0,5,0,0,none,static_notebook_validation_only
+baseline_cvpr_audit,baseline,"python3 -m certgen.audit.cvpr_final_audit",.,2026-07-18T03:43:11.937Z,2026-07-18T03:43:12.075Z,0.138,0,8,0,0,historical_audit_does_not_cover_new_live_builder_findings,local_audit_only
+baseline_forensic_audit,baseline,"python3 -m certgen.audit.forensic_final_audit --json-out <temporary> --out <temporary>",.,2026-07-18T03:43:12.075Z,2026-07-18T03:43:12.174Z,0.099,0,8,0,0,none,local_audit_only
+baseline_v9_audit,baseline,"python3 -m certgen.audit.v9_execution_supercharger_audit --out <temporary> --json-out <temporary>",.,2026-07-18T03:43:12.174Z,2026-07-18T03:43:12.311Z,0.137,0,22,0,0,none,legacy_compatibility_only
+baseline_paper_firewall,baseline,"python3 -m certgen.paper.v9_paper_firewall --out-json <temporary> --out-report <temporary>",.,2026-07-18T03:43:12.311Z,2026-07-18T03:43:12.403Z,0.092,0,1,0,0,none,claim_firewall_only
+baseline_release_scan,baseline,"python3 -m certgen.audit.release_safety_v5 --out <temporary> --json-out <temporary>",.,2026-07-18T03:43:12.403Z,2026-07-18T03:43:12.526Z,0.123,0,1,0,0,none,release_hygiene_only
+baseline_privacy_scan,baseline,"python3 -c <scan_privacy and fail on issues>",.,2026-07-18T03:43:12.526Z,2026-07-18T03:43:12.584Z,0.059,0,1,0,0,none,release_hygiene_only
+baseline_artifact_registry,baseline,"python3 -m certgen audit artifact-registry",.,2026-07-18T03:43:12.585Z,2026-07-18T03:43:12.696Z,0.111,0,1,0,0,none,lineage_audit_only
+baseline_registries,baseline,"python3 -m certgen audit registries",.,2026-07-18T03:43:12.696Z,2026-07-18T03:43:12.825Z,0.130,0,7,0,0,template_preregistration_unfrozen,registry_contract_only
+baseline_ruff,baseline,"python3 -m ruff check certgen tests",.,2026-07-18T03:43:12.826Z,2026-07-18T03:43:12.915Z,0.089,0,1,0,0,none,software_validation_only
+baseline_critical_mypy,baseline,"python3 -m mypy --follow-imports=skip --ignore-missing-imports certgen/__main__.py certgen/cvpr certgen/notebooks/workers",.,2026-07-18T03:43:12.915Z,2026-07-18T03:43:13.467Z,0.553,0,28,0,0,none,software_validation_only
+baseline_full_mypy,baseline,"python3 -m mypy certgen",.,2026-07-18T03:43:13.467Z,2026-07-18T03:43:28.782Z,15.315,1,0,111,0,34_files_historical_debt,type_debt_inventory_only
+baseline_paper_build,baseline,"pdflatex -interaction=nonstopmode -halt-on-error -output-directory=<temporary> main.tex",paper,2026-07-18T03:43:28.783Z,2026-07-18T03:43:28.924Z,0.141,0,1,0,0,three_nonfatal_overfull_boxes,document_build_only
+baseline_diff_check,baseline,"git diff --check",.,2026-07-18T03:43:28.924Z,2026-07-18T03:43:29.104Z,0.181,0,1,0,0,none,patch_hygiene_only
+seal_default,verification,"python3 -m pytest -q",.,2026-07-18T04:46:43.090Z,2026-07-18T04:46:48.890Z,5.800,0,258,0,4,none,local_fixture_validation_only
+seal_integration,verification,"python3 -m pytest -q -m integration_audit",.,2026-07-18T04:46:48.890Z,2026-07-18T04:47:12.968Z,24.080,0,4,0,258,none,integration_validation_only
+seal_focused,verification,"python3 -m pytest -q <statistical artifact runtime portable real-closure files>",.,2026-07-18T04:47:12.968Z,2026-07-18T04:47:17.358Z,4.390,0,66,0,0,none,focused_contract_validation_only
+seal_final_closure,verification,"python3 -m pytest -q tests/test_final_run_ready_closure.py",.,2026-07-18T04:47:17.358Z,2026-07-18T04:47:18.872Z,1.510,0,8,0,0,none,builder_and_fixture_validation_only
+seal_compile_import,verification,"python3 -m compileall -q certgen tests && python3 -c <10 critical imports>",.,2026-07-18T04:47:18.872Z,2026-07-18T04:47:19.146Z,0.270,0,11,0,0,none,software_validation_only
+seal_ruff,verification,"python3 -m ruff check certgen tests",.,2026-07-18T04:47:19.146Z,2026-07-18T04:47:19.269Z,0.120,0,1,0,0,none,software_validation_only
+seal_critical_mypy,verification,"python3 -m mypy --follow-imports=skip --ignore-missing-imports certgen/__main__.py certgen/cvpr certgen/notebooks/workers",.,2026-07-18T04:47:19.269Z,2026-07-18T04:47:19.466Z,0.200,0,34,0,0,none,software_validation_only
+seal_full_mypy,debt_comparison,"python3 -m mypy certgen",.,2026-07-18T04:47:19.466Z,2026-07-18T04:47:34.154Z,14.690,1,0,111,0,34_files_exactly_matches_baseline,type_debt_inventory_only
+seal_diff,verification,"git diff --check",.,2026-07-18T04:47:34.154Z,2026-07-18T04:47:34.331Z,0.180,0,1,0,0,none,patch_hygiene_only
+seal_cvpr_audit,verification,"python3 -m certgen.audit.cvpr_final_audit",.,2026-07-18T04:47:34.331Z,2026-07-18T04:47:34.576Z,0.250,0,8,0,0,none,local_audit_only
+seal_notebooks,verification,"python3 -m certgen audit notebooks",.,2026-07-18T04:47:34.576Z,2026-07-18T04:47:34.745Z,0.170,0,5,0,0,real_kaggle_untested,static_notebook_validation_only
+seal_paper,verification,"pdflatex -interaction=nonstopmode -halt-on-error -output-directory=<temporary> main.tex",paper,2026-07-18T04:47:34.745Z,2026-07-18T04:47:34.938Z,0.190,0,1,0,0,three_nonfatal_overfull_boxes,document_build_only
+seal_artifact_registry,verification,"python3 -m certgen audit artifact-registry",.,2026-07-18T04:47:57.972Z,2026-07-18T04:47:58.146Z,0.170,0,1,0,0,none,lineage_audit_only
+seal_registries,verification,"python3 -m certgen audit registries",.,2026-07-18T04:47:58.146Z,2026-07-18T04:47:58.335Z,0.190,0,7,0,0,template_preregistration_unfrozen,registry_contract_only
+seal_forensic,verification,"python3 -m certgen.audit.forensic_final_audit --json-out <temporary> --out <temporary>",.,2026-07-18T04:47:58.335Z,2026-07-18T04:47:58.511Z,0.180,0,8,0,0,none,local_audit_only
+seal_v9,verification,"python3 -m certgen.audit.v9_execution_supercharger_audit --out <temporary> --json-out <temporary>",.,2026-07-18T04:47:58.511Z,2026-07-18T04:47:58.726Z,0.220,0,22,0,0,legacy_compatibility_only,local_audit_only
+seal_firewall,verification,"python3 -m certgen.paper.v9_paper_firewall --out-json <temporary> --out-report <temporary>",.,2026-07-18T04:47:58.726Z,2026-07-18T04:47:58.877Z,0.150,0,1,0,0,none,claim_firewall_only
+seal_release,verification,"python3 -m certgen.audit.release_safety_v5 --out <temporary> --json-out <temporary>",.,2026-07-18T04:47:58.877Z,2026-07-18T04:47:59.040Z,0.160,0,1,0,0,none,release_hygiene_only
+seal_privacy,verification,"python3 -c <scan_privacy and fail on issues>",.,2026-07-18T04:47:59.040Z,2026-07-18T04:47:59.156Z,0.120,0,1,0,0,none,release_hygiene_only
+seal_notebook_determinism,verification,"python3 -m certgen.notebooks.cvpr_factory twice and compare SHA-256",.,2026-07-18T04:47:59.156Z,2026-07-18T04:47:59.573Z,0.420,0,5,0,0,none,static_notebook_validation_only
+seal_portable_archive,verification,"python3 -c <build_archive to temporary and verify import/tests/notebooks/synthetic runtime>",.,2026-07-18T04:49:14.274Z,2026-07-18T04:49:16.913Z,2.640,0,750,0,0,10_portable_tests_passed,release_validation_only

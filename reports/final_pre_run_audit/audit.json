@@ -1,0 +1,596 @@
+{
+  "checks": {
+    "artifact_driven_next_action": {
+      "detail": {
+        "CPU_or_GPU": "GPU",
+        "action": "RUN_KAGGLE_ENVIRONMENT_DIAGNOSTIC",
+        "blocker": "WAITING_FOR_KAGGLE_DIAGNOSTIC",
+        "canonical_handbook": "CERTGEN_CVPR_100_PERCENT_PRE_RUN_EXECUTION_HANDBOOK.md",
+        "claim_allowed": false,
+        "claim_permission": false,
+        "cpu_or_gpu": "GPU",
+        "cwd": ".",
+        "estimated_runtime": "5-20 minutes planning estimate",
+        "evidence_allowed": false,
+        "evidence_class": "run_log_only",
+        "exact_command": "Upload artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip and run notebooks/kaggle/certgen_kaggle_environment_diagnostic_t4x2.ipynb on GPU T4 x2",
+        "execution_location": "Kaggle T4x2",
+        "expected_input": "artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip",
+        "expected_output": "certgen_kaggle_environment_diagnostic_output.zip",
+        "expected_output_artifact": "data/kaggle_returns/diagnostic",
+        "failure_recovery": "Preserve immutable inputs and logs; correct only the failing gate, then rerun the same canonical command.",
+        "input": "artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip",
+        "input_artifact_ids": [],
+        "input_paths": [
+          "artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip"
+        ],
+        "kaggle_or_local": "Kaggle T4x2",
+        "legacy_compatibility": "LEGACY_COMPATIBILITY_ONLY_NOT_CANONICAL_GUIDANCE",
+        "location": "Kaggle",
+        "network_policy": "KAGGLE_INTERNET_ON_INSTALL; no model-asset network access",
+        "network_requirement": "KAGGLE_INTERNET_ON_INSTALL; no model-asset network access",
+        "no_fake_results": true,
+        "not_paper_evidence": true,
+        "notebook_path": "notebooks/kaggle/certgen_kaggle_environment_diagnostic_t4x2.ipynb",
+        "planning_runtime": "5-20 minutes planning estimate",
+        "reason": "The reference, frozen study, and registered draw are ready; the two-GPU environment diagnostic is the first unresolved external boundary.",
+        "status": "KAGGLE_DIAGNOSTIC_REQUIRED",
+        "success_validator": "CUDA_VISIBLE_DEVICES=\"\" CERTGEN_CPU_ONLY=1 python3 scripts/run_all_available_cpu_stages.py --resume --explain"
+      },
+      "passed": true
+    },
+    "cache_v2_merge": {
+      "detail": 9,
+      "passed": true
+    },
+    "certificate_input_builder": {
+      "detail": 2,
+      "passed": true
+    },
+    "clip_weights_excluded": {
+      "detail": {
+        "registry": {
+          "asset_manifest_required": true,
+          "asset_policy": "ONLINE_PREFLIGHT_DOWNLOAD",
+          "batch_size_default": 64,
+          "cache_schema_version": "certgen.feature_cache.v2",
+          "claim_allowed": false,
+          "crop": "processor_lock_required",
+          "device_support": [
+            "cuda",
+            "cpu_fallback"
+          ],
+          "expected_cache_size": "planning_only_measure_in_preflight",
+          "expected_dimension": 768,
+          "expected_files": [
+            "config.json",
+            "preprocessor_config.json",
+            "model.safetensors"
+          ],
+          "expected_preprocessing": {
+            "antialias": true,
+            "channel_order": "RGB",
+            "crop_mode": "center",
+            "crop_size": [
+              224,
+              224
+            ],
+            "extractor_id": "clip",
+            "feature_normalization": "l2",
+            "input_resolution": 224,
+            "interpolation": "bicubic",
+            "mean": [
+              0.48145466,
+              0.4578275,
+              0.40821073
+            ],
+            "model_identifier": "openai/clip-vit-large-patch14",
+            "output_dimension": 768,
+            "package_versions": {
+              "torch": "2.7.1",
+              "transformers": "4.53.2"
+            },
+            "pixel_range": "uint8_0_255_to_float_0_1",
+            "precision": "float32",
+            "processor_class": "CLIPProcessor",
+            "resize_size": 224,
+            "revision": "32bd64288804d66eefd0ccbe215aa642df71cc41",
+            "std": [
+              0.26862954,
+              0.26130258,
+              0.27577711
+            ]
+          },
+          "feature_definition": "projected_image_embedding_from_CLIPModel.get_image_features",
+          "feature_normalization": "l2_required_for_bounded_RBF_route",
+          "feature_space_id": "clip",
+          "input_resolution": 224,
+          "interpolation": "processor_lock_required",
+          "l2_normalization_applied": true,
+          "license": "upstream_model_repository_has_no_explicit_weight_license",
+          "license_source": "https://huggingface.co/openai/clip-vit-large-patch14",
+          "license_status": "manual_research_use_and_redistribution_review_required_no_license_fabricated",
+          "model_class": "transformers.CLIPModel",
+          "model_identifier": "openai/clip-vit-large-patch14",
+          "normalization": "processor_lock_required",
+          "offline_cache_supported": true,
+          "online_preflight_supported": true,
+          "package": "transformers",
+          "pixel_range": "processor_contract",
+          "post_normalization_dimension": 768,
+          "pre_normalization_dimension": 768,
+          "precision": "float32_cache",
+          "preflight_batch_sizes": [
+            1,
+            2,
+            4,
+            8,
+            16,
+            32,
+            64
+          ],
+          "private_mount_required": true,
+          "processor_class": "transformers.CLIPProcessor",
+          "projection_applied": true,
+          "public_archive_included": false,
+          "redistribution_allowed": false,
+          "resize": "processor_lock_required",
+          "revision": "32bd64288804d66eefd0ccbe215aa642df71cc41",
+          "status": "adapter_exists_real_cache_not_run",
+          "user_provided": true
+        },
+        "weight_members": []
+      },
+      "passed": true
+    },
+    "complete_builder_faithful_synthetic_rehearsal": {
+      "detail": {
+        "cache_groups": 3,
+        "certificate_hashes": [
+          "b43e27cb81ef7af4766e134690ddfde84c79d14df3cffc2fab2e0ec144b38c64",
+          "2be90cf833fea4c772e19e870f42982f2c998d8bfd600e983468d52a1a1ad4ac"
+        ],
+        "certificate_input_bundles": 2,
+        "claim_allowed": false,
+        "complete_cache_groups": 9,
+        "evidence_class": "synthetic_validation_only",
+        "family_certificate_coverage_status": "FAMILY_CERTIFICATES_COMPLETE",
+        "family_hash": "be4f2fc3af2f5b127c0c49ab92ac835ad2c371a65d9b596b8c80a5e50ffb497a",
+        "family_operational_status": "FAMILY_OPERATIONALLY_READY",
+        "feature_package_sha256": "157455f2a4bb09a150ffe5db2f68fc79d8bf96593dbdd7b54de188f51cfa9ef3",
+        "metric_reproduction_status": "PASS",
+        "not_model_evidence": true,
+        "profile": "fixture_builder_closure",
+        "ranking_hash": "8ceb8967bed9eaeaa9a8790a7633a9f7101037e3cf2b2f86923ea58fe17996c8",
+        "rehearsal_status": "COMPLETE_BUILDER_FAITHFUL_SYNTHETIC_REHEARSAL_PASS",
+        "sanity_controls_status": "PASS",
+        "stages": [
+          "selected_profile",
+          "study_freeze",
+          "preflight_builder",
+          "fake_preflight_zip",
+          "preflight_import",
+          "generation_builder",
+          "fake_generation_zip",
+          "generation_import",
+          "feature_builder_embedded_images",
+          "feature_image_decode",
+          "fake_feature_zip",
+          "feature_import",
+          "feature_merge",
+          "cache_v2",
+          "canonical_reference_draw",
+          "control_builder",
+          "control_feature_roles",
+          "family_freeze",
+          "certificate_input_builder",
+          "certificate_input_validation",
+          "family_operational_gate",
+          "post_cache_gate_configs",
+          "metric_reproduction_gate",
+          "sanity_controls_gate",
+          "family_certificate_runner",
+          "three_family_certificates",
+          "partial_ranking"
+        ],
+        "status": "BUILDER_FAITHFUL_SYNTHETIC_CLOSURE_PASS",
+        "study_hash": "b5dd9f1bf022f2c45d27560017134ef700d705c488292fd775087c2cfeccd141"
+      },
+      "passed": true
+    },
+    "control_builder_fixture": {
+      "detail": {
+        "claim_allowed": false,
+        "errors": [],
+        "passed": true,
+        "status": "CONTROLS_READY"
+      },
+      "passed": true
+    },
+    "family_builder": {
+      "detail": "be4f2fc3af2f5b127c0c49ab92ac835ad2c371a65d9b596b8c80a5e50ffb497a",
+      "passed": true
+    },
+    "family_operational_gate": {
+      "detail": {
+        "claim_allowed": false,
+        "coverage_path": null,
+        "errors": [],
+        "family_id": "fixture_family",
+        "hypotheses": 2,
+        "operational_artifact": null,
+        "passed": true,
+        "status": "FAMILY_OPERATIONALLY_READY",
+        "study_hash": "b5dd9f1bf022f2c45d27560017134ef700d705c488292fd775087c2cfeccd141",
+        "valid_bundles": 2
+      },
+      "passed": true
+    },
+    "feature_package_builder": {
+      "detail": [
+        "selected_profile",
+        "study_freeze",
+        "preflight_builder",
+        "fake_preflight_zip",
+        "preflight_import",
+        "generation_builder",
+        "fake_generation_zip",
+        "generation_import",
+        "feature_builder_embedded_images",
+        "feature_image_decode",
+        "fake_feature_zip",
+        "feature_import",
+        "feature_merge",
+        "cache_v2",
+        "canonical_reference_draw",
+        "control_builder",
+        "control_feature_roles",
+        "family_freeze",
+        "certificate_input_builder",
+        "certificate_input_validation",
+        "family_operational_gate",
+        "post_cache_gate_configs",
+        "metric_reproduction_gate",
+        "sanity_controls_gate",
+        "family_certificate_runner",
+        "three_family_certificates",
+        "partial_ranking"
+      ],
+      "passed": true
+    },
+    "frozen_study_valid": {
+      "detail": "b5dd9f1bf022f2c45d27560017134ef700d705c488292fd775087c2cfeccd141",
+      "passed": true
+    },
+    "generation_package_builder": {
+      "detail": [
+        "selected_profile",
+        "study_freeze",
+        "preflight_builder",
+        "fake_preflight_zip",
+        "preflight_import",
+        "generation_builder",
+        "fake_generation_zip",
+        "generation_import",
+        "feature_builder_embedded_images",
+        "feature_image_decode",
+        "fake_feature_zip",
+        "feature_import",
+        "feature_merge",
+        "cache_v2",
+        "canonical_reference_draw",
+        "control_builder",
+        "control_feature_roles",
+        "family_freeze",
+        "certificate_input_builder",
+        "certificate_input_validation",
+        "family_operational_gate",
+        "post_cache_gate_configs",
+        "metric_reproduction_gate",
+        "sanity_controls_gate",
+        "family_certificate_runner",
+        "three_family_certificates",
+        "partial_ranking"
+      ],
+      "passed": true
+    },
+    "live_portable_reporting_separate": {
+      "detail": {
+        "LIVE_CHECKOUT_VERIFICATION": {
+          "audit_count": 62,
+          "git_checks": "PASS_BASELINE_DIRTY_INTAKE_RECORDED",
+          "integration_count": 4,
+          "mypy_critical": "PASS_39_SOURCE_FILES",
+          "mypy_full_debt": "111_ERRORS_IN_34_FILES_UNCHANGED_293_FILES_CHECKED",
+          "notebook_count": 5,
+          "paper_build": "PASS_5_PAGES_3_NONFATAL_OVERFULL_BOXES",
+          "test_count": 263
+        },
+        "PORTABLE_ARCHIVE_VERIFICATION": {
+          "archive_hash": "88423240a9b7132ac3fd0ee063d1a2c7d28f74d52f98821bb43d7a72178fdea0",
+          "forbidden_metadata": "PASS",
+          "git_dependent_tests_skipped_or_replaced": "Declared in release/CERTGEN_PORTABLE_TEST_MANIFEST.json",
+          "member_count": 779,
+          "notebook_static_count": 5,
+          "portable_test_count": 10,
+          "required_files": "PASS",
+          "synthetic_rehearsal_status": "COMPLETE_BUILDER_FAITHFUL_SYNTHETIC_REHEARSAL_PASS",
+          "verification_completed_at_utc": "2026-07-18T08:20:36.560+00:00",
+          "verification_duration_seconds": 2.895,
+          "verification_started_at_utc": "2026-07-18T08:20:33.665+00:00"
+        }
+      },
+      "passed": true
+    },
+    "no_claim_allowed_true": {
+      "detail": "none",
+      "passed": true
+    },
+    "no_hardcoded_nonexistent_late_paths": {
+      "detail": [
+        "artifacts/cvpr/reference_draw_plan.json",
+        "configs/cvpr/frozen_study.yaml",
+        "data/features/cvpr/features.npz",
+        "data/features/cvpr/sidecar.json"
+      ],
+      "passed": true
+    },
+    "no_local_defect_remains": {
+      "detail": "derived from all preceding checks",
+      "passed": true
+    },
+    "notebooks_static": {
+      "detail": {
+        "claim_allowed": false,
+        "fixture_runtime_required": true,
+        "passed": true,
+        "real_run_required": true,
+        "results": [
+          {
+            "claim_allowed": false,
+            "errors": [],
+            "passed": true,
+            "path": "notebooks/kaggle/certgen_cvpr_checkpoint_preflight_t4x2.ipynb",
+            "real_kaggle_tested": false,
+            "static_only": true
+          },
+          {
+            "claim_allowed": false,
+            "errors": [],
+            "passed": true,
+            "path": "notebooks/kaggle/certgen_cvpr_cifar10_generation_t4x2_1k.ipynb",
+            "real_kaggle_tested": false,
+            "static_only": true
+          },
+          {
+            "claim_allowed": false,
+            "errors": [],
+            "passed": true,
+            "path": "notebooks/kaggle/certgen_cvpr_generation_t4x2_generic.ipynb",
+            "real_kaggle_tested": false,
+            "static_only": true
+          },
+          {
+            "claim_allowed": false,
+            "errors": [],
+            "passed": true,
+            "path": "notebooks/kaggle/certgen_cvpr_feature_extraction_t4x2_1k.ipynb",
+            "real_kaggle_tested": false,
+            "static_only": true
+          },
+          {
+            "claim_allowed": false,
+            "errors": [],
+            "passed": true,
+            "path": "notebooks/kaggle/certgen_cvpr_feature_extraction_t4x2_generic.ipynb",
+            "real_kaggle_tested": false,
+            "static_only": true
+          }
+        ],
+        "static_only": true
+      },
+      "passed": true
+    },
+    "output_schemas_consistent": {
+      "detail": {
+        "feature": "certgen.cvpr.feature_output.v2",
+        "generation": "certgen.cvpr.generation_output.v2",
+        "preflight": "certgen.cvpr.preflight_output.v2"
+      },
+      "passed": true
+    },
+    "paper_firewall_closed": {
+      "detail": {
+        "blockers": [],
+        "checked_files": [
+          "paper/CERTGEN_CLAIM_HIERARCHY.md",
+          "paper/CERTGEN_FIGURE_AND_TABLE_SPEC.md",
+          "paper/CERTGEN_CVPR_PAPER_BUILD_REPORT.md",
+          "paper/CERTGEN_CVPR_RESULT_TABLE_CONTRACTS.md",
+          "paper/supplement.tex",
+          "paper/main.tex",
+          "paper/CERTGEN_REVIEWER_SIMULATION.md",
+          "paper/CERTGEN_CVPR_FIGURE_CONTRACTS.md",
+          "paper/README.md",
+          "paper/CERTGEN_CVPR_REVIEWER_SIMULATION.md",
+          "paper/CERTGEN_PAPER_REDESIGN_PLAN.md",
+          "paper/CERTGEN_VENUE_CEILING_MATRIX.md",
+          "paper/CERTGEN_CVPR_CLAIM_CONTRACT.md",
+          "paper/tables/README.md",
+          "paper/sections/method.tex",
+          "paper/sections/experiments_placeholder.tex",
+          "paper/sections/07_conclusion.tex",
+          "paper/sections/05_results_placeholder.tex",
+          "paper/sections/01_introduction.tex",
+          "paper/sections/04_experimental_protocol.tex",
+          "paper/sections/02_related_work.tex",
+          "paper/sections/03_method.tex",
+          "paper/sections/00_abstract.tex",
+          "paper/sections/limitations.tex",
+          "paper/sections/introduction.tex",
+          "paper/sections/ethics_reproducibility.tex",
+          "paper/sections/06_limitations_ethics.tex",
+          "paper/sections/abstract_placeholder.tex",
+          "paper/supplement/05_fid_fd_policy.tex",
+          "paper/supplement/04_multiple_comparisons_dependence.tex",
+          "paper/supplement/06_reproducibility_details.tex",
+          "paper/supplement/01_certificate_details.tex",
+          "paper/supplement/03_mmd_kid_cmmd_streams.tex",
+          "paper/supplement/07_additional_tables_placeholders.tex",
+          "paper/supplement/02_optional_stopping_validity.tex",
+          "paper/figures/README.md",
+          "docs/paper/FORBIDDEN_CLAIMS.md",
+          "docs/paper/ALLOWED_PRE_RUN_CLAIMS.md",
+          "docs/paper/RESULT_INJECTION_PROTOCOL.md",
+          "docs/paper/CLAIM_TRACE_PROTOCOL.md",
+          "docs/paper/PROOF_OBLIGATION_TRACKER.md",
+          "docs/paper/FIGURE_MANIFEST_V5.md",
+          "docs/paper/PAPER_BUILD_GUIDE.md",
+          "docs/paper/TABLE_MANIFEST_V5.md",
+          "docs/paper/CLAIM_CONTRACT.md",
+          "docs/paper/CVPR_PAPER_IDENTITY.md"
+        ],
+        "claim_allowed": false,
+        "claim_evidence_matrix": {
+          "claim_allowed": false,
+          "errors": [],
+          "matrix": "reports/CERTGEN_CLAIM_EVIDENCE_MATRIX.csv",
+          "passed": true,
+          "rows": 5,
+          "schema_version": "certgen.maximum_ceiling.claim_evidence_validation.v1",
+          "status": "PASS"
+        },
+        "no_fake_results": true,
+        "not_paper_evidence": true,
+        "passed": true
+      },
+      "passed": true
+    },
+    "portable_archive_verified": {
+      "detail": {
+        "archive_sha256": "d86436025af20b8f801e199408e31829326aa4e612b165aec24780e962c79837",
+        "member_count": 782,
+        "status": "ARCHIVE_VERIFIED",
+        "weight_members": []
+      },
+      "passed": true
+    },
+    "preflight_package_builder": {
+      "detail": [
+        "selected_profile",
+        "study_freeze",
+        "preflight_builder",
+        "fake_preflight_zip",
+        "preflight_import",
+        "generation_builder",
+        "fake_generation_zip",
+        "generation_import",
+        "feature_builder_embedded_images",
+        "feature_image_decode",
+        "fake_feature_zip",
+        "feature_import",
+        "feature_merge",
+        "cache_v2",
+        "canonical_reference_draw",
+        "control_builder",
+        "control_feature_roles",
+        "family_freeze",
+        "certificate_input_builder",
+        "certificate_input_validation",
+        "family_operational_gate",
+        "post_cache_gate_configs",
+        "metric_reproduction_gate",
+        "sanity_controls_gate",
+        "family_certificate_runner",
+        "three_family_certificates",
+        "partial_ranking"
+      ],
+      "passed": true
+    },
+    "reference_draw_builder_fixture": {
+      "detail": [
+        "selected_profile",
+        "study_freeze",
+        "preflight_builder",
+        "fake_preflight_zip",
+        "preflight_import",
+        "generation_builder",
+        "fake_generation_zip",
+        "generation_import",
+        "feature_builder_embedded_images",
+        "feature_image_decode",
+        "fake_feature_zip",
+        "feature_import",
+        "feature_merge",
+        "cache_v2",
+        "canonical_reference_draw",
+        "control_builder",
+        "control_feature_roles",
+        "family_freeze",
+        "certificate_input_builder",
+        "certificate_input_validation",
+        "family_operational_gate",
+        "post_cache_gate_configs",
+        "metric_reproduction_gate",
+        "sanity_controls_gate",
+        "family_certificate_runner",
+        "three_family_certificates",
+        "partial_ranking"
+      ],
+      "passed": true
+    },
+    "required_local_artifacts": {
+      "detail": "all present",
+      "passed": true
+    },
+    "selected_pilot_profile_valid": {
+      "detail": {
+        "claim_allowed": false,
+        "errors": [],
+        "passed": true,
+        "profile_hash": "29267d52e3c91dc51fc6a9605a181e162b2e452945f0646e3eeea847285b647e",
+        "profile_id": "cifar_integrity_minimal"
+      },
+      "passed": true
+    },
+    "worker_contract_consistent": {
+      "detail": {
+        "current": {
+          "claim_allowed": false,
+          "compatibility": "current",
+          "errors": [],
+          "passed": true,
+          "worker_type": "feature"
+        },
+        "implementations": {
+          "diagnostic": "certgen.diagnostic_worker.v1",
+          "extractor_preflight": "certgen.extractor_preflight_worker.v3",
+          "feature": "certgen.feature_worker.v3",
+          "fixture": "certgen.fixture_worker.v3",
+          "generation": "certgen.generation_worker.v3",
+          "preflight": "certgen.preflight_worker.v3"
+        },
+        "stale": {
+          "claim_allowed": false,
+          "compatibility": "incompatible",
+          "errors": [
+            "completion marker worker_implementation_version mismatch"
+          ],
+          "passed": false,
+          "worker_type": "feature"
+        }
+      },
+      "passed": true
+    }
+  },
+  "checks_passed": 24,
+  "checks_total": 24,
+  "claim_allowed": false,
+  "evidence_class": "local_and_synthetic_validation_only",
+  "exact_next_command": "Upload artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip and run notebooks/kaggle/certgen_kaggle_environment_diagnostic_t4x2.ipynb on GPU T4 x2",
+  "passed": true,
+  "real_evidence_status": "none",
+  "schema_version": "certgen.final_pre_run_audit.v1",
+  "status": "CVPR_100_PERCENT_PRE_RUN_READY",
+  "sub_status": "BLOCKED_ONLY_BY_REAL_INPUTS_AND_REAL_EXECUTION"
+}

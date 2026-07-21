@@ -1,0 +1,73 @@
+study_id: certgen_cvpr_prospective_template
+version: 1
+primary_question: Which prospectively selected visual-generator comparisons are directionally
+  decided by bounded RBF-MMD evidence at registered budgets?
+primary_outcomes:
+- family-wise-valid pairwise decisions
+- certified partial ranking
+- censored samples-to-decision
+secondary_outcomes:
+- cross-feature consistency
+- protocol sensitivity
+- compute planning implications
+benchmarks:
+- cifar10
+models:
+- google_ddpm_cifar10_candidate
+- frank_ddpm_ema_cifar10_candidate
+- frank_cfm_cifar10_candidate
+model_pairs:
+- comparison_id: checkpoint_variant
+  model_a: google_ddpm_cifar10_candidate
+  model_b: frank_ddpm_ema_cifar10_candidate
+- comparison_id: cross_family
+  model_a: google_ddpm_cifar10_candidate
+  model_b: frank_cfm_cifar10_candidate
+feature_spaces:
+- inception
+- clip
+- dinov2
+metrics:
+- rbf_mmd
+kernel:
+  name: rbf
+  normalize: l2
+  gamma: 0.5
+bandwidth_protocol: prospectively_fixed_unit_sphere_gamma_0.5_v1
+alpha: 0.05
+multiplicity_families:
+- cvpr_primary_cifar10
+sample_budgets:
+- 1000
+- 10000
+- 50000
+stopping_rule: first_boundary_crossing_union_hoeffding
+stream_seed: 0
+reference_draw_protocol: iid_with_replacement_from_fixed_empirical_population_precommitted
+exclusion_rules:
+- invalid provenance
+- cache mismatch
+- nonfinite features
+- failed sanity gate
+failure_rules:
+- fail closed; preserve raw artifacts; do not substitute models or pairs after inspecting
+  outcomes
+resume_rules:
+- same configuration hash, stream order, reference draw, and alpha ledger only
+missing_data_rules:
+- block the affected comparison; do not silently impute
+censoring_rules:
+- UNDECIDED_AT_BUDGET is right-censored at the registered maximum budget
+claim_thresholds:
+- all lineage, sanity, family, and paper gates pass
+scale_up_rules:
+- stop after 1k for interpretation
+- 10k only after pilot gate
+- 50k only after 10k gate
+pivot_rules:
+- scientific pivots require a new version before inspecting affected results
+preprocessing_hash: TBD_REAL_CACHE_REQUIRED
+configuration_hash: TBD_FREEZE_WITH_CERTGEN
+frozen: false
+evidence_class: planning_only
+claim_allowed: false

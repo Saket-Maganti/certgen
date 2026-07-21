@@ -1,0 +1,47 @@
+schema_version: certgen.maximum_ceiling.optional_extension_lanes.v1
+lanes:
+  - lane_id: second_compact_benchmark
+    status: prospective_inactive
+    scientific_motivation: Test whether certified comparisons transfer beyond CIFAR-10.
+    license_status: unresolved_requires_real_source_review
+    asset_status: not_acquired
+    adapter_status: not_selected
+    preflight_requirement: benchmark provenance, license, materialization, and adapter preflight must pass
+    estimated_compute_class: planning_only_medium
+    activation_gate: separately frozen study version after the CIFAR integrity pilot
+    primary_family_active: false
+    claim_allowed: false
+  - lane_id: dino_expansion
+    status: prospective_inactive
+    scientific_motivation: Measure representation sensitivity with a self-supervised visual encoder.
+    license_status: unresolved_requires_variant_selection
+    asset_status: not_acquired
+    adapter_status: scaffold_only_real_preflight_required
+    preflight_requirement: pin encoder variant, revision, preprocessing, license, and feature dimension
+    estimated_compute_class: planning_only_medium
+    activation_gate: explicit pilot decision ADD_OPTIONAL_DINO under the frozen scale plan
+    primary_family_active: false
+    claim_allowed: false
+  - lane_id: cfm_expansion
+    status: prospective_inactive
+    scientific_motivation: Add a cross-family flow-matching comparison only if its adapter semantics are verified.
+    license_status: unverified_requires_manual_review
+    asset_status: not_acquired
+    adapter_status: highest_risk_candidate_unverified
+    preflight_requirement: real checkpoint load, scheduler semantics, image validation, and license review
+    estimated_compute_class: planning_only_medium
+    activation_gate: explicit pilot decision ADD_OPTIONAL_CFM under the frozen scale plan
+    primary_family_active: false
+    claim_allowed: false
+  - lane_id: additional_strong_baseline
+    status: prospective_inactive
+    scientific_motivation: Add one recognized strong baseline without weakening the minimum CIFAR pilot.
+    license_status: unresolved_until_model_selection
+    asset_status: not_acquired
+    adapter_status: not_selected
+    preflight_requirement: source, revision, license, adapter, and output contracts must pass
+    estimated_compute_class: planning_only_large
+    activation_gate: new prospective study version after resource and evidence review
+    primary_family_active: false
+    claim_allowed: false
+claim_allowed: false

@@ -8,6 +8,7 @@ from typing import Any
 from certgen.certs.api import certify_clean_metric_comparison
 from certgen.core.io import write_json
 from certgen.features.cache_validate import validate_v3_feature_cache
+from certgen.gates.evidence_classification import classify_inputs
 from certgen.reporting.pilot_cards import render_pilot_report
 
 
@@ -44,6 +45,16 @@ def run_first_pilot(pilot_config: str | Path, out_dir: str | Path, report: str |
             summary["comparisons"].append({"comparison_id": comp.get("comparison_id"), "status": "planned", "missing_artifacts": []})
     elif mode == "real_features":
         ref = config["reference_cache"]
+        all_paths = [ref["npz"]]
+        all_sidecars = [ref["sidecar"]]
+        for comp in config.get("comparisons", []):
+            all_paths.extend([comp["model_a_cache"]["npz"], comp["model_b_cache"]["npz"]])
+            all_sidecars.extend([comp["model_a_cache"]["sidecar"], comp["model_b_cache"]["sidecar"]])
+        detected_class, evidence_reason = classify_inputs(all_paths, all_sidecars)
+        run_evidence_status = "synthetic_only" if detected_class == "synthetic_only" else "real_pilot_non_claim"
+        summary["evidence_status"] = run_evidence_status
+        summary["input_evidence_class"] = detected_class
+        summary["evidence_boundary_reason"] = evidence_reason
         ref_validation = validate_v3_feature_cache(features_path=ref["npz"], sidecar_path=ref["sidecar"], strict_hash=False, allow_constant=True)
         valid_results = []
         for comp in config.get("comparisons", []):
@@ -76,13 +87,13 @@ def run_first_pilot(pilot_config: str | Path, out_dir: str | Path, report: str |
                         {
                             "alpha": float(config.get("alpha", 0.05)),
                             "budget_units": int(config.get("max_samples", 40)),
-                            "method": config.get("method", "betting"),
+                            "method": config.get("method", "hoeffding"),
                             "seed": int(config.get("seed", 0)),
                             "block_size": config.get("block_size"),
                             "metric_reproduction_audit": metric_reproduction_audit,
                         },
                         comp["comparison_id"],
-                        "real_pilot_non_claim",
+                        run_evidence_status,
                         str(cert_path),
                     )
                     summary["certificates"].append({"path": str(cert_path), "decision": cert.decision, "metric": metric_label})

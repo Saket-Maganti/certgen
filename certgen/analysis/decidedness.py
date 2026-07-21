@@ -32,7 +32,11 @@ def build_decidedness_audit(batch_json: str | Path, out_csv: str | Path, out_jso
         counts[row["decidedness_category"]] = counts.get(row["decidedness_category"], 0) + 1
     Path(out_csv).parent.mkdir(parents=True, exist_ok=True)
     with Path(out_csv).open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=sorted(classified[0].keys()) if classified else ["comparison_id"])
+        writer = csv.DictWriter(
+            handle,
+            fieldnames=sorted(classified[0].keys()) if classified else ["comparison_id"],
+            lineterminator="\n",
+        )
         writer.writeheader()
         writer.writerows(classified)
     payload = {"rows": classified, "counts": counts, "evidence_status": "synthetic_only", "claim_allowed": False}

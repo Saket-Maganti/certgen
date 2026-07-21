@@ -1,0 +1,330 @@
+{
+  "checks": {
+    "boundary_exit_code": {
+      "detail": {
+        "boundary": "kaggle_diagnostic",
+        "canonical_next_action": {
+          "CPU_or_GPU": "GPU",
+          "action": "RUN_KAGGLE_ENVIRONMENT_DIAGNOSTIC",
+          "blocker": "WAITING_FOR_KAGGLE_DIAGNOSTIC",
+          "canonical_handbook": "CERTGEN_CVPR_100_PERCENT_PRE_RUN_EXECUTION_HANDBOOK.md",
+          "claim_allowed": false,
+          "claim_permission": false,
+          "cpu_or_gpu": "GPU",
+          "cwd": ".",
+          "estimated_runtime": "5-20 minutes planning estimate",
+          "evidence_allowed": false,
+          "evidence_class": "run_log_only",
+          "exact_command": "Upload artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip and run notebooks/kaggle/certgen_kaggle_environment_diagnostic_t4x2.ipynb on GPU T4 x2",
+          "execution_location": "Kaggle T4x2",
+          "expected_input": "artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip",
+          "expected_output": "certgen_kaggle_environment_diagnostic_output.zip",
+          "expected_output_artifact": "data/kaggle_returns/diagnostic",
+          "failure_recovery": "Preserve immutable inputs and logs; correct only the failing gate, then rerun the same canonical command.",
+          "input": "artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip",
+          "input_artifact_ids": [],
+          "input_paths": [
+            "artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip"
+          ],
+          "kaggle_or_local": "Kaggle T4x2",
+          "legacy_compatibility": "LEGACY_COMPATIBILITY_ONLY_NOT_CANONICAL_GUIDANCE",
+          "location": "Kaggle",
+          "network_policy": "KAGGLE_INTERNET_ON_INSTALL; no model-asset network access",
+          "network_requirement": "KAGGLE_INTERNET_ON_INSTALL; no model-asset network access",
+          "no_fake_results": true,
+          "not_paper_evidence": true,
+          "notebook_path": "notebooks/kaggle/certgen_kaggle_environment_diagnostic_t4x2.ipynb",
+          "planning_runtime": "5-20 minutes planning estimate",
+          "reason": "The reference, frozen study, and registered draw are ready; the two-GPU environment diagnostic is the first unresolved external boundary.",
+          "status": "KAGGLE_DIAGNOSTIC_REQUIRED",
+          "success_validator": "CUDA_VISIBLE_DEVICES=\"\" CERTGEN_CPU_ONLY=1 python3 scripts/run_all_available_cpu_stages.py --resume --explain"
+        },
+        "cifar_present": true,
+        "cifar_source": "data/sources/cifar-10-python.tar.gz",
+        "claim_allowed": false,
+        "diagnostic_imported": false,
+        "exact_next_action": "Upload artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip and run notebooks/kaggle/certgen_kaggle_environment_diagnostic_t4x2.ipynb on GPU T4 x2",
+        "exit_code": 11,
+        "next_notebook": "notebooks/kaggle/certgen_kaggle_environment_diagnostic_t4x2.ipynb",
+        "phase1_status": "PHASE1_COMPLETE_WAITING_FOR_KAGGLE_DIAGNOSTIC",
+        "preflight_imported": false,
+        "reference_materialized": true,
+        "schema_version": "certgen.phase1.state.v1"
+      },
+      "passed": true
+    },
+    "command_ledger": {
+      "detail": {
+        "rows": 129,
+        "successful_phases": [
+          "artifact_contract_tests",
+          "audit_discovery",
+          "baseline",
+          "baseline_checks",
+          "claim_evidence_tests",
+          "cli_surface",
+          "cpu_autorun",
+          "cpu_execution_audit",
+          "cpu_orchestrator",
+          "critical_mypy",
+          "cvpr_audit",
+          "discovery",
+          "final_artifact_seal",
+          "final_compileall",
+          "final_default_pytest",
+          "final_diff_check",
+          "final_imports",
+          "final_notebook_determinism",
+          "final_phase1_tests",
+          "final_pre_run_audit",
+          "final_readiness_forensic_tests",
+          "final_readiness_tests",
+          "final_reporting",
+          "final_ruff",
+          "final_state_doctor",
+          "final_state_kaggle_next",
+          "final_state_next_action",
+          "final_state_readiness",
+          "fixture_rehearsal",
+          "full_mypy_debt",
+          "implementation_check",
+          "integration_audit",
+          "kaggle_build_diagnostic",
+          "kaggle_build_features",
+          "kaggle_build_generation",
+          "kaggle_build_preflight",
+          "kaggle_bundle_tests",
+          "kaggle_inspect_input",
+          "kaggle_inventory",
+          "kaggle_launch_audit",
+          "kaggle_next",
+          "kaggle_provenance_tests",
+          "kaggle_validate_input",
+          "maximum_ceiling_audit",
+          "maximum_ceiling_tests",
+          "mypy_discovery",
+          "notebook_tests",
+          "notebooks",
+          "orchestrator_capability",
+          "orchestrator_resume_seal",
+          "orchestrator_ruff",
+          "paper_compile",
+          "paper_firewall",
+          "phase1_tests",
+          "post_cache_repair_tests",
+          "post_cache_tests",
+          "privacy_scan",
+          "provenance_tests",
+          "real_execution_closure_tests",
+          "regression",
+          "release_scan",
+          "release_tests",
+          "replay_tests",
+          "report_seal",
+          "reporting",
+          "restricted_asset_scan",
+          "ruff",
+          "runtime_hardening_tests",
+          "statistical_tests",
+          "test_discovery"
+        ]
+      },
+      "passed": true
+    },
+    "cpu_environment": {
+      "detail": {
+        "CERTGEN_CPU_ONLY": "1",
+        "CUDA_VISIBLE_DEVICES": ""
+      },
+      "passed": true
+    },
+    "fixture_rehearsal": {
+      "detail": {
+        "actual_builder_stages": [
+          "selected_profile",
+          "study_freeze",
+          "preflight_builder",
+          "fake_preflight_zip",
+          "preflight_import",
+          "generation_builder",
+          "fake_generation_zip",
+          "generation_import",
+          "feature_builder_embedded_images",
+          "feature_image_decode",
+          "fake_feature_zip",
+          "feature_import",
+          "feature_merge",
+          "cache_v2",
+          "canonical_reference_draw",
+          "control_builder",
+          "control_feature_roles",
+          "family_freeze",
+          "certificate_input_builder",
+          "certificate_input_validation",
+          "family_operational_gate",
+          "post_cache_gate_configs",
+          "metric_reproduction_gate",
+          "sanity_controls_gate",
+          "family_certificate_runner",
+          "three_family_certificates",
+          "partial_ranking"
+        ],
+        "claim_allowed": false,
+        "legacy_negative_cases": 16,
+        "not_empirical_evidence": true,
+        "not_real_kaggle_input": true,
+        "passed": true,
+        "phase1_negative_cases": [
+          {
+            "case": "zero_gpu",
+            "claim_allowed": false,
+            "not_empirical_evidence": true,
+            "not_real_kaggle_input": true,
+            "passed": true,
+            "synthetic_validation_only": true
+          },
+          {
+            "case": "one_gpu",
+            "claim_allowed": false,
+            "not_empirical_evidence": true,
+            "not_real_kaggle_input": true,
+            "passed": true,
+            "synthetic_validation_only": true
+          },
+          {
+            "case": "ambiguous_input_zip",
+            "claim_allowed": false,
+            "not_empirical_evidence": true,
+            "not_real_kaggle_input": true,
+            "passed": true,
+            "synthetic_validation_only": true
+          },
+          {
+            "case": "dependency_conflict",
+            "claim_allowed": false,
+            "not_empirical_evidence": true,
+            "not_real_kaggle_input": true,
+            "passed": true,
+            "synthetic_validation_only": true
+          },
+          {
+            "case": "missing_asset",
+            "claim_allowed": false,
+            "not_empirical_evidence": true,
+            "not_real_kaggle_input": true,
+            "passed": true,
+            "synthetic_validation_only": true
+          },
+          {
+            "case": "stale_worker_marker",
+            "claim_allowed": false,
+            "not_empirical_evidence": true,
+            "not_real_kaggle_input": true,
+            "passed": true,
+            "synthetic_validation_only": true
+          },
+          {
+            "case": "duplicate_seed",
+            "claim_allowed": false,
+            "not_empirical_evidence": true,
+            "not_real_kaggle_input": true,
+            "passed": true,
+            "synthetic_validation_only": true
+          },
+          {
+            "case": "missing_seed",
+            "claim_allowed": false,
+            "not_empirical_evidence": true,
+            "not_real_kaggle_input": true,
+            "passed": true,
+            "synthetic_validation_only": true
+          },
+          {
+            "case": "duplicate_feature_row",
+            "claim_allowed": false,
+            "not_empirical_evidence": true,
+            "not_real_kaggle_input": true,
+            "passed": true,
+            "synthetic_validation_only": true
+          },
+          {
+            "case": "missing_feature_row",
+            "claim_allowed": false,
+            "not_empirical_evidence": true,
+            "not_real_kaggle_input": true,
+            "passed": true,
+            "synthetic_validation_only": true
+          },
+          {
+            "case": "changed_study_hash",
+            "claim_allowed": false,
+            "not_empirical_evidence": true,
+            "not_real_kaggle_input": true,
+            "passed": true,
+            "synthetic_validation_only": true
+          },
+          {
+            "case": "partial_zip",
+            "claim_allowed": false,
+            "not_empirical_evidence": true,
+            "not_real_kaggle_input": true,
+            "passed": true,
+            "synthetic_validation_only": true
+          },
+          {
+            "case": "zip_traversal",
+            "claim_allowed": false,
+            "not_empirical_evidence": true,
+            "not_real_kaggle_input": true,
+            "passed": true,
+            "synthetic_validation_only": true
+          },
+          {
+            "case": "corrupt_multipart_output",
+            "claim_allowed": false,
+            "not_empirical_evidence": true,
+            "not_real_kaggle_input": true,
+            "passed": true,
+            "synthetic_validation_only": true
+          },
+          {
+            "case": "fixture_in_real_path",
+            "claim_allowed": false,
+            "not_empirical_evidence": true,
+            "not_real_kaggle_input": true,
+            "passed": true,
+            "synthetic_validation_only": true
+          }
+        ],
+        "required_builder_stages": [
+          "cache_v2",
+          "control_builder",
+          "family_certificate_runner",
+          "feature_builder_embedded_images",
+          "feature_import",
+          "feature_merge",
+          "generation_builder",
+          "generation_import",
+          "metric_reproduction_gate",
+          "partial_ranking",
+          "preflight_builder",
+          "preflight_import",
+          "sanity_controls_gate"
+        ],
+        "schema_version": "certgen.phase1.fixture_rehearsal.v1",
+        "status": "PHASE1_FIXTURE_REHEARSAL_PASS",
+        "synthetic_validation_only": true
+      },
+      "passed": true
+    },
+    "no_unexpected_cuda_initialization": {
+      "detail": "none",
+      "passed": true
+    }
+  },
+  "claim_allowed": false,
+  "passed": true,
+  "phase1_status": "PHASE1_COMPLETE_WAITING_FOR_KAGGLE_DIAGNOSTIC",
+  "schema_version": "certgen.phase1.cpu_execution_audit.v1",
+  "status": "CPU_EXECUTION_AUDIT_PASS"
+}

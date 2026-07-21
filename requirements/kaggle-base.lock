@@ -1,0 +1,13 @@
+# Python==3.11.*
+# Install mode: KAGGLE_INTERNET_ON_INSTALL, PRIVATE_WHEELHOUSE_OFFLINE, or USE_PREINSTALLED_VALIDATED
+-c kaggle-constraints.txt
+torch==2.7.1
+torchvision==0.22.1
+numpy==2.0.2
+scipy==1.15.3
+Pillow==11.2.1
+pandas==2.2.3
+PyYAML==6.0.2
+jsonschema==4.23.0
+tqdm==4.67.1
+packaging==25.0

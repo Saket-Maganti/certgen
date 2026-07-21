@@ -34,7 +34,8 @@ def update_empirical_bernstein_cs(
     """Return legacy CS states.
 
     The public name is retained for old callers. With declared fixed bounds it
-    now routes to the bounded betting e-process CS used by the clean R0 path.
+    now routes to the theorem-backed union-Hoeffding confidence sequence used
+    by the claim-capable clean path.
     Without declared bounds it keeps the old observed-range smoke fallback and
     explicitly marks the result as not optional-stopping-valid.
     """
@@ -44,7 +45,7 @@ def update_empirical_bernstein_cs(
         low, high = value_range
         result = confidence_sequence(
             values,
-            CSConfig(alpha=alpha, budget_units=len(values), lower_bound=float(low), upper_bound=float(high), method="betting"),
+            CSConfig(alpha=alpha, budget_units=len(values), lower_bound=float(low), upper_bound=float(high), method="hoeffding"),
         )
         return [
             CSState(

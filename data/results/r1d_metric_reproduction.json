@@ -1,0 +1,71 @@
+{
+  "blockers": [
+    "feature cache missing: reference_inception",
+    "feature cache missing: google_ddpm_inception",
+    "feature cache missing: frank_ddpm_ema_inception",
+    "feature cache missing: frank_cfm_inception",
+    "feature cache missing: reference_clip",
+    "feature cache missing: google_ddpm_clip",
+    "feature cache missing: frank_ddpm_ema_clip",
+    "feature cache missing: frank_cfm_clip"
+  ],
+  "claim_allowed": false,
+  "evidence_status": "real_features_unvalidated",
+  "feature_cache_checks": [
+    {
+      "cache_id": "reference_inception",
+      "detail": "missing data/features/cifar10_r1/split/reference_inception.npz or data/features/cifar10_r1/split/reference_inception.sidecar.json",
+      "status": "missing"
+    },
+    {
+      "cache_id": "google_ddpm_inception",
+      "detail": "missing data/features/cifar10_r1/split/google_ddpm_inception.npz or data/features/cifar10_r1/split/google_ddpm_inception.sidecar.json",
+      "status": "missing"
+    },
+    {
+      "cache_id": "frank_ddpm_ema_inception",
+      "detail": "missing data/features/cifar10_r1/split/frank_ddpm_ema_inception.npz or data/features/cifar10_r1/split/frank_ddpm_ema_inception.sidecar.json",
+      "status": "missing"
+    },
+    {
+      "cache_id": "frank_cfm_inception",
+      "detail": "missing data/features/cifar10_r1/split/frank_cfm_inception.npz or data/features/cifar10_r1/split/frank_cfm_inception.sidecar.json",
+      "status": "missing"
+    },
+    {
+      "cache_id": "reference_clip",
+      "detail": "missing data/features/cifar10_r1/split/reference_clip.npz or data/features/cifar10_r1/split/reference_clip.sidecar.json",
+      "status": "missing"
+    },
+    {
+      "cache_id": "google_ddpm_clip",
+      "detail": "missing data/features/cifar10_r1/split/google_ddpm_clip.npz or data/features/cifar10_r1/split/google_ddpm_clip.sidecar.json",
+      "status": "missing"
+    },
+    {
+      "cache_id": "frank_ddpm_ema_clip",
+      "detail": "missing data/features/cifar10_r1/split/frank_ddpm_ema_clip.npz or data/features/cifar10_r1/split/frank_ddpm_ema_clip.sidecar.json",
+      "status": "missing"
+    },
+    {
+      "cache_id": "frank_cfm_clip",
+      "detail": "missing data/features/cifar10_r1/split/frank_cfm_clip.npz or data/features/cifar10_r1/split/frank_cfm_clip.sidecar.json",
+      "status": "missing"
+    }
+  ],
+  "metric_reproduction_status": "missing_or_not_within_tolerance",
+  "not_paper_claim": true,
+  "passed": false,
+  "ready_for_cpu_certificate_pilot": false,
+  "role_counts": {},
+  "sanity_gates": {
+    "all_features_finite": true,
+    "clip_feature_dim_stable": false,
+    "inception_feature_dim_stable": false,
+    "no_duplicate_sample_ids_within_role_cache": true,
+    "required_roles_present": false
+  },
+  "stage": "r1d_metric_reproduction_and_sanity",
+  "status_code": "BLOCKED_FEATURE_EXTRACTION_NOT_RUN",
+  "within_tolerance": false
+}

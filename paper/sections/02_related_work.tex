@@ -11,13 +11,12 @@ estimator bias: FID is biased at finite sample sizes and sensitive to the
 extrapolation to infinite samples (Chong and Forsyth, 2020). Kernel Inception
 Distance (Bi\'nkowski et al., 2018) replaces the Fr\'echet form with an unbiased
 MMD estimate; CMMD (Jayasumana et al., 2024) argues for CLIP embeddings with an
-unbiased MMD; and FD-DINOv2 (Stein et al., 2023) exposes feature-space artifacts
-and the unfair treatment of diffusion models. CertGen is deliberately
-\emph{not} a new metric: it is a decision layer that consumes these metrics. We
-keep Fr\'echet-form scores (FID, FD-DINOv2) descriptive because they are
-nonlinear functionals of feature covariances without a clean bounded-mean
-streaming estimator, and place rigorous certificates only on bounded-kernel
-MMD/CMMD streams.
+unbiased MMD; and FD-DINOv2 (Stein et al., 2023) studies an alternative feature
+space. CertGen is deliberately \emph{not} a new metric: it is a decision layer
+over a compatible statistic. We keep Fr\'echet-form scores descriptive because
+this repository contains no audited bounded-mean stream for them. The current
+claim-capable route is limited to the implemented bounded RBF-MMD difference
+stream; other metric names do not inherit that guarantee.
 
 \paragraph{Evaluation reliability and reproducibility.}
 Reported numbers are fragile to preprocessing: aliased resizing and other
@@ -33,22 +32,36 @@ Our statistical machinery is borrowed, and we say so plainly. Time-uniform
 confidence sequences (Howard et al., 2021), betting-based confidence sequences
 for bounded means (Waudby-Smith and Ramdas, 2023), and the broader theory of
 e-values, test (super)martingales, and e-processes (Vovk and Wang, 2021; Ramdas
-et al., 2023) provide validity under optional stopping. For many simultaneous
-decisions we use e-BH (Wang and Ramdas, 2022), which controls the false
-discovery rate under \emph{arbitrary} dependence -- the relevant regime here,
-since every model pair is compared against one shared reference set.
+et al., 2023) provide validity under optional stopping when their assumptions
+are met. e-BH (Wang and Ramdas, 2022) controls false discovery rate under
+arbitrary dependence for valid e-values. CertGen currently treats its e-BH path
+as exploratory: its terminal point-null e-values do not by themselves certify a
+direction, and adaptive stopping across a family still requires a matched proof.
+The conservative primary family protocol is Bonferroni correction.
 
 \paragraph{Sequential and kernel two-sample testing (closest prior work).}
 The most direct neighbors are sequential two-sample and kernel tests:
 betting/e-value two-sample and independence testing (e.g., Shekhar and Ramdas,
-2023; Podkopaev and Ramdas, 2023) instantiate exactly the kind of anytime-valid
+2024; Podkopaev et al., 2023) instantiate exactly the kind of anytime-valid
 kernel comparison we rely on. We claim no methodological novelty over this line.
-CertGen's contribution is orthogonal and applied: (i) framing generative-model
+CertGen's intended contribution is orthogonal and applied: (i) framing generative-model
 \emph{leaderboard wins} as a set of simultaneous, optional-stopping-safe
-decisions on the paired discrepancy $\Delta_{AB}=d(A,R)-d(B,R)$; (ii) an
-e-BH-controlled \emph{audit} of how many reported wins are statistically decided
+decisions on the paired discrepancy $\Delta_{AB}=d(A,R)-d(B,R)$; (ii) a
+prospectively multiplicity-controlled \emph{audit} of how many reported wins are statistically decided
 at the sample sizes actually used; and (iii) a reproducibility discipline
 (provenance ledger, preprocessing lock, reproduction gate) that makes such an
 audit defensible on released samples and feature caches. In short, prior work
-gives the test; we ask -- and answer with real benchmarks -- whether the field's
-comparisons survive it.
+gives the inferential machinery; CertGen proposes to test, on prospectively
+registered real benchmarks, whether the field's comparisons survive it. That
+empirical question remains unanswered in the current repository.
+
+\paragraph{Statistical inference for generative-model comparison.}
+Gao, Sun, and Su (2025) directly study uncertainty-quantified relative
+generative-model performance using a relative KL score, including image and
+text experiments and a conditional-model extension. This is the closest work to
+CertGen's scientific question. Their fixed-sample route relies on accessible
+model densities or approximations; CertGen's remaining proposed delta is a
+sample-only bounded-kernel estimand with time-uniform monitoring, prospectively
+controlled comparison families, censored samples-to-decision, and partial-order
+audit outputs. These differences require direct theoretical and empirical
+comparison and are not yet validated here.

@@ -1,0 +1,181 @@
+schema_version: certgen.cvpr.benchmarks.v1
+benchmarks:
+- download_size_estimate: planning estimate; hardware and source dependent
+  official_url_placeholder: TBD_MANUAL_SOURCE_AND_LICENSE_VERIFICATION
+  status: planning_only_blocked
+  claim_allowed: false
+  benchmark_id: cifar10
+  display_name: CIFAR-10
+  domain: natural objects
+  resolution: 32x32
+  conditioning: unconditional_or_class_conditional
+  reference_source: official Python batches, user-provided only
+  reference_split: test
+  license: manual_release_review_required
+  expected_reference_count: 10000
+  local_source_formats:
+  - official_tar_gz
+  - extracted_python_batches
+  - torchvision_cache
+  - validated_image_tree
+  - safe_wrapper_archive
+  feature_spaces_supported:
+  - inception
+  - clip
+  - dinov2
+  evaluation_protocols:
+  - debug_pilot
+  - null_controls
+  - controlled_corruption
+  - bounded_rbf_certificate
+  known_preprocessing_risks:
+  - 32_to_encoder_resolution
+  - interpolation
+  - reference_split_reuse
+  cvpr_relevance: pilot and debugging only; insufficient alone
+  execution_tier: pilot
+  blocker: local reference source missing
+- download_size_estimate: planning estimate; hardware and source dependent
+  official_url_placeholder: TBD_MANUAL_SOURCE_AND_LICENSE_VERIFICATION
+  status: planning_only_blocked
+  claim_allowed: false
+  benchmark_id: ffhq_candidate
+  display_name: FFHQ candidate lane
+  domain: faces
+  resolution: high_resolution
+  conditioning: unconditional
+  reference_source: TBD_MANUAL_VERIFICATION
+  reference_split: TBD
+  license: unverified_requires_manual_review
+  expected_reference_count: TBD
+  local_source_formats:
+  - validated_image_tree
+  - released_samples
+  feature_spaces_supported:
+  - inception
+  - clip
+  - dinov2
+  evaluation_protocols:
+  - higher_resolution_face_audit
+  known_preprocessing_risks:
+  - face_alignment
+  - crop
+  - license
+  cvpr_relevance: recognized high-resolution visual domain
+  execution_tier: post_pilot
+  blocker: source, license, split, and feasible model pairs not verified
+- download_size_estimate: planning estimate; hardware and source dependent
+  official_url_placeholder: TBD_MANUAL_SOURCE_AND_LICENSE_VERIFICATION
+  status: planning_only_blocked
+  claim_allowed: false
+  benchmark_id: imagenet_class_conditional_candidate
+  display_name: ImageNet class-conditional candidate lane
+  domain: natural objects
+  resolution: TBD
+  conditioning: class_conditional
+  reference_source: TBD_MANUAL_VERIFICATION
+  reference_split: validation_candidate
+  license: access_and_release_review_required
+  expected_reference_count: TBD
+  local_source_formats:
+  - validated_image_tree
+  - released_samples
+  feature_spaces_supported:
+  - inception
+  - clip
+  - dinov2
+  evaluation_protocols:
+  - class_balanced_visual_generator_audit
+  known_preprocessing_risks:
+  - class_balance
+  - label_mapping
+  - resolution
+  - access
+  cvpr_relevance: recognizable class-conditional benchmark
+  execution_tier: strong_study
+  blocker: access, protocol, model sources, and licenses unverified
+- download_size_estimate: planning estimate; hardware and source dependent
+  official_url_placeholder: TBD_MANUAL_SOURCE_AND_LICENSE_VERIFICATION
+  status: planning_only_blocked
+  claim_allowed: false
+  benchmark_id: text_to_image_public_prompts_candidate
+  display_name: Public text-to-image prompt/sample candidate
+  domain: text_to_image
+  resolution: TBD
+  conditioning: text
+  reference_source: public prompts plus licensed real-image or released-sample protocol
+    TBD
+  reference_split: prospective_prompt_freeze_required
+  license: unverified_requires_manual_review
+  expected_reference_count: TBD
+  local_source_formats:
+  - prompt_manifest
+  - released_sample_manifest
+  feature_spaces_supported:
+  - clip
+  - dinov2
+  - inception
+  evaluation_protocols:
+  - prompt_stratified_pairwise_audit
+  known_preprocessing_risks:
+  - prompt_selection
+  - aspect_ratio
+  - safety_filter
+  - released_sample_selection
+  cvpr_relevance: modern text-to-image evaluation
+  execution_tier: strong_study
+  blocker: benchmark, prompts, reference semantics, and sources not frozen
+- download_size_estimate: planning estimate; hardware and source dependent
+  official_url_placeholder: TBD_MANUAL_SOURCE_AND_LICENSE_VERIFICATION
+  status: planning_only_blocked
+  claim_allowed: false
+  benchmark_id: lsun_candidate
+  display_name: LSUN-style optional domain
+  domain: scene_or_object_domain
+  resolution: TBD
+  conditioning: unconditional
+  reference_source: TBD_MANUAL_VERIFICATION
+  reference_split: TBD
+  license: unverified_requires_manual_review
+  expected_reference_count: TBD
+  local_source_formats:
+  - validated_image_tree
+  feature_spaces_supported:
+  - inception
+  - clip
+  - dinov2
+  evaluation_protocols:
+  - optional_domain_replication
+  known_preprocessing_risks:
+  - dataset_version
+  - crop
+  - duplicates
+  cvpr_relevance: optional breadth
+  execution_tier: optional
+  blocker: only execute if pilot and core breadth justify it
+- download_size_estimate: planning estimate; hardware and source dependent
+  official_url_placeholder: TBD_MANUAL_SOURCE_AND_LICENSE_VERIFICATION
+  status: planning_only_blocked
+  claim_allowed: false
+  benchmark_id: video_generation_extension
+  display_name: Optional video-generation extension
+  domain: video
+  resolution: TBD
+  conditioning: TBD
+  reference_source: minimal_config_skeleton_only
+  reference_split: TBD
+  license: unverified
+  expected_reference_count: TBD
+  local_source_formats:
+  - video_manifest
+  feature_spaces_supported: []
+  evaluation_protocols:
+  - post_image_core_only
+  known_preprocessing_risks:
+  - temporal_sampling
+  - decoder
+  - metric_theory_not_implemented
+  cvpr_relevance: maximum-ceiling extension only
+  execution_tier: optional_post_image
+  blocker: rejected before successful image core
+claim_allowed: false

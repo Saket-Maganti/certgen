@@ -1,0 +1,13 @@
+{
+  "claim_allowed": false,
+  "counts_by_model": {},
+  "errors": [
+    "Kaggle 1,000-sample generation outputs have not been copied back to data/sources/cifar10_r1/kaggle_manifests."
+  ],
+  "evidence_status": "sample_package_only",
+  "expected_count_per_model": 1000,
+  "out_manifest": "registry/manifests/cifar10_r1_generated_pilot_1000.jsonl",
+  "passed": false,
+  "status_code": "BLOCKED_GENERATION_NOT_RUN",
+  "warnings": []
+}

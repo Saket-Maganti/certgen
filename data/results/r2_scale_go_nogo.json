@@ -1,0 +1,10 @@
+{
+  "claim_allowed": false,
+  "measured_r1_runtime": null,
+  "next_command": "run R1E first pilot after feature caches validate",
+  "not_paper_claim": true,
+  "passed": false,
+  "r1e_pilot_status": "BLOCKED_R1D_NOT_READY",
+  "runtime_estimates_status": "planning_estimates_only",
+  "status_code": "BLOCKED_WAITING_FOR_R1E_PILOT"
+}

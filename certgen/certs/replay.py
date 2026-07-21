@@ -6,6 +6,7 @@ from pathlib import Path
 
 from certgen.certs.api import certify_clean_metric_comparison
 from certgen.core.io import read_json, write_json
+from certgen.gates.evidence_classification import classify_inputs
 
 
 def replay_certificate(certificate_path: str | Path, out: str | Path, json_out: str | Path) -> dict:
@@ -27,6 +28,12 @@ def replay_certificate(certificate_path: str | Path, out: str | Path, json_out: 
         if not method:
             method = "betting" if "betting" in method_label else "hoeffding" if "hoeffding" in method_label else "empirical_bernstein"
         try:
+            detected_class, _ = classify_inputs(input_paths[:3])
+            replay_evidence_status = (
+                "synthetic_only"
+                if detected_class == "synthetic_only"
+                else cert.get("evidence_status", "smoke_only")
+            )
             replayed = certify_clean_metric_comparison(
                 input_paths[0],
                 input_paths[1],
@@ -42,7 +49,7 @@ def replay_certificate(certificate_path: str | Path, out: str | Path, json_out: 
                     "metric_reproduction_audit": parameters.get("metric_reproduction_audit"),
                 },
                 cert.get("comparison_id", "replay"),
-                cert.get("evidence_status", "smoke_only"),
+                replay_evidence_status,
                 str(tmp_out),
             )
             payload = {
@@ -52,7 +59,7 @@ def replay_certificate(certificate_path: str | Path, out: str | Path, json_out: 
                 "original_stream_hash": cert.get("stream_hash"),
                 "replayed_stream_hash": replayed.stream_hash,
                 "claim_allowed": False,
-                "evidence_status": cert.get("evidence_status", "dry_run_only"),
+                "evidence_status": replay_evidence_status,
             }
         except ValueError as exc:
             payload = {

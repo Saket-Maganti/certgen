@@ -1,0 +1,100 @@
+{
+  "audit_name": "r0_cpu_gpu_audit",
+  "checks": [
+    {
+      "detail": "docs/R0_CPU_GPU_EXECUTION_POLICY.md",
+      "name": "cpu_gpu_execution_policy_doc_exists",
+      "passed": true
+    },
+    {
+      "detail": "all required commands present",
+      "name": "cpu_command_bundle_exists",
+      "passed": true
+    },
+    {
+      "detail": "all CPU commands disable CUDA",
+      "name": "cpu_commands_disable_cuda",
+      "passed": true
+    },
+    {
+      "detail": "docs/KAGGLE_T4X2_FEATURE_EXTRACTION_RUNBOOK_R0.md",
+      "name": "kaggle_feature_extraction_runbook_exists",
+      "passed": true
+    },
+    {
+      "detail": "two-process sharding documented",
+      "name": "feature_runbook_uses_t4x2_sharding",
+      "passed": true
+    },
+    {
+      "detail": "docs/KAGGLE_T4X2_PARALLEL_SEED_GENERATION_RUNBOOK_R0.md",
+      "name": "kaggle_parallel_seed_generation_runbook_exists",
+      "passed": true
+    },
+    {
+      "detail": "preference and placeholder documented",
+      "name": "generation_runbook_prefers_released_samples",
+      "passed": true
+    },
+    {
+      "detail": "docs/R0_RUNTIME_ESTIMATES_CPU_AND_KAGGLE_T4X2.md",
+      "name": "runtime_estimates_doc_exists_and_labeled",
+      "passed": true
+    },
+    {
+      "detail": "cpu-first config valid",
+      "name": "cpu_first_config_validates",
+      "passed": true
+    },
+    {
+      "detail": "no claim_allowed=true JSON artifacts",
+      "name": "no_real_evidence_claims_promoted",
+      "passed": true
+    },
+    {
+      "detail": "no rigorous FID certificate claims",
+      "name": "no_rigorous_fid_certificate_claim_exists",
+      "passed": true
+    },
+    {
+      "detail": "polynomial KID/CMMD/MMD is descriptive-only and blocked from rigorous certificate mode by default",
+      "name": "polynomial_kid_rigorous_certificate_disabled",
+      "passed": true
+    },
+    {
+      "detail": "bounded RBF-MMD and CMMD streams available",
+      "name": "bounded_rbf_cmmd_certificate_path_available",
+      "passed": true
+    },
+    {
+      "detail": "pytest command documented externally",
+      "name": "tests_are_external_verification_command_documented",
+      "passed": true
+    },
+    {
+      "detail": {
+        "blockers": [
+          "provenance ledger missing: registry/provenance/cifar10_r1_ledger.csv",
+          "manifest: sample manifest missing: registry/manifests/cifar10_r1_samples.jsonl",
+          "features: feature cache missing for reference_inception: reference_inception.npz and/or reference_inception.sidecar.json",
+          "features: feature cache missing for model_a_inception: model_a_inception.npz and/or model_a_inception.sidecar.json",
+          "features: feature cache missing for model_b_inception: model_b_inception.npz and/or model_b_inception.sidecar.json",
+          "features: feature cache missing for reference_clip: reference_clip.npz and/or reference_clip.sidecar.json",
+          "features: feature cache missing for model_a_clip: model_a_clip.npz and/or model_a_clip.sidecar.json",
+          "features: feature cache missing for model_b_clip: model_b_clip.npz and/or model_b_clip.sidecar.json",
+          "metric reproduction audit missing: data/results/cifar10_r1_metric_reproduction.json"
+        ],
+        "status_code": "BLOCKED_MISSING_REAL_SOURCES"
+      },
+      "name": "r1_cifar10_ready_or_blocked_with_reason",
+      "passed": true
+    }
+  ],
+  "checks_passed": 15,
+  "checks_total": 15,
+  "claim_allowed": false,
+  "exact_next_command": "python3 -m certgen.cli.run_cifar10_real_pilot --provenance-ledger registry/provenance/cifar10_r1_ledger.csv --sample-manifest registry/manifests/cifar10_r1_samples.jsonl --preprocessing-lock configs/preprocessing_locks/cifar10_inception_bilinear_299.json --feature-cache-dir data/features/cifar10_r1 --metric-reproduction-audit data/results/cifar10_r1_metric_reproduction.json --out-json data/results/r1_cifar10_status.json --report docs/R1_CIFAR10_REAL_PILOT_READINESS.md",
+  "passed": true,
+  "r1_ready": false,
+  "r1_status_code": "BLOCKED_MISSING_REAL_SOURCES"
+}

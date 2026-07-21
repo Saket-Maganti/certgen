@@ -1,0 +1,40 @@
+schema_version: certgen.cvpr.pilot_profile.v1
+profile_id: cifar_full_candidate
+purpose: Candidate expansion family; CFM and DINOv2 remain blocked until exact adapters pass real preflight.
+benchmark: cifar10
+models:
+  - google_ddpm_cifar10_candidate
+  - frank_ddpm_ema_cifar10_candidate
+  - frank_cfm_cifar10_candidate
+extractors:
+  - inception
+  - clip
+  - dinov2
+generation_count: 50000
+reference_count: 10000
+sample_budgets:
+  - 1000
+  - 10000
+  - 50000
+feature_spaces:
+  - inception
+  - clip
+  - dinov2
+metrics:
+  - rbf_mmd
+comparison_family: cvpr_primary_cifar10
+comparisons:
+  - checkpoint_variant
+  - cross_family
+  - feature_disagreement_candidate
+controls:
+  - null_reference_split
+  - obvious_gap_corruption
+controls_in_confirmatory_family: false
+controls_claim_allowed: false
+selection_policy: prospective_membership_frozen_before_any_result_inspection
+scale_up_rules:
+  - 10k_only_after_registered_1k_gate
+  - 50k_only_after_registered_10k_gate
+evidence_class: pilot_only
+claim_allowed: false

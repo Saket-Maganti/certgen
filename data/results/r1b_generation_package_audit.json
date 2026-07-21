@@ -1,0 +1,62 @@
+{
+  "audit_name": "r1b_generation_package_audit",
+  "checks": [
+    {
+      "detail": "reference builder, manifest path, and R1B reference summary",
+      "name": "reference_materialization_path_exists",
+      "passed": true
+    },
+    {
+      "detail": "commands/r1b_kaggle_generation/00_generate_1000_per_model_t4x2.sh",
+      "name": "kaggle_1k_generation_command_exists",
+      "passed": true
+    },
+    {
+      "detail": "commands/r1b_cpu/01_validate_generated_manifests.sh",
+      "name": "generated_manifest_validation_command_exists",
+      "passed": true
+    },
+    {
+      "detail": "python -m certgen.data.build_cifar10_r1_sample_package",
+      "name": "sample_package_builder_exists",
+      "passed": true
+    },
+    {
+      "detail": "BLOCKED_MISSING_REFERENCE_SAMPLES",
+      "name": "readiness_taxonomy_updated",
+      "passed": true
+    },
+    {
+      "detail": "no R1B certificate artifacts",
+      "name": "no_certificate_run",
+      "passed": true
+    },
+    {
+      "detail": {
+        "kaggle_feature_extraction_ready": false,
+        "package_passed": false
+      },
+      "name": "no_feature_extraction_claimed_unless_package_validates",
+      "passed": true
+    },
+    {
+      "detail": "BLOCKED_MISSING_REFERENCE_SAMPLES",
+      "name": "no_paper_evidence_promotion",
+      "passed": true
+    },
+    {
+      "detail": "no claim_allowed=true JSON artifacts",
+      "name": "no_claim_allowed_true",
+      "passed": true
+    }
+  ],
+  "checks_passed": 9,
+  "checks_total": 9,
+  "claim_allowed": false,
+  "generated_package_status": "BLOCKED_GENERATION_NOT_RUN",
+  "kaggle_feature_extraction_ready": false,
+  "kaggle_generation_command_ready": true,
+  "passed": true,
+  "r1_status_code": "BLOCKED_MISSING_REFERENCE_SAMPLES",
+  "reference_status": "BLOCKED_MISSING_REFERENCE_SAMPLES"
+}

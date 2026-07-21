@@ -6,7 +6,7 @@ This artifact is not paper evidence and must not be used to claim a decidedness 
 
 - Pilot ID: `smoke_pilot_v3`
 - Mode: `real_features`
-- Evidence status: `real_pilot_non_claim`
+- Evidence status: `synthetic_only`
 - Claim allowed: `False`
 - Blockers: `['V3 pilot defaults to non-claim mode']`
 - Pilot result computed: `True`

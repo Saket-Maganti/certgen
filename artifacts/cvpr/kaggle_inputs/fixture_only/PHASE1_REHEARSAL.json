@@ -1,0 +1,176 @@
+{
+  "actual_builder_stages": [
+    "selected_profile",
+    "study_freeze",
+    "preflight_builder",
+    "fake_preflight_zip",
+    "preflight_import",
+    "generation_builder",
+    "fake_generation_zip",
+    "generation_import",
+    "feature_builder_embedded_images",
+    "feature_image_decode",
+    "fake_feature_zip",
+    "feature_import",
+    "feature_merge",
+    "cache_v2",
+    "canonical_reference_draw",
+    "control_builder",
+    "control_feature_roles",
+    "family_freeze",
+    "certificate_input_builder",
+    "certificate_input_validation",
+    "family_operational_gate",
+    "post_cache_gate_configs",
+    "metric_reproduction_gate",
+    "sanity_controls_gate",
+    "family_certificate_runner",
+    "three_family_certificates",
+    "partial_ranking"
+  ],
+  "claim_allowed": false,
+  "legacy_negative_cases": 16,
+  "not_empirical_evidence": true,
+  "not_real_kaggle_input": true,
+  "passed": true,
+  "phase1_negative_cases": [
+    {
+      "case": "zero_gpu",
+      "claim_allowed": false,
+      "not_empirical_evidence": true,
+      "not_real_kaggle_input": true,
+      "passed": true,
+      "synthetic_validation_only": true
+    },
+    {
+      "case": "one_gpu",
+      "claim_allowed": false,
+      "not_empirical_evidence": true,
+      "not_real_kaggle_input": true,
+      "passed": true,
+      "synthetic_validation_only": true
+    },
+    {
+      "case": "ambiguous_input_zip",
+      "claim_allowed": false,
+      "not_empirical_evidence": true,
+      "not_real_kaggle_input": true,
+      "passed": true,
+      "synthetic_validation_only": true
+    },
+    {
+      "case": "dependency_conflict",
+      "claim_allowed": false,
+      "not_empirical_evidence": true,
+      "not_real_kaggle_input": true,
+      "passed": true,
+      "synthetic_validation_only": true
+    },
+    {
+      "case": "missing_asset",
+      "claim_allowed": false,
+      "not_empirical_evidence": true,
+      "not_real_kaggle_input": true,
+      "passed": true,
+      "synthetic_validation_only": true
+    },
+    {
+      "case": "stale_worker_marker",
+      "claim_allowed": false,
+      "not_empirical_evidence": true,
+      "not_real_kaggle_input": true,
+      "passed": true,
+      "synthetic_validation_only": true
+    },
+    {
+      "case": "duplicate_seed",
+      "claim_allowed": false,
+      "not_empirical_evidence": true,
+      "not_real_kaggle_input": true,
+      "passed": true,
+      "synthetic_validation_only": true
+    },
+    {
+      "case": "missing_seed",
+      "claim_allowed": false,
+      "not_empirical_evidence": true,
+      "not_real_kaggle_input": true,
+      "passed": true,
+      "synthetic_validation_only": true
+    },
+    {
+      "case": "duplicate_feature_row",
+      "claim_allowed": false,
+      "not_empirical_evidence": true,
+      "not_real_kaggle_input": true,
+      "passed": true,
+      "synthetic_validation_only": true
+    },
+    {
+      "case": "missing_feature_row",
+      "claim_allowed": false,
+      "not_empirical_evidence": true,
+      "not_real_kaggle_input": true,
+      "passed": true,
+      "synthetic_validation_only": true
+    },
+    {
+      "case": "changed_study_hash",
+      "claim_allowed": false,
+      "not_empirical_evidence": true,
+      "not_real_kaggle_input": true,
+      "passed": true,
+      "synthetic_validation_only": true
+    },
+    {
+      "case": "partial_zip",
+      "claim_allowed": false,
+      "not_empirical_evidence": true,
+      "not_real_kaggle_input": true,
+      "passed": true,
+      "synthetic_validation_only": true
+    },
+    {
+      "case": "zip_traversal",
+      "claim_allowed": false,
+      "not_empirical_evidence": true,
+      "not_real_kaggle_input": true,
+      "passed": true,
+      "synthetic_validation_only": true
+    },
+    {
+      "case": "corrupt_multipart_output",
+      "claim_allowed": false,
+      "not_empirical_evidence": true,
+      "not_real_kaggle_input": true,
+      "passed": true,
+      "synthetic_validation_only": true
+    },
+    {
+      "case": "fixture_in_real_path",
+      "claim_allowed": false,
+      "not_empirical_evidence": true,
+      "not_real_kaggle_input": true,
+      "passed": true,
+      "synthetic_validation_only": true
+    }
+  ],
+  "required_builder_stages": [
+    "cache_v2",
+    "control_builder",
+    "family_certificate_runner",
+    "feature_builder_embedded_images",
+    "feature_import",
+    "feature_merge",
+    "generation_builder",
+    "generation_import",
+    "metric_reproduction_gate",
+    "partial_ranking",
+    "preflight_builder",
+    "preflight_import",
+    "sanity_controls_gate"
+  ],
+  "schema_version": "certgen.phase1.fixture_rehearsal.v1",
+  "status": "PHASE1_FIXTURE_REHEARSAL_PASS",
+  "synthetic_validation_only": true
+}

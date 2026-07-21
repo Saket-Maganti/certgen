@@ -1,0 +1,16 @@
+{
+  "claim_allowed": false,
+  "counts_by_split": {},
+  "dataset": "cifar10",
+  "evidence_status": "sample_package_only",
+  "expected_test_count": 10000,
+  "license_status": "license_unknown_reference_only",
+  "out_manifest": "registry/manifests/cifar10_r1_reference.jsonl",
+  "rows": 0,
+  "source_url": "https://www.cs.toronto.edu/~kriz/cifar.html",
+  "status_code": "BLOCKED_MISSING_REFERENCE_SAMPLES",
+  "validation_status": "blocked",
+  "blockers": [
+    "No local CIFAR-10 image tree or official Python-batch archive was found under data/sources."
+  ]
+}

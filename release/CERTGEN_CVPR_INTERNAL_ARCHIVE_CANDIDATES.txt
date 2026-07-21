@@ -1,0 +1,8 @@
+promptpacks/
+certgen_prompt_pack_v1/ through certgen_prompt_pack_v5/ historical deletions/state
+commands/v1* through commands/v9* compatibility wrappers
+historical V1-V9 reports and generated smoke outputs
+AUTORUN_*.md/jsonl
+local caches, raw datasets, copied-back ZIPs, imported artifacts, pycache, DS_Store
+
+Review manually; do not delete or archive user-owned files in this pass.

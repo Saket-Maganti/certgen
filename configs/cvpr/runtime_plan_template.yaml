@@ -1,0 +1,37 @@
+schema_version: certgen.cvpr.runtime_plan_config.v1
+run_id: TBD_REAL_RUN_REQUIRED
+scale: 1k
+model_count: 3
+images_per_model: 1000
+reference_images: 1000
+gpu_count: 2
+shard_count: 4
+session_limit_minutes: 720
+fixed_setup_minutes: 20
+model_download_cache_minutes_per_model: 30
+generation_images_per_second_per_gpu: {min: 0.05, max: 0.5}
+generation_batch_size: 64
+average_encoded_image_bytes: 50000
+extractors:
+- feature_space_id: inception
+  images_per_second_per_gpu: {min: 1.0, max: 10.0}
+  feature_dimension: 2048
+  bytes_per_value: 4
+  batch_size: 64
+- feature_space_id: clip
+  images_per_second_per_gpu: {min: 0.5, max: 5.0}
+  feature_dimension: 768
+  bytes_per_value: 4
+  batch_size: 64
+- feature_space_id: TBD_SELECTED_DINOV2_FEATURE_SPACE
+  images_per_second_per_gpu: {min: 0.5, max: 5.0}
+  feature_dimension: 768
+  bytes_per_value: 4
+  batch_size: 32
+merge_minutes: 15
+local_validation_minutes: 20
+archive_overhead_fraction: 0.15
+planning_ram_gib: 16
+planning_vram_per_gpu_gib: 16
+claim_allowed: false
+configuration_hash: TBD_FREEZE_WITH_CERTGEN

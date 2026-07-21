@@ -1,0 +1,27 @@
+{
+  "claim_allowed": false,
+  "count_expectations": {
+    "cifar10_test": 10000,
+    "cifar10_train": 50000
+  },
+  "detected_paths": [
+    {
+      "accepted": true,
+      "counts": {
+        "tarball": 1
+      },
+      "layout": "official_cifar_tarball",
+      "path": "data/sources/cifar-10-python.tar.gz",
+      "reason": "official tarball hash and member contract passed"
+    }
+  ],
+  "download_plan": null,
+  "exact_next_command": "CIFAR_ARCHIVE_ROOT=data/sources commands/v6_cpu_execution/01b_materialize_reference_from_official_archive.sh",
+  "explain": "Accepted CIFAR-10 reference structures:\n\n1. Official extracted archive:\n   <root>/cifar-10-batches-py/data_batch_1 ... data_batch_5, test_batch\n2. Archive directory itself:\n   <root>/data_batch_1 ... data_batch_5, test_batch\n3. Image folder:\n   <root>/test/<class>/*.png or .ppm, optionally train/<class>/*\n4. Class folder:\n   <root>/<airplane|automobile|...>/*.png or .ppm\n5. User-provided ZIP/TAR wrapper:\n   a path-safe, resource-bounded container holding the official Python batches\n   or the hash-verified official cifar-10-python.tar.gz\n\nNo download is performed unless --execute-download is explicitly passed.\n",
+  "license_status": "license_unknown_reference_only",
+  "materialization_can_proceed": true,
+  "no_fake_results": true,
+  "not_paper_evidence": true,
+  "rejected_paths": [],
+  "status_code": "READY_FOR_LOCAL_CIFAR_REFERENCE_MATERIALIZATION"
+}

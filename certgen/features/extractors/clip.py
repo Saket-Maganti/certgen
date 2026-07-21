@@ -15,6 +15,7 @@ import numpy as np
 from certgen.features.extractors.base import FeatureExtractor
 
 _DEFAULT_MODEL = "openai/clip-vit-large-patch14"
+_DEFAULT_REVISION = "32bd64288804d66eefd0ccbe215aa642df71cc41"
 
 
 class ClipVitExtractor(FeatureExtractor):
@@ -26,9 +27,16 @@ class ClipVitExtractor(FeatureExtractor):
         from transformers import CLIPModel, CLIPProcessor
 
         model_id = model_id or _DEFAULT_MODEL
-        model = CLIPModel.from_pretrained(model_id)
+        if model_id != _DEFAULT_MODEL:
+            raise ValueError("non-default CLIP model requires an explicitly implemented immutable revision lock")
+        model = CLIPModel.from_pretrained(model_id, revision=_DEFAULT_REVISION)
         model.eval().to(device)
-        self._processor = CLIPProcessor.from_pretrained(model_id)
+        self._processor = CLIPProcessor.from_pretrained(model_id, revision=_DEFAULT_REVISION)
+        self.resolved_model_id = model_id
+        self.resolved_model_revision = _DEFAULT_REVISION
+        self.resolved_weights_id = "huggingface_commit"
+        self.resolved_weights_url = f"https://huggingface.co/{model_id}/tree/{_DEFAULT_REVISION}"
+        self.resolved_license_status = "unknown"
         self.feature_dim = int(model.config.projection_dim)
         return model, self._processor
 

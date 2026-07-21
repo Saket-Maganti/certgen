@@ -1,0 +1,8 @@
+{
+  "blocker_code": "BLOCKED_FEATURE_CACHE_INVALID",
+  "claim_allowed": false,
+  "evidence_status": "NO_REAL_EVIDENCE",
+  "pilot_sanity_only_permitted": false,
+  "published_metric_reproduction": "not_run",
+  "status": "blocked"
+}

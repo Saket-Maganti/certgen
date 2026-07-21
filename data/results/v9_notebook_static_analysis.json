@@ -1,0 +1,26 @@
+{
+  "claim_allowed": false,
+  "no_fake_results": true,
+  "not_paper_evidence": true,
+  "passed": true,
+  "results": [
+    {
+      "forbidden": [],
+      "missing": [],
+      "passed": true,
+      "path": "notebooks/kaggle/v9_checkpoint_real_load_preflight_t4x2.ipynb"
+    },
+    {
+      "forbidden": [],
+      "missing": [],
+      "passed": true,
+      "path": "notebooks/kaggle/v9_cifar10_generation_t4x2_1k_hardened.ipynb"
+    },
+    {
+      "forbidden": [],
+      "missing": [],
+      "passed": true,
+      "path": "notebooks/kaggle/v9_cifar10_feature_extraction_t4x2_1k_hardened.ipynb"
+    }
+  ]
+}

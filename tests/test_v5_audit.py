@@ -5,6 +5,7 @@ import pytest
 from certgen.audit.v5_audit import FINAL_VERDICT, run_v5_final_audit
 
 
+@pytest.mark.integration_audit
 def test_v5_final_audit_runs(tmp_path):
     if os.environ.get("CERTGEN_SKIP_V5_AUDIT_TEST") == "1":
         pytest.skip("avoid recursive V5 audit")

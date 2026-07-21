@@ -1,3 +1,10 @@
 \section{Multiple Comparisons and Dependence}
 
-Batch audits report the multiplicity policy and dependence diagnostics. Per-comparison terminal e-values from the betting e-process are combined with e-BH (Wang and Ramdas, 2022), which controls FDR under arbitrary dependence; this is the relevant regime because comparisons share one reference set. Reused reference samples, feature caches, or model outputs are additionally surfaced as caveats rather than silently treated as independent evidence.
+Batch audits report the prospectively declared family and dependence
+diagnostics. The primary implemented policy is Bonferroni correction over
+time-uniform pairwise certificates. A terminal betting e-value for the exact
+point null may be valid for one fixed stream, and e-BH can control FDR for valid
+e-values under arbitrary dependence, but the present implementation has not
+proved directional certification or globally adaptive stopping across the
+family. Its e-BH output is therefore exploratory and claim-blocked. Reused
+reference samples, feature caches, or model outputs are recorded explicitly.

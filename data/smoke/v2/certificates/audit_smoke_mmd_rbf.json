@@ -1,10 +1,12 @@
 {
   "alpha": 0.05,
   "boundedness_metadata": {
+    "bandwidth_protocol": "fixed_unit_sphere_gamma_0.5_v1",
     "bounded_by_construction": true,
-    "delta_lower": -4.0,
-    "delta_upper": 4.0,
+    "delta_lower": -3.0,
+    "delta_upper": 3.0,
     "feature_normalization": "l2",
+    "gamma": 0.5,
     "kernel_lower": 0.0,
     "kernel_name": "rbf",
     "kernel_upper": 1.0,
@@ -18,7 +20,7 @@
     "code_version": "uncommitted_or_not_git_controlled_v1_placeholder",
     "command": "python -m certgen.cli.certify_clean_metric",
     "config_hash": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
-    "created_at_utc": "2026-06-24T08:36:01+00:00",
+    "created_at_utc": "2026-07-21T09:49:57+00:00",
     "input_paths": [
       "data/smoke/v2/features/model_a_close.npz",
       "data/smoke/v2/features/model_b_far.npz",
@@ -29,21 +31,24 @@
       "R0 bounded-kernel clean metric API"
     ],
     "parameters": {
-      "block_size": null,
+      "block_size": 1,
       "budget_units": 32,
       "kernel_config": {
-        "gamma": null,
+        "bandwidth_protocol": "fixed_unit_sphere_gamma_0.5_v1",
+        "gamma": 0.5,
         "name": "rbf",
         "normalize": "l2"
       },
       "method": "betting",
       "metric_label": "mmd_rbf",
       "metric_reproduction_audit": null,
+      "reference_draw_plan": null,
+      "reference_draw_plan_sha256": null,
       "seed": 0
     }
   },
   "comparison_id": "v2_audit_smoke_pair",
-  "created_at": "2026-06-24T08:36:01+00:00",
+  "created_at": "2026-07-21T09:49:57+00:00",
   "decision": "not_decided_at_budget",
   "evidence_status": "smoke_only",
   "feature_hashes": {
@@ -54,16 +59,17 @@
   "limitations": [
     "NO_REAL_EVIDENCE",
     "R0 clean-core certificate path over bounded kernel-derived streams",
-    "Claim export remains blocked until real provenance and registry gates pass"
+    "Claim export remains blocked until real provenance and registry gates pass",
+    "METHOD_NOT_CERTIFICATE_CAPABLE: unresolved time-uniform proof obligation"
   ],
-  "lower": -0.8719982559999999,
-  "mean_estimate": -0.30665574746327523,
-  "method_label": "betting_mixture_bounded_mean_r0",
+  "lower": -1.01999796,
+  "mean_estimate": -0.6499439834352155,
+  "method_label": "betting_mixture_finite_grid_diagnostic_v3",
   "metric_label": "mmd_rbf",
   "sample_units_seen": 32,
   "software_version": "0.2.0",
-  "stream_hash": "62ad36e0e4f8db2db00bdc0f3d0a884742310e743946b0f2a4eff8657b01b6eb",
-  "theory_status": "betting_e_process_valid_for_bounded_streams",
-  "time_uniform": true,
-  "upper": 0.3519992959999998
+  "stream_hash": "fe4833edc2d89d77143ddaf24fd331e8c85c92509d48edb90421da06b79644f6",
+  "theory_status": "experimental_grid_inversion_continuum_coverage_unresolved",
+  "time_uniform": false,
+  "upper": -0.08399983200000039
 }

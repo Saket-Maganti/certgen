@@ -1,3 +1,20 @@
 \begin{abstract}
-Generative-model comparisons rely on finite-sample metric estimates chosen over sample sizes, seeds, checkpoints, and metrics -- a selection process under which naive fixed-sample interpretations are not valid. CertGen is a metric-agnostic decision-certificate framework that decides whether one model is certifiably better under a declared discrepancy metric, sample budget, and preprocessing lock, using a betting confidence sequence that is valid under optional stopping. The same e-process yields a per-comparison e-value, so e-BH controls the false discovery rate across a whole leaderboard despite the dependence from a shared reference set, and reports both a samples-to-decision (compute-savings) number and an audit of how many reported wins are statistically decided. The clean core places rigorous certificates only on bounded-kernel MMD/CMMD streams; FID and FD-DINOv2 remain descriptive. [REAL AUDIT RESULT SENTENCE TBD AFTER CLAIM-ELIGIBLE RUNS] TBD\_REAL\_RUN\_REQUIRED.
+Generative-model comparisons rely on finite-sample metric estimates, yet a point
+estimate does not establish a direction that remains valid under continuous
+monitoring. CertGen is a proposed decision and audit layer for a declared model
+pair, reference distribution, feature pipeline, bounded kernel, and sample
+budget. Its claim-capable core uses non-overlapping disjoint-pair contributions
+for the difference of two RBF-MMD-squared discrepancies and a time-uniform
+union-Hoeffding confidence sequence. The guarantee is conditional on mutually
+independent IID model and reference samples, a prospectively fixed extractor,
+preprocessing rule, kernel bandwidth, stopping rule, and comparison family.
+Bonferroni correction is the current conservative family-level protocol.
+The planned vision audit reports resolved and unresolved edges as certified
+partial rankings across prospectively frozen Inception, CLIP, and DINO-style
+feature spaces, together with censored samples-to-decision rather than a forced
+total leaderboard.
+Betting-grid confidence intervals and e-BH outputs remain diagnostic until their
+directional and adaptive-stopping proof obligations are discharged. FID and
+polynomial KID remain descriptive. No real visual generative-model audit has been run:
+\texttt{TBD\_REAL\_RUN\_REQUIRED}.
 \end{abstract}
