@@ -20,7 +20,7 @@ certgen = "certgen.__main__:main"
 
 [project.optional-dependencies]
 test = ["pytest>=8"]
-vision = ["torch", "torchvision", "transformers", "timm"]
+vision = ["torch", "torchvision", "transformers"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

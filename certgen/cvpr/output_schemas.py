@@ -40,6 +40,7 @@ class OutputSchema:
 COMMON_ROOTS = frozenset(
     {
         "run_identity.json",
+        "package_identity.json",
         "status.json",
         "status",
         "orchestration",

@@ -1,16 +1,19 @@
 {
   "claim_allowed": false,
-  "configuration_hash": "a0964622c727f81fa82665a7259ed5fb1111c89567aa9cbffbec58ee7a73a7fa",
+  "completion_status": "INPUT_PACKAGE_READY",
+  "configuration_hash": "e361765842064455ea51333a389609101e79c13b44affc9985973c8aefcb3e5a",
   "contains_credentials": false,
   "contains_fixture_payload": false,
   "contains_restricted_weights": false,
+  "created_at_utc": "1980-01-01T00:00:00Z",
   "dependency_lock": "requirements/stage.lock",
   "expected_output_schema": "expected_output_schema.json",
+  "integrity_manifest": "package_integrity_manifest.json",
   "members": [
     {
       "path": "KAGGLE_ASSET_SETUP.md",
-      "sha256": "99634845d43cbaa17b2ea60d26e601a5b0429da27dfaa3fac98b230f34228061",
-      "size": 1669
+      "sha256": "3d24d6c081a68f7d784a6f6763be87a6a210f0b1336c3347f6710f9e387929cc",
+      "size": 1849
     },
     {
       "path": "README.md",
@@ -19,8 +22,8 @@
     },
     {
       "path": "VALIDATION_AND_HANDOFF.md",
-      "sha256": "523652b4429cd27ef7a8a54b78b3b19c70acde06e6b5b1eceb667e30ab2cd146",
-      "size": 581
+      "sha256": "d8fd857f6d3b60031703128499ef1f79c74a10fd5d96263b8836573221b8bf16",
+      "size": 639
     },
     {
       "path": "WORKER_CONTRACT.md",
@@ -39,8 +42,8 @@
     },
     {
       "path": "certgen/__main__.py",
-      "sha256": "90cf73758429eb45f8084a9081cc3c423573c0c3dbfdfe8f06a2182c9fd60161",
-      "size": 53105
+      "sha256": "8601defcf5c08a2fdcbf46b7023d5e3ff7463db172972a86e71455fec436e184",
+      "size": 58526
     },
     {
       "path": "certgen/analysis/__init__.py",
@@ -319,8 +322,8 @@
     },
     {
       "path": "certgen/cli/build_reference_draw_plan.py",
-      "sha256": "e3a0076441ed1c84e6f02088d96bc6f47378947e6936b552b1df17761fd0b6f6",
-      "size": 1938
+      "sha256": "2dc1947f49a3bf599c9160f644b0bcd39ff9251057026a33a67b2813d37eb95b",
+      "size": 1937
     },
     {
       "path": "certgen/cli/certify_clean_metric.py",
@@ -524,8 +527,8 @@
     },
     {
       "path": "certgen/core/hashing.py",
-      "sha256": "d4f905cf6c57401eca8e19746cd355e2c137de640e6baa2b8cc872bbe7647321",
-      "size": 1467
+      "sha256": "04fd1123202aeb1ded87ad34ecd6d3b6c72238b810d56be61d52e3d618146b66",
+      "size": 1499
     },
     {
       "path": "certgen/core/io.py",
@@ -619,8 +622,8 @@
     },
     {
       "path": "certgen/cvpr/output_schemas.py",
-      "sha256": "b8cd88bd19b3dc76326c4cf9a470f983da84ced29bc5b7b44919d025a6a29eb6",
-      "size": 14131
+      "sha256": "07fc0ea2588e0dccdab6e2bdfba65e0f9afc1964c2f881243b1c194280a6ebcb",
+      "size": 14164
     },
     {
       "path": "certgen/cvpr/package.py",
@@ -639,8 +642,8 @@
     },
     {
       "path": "certgen/cvpr/prepare.py",
-      "sha256": "3a2c06c92d510cbf7f4f68914063407731fdfa9384978eee27917f767d5f8e87",
-      "size": 59469
+      "sha256": "435be601735b79695cc432686620b608b5c39a22a01846b7b8277c665cae86a8",
+      "size": 59555
     },
     {
       "path": "certgen/cvpr/profiles.py",
@@ -716,6 +719,56 @@
       "path": "certgen/data/cifar_reference_super_onramp.py",
       "sha256": "48933b4c949119d896d1fc02adf15be12bc90dcea38c697cbf70700da433994c",
       "size": 16063
+    },
+    {
+      "path": "certgen/discovery/__init__.py",
+      "sha256": "710732d484e18d3fd2968be25063217c91a1ddda062122a6796b979f77cc141e",
+      "size": 5846
+    },
+    {
+      "path": "certgen/discovery/audit.py",
+      "sha256": "8fe4f7dc9ab1cbb1271ff6da5312077c78bf271f45c95bd3e0f9ed34ff8370f5",
+      "size": 5133
+    },
+    {
+      "path": "certgen/discovery/classify.py",
+      "sha256": "efcd963004e5aea62e5155b992cc7ed32948574566ae6f696079d89e333ff7c1",
+      "size": 17481
+    },
+    {
+      "path": "certgen/discovery/models.py",
+      "sha256": "3b2c4df7eef81e0fc08ffe0f2c345e5068be46f63770da7f2ffe54eeba6783c3",
+      "size": 5597
+    },
+    {
+      "path": "certgen/discovery/reports.py",
+      "sha256": "f178929cb14b77b8c728551e6288aa6a30aaed7f310aaf52a664de7921ea7835",
+      "size": 509
+    },
+    {
+      "path": "certgen/discovery/roots.py",
+      "sha256": "8e6986d4d82fd0775478bec01fc617eb9fa62f032e46ef871fe4562b99adb610",
+      "size": 1924
+    },
+    {
+      "path": "certgen/discovery/scan.py",
+      "sha256": "13461274aee05d22d39dd5b4abbfbc82b5e89b25a1b9d30effe7fef1a7de157c",
+      "size": 5293
+    },
+    {
+      "path": "certgen/discovery/security.py",
+      "sha256": "9056618c5e63eedcbb13c438e9377d5e12bf180ea0356e70186a80922e49e866",
+      "size": 2687
+    },
+    {
+      "path": "certgen/discovery/select.py",
+      "sha256": "111451ff7cee3466fd79d7725754b25d2d81c314a47db1277654c9701ec8fa8c",
+      "size": 1531
+    },
+    {
+      "path": "certgen/discovery/specialized.py",
+      "sha256": "1c7803842dc368f9b36d5549811adcb5aeca67d599ac97428ce8830cb0f6ae47",
+      "size": 13420
     },
     {
       "path": "certgen/experiments/__init__.py",
@@ -999,8 +1052,8 @@
     },
     {
       "path": "certgen/notebooks/cvpr_factory.py",
-      "sha256": "3ac3215576e3145c3c4e13fda605f704a3dd4185e8b02942e5bb186a2a0c0e1e",
-      "size": 19913
+      "sha256": "2611a1109ec8844e8944ab2468e5ce92740ff5c55a029dd1f15272922f34970e",
+      "size": 22032
     },
     {
       "path": "certgen/notebooks/cvpr_runtime.py",
@@ -1014,13 +1067,13 @@
     },
     {
       "path": "certgen/notebooks/environment_bootstrap.py",
-      "sha256": "e167de68098650c227bfbbb5a61a1c1f1d06f84b0d3417db8553f54aed099b76",
-      "size": 9773
+      "sha256": "96927da4b825113c307e03b828117f0e81bdb3b8a23a8b9013387516a4d0d1a2",
+      "size": 14845
     },
     {
       "path": "certgen/notebooks/final_zip.py",
-      "sha256": "1408e88b36a5e68ea176e00f9b0701908c711d07930a97764a9f323da1a2a335",
-      "size": 7812
+      "sha256": "e35d90cd7474a7502a713a73cedf5e1c1104a826a68e50fee396216c41db157c",
+      "size": 10011
     },
     {
       "path": "certgen/notebooks/generate_feature_notebook.py",
@@ -1034,8 +1087,8 @@
     },
     {
       "path": "certgen/notebooks/kaggle_io.py",
-      "sha256": "971990b8b379d0793cf2941ed6e85064ce956141c6dd90494d6adcb38e7f7c10",
-      "size": 8950
+      "sha256": "48705fcf93473c92398e9cdda08ade84d8d20910c2902fef98f077979c80e316",
+      "size": 9065
     },
     {
       "path": "certgen/notebooks/model_assets.py",
@@ -1099,8 +1152,8 @@
     },
     {
       "path": "certgen/notebooks/workers/feature_worker.py",
-      "sha256": "1312bf213a1958721be528c5b3f8203f89e749124feac49c537fe9ba274bf17c",
-      "size": 8634
+      "sha256": "4b0ea85904ffc671d4b2157ebcd6bce5363d81357c276efce72929e3f6eea90a",
+      "size": 8770
     },
     {
       "path": "certgen/notebooks/workers/generation_worker.py",
@@ -1209,18 +1262,18 @@
     },
     {
       "path": "certgen/phase1/audit.py",
-      "sha256": "436dec4e295552d717c830ae1db7330f3895a8808b68548b17ccbe7d43143e85",
-      "size": 10881
+      "sha256": "af14b756405a34e70aae67e33c15dba802da4f73d2f057acdfa2198c3e2a3e50",
+      "size": 11697
     },
     {
       "path": "certgen/phase1/kaggle.py",
-      "sha256": "d11fae4724433ea9b720104ba2d01bfa409589bde84a2764188d8d8ae62a9e14",
-      "size": 26407
+      "sha256": "dc83fd96a925e91f320c12b17f68578e6f8ec41a26ef3aafafc190d586af5635",
+      "size": 27774
     },
     {
       "path": "certgen/phase1/notebooks.py",
-      "sha256": "57cc7047ae42504e3b54230fe5c2ac63a4d076bbae1a5551b8ecbf0df0fc7e0d",
-      "size": 18356
+      "sha256": "2a185a6aacffaa7c6daf24f9c940d671ce63fb4835b37bb7958493c2a05f35c3",
+      "size": 18476
     },
     {
       "path": "certgen/phase1/rehearsal.py",
@@ -1269,8 +1322,8 @@
     },
     {
       "path": "certgen/pipeline/cifar10_real_pilot.py",
-      "sha256": "220baa0b6d6ca2a1497fb6d0462fcc5c25cce13cfb4c8e96a7f9588743da6173",
-      "size": 26493
+      "sha256": "b5066d6bdf8a23c67229de3044cb51a382641e7a08637da6973c55fcafad6ea8",
+      "size": 26485
     },
     {
       "path": "certgen/pipeline/first_real_pilot.py",
@@ -1569,8 +1622,8 @@
     },
     {
       "path": "configuration.yaml",
-      "sha256": "c923a99a94dc0cb13b45d8aad7237e73dda6a86e3b2be684ec9714735444ab9e",
-      "size": 11725
+      "sha256": "f321e53d379946956ffff4b6040d0619136f7338785dcc7ac379cb3e647f3279",
+      "size": 11617
     },
     {
       "path": "expected_output_schema.json",
@@ -1579,13 +1632,23 @@
     },
     {
       "path": "notebook.ipynb",
-      "sha256": "2efaa4cd704384db15c7153fa4b44ea108602526e66c68f3bf3260b56e68be57",
-      "size": 24614
+      "sha256": "b4833302addb966014d7776baad81b43eabe083fc8af539543a32293b00a83bd",
+      "size": 27006
+    },
+    {
+      "path": "package_identity.json",
+      "sha256": "b3c5abfcef04712dd0da13856809b291c8f8d923168236b0c3eb0063f36c0d2d",
+      "size": 627
     },
     {
       "path": "preflight_config.yaml",
-      "sha256": "c923a99a94dc0cb13b45d8aad7237e73dda6a86e3b2be684ec9714735444ab9e",
-      "size": 11725
+      "sha256": "f321e53d379946956ffff4b6040d0619136f7338785dcc7ac379cb3e647f3279",
+      "size": 11617
+    },
+    {
+      "path": "requirements/kaggle-base.lock",
+      "sha256": "389fec8ca507c20e7cf3204c1e5ecc9105497e40e122a66b7152113516d81947",
+      "size": 296
     },
     {
       "path": "requirements/kaggle-constraints.txt",
@@ -1601,11 +1664,15 @@
   "not_empirical_evidence": true,
   "package_type": "certgen_preflight_input",
   "profile_hash": "29267d52e3c91dc51fc6a9605a181e162b2e452945f0646e3eeea847285b647e",
+  "profile_id": "cifar_integrity_minimal",
+  "run_id": "cifar10__checkpoint-preflight__tiny__29267d52e3c9",
+  "scale": null,
   "schema_version": "certgen.phase1.kaggle_input_bundle.v1",
-  "source_code_hash": "eb9cd88580771345b5236336c06645a85e2020bc8fb20d6e0916527c7804e167",
+  "source_code_hash": "3e59ed889e6f97394bf685b2613e1de61fa145f41fb1c530d686572d6808947f",
   "stage": "preflight",
+  "study_hash": null,
   "worker_contract": "WORKER_CONTRACT.md",
   "zip_path": "artifacts/cvpr/kaggle_inputs/preflight/certgen_cvpr_preflight_input.zip",
-  "zip_sha256": "879f95c1867be7bc800b30f6e8ce67e61bde4510b83866e568deeb01cc5eb4af",
-  "zip_size": 585555
+  "zip_sha256": "b26d42167398c5e2ea6e47b817ce53ebf98bf27ea3b1ef9f9df3b34d4731bf25",
+  "zip_size": 611060
 }

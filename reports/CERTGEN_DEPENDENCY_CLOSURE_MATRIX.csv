@@ -1,0 +1,5 @@
+profile,lock_file,profile_requirements,resolved_lock_requirements,missing_from_lock,unused_timm_or_open_clip,online_mode,offline_wheelhouse_mode,preinstalled_mode,result
+kaggle_t4x2_diagnostic,requirements/kaggle-diagnostic.lock,4,4,,,TESTED_FIXTURE,TESTED_FIXTURE,TESTED_FIXTURE,PASS
+kaggle_t4x2_preflight,requirements/kaggle-preflight.lock,11,16,,,TESTED_FIXTURE,TESTED_FIXTURE,TESTED_FIXTURE,PASS
+kaggle_t4x2_generation,requirements/kaggle-generation.lock,11,16,,,TESTED_FIXTURE,TESTED_FIXTURE,TESTED_FIXTURE,PASS
+kaggle_t4x2_features,requirements/kaggle-features.lock,9,14,,,TESTED_FIXTURE,TESTED_FIXTURE,TESTED_FIXTURE,PASS

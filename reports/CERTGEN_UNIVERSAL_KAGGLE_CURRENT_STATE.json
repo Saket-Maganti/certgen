@@ -1,0 +1,17 @@
+{
+  "arbitrary_filename_support": true,
+  "arbitrary_mount_support": true,
+  "claim_allowed": false,
+  "dependency_profiles_closed": true,
+  "extracted_package_support": true,
+  "four_account_matrix_passed": true,
+  "local_return_recursive_support": true,
+  "multiple_dataset_support": true,
+  "next_action": "RUN_CANONICAL_KAGGLE_ENVIRONMENT_DIAGNOSTIC_T4X2",
+  "offline_wheelhouse_tested": true,
+  "online_mode_tested": true,
+  "preinstalled_mode_tested": true,
+  "recursive_discovery_support": true,
+  "schema_version": "certgen.universal_kaggle.current_state.v1",
+  "universal_account_support": true
+}

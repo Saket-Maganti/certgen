@@ -7,13 +7,14 @@ performed only when ``apply=True`` is explicitly supplied by a real notebook.
 from __future__ import annotations
 
 import importlib.metadata
+import importlib
 import json
 import platform
 import subprocess
 import sys
 from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Callable, Mapping, Sequence
+from typing import Any, Callable, Iterable, Mapping, Sequence
 
 from packaging.requirements import Requirement
 
@@ -27,6 +28,12 @@ EVIDENCE_LABELS = {
 }
 
 COMPATIBILITY_PROFILES: dict[str, tuple[str, ...]] = {
+    "kaggle_t4x2_diagnostic": (
+        "torch==2.7.1",
+        "numpy>=2.0,<2.1",
+        "PyYAML==6.0.2",
+        "packaging==25.0",
+    ),
     "kaggle_t4x2_generation": (
         "torch==2.7.1",
         "torchvision==0.22.1",
@@ -45,8 +52,6 @@ COMPATIBILITY_PROFILES: dict[str, tuple[str, ...]] = {
         "torchvision==0.22.1",
         "transformers==4.53.2",
         "safetensors==0.5.3",
-        "timm==1.0.16",
-        "open-clip-torch>=2.32,<3",
         "Pillow==11.2.1",
         "numpy>=2.0,<2.1",
         "scipy>=1.13,<1.16",
@@ -60,14 +65,26 @@ COMPATIBILITY_PROFILES: dict[str, tuple[str, ...]] = {
         "transformers==4.53.2",
         "accelerate==1.8.1",
         "safetensors==0.5.3",
-        "timm==1.0.16",
-        "open-clip-torch>=2.32,<3",
         "Pillow==11.2.1",
         "numpy>=2.0,<2.1",
         "scipy>=1.13,<1.16",
         "scikit-learn>=1.5,<1.8",
         "huggingface-hub>=0.33,<0.35",
     ),
+}
+
+PROFILE_LOCKS = {
+    "kaggle_t4x2_diagnostic": "kaggle-diagnostic.lock",
+    "kaggle_t4x2_preflight": "kaggle-preflight.lock",
+    "kaggle_t4x2_generation": "kaggle-generation.lock",
+    "kaggle_t4x2_features": "kaggle-features.lock",
+}
+
+IMPORT_NAMES = {
+    "Pillow": "PIL",
+    "PyYAML": "yaml",
+    "scikit-learn": "sklearn",
+    "huggingface-hub": "huggingface_hub",
 }
 
 INSTALL_MODES = {
@@ -135,6 +152,61 @@ def _write_lock(path: Path, rows: Sequence[str]) -> None:
     temporary.replace(path)
 
 
+def _lock_requirements(path: Path, seen: set[Path] | None = None) -> tuple[str, ...]:
+    visited = seen or set()
+    resolved = path.resolve()
+    if resolved in visited:
+        return ()
+    visited.add(resolved)
+    rows: list[str] = []
+    for raw in path.read_text(encoding="utf-8").splitlines():
+        line = raw.strip()
+        if not line or line.startswith(("#", "-c")):
+            continue
+        if line.startswith("-r "):
+            rows.extend(_lock_requirements(path.parent / line[3:].strip(), visited))
+        else:
+            Requirement(line)
+            rows.append(line)
+    return tuple(rows)
+
+
+def import_smoke_test(
+    profile: str,
+    *,
+    importer: Callable[[str], Any] = importlib.import_module,
+) -> dict[str, object]:
+    modules: list[str] = []
+    for raw in COMPATIBILITY_PROFILES[profile]:
+        distribution = Requirement(raw).name
+        module = IMPORT_NAMES.get(distribution, distribution.replace("-", "_"))
+        if module not in modules:
+            modules.append(module)
+    modules.extend(
+        [
+            "certgen",
+            "certgen.notebooks.kaggle_io",
+            "certgen.notebooks.environment_bootstrap",
+            "certgen.notebooks.model_assets",
+        ]
+    )
+    rows: list[dict[str, object]] = []
+    for module in modules:
+        try:
+            importer(module)
+        except Exception as exc:
+            rows.append({"module": module, "passed": False, "error": f"{type(exc).__name__}: {exc}"})
+        else:
+            rows.append({"module": module, "passed": True, "error": None})
+    return {
+        "schema_version": "certgen.import_smoke_test.v1",
+        "profile": profile,
+        "passed": all(row["passed"] for row in rows),
+        "imports": rows,
+        **EVIDENCE_LABELS,
+    }
+
+
 def bootstrap_environment(
     profile: str,
     *,
@@ -144,8 +216,13 @@ def bootstrap_environment(
     revalidate_after_restart: bool = False,
     version_getter: Callable[[str], str | None] = _version_getter,
     installer: Callable[..., subprocess.CompletedProcess[str]] = subprocess.run,
+    pip_checker: Callable[..., subprocess.CompletedProcess[str]] = subprocess.run,
+    importer: Callable[[str], Any] = importlib.import_module,
     install_mode: str | None = None,
-    wheelhouse: str | Path = "/kaggle/input/certgen-wheelhouse",
+    wheelhouse: str | Path | None = None,
+    search_roots: Iterable[str | Path] | None = None,
+    lock_path: str | Path | None = None,
+    constraints_path: str | Path | None = None,
 ) -> dict[str, object]:
     """Inspect, optionally repair, and record one compatibility profile.
 
@@ -166,6 +243,10 @@ def bootstrap_environment(
     restart_marker = out / "kernel_restart_required.json"
     install_returncode: int | None = None
     install_output = "installation not requested"
+    requirements_root = Path(__file__).resolve().parents[2] / "requirements"
+    selected_lock = Path(lock_path) if lock_path is not None else requirements_root / PROFILE_LOCKS[profile]
+    selected_constraints = Path(constraints_path) if constraints_path is not None else requirements_root / "kaggle-constraints.txt"
+    resolved_wheelhouse: Path | None = None
 
     if apply and plan:
         if selected_mode == "USE_PREINSTALLED_VALIDATED":
@@ -174,14 +255,41 @@ def bootstrap_environment(
             raise RuntimeError("USE_PREINSTALLED_VALIDATED cannot repair missing or incompatible packages")
         if selected_mode == "KAGGLE_INTERNET_ON_INSTALL" and not network_allowed:
             raise RuntimeError("offline bootstrap cannot repair missing or incompatible packages")
+        if selected_mode == "PRIVATE_WHEELHOUSE_OFFLINE" and network_allowed:
+            raise RuntimeError("PRIVATE_WHEELHOUSE_OFFLINE requires dependency network disabled")
+        if not selected_lock.is_file() or not selected_constraints.is_file():
+            raise RuntimeError("stage lock or compatibility constraints are missing")
         install_prefix = [sys.executable, "-m", "pip", "install", "--disable-pip-version-check"]
         if selected_mode == "PRIVATE_WHEELHOUSE_OFFLINE":
-            wheelhouse_path = Path(wheelhouse)
-            if not wheelhouse_path.is_dir():
-                raise RuntimeError(f"private wheelhouse is missing: {wheelhouse_path}")
-            install_prefix.extend(["--no-index", "--find-links", str(wheelhouse_path)])
+            from certgen.discovery import discover_wheelhouse
+
+            wheelhouse_roots = tuple(search_roots or (() if wheelhouse is None else (wheelhouse,)))
+            if not wheelhouse_roots:
+                raise RuntimeError("private wheelhouse search roots are missing")
+            resolution = discover_wheelhouse(
+                wheelhouse_roots,
+                profile=profile,
+                required_requirements=_lock_requirements(selected_lock),
+            )
+            selected = resolution.get("selected")
+            if not isinstance(selected, dict) or not selected.get("root"):
+                raise RuntimeError(f"private wheelhouse discovery failed: {resolution['status']}")
+            resolved_wheelhouse = Path(str(selected["root"]))
+            install_prefix.extend(
+                [
+                    "--no-index",
+                    "--find-links",
+                    str(resolved_wheelhouse),
+                    "-c",
+                    str(selected_constraints),
+                    "-r",
+                    str(selected_lock),
+                ]
+            )
+        else:
+            install_prefix.extend(["-c", str(selected_constraints), *plan])
         result = installer(
-            [*install_prefix, *plan],
+            install_prefix,
             check=False,
             capture_output=True,
             text=True,
@@ -210,7 +318,7 @@ def bootstrap_environment(
     freeze = _lock_snapshot()
     _write_lock(lock_path, freeze)
     _write_lock(out / "dependency_freeze.txt", freeze)
-    pip_check = subprocess.run(
+    pip_check = pip_checker(
         [sys.executable, "-m", "pip", "check"],
         check=False,
         capture_output=True,
@@ -219,6 +327,19 @@ def bootstrap_environment(
     (out / "pip_check.txt").write_text(
         (pip_check.stdout or "") + (pip_check.stderr or ""), encoding="utf-8"
     )
+    smoke: dict[str, object]
+    if apply and compatible and not restart_required:
+        smoke = import_smoke_test(profile, importer=importer)
+    else:
+        smoke = {
+            "schema_version": "certgen.import_smoke_test.v1",
+            "profile": profile,
+            "passed": None,
+            "status": "NOT_RUN_UNTIL_COMPATIBLE_POST_RESTART_ENVIRONMENT",
+            "imports": [],
+            **EVIDENCE_LABELS,
+        }
+    atomic_write_json(smoke, out / "import_smoke_test.json")
     payload: dict[str, object] = {
         "schema_version": "certgen.environment_report.v1",
         "profile": profile,
@@ -229,6 +350,9 @@ def bootstrap_environment(
         "network_required": bool(plan),
         "network_allowed": network_allowed,
         "install_mode": selected_mode,
+        "stage_lock": str(selected_lock),
+        "constraints": str(selected_constraints),
+        "resolved_wheelhouse": str(resolved_wheelhouse) if resolved_wheelhouse else None,
         "apply_requested": apply,
         "restart_required": restart_required,
         "restart_instruction": (
@@ -243,6 +367,7 @@ def bootstrap_environment(
         "requirements_lock": str(lock_path),
         "dependency_freeze": str(out / "dependency_freeze.txt"),
         "pip_check": {"returncode": pip_check.returncode, "path": str(out / "pip_check.txt")},
+        "import_smoke_test": {"passed": smoke.get("passed"), "path": str(out / "import_smoke_test.json")},
         "packages_before": [asdict(row) for row in before],
         "packages_after": [asdict(row) for row in after],
         **EVIDENCE_LABELS,
@@ -253,6 +378,8 @@ def bootstrap_environment(
         raise RuntimeError("environment failed closed after package installation/revalidation")
     if apply and compatible and not restart_required and pip_check.returncode != 0:
         raise RuntimeError("python -m pip check failed; see pip_check.txt")
+    if apply and compatible and not restart_required and smoke.get("passed") is not True:
+        raise RuntimeError("post-install import smoke test failed; see import_smoke_test.json")
     return payload
 
 

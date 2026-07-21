@@ -18,25 +18,25 @@
             "errors": [],
             "kind": "diagnostic",
             "passed": true,
-            "path": "notebooks/kaggle/certgen_kaggle_environment_diagnostic_t4x2.ipynb"
+            "path": "./notebooks/kaggle/certgen_kaggle_environment_diagnostic_t4x2.ipynb"
           },
           {
             "errors": [],
             "kind": "preflight",
             "passed": true,
-            "path": "notebooks/kaggle/certgen_cvpr_checkpoint_preflight_t4x2.ipynb"
+            "path": "./notebooks/kaggle/certgen_cvpr_checkpoint_preflight_t4x2.ipynb"
           },
           {
             "errors": [],
             "kind": "generation",
             "passed": true,
-            "path": "notebooks/kaggle/certgen_cvpr_generation_1k_t4x2.ipynb"
+            "path": "./notebooks/kaggle/certgen_cvpr_generation_1k_t4x2.ipynb"
           },
           {
             "errors": [],
             "kind": "features",
             "passed": true,
-            "path": "notebooks/kaggle/certgen_cvpr_feature_extraction_t4x2.ipynb"
+            "path": "./notebooks/kaggle/certgen_cvpr_feature_extraction_t4x2.ipynb"
           }
         ],
         "status": "PASS"
@@ -73,10 +73,10 @@
         "claim_allowed": false,
         "errors": [],
         "passed": true,
-        "path": "artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip",
+        "path": "./artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip",
         "schema_version": "certgen.phase1.kaggle_input_validation.v1",
         "stage": "diagnostic",
-        "zip_sha256": "6e5b22cd6ddce4155e762b6d2afa8fc3299fecd524cc10ac3c3de678c1ff8057"
+        "zip_sha256": "7758308eb2908924ccf15866315fbac0d080d54d1115cacf9dbe178b432b18e6"
       },
       "passed": true
     },
@@ -99,10 +99,10 @@
         "claim_allowed": false,
         "errors": [],
         "passed": true,
-        "path": "artifacts/cvpr/kaggle_inputs/preflight/certgen_cvpr_preflight_input.zip",
+        "path": "./artifacts/cvpr/kaggle_inputs/preflight/certgen_cvpr_preflight_input.zip",
         "schema_version": "certgen.phase1.kaggle_input_validation.v1",
         "stage": "preflight",
-        "zip_sha256": "879f95c1867be7bc800b30f6e8ce67e61bde4510b83866e568deeb01cc5eb4af"
+        "zip_sha256": "b26d42167398c5e2ea6e47b817ce53ebf98bf27ea3b1ef9f9df3b34d4731bf25"
       },
       "passed": true
     },
@@ -133,14 +133,14 @@
             "evidence_class": "run_log_only",
             "exact_command": "Upload artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip and run notebooks/kaggle/certgen_kaggle_environment_diagnostic_t4x2.ipynb on GPU T4 x2",
             "execution_location": "Kaggle T4x2",
-            "expected_input": "artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip",
+            "expected_input": "./artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip",
             "expected_output": "certgen_kaggle_environment_diagnostic_output.zip",
-            "expected_output_artifact": "data/kaggle_returns/diagnostic",
+            "expected_output_artifact": "./data/kaggle_returns/diagnostic",
             "failure_recovery": "Preserve immutable inputs and logs; correct only the failing gate, then rerun the same canonical command.",
-            "input": "artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip",
+            "input": "./artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip",
             "input_artifact_ids": [],
             "input_paths": [
-              "artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip"
+              "./artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip"
             ],
             "kaggle_or_local": "Kaggle T4x2",
             "legacy_compatibility": "LEGACY_COMPATIBILITY_ONLY_NOT_CANONICAL_GUIDANCE",

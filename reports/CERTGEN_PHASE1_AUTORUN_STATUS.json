@@ -5,6 +5,13 @@
   "exact_next_action": "Upload artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip and run notebooks/kaggle/certgen_kaggle_environment_diagnostic_t4x2.ipynb on GPU T4 x2",
   "exit_code": 11,
   "schema_version": "certgen.phase1.cpu_autorun.v1",
+  "search_roots": [
+    "./data/kaggle_returns",
+    "./artifacts/cvpr/incoming",
+    "./artifacts/cvpr/returned",
+    "./incoming",
+    "."
+  ],
   "state": {
     "boundary": "kaggle_diagnostic",
     "canonical_next_action": {
@@ -21,14 +28,14 @@
       "evidence_class": "run_log_only",
       "exact_command": "Upload artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip and run notebooks/kaggle/certgen_kaggle_environment_diagnostic_t4x2.ipynb on GPU T4 x2",
       "execution_location": "Kaggle T4x2",
-      "expected_input": "artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip",
+      "expected_input": "./artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip",
       "expected_output": "certgen_kaggle_environment_diagnostic_output.zip",
-      "expected_output_artifact": "data/kaggle_returns/diagnostic",
+      "expected_output_artifact": "./data/kaggle_returns/diagnostic",
       "failure_recovery": "Preserve immutable inputs and logs; correct only the failing gate, then rerun the same canonical command.",
-      "input": "artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip",
+      "input": "./artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip",
       "input_artifact_ids": [],
       "input_paths": [
-        "artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip"
+        "./artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip"
       ],
       "kaggle_or_local": "Kaggle T4x2",
       "legacy_compatibility": "LEGACY_COMPATIBILITY_ONLY_NOT_CANONICAL_GUIDANCE",
@@ -67,25 +74,25 @@
             "errors": [],
             "kind": "diagnostic",
             "passed": true,
-            "path": "notebooks/kaggle/certgen_kaggle_environment_diagnostic_t4x2.ipynb"
+            "path": "./notebooks/kaggle/certgen_kaggle_environment_diagnostic_t4x2.ipynb"
           },
           {
             "errors": [],
             "kind": "preflight",
             "passed": true,
-            "path": "notebooks/kaggle/certgen_cvpr_checkpoint_preflight_t4x2.ipynb"
+            "path": "./notebooks/kaggle/certgen_cvpr_checkpoint_preflight_t4x2.ipynb"
           },
           {
             "errors": [],
             "kind": "generation",
             "passed": true,
-            "path": "notebooks/kaggle/certgen_cvpr_generation_1k_t4x2.ipynb"
+            "path": "./notebooks/kaggle/certgen_cvpr_generation_1k_t4x2.ipynb"
           },
           {
             "errors": [],
             "kind": "features",
             "passed": true,
-            "path": "notebooks/kaggle/certgen_cvpr_feature_extraction_t4x2.ipynb"
+            "path": "./notebooks/kaggle/certgen_cvpr_feature_extraction_t4x2.ipynb"
           }
         ],
         "status": "PASS"
@@ -95,15 +102,15 @@
     {
       "result": {
         "claim_allowed": false,
-        "configuration_hash": "86030772c80c8022d8013d38e7dde78093f977175fbd714116dfb35b842b500e",
+        "configuration_hash": "73caadce8d21cb8ebd2a3a55dfb8b27ecb53509713b34cbe46d3b5591b950275",
         "notebook": "notebooks/kaggle/certgen_kaggle_environment_diagnostic_t4x2.ipynb",
         "schema_version": "certgen.phase1.kaggle_build.v1",
-        "source_code_hash": "eb9cd88580771345b5236336c06645a85e2020bc8fb20d6e0916527c7804e167",
+        "source_code_hash": "3e59ed889e6f97394bf685b2613e1de61fa145f41fb1c530d686572d6808947f",
         "stage": "diagnostic",
-        "status": "INPUT_PACKAGE_READY",
+        "status": "INPUT_PACKAGE_REUSED",
         "zip_path": "artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip",
-        "zip_sha256": "6e5b22cd6ddce4155e762b6d2afa8fc3299fecd524cc10ac3c3de678c1ff8057",
-        "zip_size": 577593
+        "zip_sha256": "7758308eb2908924ccf15866315fbac0d080d54d1115cacf9dbe178b432b18e6",
+        "zip_size": 603571
       },
       "step": "build_diagnostic_input"
     },
@@ -112,25 +119,25 @@
         "claim_allowed": false,
         "errors": [],
         "passed": true,
-        "path": "artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip",
+        "path": "./artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip",
         "schema_version": "certgen.phase1.kaggle_input_validation.v1",
         "stage": "diagnostic",
-        "zip_sha256": "6e5b22cd6ddce4155e762b6d2afa8fc3299fecd524cc10ac3c3de678c1ff8057"
+        "zip_sha256": "7758308eb2908924ccf15866315fbac0d080d54d1115cacf9dbe178b432b18e6"
       },
       "step": "validate_diagnostic_input"
     },
     {
       "result": {
         "claim_allowed": false,
-        "configuration_hash": "a0964622c727f81fa82665a7259ed5fb1111c89567aa9cbffbec58ee7a73a7fa",
+        "configuration_hash": "e361765842064455ea51333a389609101e79c13b44affc9985973c8aefcb3e5a",
         "notebook": "notebooks/kaggle/certgen_cvpr_checkpoint_preflight_t4x2.ipynb",
         "schema_version": "certgen.phase1.kaggle_build.v1",
-        "source_code_hash": "eb9cd88580771345b5236336c06645a85e2020bc8fb20d6e0916527c7804e167",
+        "source_code_hash": "3e59ed889e6f97394bf685b2613e1de61fa145f41fb1c530d686572d6808947f",
         "stage": "preflight",
-        "status": "INPUT_PACKAGE_READY",
+        "status": "INPUT_PACKAGE_REUSED",
         "zip_path": "artifacts/cvpr/kaggle_inputs/preflight/certgen_cvpr_preflight_input.zip",
-        "zip_sha256": "879f95c1867be7bc800b30f6e8ce67e61bde4510b83866e568deeb01cc5eb4af",
-        "zip_size": 585555
+        "zip_sha256": "b26d42167398c5e2ea6e47b817ce53ebf98bf27ea3b1ef9f9df3b34d4731bf25",
+        "zip_size": 611060
       },
       "step": "build_preflight_input"
     },
@@ -139,10 +146,10 @@
         "claim_allowed": false,
         "errors": [],
         "passed": true,
-        "path": "artifacts/cvpr/kaggle_inputs/preflight/certgen_cvpr_preflight_input.zip",
+        "path": "./artifacts/cvpr/kaggle_inputs/preflight/certgen_cvpr_preflight_input.zip",
         "schema_version": "certgen.phase1.kaggle_input_validation.v1",
         "stage": "preflight",
-        "zip_sha256": "879f95c1867be7bc800b30f6e8ce67e61bde4510b83866e568deeb01cc5eb4af"
+        "zip_sha256": "b26d42167398c5e2ea6e47b817ce53ebf98bf27ea3b1ef9f9df3b34d4731bf25"
       },
       "step": "validate_preflight_input"
     },
@@ -188,7 +195,7 @@
         "layout": "official_cifar_tarball",
         "passed": true,
         "reason": "official tarball hash and member contract passed",
-        "source": "data/sources/cifar-10-python.tar.gz",
+        "source": "./data/sources/cifar-10-python.tar.gz",
         "source_sha256": "6d958be074577803d12ecdefd02955f39262c83c16fe9348329d7fe0b5c001ce",
         "source_size": 170498071
       },
@@ -199,7 +206,7 @@
         "claim_allowed": false,
         "direction_cherry_picking_prohibited": true,
         "frozen_before_results": true,
-        "path": "artifacts/max_ceiling/b6882b9e1be0b9f12868c47be44c0f41a522ed45c7a4529ceabd08f38cc991aa/scale_plan.json",
+        "path": "./artifacts/max_ceiling/b6882b9e1be0b9f12868c47be44c0f41a522ed45c7a4529ceabd08f38cc991aa/scale_plan.json",
         "plan_hash": "47ca5d84dd4743550fd0014dab182ef859b2624526fd558f7279161f681421b1",
         "scales": [
           {
@@ -412,8 +419,8 @@
     {
       "result": {
         "claim_allowed": false,
-        "matrix": "reports/CERTGEN_SENSITIVITY_MATRIX.csv",
-        "path": "artifacts/max_ceiling/b6882b9e1be0b9f12868c47be44c0f41a522ed45c7a4529ceabd08f38cc991aa/sensitivity_registry.json",
+        "matrix": "./reports/CERTGEN_SENSITIVITY_MATRIX.csv",
+        "path": "./artifacts/max_ceiling/b6882b9e1be0b9f12868c47be44c0f41a522ed45c7a4529ceabd08f38cc991aa/sensitivity_registry.json",
         "registry_hash": "2e9cef3f3477367190089b979c47611d4ca4e1935bde35664401147745fbdfc5",
         "status": "SENSITIVITY_FROZEN"
       },

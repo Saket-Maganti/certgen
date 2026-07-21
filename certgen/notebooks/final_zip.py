@@ -11,13 +11,62 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+import yaml  # type: ignore[import-untyped]
+
 from certgen.core.hashing import file_sha256
 from certgen.cvpr.contracts import atomic_write_json
+from certgen.discovery.classify import package_identity_payload
+from certgen.discovery.models import PackageType
 from certgen.notebooks.kaggle_io import deterministic_zip, write_integrity_manifest
 
 
 def _timestamp() -> str:
     return datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+
+
+def _write_output_identity(root: Path) -> dict[str, Any] | None:
+    identity_path = root / "package_identity.json"
+    if identity_path.is_file():
+        payload = json.loads(identity_path.read_text(encoding="utf-8"))
+        if not isinstance(payload, dict) or payload.get("claim_allowed") is not False:
+            raise ValueError("existing output package identity is invalid")
+        return payload
+    config_path = root / "configuration.yaml"
+    if not config_path.is_file():
+        return None
+    config = yaml.safe_load(config_path.read_text(encoding="utf-8"))
+    if not isinstance(config, dict):
+        raise ValueError("output frozen configuration must be a mapping")
+    stage = "features" if config.get("kind") == "feature" else str(config.get("kind"))
+    status_files = {
+        "diagnostic": "diagnostic_status.json",
+        "preflight": "checkpoint_preflight_status.json",
+        "generation": "generation_status.json",
+        "features": "feature_extraction_status.json",
+    }
+    package_types = {
+        "diagnostic": PackageType.DIAGNOSTIC_OUTPUT,
+        "preflight": PackageType.PREFLIGHT_OUTPUT,
+        "generation": PackageType.GENERATION_OUTPUT,
+        "features": PackageType.FEATURE_OUTPUT,
+    }
+    if stage not in status_files:
+        raise ValueError(f"unsupported output package stage: {stage}")
+    status_path = root / status_files[stage]
+    if not status_path.is_file():
+        return None
+    status = json.loads(status_path.read_text(encoding="utf-8"))
+    if not isinstance(status, dict) or not status.get("status_code"):
+        raise ValueError("canonical output status is missing")
+    payload = package_identity_payload(
+        config,
+        package_type=package_types[stage],
+        integrity_manifest="integrity_manifest.json",
+        completion_status=str(status["status_code"]),
+        created_at_utc=datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+    )
+    atomic_write_json(payload, identity_path)
+    return payload
 
 
 def validate_final_zip(root: str | Path, archive_path: str | Path) -> dict[str, Any]:
@@ -71,6 +120,7 @@ def finalize_output_zip(
         raise ValueError("final ZIP mode must be resume, restart, or force_new_run")
     base = Path(root)
     target = Path(output)
+    _write_output_identity(base)
     write_integrity_manifest(base)
     prior_status_path = target.with_suffix(target.suffix + ".status.json")
     prior_status: dict[str, Any] = {}

@@ -17,14 +17,14 @@
           "evidence_class": "run_log_only",
           "exact_command": "Upload artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip and run notebooks/kaggle/certgen_kaggle_environment_diagnostic_t4x2.ipynb on GPU T4 x2",
           "execution_location": "Kaggle T4x2",
-          "expected_input": "artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip",
+          "expected_input": "./artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip",
           "expected_output": "certgen_kaggle_environment_diagnostic_output.zip",
-          "expected_output_artifact": "data/kaggle_returns/diagnostic",
+          "expected_output_artifact": "./data/kaggle_returns/diagnostic",
           "failure_recovery": "Preserve immutable inputs and logs; correct only the failing gate, then rerun the same canonical command.",
-          "input": "artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip",
+          "input": "./artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip",
           "input_artifact_ids": [],
           "input_paths": [
-            "artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip"
+            "./artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip"
           ],
           "kaggle_or_local": "Kaggle T4x2",
           "legacy_compatibility": "LEGACY_COMPATIBILITY_ONLY_NOT_CANONICAL_GUIDANCE",

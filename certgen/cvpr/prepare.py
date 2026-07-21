@@ -796,8 +796,8 @@ def prepare_features(
     out.mkdir(parents=True, exist_ok=True)
     image_rows: list[dict[str, Any]] = []
     if input_mode == "MOUNT_EXTERNAL_IMAGE_DATASET":
-        if not all((external_image_manifest, external_image_root, mount_id, expected_mount_path, mount_manifest_hash)):
-            raise ValueError("external mount mode requires manifest/root/mount_id/path/hash")
+        if not all((external_image_manifest, external_image_root, mount_id, mount_manifest_hash)):
+            raise ValueError("external mount mode requires manifest/root/dataset identity/hash")
         if len(str(mount_manifest_hash)) != 64:
             raise ValueError("mount_manifest_hash must be a SHA-256")
         if file_sha256(str(external_image_manifest)) != str(mount_manifest_hash):
@@ -936,9 +936,10 @@ def prepare_features(
             "pilot_profile": dict(profile_snapshot),
             "study_hash": study_hash,
             "feature_input_mode": input_mode,
-            "image_root": "." if input_mode == "EMBED_IMAGES_IN_PACKAGE" else str(expected_mount_path),
+            "image_root": "." if input_mode == "EMBED_IMAGES_IN_PACKAGE" else "runtime_resolved_from_dataset_manifest",
             "mount_id": mount_id,
-            "expected_mount_path": expected_mount_path,
+            "dataset_identity": mount_id,
+            "dataset_manifest_hash": mount_manifest_hash,
             "mount_manifest_hash": mount_manifest_hash,
             "asset_policy": AssetPolicy.OFFLINE_PACKAGED_CACHE.value,
             "network_mode": NetworkMode.ONLINE_DEPENDENCIES_OFFLINE_ASSETS.value,
@@ -1007,7 +1008,8 @@ def prepare_features(
     else:
         mount_payload = {
             "mount_id": mount_id,
-            "expected_mount_path": expected_mount_path,
+            "dataset_identity": mount_id,
+            "dataset_manifest_hash": mount_manifest_hash,
             "mount_manifest_hash": mount_manifest_hash,
             "image_manifest_sha256": file_sha256(image_manifest),
             "claim_allowed": False,

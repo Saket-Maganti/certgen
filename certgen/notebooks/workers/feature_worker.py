@@ -27,6 +27,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--asset-manifest", required=True)
     parser.add_argument("--cache-root", required=True)
     parser.add_argument("--image-manifest", required=True)
+    parser.add_argument("--image-root")
     parser.add_argument("--out", required=True)
     args = parser.parse_args(argv)
 
@@ -53,11 +54,12 @@ def main(argv: list[str] | None = None) -> int:
     out.mkdir(parents=True, exist_ok=True)
     contract = adapter.contract_report(packages, difference_report=out / "preprocessing_difference.json")
     package_root = Path(args.config).resolve().parent
-    image_root = (
-        package_root
-        if config.get("feature_input_mode") == "EMBED_IMAGES_IN_PACKAGE"
-        else Path(str(config.get("expected_mount_path", "")))
-    )
+    if args.image_root:
+        image_root = Path(args.image_root)
+    elif config.get("feature_input_mode") == "EMBED_IMAGES_IN_PACKAGE":
+        image_root = package_root
+    else:
+        raise ValueError("external feature dataset requires a runtime-resolved --image-root")
     rows = read_image_manifest(args.image_manifest, root=image_root, decode=True)
     roles = {str(row["role"]) for row in rows}
     model_ids = {str(row["model_id"]) for row in rows}

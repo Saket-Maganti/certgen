@@ -14,6 +14,8 @@ import yaml  # type: ignore[import-untyped]
 
 from certgen.core.hashing import file_sha256, stable_hash_json
 from certgen.cvpr.output_schemas import expected_output_schema
+from certgen.discovery.classify import package_identity_payload
+from certgen.discovery.models import PackageType
 from certgen.phase1.notebooks import PHASE1_NOTEBOOKS
 from certgen.phase1.state import phase1_state
 
@@ -39,6 +41,7 @@ def _source_files(root: Path) -> list[Path]:
         "synthetic_runtime.py",
         "fake_worker.py",
         "fake_generation_worker.py",
+        "simulation.py",
     }
     return sorted(
         path
@@ -120,7 +123,11 @@ def _config(root: Path, stage: str) -> dict[str, Any]:
                     "asset_id": row["asset_id"],
                     "model_or_extractor_id": identity,
                     "revision": row["revision"],
-                    "source": str(row["repository_or_mount"]).split(" or ")[0],
+                    "source": (
+                        f"private_asset:{row['asset_id']}"
+                        if str(row["repository_or_mount"]).startswith("/kaggle/")
+                        else str(row["repository_or_mount"]).split(" or ")[0]
+                    ),
                     "license": row["license_status"],
                     "authentication_required": False,
                     "policy": "OFFLINE_PACKAGED_CACHE",
@@ -142,7 +149,6 @@ def _config(root: Path, stage: str) -> dict[str, Any]:
             "dependency_network_allowed": True,
             "model_asset_network_allowed": False,
             "asset_policy": "OFFLINE_PACKAGED_CACHE",
-            "private_asset_mount": "/kaggle/input/certgen-private-assets",
             "requested_gpu_count": 2,
             "allow_single_gpu_fallback": False,
             "input_manifest_hash": stable_hash_json({"profile": profile_hash, "assets": assets, "code": code_hash}),
@@ -179,7 +185,7 @@ def _zip_bytes(files: Mapping[str, bytes]) -> bytes:
 
 
 def _member_payloads(root: Path, stage: str, config: Mapping[str, Any]) -> dict[str, bytes]:
-    lock = "kaggle-base.lock" if stage == "diagnostic" else "kaggle-preflight.lock"
+    lock = "kaggle-diagnostic.lock" if stage == "diagnostic" else "kaggle-preflight.lock"
     schema = {
         "schema_version": config["output_schema_version"],
         "stage": stage,
@@ -193,9 +199,9 @@ Select GPU T4 x2. Validate locally with:
 
 `python3 -m certgen kaggle validate-input {BUNDLES[stage]}`
 
-Upload this ZIP without unpacking. Run `{PHASE1_NOTEBOOKS[stage]}`. Download the final output ZIP and place it under `data/kaggle_returns/{stage}/`, then run:
+Upload this ZIP under any filename without unpacking it. Run `{PHASE1_NOTEBOOKS[stage]}`. Download the final output ZIP to any explicit local search root; renaming is allowed. Then run:
 
-`CUDA_VISIBLE_DEVICES=\"\" CERTGEN_CPU_ONLY=1 python3 scripts/run_all_available_cpu_stages.py --resume --explain`
+`CUDA_VISIBLE_DEVICES=\"\" CERTGEN_CPU_ONLY=1 python3 scripts/run_all_available_cpu_stages.py --resume --explain --search-root /path/to/downloads`
 
 This package contains no credentials or model weights. `claim_allowed=false`.
 """
@@ -204,6 +210,7 @@ This package contains no credentials or model weights. `claim_allowed=false`.
         f"{stage}_config.yaml": yaml.safe_dump(dict(config), sort_keys=False).encode(),
         "notebook.ipynb": (root / PHASE1_NOTEBOOKS[stage]).read_bytes(),
         "requirements/stage.lock": (root / "requirements" / lock).read_bytes(),
+        "requirements/kaggle-base.lock": (root / "requirements/kaggle-base.lock").read_bytes(),
         "requirements/kaggle-constraints.txt": (root / "requirements/kaggle-constraints.txt").read_bytes(),
         "asset_registry.yaml": (root / "registry/cvpr/kaggle_asset_registry.yaml").read_bytes(),
         "KAGGLE_ASSET_SETUP.md": (root / "KAGGLE_ASSET_SETUP.md").read_bytes(),
@@ -228,6 +235,21 @@ def build_static_input(
     base = Path(root).resolve()
     config = _config(base, stage)
     files = _member_payloads(base, stage, config)
+    package_type = PackageType.DIAGNOSTIC_INPUT if stage == "diagnostic" else PackageType.PREFLIGHT_INPUT
+    files["package_identity.json"] = (
+        json.dumps(
+            package_identity_payload(
+                config,
+                package_type=package_type,
+                integrity_manifest="package_integrity_manifest.json",
+                completion_status="INPUT_PACKAGE_READY",
+                created_at_utc="1980-01-01T00:00:00Z",
+            ),
+            indent=2,
+            sort_keys=True,
+        )
+        + "\n"
+    ).encode()
     members = [
         {"path": name, "size": len(data), "sha256": hashlib.sha256(data).hexdigest()}
         for name, data in sorted(files.items())
@@ -239,6 +261,13 @@ def build_static_input(
         "source_code_hash": config["source_code_hash"],
         "configuration_hash": config["configuration_hash"],
         "profile_hash": config.get("profile_hash"),
+        "run_id": config["run_id"],
+        "study_hash": config.get("study_hash"),
+        "profile_id": (config.get("pilot_profile") or {}).get("profile_id"),
+        "scale": config.get("scale"),
+        "created_at_utc": "1980-01-01T00:00:00Z",
+        "completion_status": "INPUT_PACKAGE_READY",
+        "integrity_manifest": "package_integrity_manifest.json",
         "dependency_lock": "requirements/stage.lock",
         "worker_contract": "WORKER_CONTRACT.md",
         "expected_output_schema": "expected_output_schema.json",
@@ -377,7 +406,7 @@ def validate_input(path: str | Path) -> dict[str, Any]:
                     errors.append(f"restricted weight member: {info.filename}")
                 if info.filename.casefold().endswith((".zip", ".tar", ".tgz", ".tar.gz")):
                     errors.append(f"nested archive member: {info.filename}")
-            required = {"configuration.yaml", "bundle_manifest.json", "package_integrity_manifest.json", "notebook.ipynb", "requirements/stage.lock", "expected_output_schema.json", "WORKER_CONTRACT.md", "VALIDATION_AND_HANDOFF.md"}
+            required = {"configuration.yaml", "bundle_manifest.json", "package_identity.json", "package_integrity_manifest.json", "notebook.ipynb", "requirements/stage.lock", "expected_output_schema.json", "WORKER_CONTRACT.md", "VALIDATION_AND_HANDOFF.md"}
             errors.extend(f"missing required member: {name}" for name in sorted(required - set(names)))
             if "bundle_manifest.json" in names:
                 manifest = json.loads(archive.read("bundle_manifest.json"))

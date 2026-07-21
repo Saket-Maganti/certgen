@@ -1,0 +1,24 @@
+{
+  "artifacts": [
+    "reference",
+    "study_freeze",
+    "reference_draw",
+    "preflight_package",
+    "preflight_result",
+    "generation_package",
+    "generation_result",
+    "controls",
+    "feature_package",
+    "feature_result",
+    "cache_v2",
+    "metric_gates",
+    "sanity_gates",
+    "family",
+    "certificate_inputs",
+    "certificates",
+    "ranking",
+    "cross_feature_analysis",
+    "pilot_decision"
+  ],
+  "claim_allowed": false
+}

@@ -101,12 +101,88 @@ for extractor_index, extractor in enumerate(CONFIG["extractors"]):
             args=("--config", str(INPUT_ROOT / "configuration.yaml"), "--extractor-id", extractor["feature_space_id"],
                   "--shard-id", shard_id, "--asset-manifest", str(INPUT_ROOT / "asset_manifests" / f"{extractor['feature_space_id']}.json"),
                   "--cache-root", str(INPUT_ROOT / "model_cache" / extractor["feature_space_id"]),
-                  "--image-manifest", str(INPUT_ROOT / "image_shards" / f"{shard_id}.jsonl"), "--out", str(worker_out)),
+                  "--image-manifest", str(INPUT_ROOT / "image_shards" / f"{shard_id}.jsonl"),
+                  "--image-root", str(RESOLVED_IMAGE_ROOT), "--out", str(worker_out)),
             completion_marker=str(worker_out / "worker_completion.json"),
             configuration_hash=CONFIG["configuration_hash"],
             input_manifest_hash=hashlib.sha256((INPUT_ROOT / "image_shards" / f"{shard_id}.jsonl").read_bytes()).hexdigest(),
             asset_manifest_hash=hashlib.sha256((INPUT_ROOT / "asset_manifests" / f"{extractor['feature_space_id']}.json").read_bytes()).hexdigest(),
         ))
+'''
+
+
+def input_discovery_code(kind: str) -> str:
+    """Return the stdlib bootstrap followed by canonical content discovery."""
+
+    package_type = f"{kind.upper()}_INPUT"
+    return f'''
+from __future__ import annotations
+import json, os, subprocess, sys, zipfile
+from pathlib import Path, PurePosixPath
+
+SEARCH_ROOTS = [Path(value) for value in os.environ.get("CERTGEN_SEARCH_ROOTS", "/kaggle/input:/kaggle/working").split(os.pathsep) if value]
+
+def _bootstrap_certgen_discovery():
+    sources = []
+    candidate_count = 0
+    for search_root in SEARCH_ROOTS:
+        if not search_root.exists() or search_root.is_symlink():
+            continue
+        for current, directories, filenames in os.walk(search_root, topdown=True, followlinks=False):
+            current_path = Path(current)
+            depth = len(current_path.relative_to(search_root).parts)
+            directories[:] = sorted(
+                name for name in directories
+                if depth < 12 and name not in {{".git", ".venv", "venv", "node_modules", "__pycache__", ".pytest_cache", ".mypy_cache", ".ruff_cache"}}
+                and not (current_path / name).is_symlink()
+            )
+            if "package_identity.json" in filenames and not (current_path / ".certgen_runtime_location.json").exists():
+                candidate_count += 1
+                identity = json.loads((current_path / "package_identity.json").read_text(encoding="utf-8"))
+                if identity.get("package_type") == "{package_type}" and identity.get("stage") == "{kind}" and (current_path / "certgen/discovery/__init__.py").is_file():
+                    sources.append(current_path)
+            for filename in sorted(filenames):
+                path = current_path / filename
+                if path.suffix.casefold() != ".zip" or path.is_symlink():
+                    continue
+                candidate_count += 1
+                with zipfile.ZipFile(path) as archive:
+                    infos = archive.infolist()
+                    names, seen, total = set(), set(), 0
+                    safe = len(infos) <= 200000
+                    for info in infos:
+                        member = PurePosixPath(info.filename)
+                        key = member.as_posix().casefold()
+                        mode = (info.external_attr >> 16) & 0o170000
+                        safe = safe and not member.is_absolute() and ".." not in member.parts and "\\\\" not in info.filename and key not in seen and mode != 0o120000
+                        seen.add(key); names.add(info.filename); total += info.file_size
+                    safe = safe and total <= 20 * 1024**3
+                    if safe and {{"package_identity.json", "certgen/discovery/__init__.py"}}.issubset(names):
+                        identity = json.loads(archive.read("package_identity.json"))
+                        if identity.get("package_type") == "{package_type}" and identity.get("stage") == "{kind}":
+                            sources.append(path)
+                if candidate_count > 10000:
+                    raise RuntimeError("bootstrap discovery candidate-count limit exceeded")
+    unique = sorted({{str(path.resolve()) for path in sources}})
+    if len(unique) != 1:
+        raise RuntimeError(f"bootstrap discovery expected one {package_type}; found {{len(unique)}} matching sources: {{unique}}")
+    sys.path.insert(0, unique[0])
+
+try:
+    import certgen.discovery
+except ImportError:
+    _bootstrap_certgen_discovery()
+
+from certgen.notebooks.kaggle_io import load_frozen_configuration, safe_extract_one_input_package, verify_input_integrity
+INPUT_ROOT = safe_extract_one_input_package(
+    search_roots=SEARCH_ROOTS,
+    destination="/kaggle/working/certgen-input-{kind}",
+    expected_stage="{kind}",
+    expected_package_type="{package_type}",
+)
+verify_input_integrity(INPUT_ROOT)
+CONFIG = load_frozen_configuration(INPUT_ROOT)
+WORK_ROOT = Path("/kaggle/working/certgen-cvpr")
 '''
 
 
@@ -130,51 +206,16 @@ def build_notebook(kind: str, *, scale: str = "1k", generic: bool = False) -> di
 `{evidence}` · `not_empirical_evidence` · `not paper evidence` · `claim_allowed=false`
 
 Production-hardened, static-validation passed, fixture-runtime passed; real Kaggle preflight is still required. The run contract is hash-bound and supports `resume`, `restart`, and `force_new_run`. GPU work occurs only in isolated subprocess workers.''', "title"),
-        _cell("code", '''
-from __future__ import annotations
-import hashlib, json, os, shutil, subprocess, sys, zipfile
-from pathlib import Path, PurePosixPath
-
-MOUNT_ROOT = Path("/kaggle/input")
-WORK_ROOT = Path("/kaggle/working/certgen-cvpr")
-direct = sorted(MOUNT_ROOT.glob("*/configuration.yaml"))
-if len(direct) == 1:
-    INPUT_ROOT = direct[0].parent
-elif not direct:
-    packages = sorted(MOUNT_ROOT.glob("*/*.zip"))
-    if len(packages) != 1: raise RuntimeError(f"expected exactly one CertGen input ZIP; found {len(packages)}")
-    INPUT_ROOT = Path("/kaggle/working/certgen-input")
-    source_hash = hashlib.sha256(packages[0].read_bytes()).hexdigest()
-    marker = INPUT_ROOT / ".source_sha256"
-    if INPUT_ROOT.exists():
-        if not marker.is_file() or marker.read_text(encoding="utf-8").strip() != source_hash: raise FileExistsError("existing extracted input has a different or unverifiable source")
-    else:
-        partial = INPUT_ROOT.with_name(".certgen-input.partial")
-        total, seen = 0, set()
-        with zipfile.ZipFile(packages[0]) as archive:
-            if archive.testzip() is not None or len(archive.infolist()) > 200000: raise ValueError("input ZIP CRC/member-count failure")
-            for info in archive.infolist():
-                member = PurePosixPath(info.filename); key = member.as_posix().casefold(); mode = (info.external_attr >> 16) & 0o170000
-                if member.is_absolute() or ".." in member.parts or "\\\\" in info.filename or key in seen or mode == 0o120000: raise ValueError(f"unsafe input ZIP member: {info.filename}")
-                if key.endswith((".zip", ".tar", ".tgz", ".tar.gz")): raise ValueError(f"nested archive refused: {info.filename}")
-                seen.add(key); total += info.file_size
-            if total > 20 * 1024**3: raise ValueError("input ZIP expansion limit exceeded")
-            archive.extractall(partial)
-        (partial / ".source_sha256").write_text(source_hash + "\\n", encoding="utf-8")
-        os.replace(partial, INPUT_ROOT)
-else:
-    raise RuntimeError("multiple direct CertGen configurations found")
-sys.path.insert(0, str(INPUT_ROOT))
-from certgen.notebooks.kaggle_io import load_frozen_configuration, verify_input_integrity
-verify_input_integrity(INPUT_ROOT, ignored={".source_sha256"})
-CONFIG = load_frozen_configuration(INPUT_ROOT)
-''', "input-discovery"),
+        _cell("code", input_discovery_code(kind), "input-discovery"),
         _cell("code", f'''
 from certgen.notebooks.environment_bootstrap import bootstrap_environment
 ENVIRONMENT = bootstrap_environment(
     "kaggle_t4x2_{'preflight' if kind == 'preflight' else ('generation' if kind == 'generation' else 'features')}",
     output_dir=WORK_ROOT / "environment", network_allowed=bool(CONFIG["dependency_network_allowed"]), apply=True,
     revalidate_after_restart=bool(os.environ.get("CERTGEN_POST_RESTART")),
+    search_roots=SEARCH_ROOTS,
+    lock_path=INPUT_ROOT / "requirements/stage.lock",
+    constraints_path=INPUT_ROOT / "requirements/kaggle-constraints.txt",
 )
 if ENVIRONMENT["status"] != "ENVIRONMENT_COMPATIBLE":
     raise RuntimeError(ENVIRONMENT["restart_instruction"] or "environment incompatible")
@@ -200,7 +241,8 @@ if CONFIG["kind"] != "preflight" and NETWORK_POLICY.model_asset_network_allowed:
                     "code",
                     '''
 from certgen.notebooks.kaggle_io import validate_feature_input_images
-IMAGE_INPUT_VALIDATION = validate_feature_input_images(INPUT_ROOT, CONFIG)
+IMAGE_INPUT_VALIDATION = validate_feature_input_images(INPUT_ROOT, CONFIG, search_roots=SEARCH_ROOTS)
+RESOLVED_IMAGE_ROOT = Path(IMAGE_INPUT_VALIDATION["resolved_image_root"])
 print(json.dumps(IMAGE_INPUT_VALIDATION, indent=2, sort_keys=True))
 ''',
                     "all-image-paths-before-gpu",
@@ -293,9 +335,11 @@ ZIP = finalize_output_zip(RUN_ROOT, ZIP_PATH, mode=MODE, configuration_hash=CONF
 ''', "deterministic-output-zip"),
         _cell("markdown", f'''## Copy-back and local import
 
-Copy the final ZIP without unpacking or renaming it, preserve its hash, and run:
+Copy the final ZIP without unpacking it; renaming is allowed. Preserve its hash and run either:
 
 `python3 -m certgen import {'features' if kind == 'features' else kind} <copied-back-zip>`
+
+or `python3 scripts/run_all_available_cpu_stages.py --resume --explain --search-root /path/to/downloads` for recursive content-based resume.
 
 {'Then run `python3 -m certgen merge features --run <run_id>` locally and validate every cache-v2 sidecar.' if kind == 'features' else ''}
 

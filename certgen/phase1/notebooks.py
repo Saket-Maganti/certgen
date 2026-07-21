@@ -7,7 +7,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from certgen.notebooks.cvpr_factory import build_notebook
+from certgen.notebooks.cvpr_factory import build_notebook, input_discovery_code
 
 
 PHASE1_NOTEBOOKS = {
@@ -149,7 +149,18 @@ def _decorate(payload: dict[str, Any], kind: str) -> dict[str, Any]:
             source += '''\nif ENVIRONMENT["pip_check"]["returncode"] != 0:\n    raise RuntimeError("python -m pip check failed; inspect pip_check.txt")\n'''
             cell["source"] = [line + "\n" for line in source.strip().splitlines()]
         if cell.get("cell_type") == "code" and "ASSET_POLICY = AssetPolicy" in source:
-            source += '''\nfrom certgen.phase1.assets import validate_private_asset_mount\nPRIVATE_ASSET_ROOT = Path(CONFIG.get("private_asset_mount", "/kaggle/input/certgen-private-assets"))\nREQUIRED_ASSETS = [row["asset_id"] for row in CONFIG.get("assets", [])]\nif REQUIRED_ASSETS:\n    ASSET_VALIDATION = validate_private_asset_mount(PRIVATE_ASSET_ROOT, REQUIRED_ASSETS)\n'''
+            source += '''
+from certgen.discovery import discover_asset_mount
+REQUIRED_ASSETS = {row["asset_id"]: row.get("revision") for row in CONFIG.get("assets", [])}
+if REQUIRED_ASSETS:
+    ASSET_RESOLUTION = discover_asset_mount(SEARCH_ROOTS, required_assets=REQUIRED_ASSETS)
+    if ASSET_RESOLUTION["status"] != "SELECTED_UNIQUE_VALID_ASSET_MOUNT":
+        raise RuntimeError(f"private asset discovery failed: {ASSET_RESOLUTION['status']}")
+    PRIVATE_ASSET_ROOT = Path(ASSET_RESOLUTION["selected"]["root"])
+    ASSET_VALIDATION = ASSET_RESOLUTION
+else:
+    PRIVATE_ASSET_ROOT = INPUT_ROOT / "model_cache"
+'''
             cell["source"] = [line + "\n" for line in source.strip().splitlines()]
         if cell.get("cell_type") == "code" and "specs = []" in source:
             source = source.replace(
@@ -191,14 +202,9 @@ def _diagnostic_notebook() -> dict[str, Any]:
 Select **GPU T4 ×2**. This is `synthetic_validation_only`, `not_empirical_evidence`, and `claim_allowed=false`. Run top-to-bottom. Do not enable model assets for this diagnostic.''', "diagnostic-title"),
         _heading(0, "Select `GPU T4 ×2`; the parent process must not import or initialize CUDA."),
         _heading(1),
-        _cell("code", '''from __future__ import annotations
-import json, multiprocessing as mp, os, subprocess
-from pathlib import Path
+        _cell("code", input_discovery_code("diagnostic") + '''
+import multiprocessing as mp
 mp.set_start_method("spawn", force=True)
-from certgen.notebooks.kaggle_io import load_frozen_configuration, safe_extract_one_input_package, verify_input_integrity
-INPUT_ROOT = safe_extract_one_input_package()
-verify_input_integrity(INPUT_ROOT, ignored={".source_sha256"})
-CONFIG = load_frozen_configuration(INPUT_ROOT)
 MODE = CONFIG["mode"]
 WORK_ROOT = Path("/kaggle/working/certgen-diagnostic")
 RUN_ROOT = WORK_ROOT / CONFIG["run_id"]
@@ -211,7 +217,7 @@ GPU_LINES = [line for line in probe.stdout.splitlines() if line.strip().startswi
 if len(GPU_LINES) != 2: raise RuntimeError(f"GPU T4 x2 required; found {len(GPU_LINES)} devices")''', "gpu-visibility"),
         _heading(4, "The bootstrap runs `python -m pip check` and writes `dependency_report.json`, `dependency_freeze.txt`, and `pip_check.txt`."),
         _cell("code", '''from certgen.notebooks.environment_bootstrap import bootstrap_environment
-DEPENDENCIES = bootstrap_environment("kaggle_t4x2_preflight", output_dir=RUN_ROOT / "dependencies", network_allowed=CONFIG["dependency_network_allowed"], apply=True, install_mode=CONFIG["dependency_mode"])
+DEPENDENCIES = bootstrap_environment("kaggle_t4x2_diagnostic", output_dir=RUN_ROOT / "dependencies", network_allowed=CONFIG["dependency_network_allowed"], apply=True, install_mode=CONFIG["dependency_mode"], search_roots=SEARCH_ROOTS, lock_path=INPUT_ROOT / "requirements/stage.lock", constraints_path=INPUT_ROOT / "requirements/kaggle-constraints.txt")
 if DEPENDENCIES["status"] != "ENVIRONMENT_COMPATIBLE" or DEPENDENCIES["pip_check"]["returncode"] != 0: raise RuntimeError("dependency validation failed")''', "dependencies"),
         _heading(5),
         _cell("code", '''from certgen.notebooks.model_assets import AssetPolicy
@@ -241,9 +247,9 @@ ZIP = finalize_output_zip(RUN_ROOT, ZIP_PATH, mode=MODE, configuration_hash=CONF
 if not validate_final_zip(RUN_ROOT, ZIP_PATH)["passed"]: raise RuntimeError("final diagnostic ZIP revalidation failed")
 MULTIPART = write_multipart_fallback(ZIP_PATH) if ZIP_PATH.stat().st_size > 3800 * 1024**2 else None''', "atomic-output-zip"),
         _heading(12),
-        _cell("markdown", '''Download `certgen_kaggle_environment_diagnostic_output.zip` to `data/kaggle_returns/diagnostic/` and run exactly:
+        _cell("markdown", '''Download the diagnostic output ZIP to any local directory; it may be renamed but must not be edited or unpacked. Run:
 
-`CUDA_VISIBLE_DEVICES="" CERTGEN_CPU_ONLY=1 python3 scripts/run_all_available_cpu_stages.py --resume --explain`
+`CUDA_VISIBLE_DEVICES="" CERTGEN_CPU_ONLY=1 python3 scripts/run_all_available_cpu_stages.py --resume --explain --search-root /path/to/downloads`
 
 Preserve worker logs and status files on failure; resume only when configuration and input hashes are unchanged.''', "handoff"),
     ]

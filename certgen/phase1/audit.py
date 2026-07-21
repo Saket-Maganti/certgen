@@ -27,6 +27,7 @@ def _check(checks: dict[str, dict[str, Any]], name: str, passed: bool, detail: A
 def _locks(root: Path) -> dict[str, Any]:
     paths = [
         root / "requirements/kaggle-base.lock",
+        root / "requirements/kaggle-diagnostic.lock",
         root / "requirements/kaggle-preflight.lock",
         root / "requirements/kaggle-generation.lock",
         root / "requirements/kaggle-features.lock",
@@ -58,6 +59,23 @@ def _locks(root: Path) -> dict[str, Any]:
     }
     missing = sorted(required - set(requirements))
     errors.extend(f"dependency not covered: {name}" for name in missing)
+    from certgen.notebooks.environment_bootstrap import (
+        COMPATIBILITY_PROFILES,
+        PROFILE_LOCKS,
+        _lock_requirements,
+    )
+
+    for profile, lock_name in PROFILE_LOCKS.items():
+        locked = {
+            Requirement(raw).name.lower()
+            for raw in _lock_requirements(root / "requirements" / lock_name)
+        }
+        profiled = {Requirement(raw).name.lower() for raw in COMPATIBILITY_PROFILES[profile]}
+        for name in sorted(profiled - locked):
+            errors.append(f"{profile}: profile dependency absent from lock: {name}")
+        forbidden = sorted((locked | profiled) & {"timm", "open-clip-torch"})
+        if forbidden:
+            errors.append(f"{profile}: unused active dependency remains: {forbidden}")
     return {"passed": not errors, "errors": errors, "dependencies": sorted(requirements)}
 
 

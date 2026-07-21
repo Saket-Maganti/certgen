@@ -11,6 +11,8 @@ import os
 import shlex
 import subprocess
 import sys
+import tempfile
+from contextlib import contextmanager
 from pathlib import Path
 from typing import Any
 
@@ -23,6 +25,14 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from certgen.core.hashing import file_sha256
+from certgen.discovery import (
+    PackageCandidate,
+    PackageRequirement,
+    PackageType,
+    SelectionStatus,
+    configured_roots,
+    discover_packages,
+)
 from certgen.cvpr.reference import materialize_reference_source, validate_reference_source
 from certgen.cvpr.study import freeze_study
 from certgen.max_ceiling.contracts import freeze_scale_plan, freeze_sensitivity
@@ -58,11 +68,43 @@ def _assert_cpu_only() -> None:
         raise RuntimeError("unexpected local PyTorch/CUDA-capable import before CPU orchestration")
 
 
-def _one_returned_zip(directory: Path) -> Path | None:
-    candidates = sorted(path for path in directory.glob("*.zip") if path.is_file())
-    if len(candidates) > 1:
-        raise RuntimeError(f"ambiguous returned ZIPs in {directory}: {[path.name for path in candidates]}")
-    return candidates[0] if candidates else None
+OUTPUT_REQUIREMENTS = {
+    "diagnostic": (PackageType.DIAGNOSTIC_OUTPUT, ("KAGGLE_DIAGNOSTIC_PASS",)),
+    "preflight": (PackageType.PREFLIGHT_OUTPUT, ("PREFLIGHT_PASS",)),
+    "generation": (PackageType.GENERATION_OUTPUT, ("GENERATION_COMPLETE", "VALIDATED_GENERATED_PILOT")),
+    "features": (PackageType.FEATURE_OUTPUT, ("FEATURE_EXTRACTION_SHARDS_COMPLETE",)),
+}
+
+
+def _returned_package(search_roots: tuple[Path, ...], stage: str) -> PackageCandidate | None:
+    package_type, statuses = OUTPUT_REQUIREMENTS[stage]
+    result = discover_packages(
+        search_roots,
+        requirement=PackageRequirement(
+            expected_package_type=package_type,
+            expected_stage=stage,
+            required_completion_status=statuses,
+        ),
+    )
+    if result.status is SelectionStatus.NO_MATCHING_PACKAGE:
+        return None
+    if result.status is not SelectionStatus.SELECTED_UNIQUE_VALID_PACKAGE or result.selected is None:
+        matches = [str(row.path) for row in result.matching_candidates]
+        raise RuntimeError(f"ambiguous returned {stage} packages: {matches}")
+    return result.selected
+
+
+@contextmanager
+def _zip_for_import(candidate: PackageCandidate):  # type: ignore[no-untyped-def]
+    if candidate.path.is_file():
+        yield candidate.path
+        return
+    from certgen.notebooks.kaggle_io import deterministic_zip
+
+    with tempfile.TemporaryDirectory(prefix="certgen_extracted_output_import_") as temporary:
+        archive = Path(temporary) / "content-addressed-output.zip"
+        deterministic_zip(candidate.path, archive)
+        yield archive
 
 
 def _run_canonical_cpu_frontier(root: Path, steps: list[dict[str, Any]]) -> tuple[int | None, str | None]:
@@ -101,10 +143,17 @@ def _run_canonical_cpu_frontier(root: Path, steps: list[dict[str, Any]]) -> tupl
     return 30, "canonical CPU frontier exceeded 64 transitions"
 
 
-def _run(root: Path, *, dry_run: bool, explain: bool) -> tuple[int, dict[str, Any]]:
+def _run(
+    root: Path,
+    *,
+    dry_run: bool,
+    explain: bool,
+    search_roots: tuple[Path, ...] | None = None,
+) -> tuple[int, dict[str, Any]]:
     os.chdir(root)
     _assert_cpu_only()
     steps: list[dict[str, Any]] = []
+    resolved_search_roots = search_roots or configured_roots(repository_root=root)
 
     def add(name: str, payload: Any) -> None:
         steps.append({"step": name, "result": payload})
@@ -130,34 +179,37 @@ def _run(root: Path, *, dry_run: bool, explain: bool) -> tuple[int, dict[str, An
         add(f"blocked_{stage}_plan", write_blocked_plan(stage, root=root, dry_run=dry_run))
 
     if not dry_run:
-        diagnostic_zip = _one_returned_zip(root / "data/kaggle_returns/diagnostic")
-        if diagnostic_zip:
-            result = import_diagnostic_output(diagnostic_zip, root=root)
+        diagnostic_package = _returned_package(resolved_search_roots, "diagnostic")
+        if diagnostic_package:
+            with _zip_for_import(diagnostic_package) as diagnostic_zip:
+                result = import_diagnostic_output(diagnostic_zip, root=root)
             add("import_diagnostic", result)
             if not result.get("passed"):
                 return 30, {"steps": steps, "errors": result.get("errors", [])}
-        preflight_zip = _one_returned_zip(root / "data/kaggle_returns/preflight")
-        if preflight_zip:
-            result = import_repair(
-                kind="preflight",
-                zip_path=preflight_zip,
-                out_json=root / "data/results/cvpr/preflight_import_status.json",
-                out_report=root / "reports/CERTGEN_PHASE1_PREFLIGHT_IMPORT.md",
-                registry_path=root / "data/artifact_registry.jsonl",
-            )
+        preflight_package = _returned_package(resolved_search_roots, "preflight")
+        if preflight_package:
+            with _zip_for_import(preflight_package) as preflight_zip:
+                result = import_repair(
+                    kind="preflight",
+                    zip_path=preflight_zip,
+                    out_json=root / "data/results/cvpr/preflight_import_status.json",
+                    out_report=root / "reports/CERTGEN_PHASE1_PREFLIGHT_IMPORT.md",
+                    registry_path=root / "data/artifact_registry.jsonl",
+                )
             add("import_preflight", result)
             if not result.get("passed"):
                 return 30, {"steps": steps, "errors": result.get("errors", [])}
         for returned_kind, import_kind in (("generation", "generation"), ("features", "feature")):
-            returned_zip = _one_returned_zip(root / "data/kaggle_returns" / returned_kind)
-            if returned_zip:
-                result = import_repair(
-                    kind=import_kind,
-                    zip_path=returned_zip,
-                    out_json=root / f"data/results/cvpr/{import_kind}_import_status.json",
-                    out_report=root / f"reports/CERTGEN_PHASE1_{returned_kind.upper()}_IMPORT.md",
-                    registry_path=root / "data/artifact_registry.jsonl",
-                )
+            returned_package = _returned_package(resolved_search_roots, returned_kind)
+            if returned_package:
+                with _zip_for_import(returned_package) as returned_zip:
+                    result = import_repair(
+                        kind=import_kind,
+                        zip_path=returned_zip,
+                        out_json=root / f"data/results/cvpr/{import_kind}_import_status.json",
+                        out_report=root / f"reports/CERTGEN_PHASE1_{returned_kind.upper()}_IMPORT.md",
+                        registry_path=root / "data/artifact_registry.jsonl",
+                    )
                 add(f"import_{returned_kind}", result)
                 if not result.get("passed"):
                     return 30, {"steps": steps, "errors": result.get("errors", [])}
@@ -231,6 +283,7 @@ def _run(root: Path, *, dry_run: bool, explain: bool) -> tuple[int, dict[str, An
         "exit_code": code,
         "dry_run": dry_run,
         "cpu_only": True,
+        "search_roots": [str(path) for path in resolved_search_roots],
         "steps": steps,
         "state": state,
         "exact_next_action": state["exact_next_action"],
@@ -251,11 +304,14 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--resume", action="store_true")
     parser.add_argument("--explain", action="store_true")
+    parser.add_argument("--search-root", action="append", default=[])
     args = parser.parse_args(argv)
     if not args.dry_run and not args.resume:
         parser.error("choose --dry-run or --resume")
     try:
-        code, payload = _run(Path(args.root).resolve(), dry_run=args.dry_run, explain=args.explain)
+        root = Path(args.root).resolve()
+        roots = configured_roots(args.search_root, repository_root=root) if args.search_root else None
+        code, payload = _run(root, dry_run=args.dry_run, explain=args.explain, search_roots=roots)
     except Exception as exc:
         code = 30
         payload = {

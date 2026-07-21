@@ -132,30 +132,30 @@ CPU_AFTER_CACHE_COMMANDS = [
 
 KAGGLE_INCEPTION_FEATURE_EXTRACTION_COMMAND = (
     "CUDA_VISIBLE_DEVICES=0 python -m certgen.features.extract "
-    "--input-manifest /kaggle/input/certgen/cifar10_r1_feature_extraction_samples.jsonl "
-    "--provenance-ledger /kaggle/input/certgen/cifar10_r1_ledger.csv "
-    "--preprocessing-lock /kaggle/input/certgen/cifar10_inception_bilinear_299.json "
+    "--input-manifest $CERTGEN_INPUT_ROOT/cifar10_r1_feature_extraction_samples.jsonl "
+    "--provenance-ledger $CERTGEN_INPUT_ROOT/cifar10_r1_ledger.csv "
+    "--preprocessing-lock $CERTGEN_INPUT_ROOT/cifar10_inception_bilinear_299.json "
     "--extractor inception_v3_pool3 --out-dir /kaggle/working/features/inception "
     "--device cuda --batch-size 64 --shard-id 0 --num-shards 2 --resume --execute & "
     "CUDA_VISIBLE_DEVICES=1 python -m certgen.features.extract "
-    "--input-manifest /kaggle/input/certgen/cifar10_r1_feature_extraction_samples.jsonl "
-    "--provenance-ledger /kaggle/input/certgen/cifar10_r1_ledger.csv "
-    "--preprocessing-lock /kaggle/input/certgen/cifar10_inception_bilinear_299.json "
+    "--input-manifest $CERTGEN_INPUT_ROOT/cifar10_r1_feature_extraction_samples.jsonl "
+    "--provenance-ledger $CERTGEN_INPUT_ROOT/cifar10_r1_ledger.csv "
+    "--preprocessing-lock $CERTGEN_INPUT_ROOT/cifar10_inception_bilinear_299.json "
     "--extractor inception_v3_pool3 --out-dir /kaggle/working/features/inception "
     "--device cuda --batch-size 64 --shard-id 1 --num-shards 2 --resume --execute & wait"
 )
 
 KAGGLE_CLIP_FEATURE_EXTRACTION_COMMAND = (
     "CUDA_VISIBLE_DEVICES=0 python -m certgen.features.extract "
-    "--input-manifest /kaggle/input/certgen/cifar10_r1_feature_extraction_samples.jsonl "
-    "--provenance-ledger /kaggle/input/certgen/cifar10_r1_ledger.csv "
-    "--preprocessing-lock /kaggle/input/certgen/cifar10_inception_bilinear_299.json "
+    "--input-manifest $CERTGEN_INPUT_ROOT/cifar10_r1_feature_extraction_samples.jsonl "
+    "--provenance-ledger $CERTGEN_INPUT_ROOT/cifar10_r1_ledger.csv "
+    "--preprocessing-lock $CERTGEN_INPUT_ROOT/cifar10_inception_bilinear_299.json "
     "--extractor clip_vit --out-dir /kaggle/working/features/clip "
     "--device cuda --batch-size 64 --shard-id 0 --num-shards 2 --resume --execute & "
     "CUDA_VISIBLE_DEVICES=1 python -m certgen.features.extract "
-    "--input-manifest /kaggle/input/certgen/cifar10_r1_feature_extraction_samples.jsonl "
-    "--provenance-ledger /kaggle/input/certgen/cifar10_r1_ledger.csv "
-    "--preprocessing-lock /kaggle/input/certgen/cifar10_inception_bilinear_299.json "
+    "--input-manifest $CERTGEN_INPUT_ROOT/cifar10_r1_feature_extraction_samples.jsonl "
+    "--provenance-ledger $CERTGEN_INPUT_ROOT/cifar10_r1_ledger.csv "
+    "--preprocessing-lock $CERTGEN_INPUT_ROOT/cifar10_inception_bilinear_299.json "
     "--extractor clip_vit --out-dir /kaggle/working/features/clip "
     "--device cuda --batch-size 64 --shard-id 1 --num-shards 2 --resume --execute & wait"
 )
@@ -164,7 +164,7 @@ KAGGLE_FEATURE_EXTRACTION_COMMAND = KAGGLE_INCEPTION_FEATURE_EXTRACTION_COMMAND 
 
 
 def _materialization_state(manifest_path: str | Path | None, *, require_local_files: bool = True) -> dict[str, Any]:
-    state = {
+    state: dict[str, Any] = {
         "reference_rows": 0,
         "generated_rows": 0,
         "generated_counts_by_role": {},

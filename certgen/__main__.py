@@ -61,6 +61,46 @@ def build_parser() -> argparse.ArgumentParser:
     next_action.add_argument("--root", default=".")
     next_action.add_argument("--registry", default="data/artifact_registry.jsonl")
 
+    discover = subparsers.add_parser("discover", help="Discover packages and runtime assets by verified internal identity")
+    discover_sub = discover.add_subparsers(dest="discover_kind", required=True)
+
+    def add_discovery_limits(command: argparse.ArgumentParser) -> None:
+        command.add_argument("--search-root", action="append", required=True)
+        command.add_argument("--max-depth", type=int, default=12)
+        command.add_argument("--max-candidates", type=int, default=10_000)
+        command.add_argument("--maximum-members", type=int, default=200_000)
+        command.add_argument("--maximum-bytes", type=int, default=20 * 1024**3)
+        command.add_argument("--explain", action="store_true")
+        command.add_argument("--dry-run", action="store_true")
+        command.add_argument("--json", action="store_true")
+
+    discover_packages = discover_sub.add_parser("packages", help="Classify and select CertGen ZIP/extracted packages")
+    add_discovery_limits(discover_packages)
+    discover_packages.add_argument("--expected-stage", choices=["diagnostic", "preflight", "generation", "features"])
+    discover_packages.add_argument("--expected-package-type", choices=[
+        "DIAGNOSTIC_INPUT", "DIAGNOSTIC_OUTPUT", "PREFLIGHT_INPUT", "PREFLIGHT_OUTPUT",
+        "GENERATION_INPUT", "GENERATION_OUTPUT", "FEATURE_INPUT", "FEATURE_OUTPUT", "MULTIPART_OUTPUT",
+    ])
+    discover_packages.add_argument("--study-hash")
+    discover_packages.add_argument("--profile-id")
+    discover_packages.add_argument("--configuration-hash")
+    discover_packages.add_argument("--run-id")
+    discover_packages.add_argument("--scale")
+    discover_packages.add_argument("--completion-status")
+
+    discover_reference = discover_sub.add_parser("reference", help="Discover a validated reference archive by structure/hash")
+    add_discovery_limits(discover_reference)
+    discover_reference.add_argument("--expected-kind", required=True, choices=["cifar10_python"])
+
+    discover_assets = discover_sub.add_parser("assets", help="Discover a private asset mount by manifest identity")
+    add_discovery_limits(discover_assets)
+    discover_assets.add_argument("--asset-id", required=True)
+    discover_assets.add_argument("--revision")
+
+    discover_wheels = discover_sub.add_parser("wheelhouse", help="Discover a complete private wheelhouse by manifest")
+    add_discovery_limits(discover_wheels)
+    discover_wheels.add_argument("--profile", required=True)
+
     validate = subparsers.add_parser("validate", help="Validate an execution prerequisite")
     validate_sub = validate.add_subparsers(dest="validate_kind", required=True)
     reference = validate_sub.add_parser("reference", help="Search for a supported CIFAR-10 reference source")
@@ -111,7 +151,7 @@ def build_parser() -> argparse.ArgumentParser:
     importer.add_argument("--out-report", default="docs/V9_IMPORT_REPAIR_REPORT.md")
 
     audit = subparsers.add_parser("audit", help="Run a local-safe static audit")
-    audit.add_argument("lane", choices=["notebooks", "paper", "artifact-registry", "cvpr", "registries", "final-pre-run", "maximum-ceiling", "kaggle-launch", "cpu-execution"])
+    audit.add_argument("lane", choices=["notebooks", "paper", "artifact-registry", "cvpr", "registries", "final-pre-run", "maximum-ceiling", "kaggle-launch", "cpu-execution", "universal-kaggle"])
     audit.add_argument("--out-root", default="reports/final_pre_run_audit")
     audit.add_argument("--explain", action="store_true")
     audit.add_argument("--json", action="store_true")
@@ -439,6 +479,63 @@ def main(argv: list[str] | None = None) -> int:
         )
         _print(payload)
         return 0
+    if args.command == "discover":
+        from certgen.discovery import (
+            DiscoveryLimits,
+            PackageRequirement,
+            PackageType,
+            discover_asset_mount,
+            discover_packages,
+            discover_reference,
+            discover_wheelhouse,
+        )
+
+        limits = DiscoveryLimits(
+            maximum_depth=args.max_depth,
+            maximum_candidates=args.max_candidates,
+            maximum_package_members=args.maximum_members,
+            maximum_uncompressed_bytes=args.maximum_bytes,
+        )
+        if args.discover_kind == "packages":
+            requirement = PackageRequirement(
+                expected_package_type=PackageType(args.expected_package_type) if args.expected_package_type else None,
+                expected_stage=args.expected_stage,
+                expected_study_hash=args.study_hash,
+                expected_profile_id=args.profile_id,
+                expected_configuration_hash=args.configuration_hash,
+                expected_run_id=args.run_id,
+                expected_scale=args.scale,
+                required_completion_status=args.completion_status,
+            )
+            result = discover_packages(args.search_root, requirement=requirement, limits=limits)
+            payload = result.to_dict()
+            exit_code = 0 if payload["status"] == "SELECTED_UNIQUE_VALID_PACKAGE" else (
+                4 if payload["status"] == "AMBIGUOUS_MATCHING_PACKAGES" else 3
+            )
+        elif args.discover_kind == "reference":
+            payload = discover_reference(args.search_root, expected_kind=args.expected_kind, limits=limits)
+            exit_code = 0 if payload["status"] == "SELECTED_UNIQUE_VALID_REFERENCE" else (
+                4 if payload["status"].startswith("AMBIGUOUS") else 3
+            )
+        elif args.discover_kind == "assets":
+            payload = discover_asset_mount(
+                args.search_root,
+                required_assets={args.asset_id: args.revision},
+                limits=limits,
+            )
+            exit_code = 0 if payload["status"] == "SELECTED_UNIQUE_VALID_ASSET_MOUNT" else (
+                4 if payload["status"].startswith("AMBIGUOUS") else 3
+            )
+        else:
+            payload = discover_wheelhouse(args.search_root, profile=args.profile, limits=limits)
+            exit_code = 0 if payload["status"] == "SELECTED_UNIQUE_VALID_WHEELHOUSE" else (
+                4 if payload["status"].startswith("AMBIGUOUS") else 3
+            )
+        payload["exit_code"] = exit_code
+        if args.explain:
+            payload["explanation"] = "Runtime paths are reported separately; selection uses only validated internal identity and hashes."
+        _print(payload)
+        return exit_code
     if args.command == "kaggle":
         from certgen.phase1.kaggle import (
             build_static_input,
@@ -711,6 +808,10 @@ def main(argv: list[str] | None = None) -> int:
             from certgen.phase1.audit import run_cpu_execution_audit
 
             payload = run_cpu_execution_audit()
+        elif args.lane == "universal-kaggle":
+            from certgen.discovery.audit import run_universal_kaggle_audit
+
+            payload = run_universal_kaggle_audit()
         elif args.lane == "notebooks":
             payload = analyze_all()
         elif args.lane == "paper":

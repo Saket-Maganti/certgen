@@ -15,14 +15,14 @@
         "evidence_class": "run_log_only",
         "exact_command": "Upload artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip and run notebooks/kaggle/certgen_kaggle_environment_diagnostic_t4x2.ipynb on GPU T4 x2",
         "execution_location": "Kaggle T4x2",
-        "expected_input": "artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip",
+        "expected_input": "./artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip",
         "expected_output": "certgen_kaggle_environment_diagnostic_output.zip",
-        "expected_output_artifact": "data/kaggle_returns/diagnostic",
+        "expected_output_artifact": "./data/kaggle_returns/diagnostic",
         "failure_recovery": "Preserve immutable inputs and logs; correct only the failing gate, then rerun the same canonical command.",
-        "input": "artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip",
+        "input": "./artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip",
         "input_artifact_ids": [],
         "input_paths": [
-          "artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip"
+          "./artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip"
         ],
         "kaggle_or_local": "Kaggle T4x2",
         "legacy_compatibility": "LEGACY_COMPATIBILITY_ONLY_NOT_CANONICAL_GUIDANCE",
@@ -147,8 +147,8 @@
       "detail": {
         "cache_groups": 3,
         "certificate_hashes": [
-          "b43e27cb81ef7af4766e134690ddfde84c79d14df3cffc2fab2e0ec144b38c64",
-          "2be90cf833fea4c772e19e870f42982f2c998d8bfd600e983468d52a1a1ad4ac"
+          "932c82883923e7334ed0299f291944927f529419d7d8d7a59e402a186c020f7b",
+          "1838cc63b76abd965c0f6ab79d2b25369527345e2b434b3d7fa95a6a8bc28714"
         ],
         "certificate_input_bundles": 2,
         "claim_allowed": false,
@@ -157,7 +157,7 @@
         "family_certificate_coverage_status": "FAMILY_CERTIFICATES_COMPLETE",
         "family_hash": "be4f2fc3af2f5b127c0c49ab92ac835ad2c371a65d9b596b8c80a5e50ffb497a",
         "family_operational_status": "FAMILY_OPERATIONALLY_READY",
-        "feature_package_sha256": "157455f2a4bb09a150ffe5db2f68fc79d8bf96593dbdd7b54de188f51cfa9ef3",
+        "feature_package_sha256": "485358b1b160de5adce4486a139292cb64449bb0785e208b21d42645d45591f0",
         "metric_reproduction_status": "PASS",
         "not_model_evidence": true,
         "profile": "fixture_builder_closure",

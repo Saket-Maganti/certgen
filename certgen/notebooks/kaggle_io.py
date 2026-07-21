@@ -6,7 +6,7 @@ import json
 import os
 import shutil
 import zipfile
-from pathlib import Path, PurePosixPath
+from pathlib import Path
 from typing import Any, Iterable, Mapping
 
 import yaml  # type: ignore[import-untyped]
@@ -19,52 +19,52 @@ def safe_extract_one_input_package(
     *,
     mount_root: str | Path = "/kaggle/input",
     destination: str | Path = "/kaggle/working/certgen-input",
+    search_roots: Iterable[str | Path] | None = None,
+    expected_stage: str | None = None,
+    expected_package_type: str | None = None,
+    expected_study_hash: str | None = None,
+    expected_configuration_hash: str | None = None,
+    expected_run_id: str | None = None,
+    maximum_depth: int = 12,
+    maximum_candidates: int = 10_000,
     maximum_members: int = 200_000,
     maximum_bytes: int = 20 * 1024**3,
 ) -> Path:
-    mount = Path(mount_root)
-    direct = sorted(mount.glob("*/configuration.yaml"))
-    if len(direct) == 1:
-        return direct[0].parent
-    if len(direct) > 1:
-        raise RuntimeError("multiple direct CertGen configurations found")
-    archives = sorted(mount.glob("*/*.zip"))
-    if len(archives) != 1:
-        raise RuntimeError(f"expected exactly one CertGen input ZIP; found {len(archives)}")
-    source = archives[0]
-    output = Path(destination)
-    source_hash = file_sha256(source)
-    marker = output / ".source_sha256"
-    if output.is_dir() and marker.is_file() and marker.read_text(encoding="utf-8").strip() == source_hash:
-        verify_input_integrity(output)
-        return output
-    if output.exists():
-        raise FileExistsError("input destination exists with a different or missing source hash")
-    temporary = output.with_name(f".{output.name}.partial")
-    if temporary.exists():
-        shutil.rmtree(temporary)
-    total = 0
-    seen: set[str] = set()
-    with zipfile.ZipFile(source) as archive:
-        if archive.testzip() is not None or len(archive.infolist()) > maximum_members:
-            raise ValueError("input ZIP failed CRC/member-count validation")
-        for info in archive.infolist():
-            path = PurePosixPath(info.filename)
-            key = path.as_posix().casefold()
-            mode = (info.external_attr >> 16) & 0o170000
-            if path.is_absolute() or ".." in path.parts or "\\" in info.filename or key in seen or mode == 0o120000:
-                raise ValueError(f"unsafe input ZIP member: {info.filename}")
-            if key.endswith((".zip", ".tar", ".tgz", ".tar.gz")):
-                raise ValueError(f"nested archive refused: {info.filename}")
-            total += info.file_size
-            seen.add(key)
-        if total > maximum_bytes:
-            raise ValueError("input ZIP expansion limit exceeded")
-        archive.extractall(temporary)
-    (temporary / ".source_sha256").write_text(source_hash + "\n", encoding="utf-8")
-    os.replace(temporary, output)
-    verify_input_integrity(output, ignored={".source_sha256"})
-    return output
+    from certgen.discovery import (
+        DiscoveryLimits,
+        PackageRequirement,
+        PackageType,
+        SelectionStatus,
+        discover_packages,
+        materialize_selected_package,
+    )
+
+    roots = tuple(search_roots or (mount_root, "/kaggle/working"))
+    package_type = PackageType(expected_package_type) if expected_package_type else (
+        PackageType[f"{expected_stage.upper()}_INPUT"] if expected_stage else None
+    )
+    requirement = PackageRequirement(
+        expected_package_type=package_type,
+        expected_stage=expected_stage,
+        expected_study_hash=expected_study_hash,
+        expected_configuration_hash=expected_configuration_hash,
+        expected_run_id=expected_run_id,
+        required_completion_status="INPUT_PACKAGE_READY",
+    )
+    limits = DiscoveryLimits(
+        maximum_depth=maximum_depth,
+        maximum_candidates=maximum_candidates,
+        maximum_package_members=maximum_members,
+        maximum_uncompressed_bytes=maximum_bytes,
+    )
+    result = discover_packages(roots, requirement=requirement, limits=limits)
+    print(json.dumps(result.to_dict(), indent=2, sort_keys=True))
+    if result.status is not SelectionStatus.SELECTED_UNIQUE_VALID_PACKAGE or result.selected is None:
+        raise RuntimeError(
+            f"universal package discovery failed: {result.status.value}; "
+            f"inspect the candidate identities and remediation in the discovery report"
+        )
+    return materialize_selected_package(result.selected, destination=destination, limits=limits)
 
 
 def verify_input_integrity(root: str | Path, ignored: set[str] | None = None) -> dict[str, Any]:
@@ -75,7 +75,12 @@ def verify_input_integrity(root: str | Path, ignored: set[str] | None = None) ->
     payload = json.loads(manifest_path.read_text(encoding="utf-8"))
     rows = payload.get("files", [])
     declared = {row["path"]: row for row in rows}
-    skip = {"package_integrity_manifest.json", *(ignored or set())}
+    skip = {
+        "package_integrity_manifest.json",
+        ".source_sha256",
+        ".certgen_runtime_location.json",
+        *(ignored or set()),
+    }
     actual = {
         path.relative_to(base).as_posix(): path
         for path in base.rglob("*")
@@ -160,8 +165,9 @@ def all_worker_statuses_complete(payload: Mapping[str, Any]) -> bool:
 def copyback_instructions(kind: str, zip_path: str | Path) -> str:
     import_kind = "features" if kind == "features" else kind
     return (
-        f"Copy `{zip_path}` back without renaming or unpacking it. Preserve its SHA-256, then run "
-        f"`python3 -m certgen import {import_kind} <copied-back-zip>`. This output is run-log-only, "
+        f"Copy `{zip_path}` back; the downloaded file may be renamed. Preserve its SHA-256, then run "
+        f"`python3 scripts/run_all_available_cpu_stages.py --resume --explain --search-root <download-folder>` "
+        f"or `python3 -m certgen import {import_kind} <copied-back-zip>`. This output is run-log-only, "
         "not paper evidence, and claim_allowed=false.\n"
     )
 
@@ -172,7 +178,12 @@ def assert_unique_shards(rows: Iterable[Mapping[str, Any]]) -> None:
         raise ValueError("non-overlapping shard assignment failed")
 
 
-def validate_feature_input_images(root: str | Path, config: Mapping[str, Any]) -> dict[str, Any]:
+def validate_feature_input_images(
+    root: str | Path,
+    config: Mapping[str, Any],
+    *,
+    search_roots: Iterable[str | Path] | None = None,
+) -> dict[str, Any]:
     """Decode and hash-check every feature image before any GPU worker starts."""
 
     package_root = Path(root)
@@ -181,13 +192,17 @@ def validate_feature_input_images(root: str | Path, config: Mapping[str, Any]) -
     if mode == "EMBED_IMAGES_IN_PACKAGE":
         image_root = package_root
     elif mode == "MOUNT_EXTERNAL_IMAGE_DATASET":
-        image_root = Path(str(config.get("expected_mount_path", "")))
-        mount_manifest = package_root / "mount_manifest.json"
-        if not image_root.is_dir() or not mount_manifest.is_file():
-            raise FileNotFoundError("declared external image mount or mount manifest is unavailable")
-        payload = json.loads(mount_manifest.read_text(encoding="utf-8"))
-        if payload.get("mount_manifest_hash") != config.get("mount_manifest_hash"):
-            raise ValueError("mounted dataset manifest hash differs from frozen configuration")
+        from certgen.discovery import discover_dataset_root
+
+        resolution = discover_dataset_root(
+            search_roots or ("/kaggle/input", "/kaggle/working"),
+            expected_manifest_hash=str(config.get("mount_manifest_hash", "")),
+            expected_role_counts=config.get("expected_role_counts"),
+        )
+        selected = resolution.get("selected")
+        if not isinstance(selected, dict) or not selected.get("root"):
+            raise RuntimeError(f"external dataset discovery failed: {resolution['status']}")
+        image_root = Path(str(selected["root"]))
     else:
         raise ValueError("unsupported feature_input_mode")
     rows = read_image_manifest(manifest, root=image_root, decode=True)
@@ -195,6 +210,7 @@ def validate_feature_input_images(root: str | Path, config: Mapping[str, Any]) -
         "status": "ALL_FEATURE_IMAGE_PATHS_RESOLVED",
         "mode": mode,
         "images": len(rows),
+        "resolved_image_root": str(image_root),
         "manifest_sha256": file_sha256(manifest),
         "claim_allowed": False,
     }
