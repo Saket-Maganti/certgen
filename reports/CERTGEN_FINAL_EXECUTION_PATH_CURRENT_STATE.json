@@ -1,0 +1,22 @@
+{
+  "ambiguous_different_content_rejected": true,
+  "asset_mount_to_worker_wiring_passed": true,
+  "claim_allowed": false,
+  "duplicate_identical_dedup_passed": true,
+  "four_account_execution_path_matrix_passed": true,
+  "full_tests_passed": true,
+  "integration_audits_passed": true,
+  "kernel_restart_flow_passed": true,
+  "local_resume_exact_identity_binding_passed": true,
+  "lock_integrity_passed": true,
+  "multipart_reassembly_passed": true,
+  "next_action": "UPLOAD_AUTHENTICATED_DIAGNOSTIC_BUNDLE_AND_RUN_CANONICAL_T4X2_NOTEBOOK",
+  "notebook_exact_identity_binding_passed": true,
+  "notebook_regeneration_passed": true,
+  "preimport_authentication_passed": true,
+  "release_verification_passed": true,
+  "schema_version": "certgen.final_execution_path.current_state.v1",
+  "security_audit_passed": true,
+  "wheel_tag_validation_passed": true,
+  "wheel_version_validation_passed": true
+}

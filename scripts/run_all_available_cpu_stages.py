@@ -27,12 +27,10 @@ if str(ROOT) not in sys.path:
 from certgen.core.hashing import file_sha256
 from certgen.discovery import (
     PackageCandidate,
-    PackageRequirement,
-    PackageType,
-    SelectionStatus,
+    classify_package,
     configured_roots,
-    discover_packages,
 )
+from certgen.discovery.expected_output import discover_expected_output
 from certgen.cvpr.reference import materialize_reference_source, validate_reference_source
 from certgen.cvpr.study import freeze_study
 from certgen.max_ceiling.contracts import freeze_scale_plan, freeze_sensitivity
@@ -68,30 +66,13 @@ def _assert_cpu_only() -> None:
         raise RuntimeError("unexpected local PyTorch/CUDA-capable import before CPU orchestration")
 
 
-OUTPUT_REQUIREMENTS = {
-    "diagnostic": (PackageType.DIAGNOSTIC_OUTPUT, ("KAGGLE_DIAGNOSTIC_PASS",)),
-    "preflight": (PackageType.PREFLIGHT_OUTPUT, ("PREFLIGHT_PASS",)),
-    "generation": (PackageType.GENERATION_OUTPUT, ("GENERATION_COMPLETE", "VALIDATED_GENERATED_PILOT")),
-    "features": (PackageType.FEATURE_OUTPUT, ("FEATURE_EXTRACTION_SHARDS_COMPLETE",)),
-}
-
-
-def _returned_package(search_roots: tuple[Path, ...], stage: str) -> PackageCandidate | None:
-    package_type, statuses = OUTPUT_REQUIREMENTS[stage]
-    result = discover_packages(
-        search_roots,
-        requirement=PackageRequirement(
-            expected_package_type=package_type,
-            expected_stage=stage,
-            required_completion_status=statuses,
-        ),
-    )
-    if result.status is SelectionStatus.NO_MATCHING_PACKAGE:
+def _returned_package(root: Path, search_roots: tuple[Path, ...], stage: str) -> PackageCandidate | None:
+    result = discover_expected_output(root, stage, search_roots)
+    if result["status"] in {"NO_MATCHING_PACKAGE", "NO_ACTIVE_INPUT_IDENTITY"}:
         return None
-    if result.status is not SelectionStatus.SELECTED_UNIQUE_VALID_PACKAGE or result.selected is None:
-        matches = [str(row.path) for row in result.matching_candidates]
-        raise RuntimeError(f"ambiguous returned {stage} packages: {matches}")
-    return result.selected
+    if result["status"] not in {"SELECTED_UNIQUE_VALID_PACKAGE", "DUPLICATE_IDENTICAL_COPY_DEDUPED"} or not result.get("selected"):
+        raise RuntimeError(f"returned {stage} package selection failed: {result['status']}; candidates={result['candidates']}")
+    return classify_package(str(result["selected"]["path"]))
 
 
 @contextmanager
@@ -179,14 +160,14 @@ def _run(
         add(f"blocked_{stage}_plan", write_blocked_plan(stage, root=root, dry_run=dry_run))
 
     if not dry_run:
-        diagnostic_package = _returned_package(resolved_search_roots, "diagnostic")
+        diagnostic_package = _returned_package(root, resolved_search_roots, "diagnostic")
         if diagnostic_package:
             with _zip_for_import(diagnostic_package) as diagnostic_zip:
                 result = import_diagnostic_output(diagnostic_zip, root=root)
             add("import_diagnostic", result)
             if not result.get("passed"):
                 return 30, {"steps": steps, "errors": result.get("errors", [])}
-        preflight_package = _returned_package(resolved_search_roots, "preflight")
+        preflight_package = _returned_package(root, resolved_search_roots, "preflight")
         if preflight_package:
             with _zip_for_import(preflight_package) as preflight_zip:
                 result = import_repair(
@@ -200,7 +181,7 @@ def _run(
             if not result.get("passed"):
                 return 30, {"steps": steps, "errors": result.get("errors", [])}
         for returned_kind, import_kind in (("generation", "generation"), ("features", "feature")):
-            returned_package = _returned_package(resolved_search_roots, returned_kind)
+            returned_package = _returned_package(root, resolved_search_roots, returned_kind)
             if returned_package:
                 with _zip_for_import(returned_package) as returned_zip:
                     result = import_repair(

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 from typing import Any
@@ -33,7 +34,8 @@ def _worker_spec_code(kind: str) -> str:
 specs = []
 for index, asset in enumerate(CONFIG["assets"]):
     gpu = index % GPU_COUNT
-    cache_root = RUN_ROOT / "model_cache" / asset["asset_id"]
+    resolved_asset = ASSET_RUNTIME_MAP[asset["asset_id"]]
+    cache_root = Path(resolved_asset["snapshot_root"])
     if asset["asset_kind"] == "model":
         model_id = asset["model_or_extractor_id"]
         shard_id = f"model__{model_id}"
@@ -42,7 +44,8 @@ for index, asset in enumerate(CONFIG["assets"]):
             worker_id=shard_id, module="certgen.notebooks.workers.preflight_worker",
             physical_gpu=gpu, shard_id=shard_id,
             args=("--config", str(INPUT_ROOT / "configuration.yaml"), "--asset-id", asset["asset_id"],
-                  "--shard-id", shard_id, "--cache-root", str(cache_root), "--out", str(worker_out)),
+                  "--shard-id", shard_id, "--cache-root", str(cache_root),
+                  "--asset-resolution-report", str(ASSET_RESOLUTION_REPORT_PATH), "--out", str(worker_out)),
             completion_marker=str(worker_out / "worker_completion.json"),
             configuration_hash=CONFIG["configuration_hash"], input_manifest_hash=CONFIG["input_manifest_hash"],
         ))
@@ -54,7 +57,8 @@ for index, asset in enumerate(CONFIG["assets"]):
             worker_id=asset_shard, module="certgen.notebooks.workers.preflight_worker",
             physical_gpu=gpu, shard_id=asset_shard,
             args=("--config", str(INPUT_ROOT / "configuration.yaml"), "--asset-id", asset["asset_id"],
-                  "--shard-id", asset_shard, "--cache-root", str(cache_root), "--out", str(asset_out), "--asset-only"),
+                  "--shard-id", asset_shard, "--cache-root", str(cache_root),
+                  "--asset-resolution-report", str(ASSET_RESOLUTION_REPORT_PATH), "--out", str(asset_out), "--asset-only"),
             completion_marker=str(asset_out / "worker_completion.json"),
             configuration_hash=CONFIG["configuration_hash"], input_manifest_hash=CONFIG["input_manifest_hash"],
         ))
@@ -75,22 +79,24 @@ for index, asset in enumerate(CONFIG["assets"]):
 specs = []
 for model in CONFIG["models"]:
     for index, _seeds in enumerate(CONFIG["seed_shards"][model["model_id"]]):
+        resolved_asset = ASSET_RUNTIME_BY_ID[model["model_id"]]
         shard_id = f"shard_{index:04d}"
         worker_id = f"{model['model_id']}__{shard_id}"
         worker_out = RUN_ROOT / "per_model" / model["model_id"] / "per_shard" / shard_id
         args = ("--config", str(INPUT_ROOT / "configuration.yaml"), "--model-id", model["model_id"],
-                "--shard-id", shard_id, "--asset-manifest", str(INPUT_ROOT / "asset_manifests" / f"{model['model_id']}.json"),
-                "--cache-root", str(INPUT_ROOT / "model_cache" / model["model_id"]), "--out", str(worker_out))
+                "--shard-id", shard_id, "--asset-manifest", str(resolved_asset["asset_manifest"]),
+                "--cache-root", str(resolved_asset["snapshot_root"]), "--out", str(worker_out))
         if MODE == "resume": args += ("--resume",)
         specs.append(WorkerSpec(worker_id=worker_id, module="certgen.notebooks.workers.generation_worker",
                                 physical_gpu=index % GPU_COUNT, shard_id=worker_id, args=args,
                                 completion_marker=str(worker_out / "worker_completion.json"),
                                 configuration_hash=CONFIG["configuration_hash"], input_manifest_hash=CONFIG["reference_manifest_hash"],
-                                asset_manifest_hash=hashlib.sha256((INPUT_ROOT / "asset_manifests" / f"{model['model_id']}.json").read_bytes()).hexdigest()))
+                                asset_manifest_hash=str(resolved_asset["asset_manifest_sha256"])))
 '''
     return '''
 specs = []
 for extractor_index, extractor in enumerate(CONFIG["extractors"]):
+    resolved_asset = ASSET_RUNTIME_BY_ID[extractor["feature_space_id"]]
     for shard in CONFIG["image_shards"]:
         shard_id = str(shard["shard_id"])
         worker_id = f"{extractor['feature_space_id']}__{shard_id}"
@@ -99,94 +105,122 @@ for extractor_index, extractor in enumerate(CONFIG["extractors"]):
             worker_id=worker_id, module="certgen.notebooks.workers.feature_worker",
             physical_gpu=(extractor_index + len(specs)) % GPU_COUNT, shard_id=worker_id,
             args=("--config", str(INPUT_ROOT / "configuration.yaml"), "--extractor-id", extractor["feature_space_id"],
-                  "--shard-id", shard_id, "--asset-manifest", str(INPUT_ROOT / "asset_manifests" / f"{extractor['feature_space_id']}.json"),
-                  "--cache-root", str(INPUT_ROOT / "model_cache" / extractor["feature_space_id"]),
+                  "--shard-id", shard_id, "--asset-manifest", str(resolved_asset["asset_manifest"]),
+                  "--cache-root", str(resolved_asset["snapshot_root"]),
                   "--image-manifest", str(INPUT_ROOT / "image_shards" / f"{shard_id}.jsonl"),
                   "--image-root", str(RESOLVED_IMAGE_ROOT), "--out", str(worker_out)),
             completion_marker=str(worker_out / "worker_completion.json"),
             configuration_hash=CONFIG["configuration_hash"],
             input_manifest_hash=hashlib.sha256((INPUT_ROOT / "image_shards" / f"{shard_id}.jsonl").read_bytes()).hexdigest(),
-            asset_manifest_hash=hashlib.sha256((INPUT_ROOT / "asset_manifests" / f"{extractor['feature_space_id']}.json").read_bytes()).hexdigest(),
+            asset_manifest_hash=str(resolved_asset["asset_manifest_sha256"]),
         ))
 '''
 
 
-def input_discovery_code(kind: str) -> str:
-    """Return the stdlib bootstrap followed by canonical content discovery."""
+def _expected_identity_from_active_bundle(kind: str, root: str | Path = ".") -> dict[str, Any] | None:
+    paths = {
+        "diagnostic": "artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip",
+        "preflight": "artifacts/cvpr/kaggle_inputs/preflight/certgen_cvpr_preflight_input.zip",
+    }
+    relative = paths.get(kind)
+    if relative is None:
+        return None
+    path = Path(root).resolve() / relative
+    if not path.is_file():
+        return None
+    from certgen.discovery.classify import classify_package
+    from certgen.discovery.models import ExpectedPackageIdentity
+
+    candidate = classify_package(path)
+    if not candidate.valid or candidate.package_sha256 is None:
+        return None
+    identity = candidate.identity
+    return ExpectedPackageIdentity(
+        expected_package_sha256=candidate.package_sha256,
+        expected_scientific_identity_hash=identity.scientific_identity_hash,
+        expected_configuration_hash=str(identity.configuration_hash),
+        expected_run_id=str(identity.run_id),
+        expected_study_hash=identity.study_hash,
+        expected_profile_id=identity.profile_id,
+        expected_scale=identity.scale,
+        expected_source_code_hash=str(identity.source_code_hash),
+        expected_integrity_manifest=str(identity.integrity_manifest),
+        expected_output_schema_version=str(identity.output_schema_version),
+        expected_package_type=identity.package_type.value,
+        expected_stage=str(identity.stage),
+    ).to_dict()
+
+
+def input_discovery_code(
+    kind: str,
+    *,
+    expected_identity: dict[str, Any] | None = None,
+    require_explicit_identity: bool = False,
+) -> str:
+    """Embed and hash the canonical stdlib-only pre-import authentication gate."""
+
+    from certgen.notebooks import trusted_bootstrap
 
     package_type = f"{kind.upper()}_INPUT"
+    source_path = Path(trusted_bootstrap.__file__ or "")
+    bootstrap_source = source_path.read_text(encoding="utf-8")
+    bootstrap_sha256 = hashlib.sha256(bootstrap_source.encode()).hexdigest()
+    embedded = expected_identity or (
+        None if require_explicit_identity else _expected_identity_from_active_bundle(kind)
+    )
+    embedded_json = json.dumps(embedded, sort_keys=True) if embedded is not None else "null"
     return f'''
 from __future__ import annotations
-import json, os, subprocess, sys, zipfile
-from pathlib import Path, PurePosixPath
+import hashlib, json, os, subprocess, sys
+from pathlib import Path
 
 SEARCH_ROOTS = [Path(value) for value in os.environ.get("CERTGEN_SEARCH_ROOTS", "/kaggle/input:/kaggle/working").split(os.pathsep) if value]
+_TRUSTED_BOOTSTRAP_SOURCE = {bootstrap_source!r}
+_TRUSTED_BOOTSTRAP_SHA256 = "{bootstrap_sha256}"
+if hashlib.sha256(_TRUSTED_BOOTSTRAP_SOURCE.encode("utf-8")).hexdigest() != _TRUSTED_BOOTSTRAP_SHA256:
+    raise RuntimeError("UNAUTHENTICATED_CODE_IMPORT_BLOCKED: trusted bootstrap source hash mismatch")
+_BOOTSTRAP_NAMESPACE = {{"__name__": "certgen_trusted_preimport_bootstrap"}}
+exec(compile(_TRUSTED_BOOTSTRAP_SOURCE, "<certgen-trusted-preimport-bootstrap>", "exec"), _BOOTSTRAP_NAMESPACE)
 
-def _bootstrap_certgen_discovery():
-    sources = []
-    candidate_count = 0
-    for search_root in SEARCH_ROOTS:
-        if not search_root.exists() or search_root.is_symlink():
-            continue
-        for current, directories, filenames in os.walk(search_root, topdown=True, followlinks=False):
-            current_path = Path(current)
-            depth = len(current_path.relative_to(search_root).parts)
-            directories[:] = sorted(
-                name for name in directories
-                if depth < 12 and name not in {{".git", ".venv", "venv", "node_modules", "__pycache__", ".pytest_cache", ".mypy_cache", ".ruff_cache"}}
-                and not (current_path / name).is_symlink()
-            )
-            if "package_identity.json" in filenames and not (current_path / ".certgen_runtime_location.json").exists():
-                candidate_count += 1
-                identity = json.loads((current_path / "package_identity.json").read_text(encoding="utf-8"))
-                if identity.get("package_type") == "{package_type}" and identity.get("stage") == "{kind}" and (current_path / "certgen/discovery/__init__.py").is_file():
-                    sources.append(current_path)
-            for filename in sorted(filenames):
-                path = current_path / filename
-                if path.suffix.casefold() != ".zip" or path.is_symlink():
-                    continue
-                candidate_count += 1
-                with zipfile.ZipFile(path) as archive:
-                    infos = archive.infolist()
-                    names, seen, total = set(), set(), 0
-                    safe = len(infos) <= 200000
-                    for info in infos:
-                        member = PurePosixPath(info.filename)
-                        key = member.as_posix().casefold()
-                        mode = (info.external_attr >> 16) & 0o170000
-                        safe = safe and not member.is_absolute() and ".." not in member.parts and "\\\\" not in info.filename and key not in seen and mode != 0o120000
-                        seen.add(key); names.add(info.filename); total += info.file_size
-                    safe = safe and total <= 20 * 1024**3
-                    if safe and {{"package_identity.json", "certgen/discovery/__init__.py"}}.issubset(names):
-                        identity = json.loads(archive.read("package_identity.json"))
-                        if identity.get("package_type") == "{package_type}" and identity.get("stage") == "{kind}":
-                            sources.append(path)
-                if candidate_count > 10000:
-                    raise RuntimeError("bootstrap discovery candidate-count limit exceeded")
-    unique = sorted({{str(path.resolve()) for path in sources}})
-    if len(unique) != 1:
-        raise RuntimeError(f"bootstrap discovery expected one {package_type}; found {{len(unique)}} matching sources: {{unique}}")
-    sys.path.insert(0, unique[0])
+EXPECTED_PACKAGE_IDENTITY = json.loads({embedded_json!r})
+if EXPECTED_PACKAGE_IDENTITY is None:
+    raw_expected_identity = os.environ.get("CERTGEN_EXPECTED_PACKAGE_IDENTITY_JSON")
+    if not raw_expected_identity:
+        raise RuntimeError("explicit CERTGEN_EXPECTED_PACKAGE_IDENTITY_JSON is required; same-stage discovery is forbidden")
+    EXPECTED_PACKAGE_IDENTITY = json.loads(raw_expected_identity)
+if EXPECTED_PACKAGE_IDENTITY.get("schema_version") != "certgen.expected_package_identity.v1" or EXPECTED_PACKAGE_IDENTITY.get("claim_allowed") is not False:
+    raise RuntimeError("invalid expected-package identity contract")
+for _required_expected_field in (
+    "expected_package_sha256", "expected_scientific_identity_hash", "expected_configuration_hash",
+    "expected_run_id", "expected_source_code_hash", "expected_integrity_manifest",
+    "expected_output_schema_version", "expected_package_type", "expected_stage",
+):
+    if not EXPECTED_PACKAGE_IDENTITY.get(_required_expected_field):
+        raise RuntimeError(f"expected-package identity is missing {{_required_expected_field}}")
+if EXPECTED_PACKAGE_IDENTITY["expected_package_type"] != "{package_type}" or EXPECTED_PACKAGE_IDENTITY["expected_stage"] != "{kind}":
+    raise RuntimeError("expected-package identity is for the wrong notebook stage")
 
-try:
-    import certgen.discovery
-except ImportError:
-    _bootstrap_certgen_discovery()
-
-from certgen.notebooks.kaggle_io import load_frozen_configuration, safe_extract_one_input_package, verify_input_integrity
-INPUT_ROOT = safe_extract_one_input_package(
-    search_roots=SEARCH_ROOTS,
-    destination="/kaggle/working/certgen-input-{kind}",
-    expected_stage="{kind}",
-    expected_package_type="{package_type}",
+INPUT_ROOT, AUTHENTICATION_REPORT = _BOOTSTRAP_NAMESPACE["authenticate_discover_materialize"](
+    SEARCH_ROOTS,
+    EXPECTED_PACKAGE_IDENTITY,
+    "/kaggle/working/certgen-authenticated-input-{kind}",
 )
+# This is intentionally the first point at which authenticated package code is importable.
+sys.path.insert(0, str(INPUT_ROOT))
+from certgen.notebooks.kaggle_io import load_frozen_configuration, verify_input_integrity
 verify_input_integrity(INPUT_ROOT)
 CONFIG = load_frozen_configuration(INPUT_ROOT)
 WORK_ROOT = Path("/kaggle/working/certgen-cvpr")
 '''
 
 
-def build_notebook(kind: str, *, scale: str = "1k", generic: bool = False) -> dict[str, Any]:
+def build_notebook(
+    kind: str,
+    *,
+    scale: str = "1k",
+    generic: bool = False,
+    expected_identity: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     if kind not in {"preflight", "generation", "features"}:
         raise ValueError("kind must be preflight, generation, or features")
     title = {
@@ -206,16 +240,29 @@ def build_notebook(kind: str, *, scale: str = "1k", generic: bool = False) -> di
 `{evidence}` · `not_empirical_evidence` · `not paper evidence` · `claim_allowed=false`
 
 Production-hardened, static-validation passed, fixture-runtime passed; real Kaggle preflight is still required. The run contract is hash-bound and supports `resume`, `restart`, and `force_new_run`. GPU work occurs only in isolated subprocess workers.''', "title"),
-        _cell("code", input_discovery_code(kind), "input-discovery"),
+        _cell(
+            "code",
+            input_discovery_code(
+                kind,
+                expected_identity=expected_identity,
+                require_explicit_identity=generic
+                or (kind in {"generation", "features"} and expected_identity is None),
+            ),
+            "input-discovery",
+        ),
         _cell("code", f'''
 from certgen.notebooks.environment_bootstrap import bootstrap_environment
 ENVIRONMENT = bootstrap_environment(
     "kaggle_t4x2_{'preflight' if kind == 'preflight' else ('generation' if kind == 'generation' else 'features')}",
     output_dir=WORK_ROOT / "environment", network_allowed=bool(CONFIG["dependency_network_allowed"]), apply=True,
-    revalidate_after_restart=bool(os.environ.get("CERTGEN_POST_RESTART")),
     search_roots=SEARCH_ROOTS,
     lock_path=INPUT_ROOT / "requirements/stage.lock",
     constraints_path=INPUT_ROOT / "requirements/kaggle-constraints.txt",
+    lock_integrity_path=INPUT_ROOT / "requirements/lock_integrity.json",
+    expected_input_identity={{
+        "package_sha256": AUTHENTICATION_REPORT["package_sha256"],
+        "scientific_identity_hash": AUTHENTICATION_REPORT["identity"]["scientific_identity_hash"],
+    }},
 )
 if ENVIRONMENT["status"] != "ENVIRONMENT_COMPATIBLE":
     raise RuntimeError(ENVIRONMENT["restart_instruction"] or "environment incompatible")
@@ -331,7 +378,9 @@ ZIP_PATH = Path("/kaggle/working") / f"certgen_cvpr_{kind}_{{CONFIG['run_id']}}.
 (RUN_ROOT / "copyback_instructions.md").write_text(copyback_instructions("{kind}", ZIP_PATH), encoding="utf-8")
 write_integrity_manifest(RUN_ROOT)
 ZIP = finalize_output_zip(RUN_ROOT, ZIP_PATH, mode=MODE, configuration_hash=CONFIG["configuration_hash"],
-                          asset_manifest_hash=str(CONFIG.get("asset_manifest_hash", "preflight_generated")))
+                          asset_manifest_hash=str(CONFIG.get("asset_manifest_hash", "preflight_generated")),
+                          input_identity={{"package_sha256": AUTHENTICATION_REPORT["package_sha256"],
+                                          "scientific_identity_hash": AUTHENTICATION_REPORT["identity"]["scientific_identity_hash"]}})
 ''', "deterministic-output-zip"),
         _cell("markdown", f'''## Copy-back and local import
 
@@ -363,6 +412,25 @@ print(json.dumps(FINAL_STATUS, indent=2, sort_keys=True))
                 "generic": generic,
                 "runtime_architecture": "isolated_subprocess_workers",
                 "claim_allowed": False,
+                "expected_package_identity": expected_identity
+                or (
+                    None
+                    if generic or kind in {"generation", "features"}
+                    else _expected_identity_from_active_bundle(kind)
+                ),
+                "explicit_expected_identity_required": bool(
+                    generic or (kind in {"generation", "features"} and expected_identity is None)
+                ),
+                "trusted_bootstrap_sha256": hashlib.sha256(
+                    Path(
+                        str(
+                            __import__(
+                                "certgen.notebooks.trusted_bootstrap",
+                                fromlist=["trusted_bootstrap"],
+                            ).__file__
+                        )
+                    ).read_bytes()
+                ).hexdigest(),
             },
         },
         "nbformat": 4,

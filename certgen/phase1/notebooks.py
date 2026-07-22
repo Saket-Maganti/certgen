@@ -3,11 +3,16 @@
 from __future__ import annotations
 
 import ast
+import hashlib
 import json
 from pathlib import Path
 from typing import Any
 
-from certgen.notebooks.cvpr_factory import build_notebook, input_discovery_code
+from certgen.notebooks.cvpr_factory import (
+    _expected_identity_from_active_bundle,
+    build_notebook,
+    input_discovery_code,
+)
 
 
 PHASE1_NOTEBOOKS = {
@@ -150,23 +155,24 @@ def _decorate(payload: dict[str, Any], kind: str) -> dict[str, Any]:
             cell["source"] = [line + "\n" for line in source.strip().splitlines()]
         if cell.get("cell_type") == "code" and "ASSET_POLICY = AssetPolicy" in source:
             source += '''
-from certgen.discovery import discover_asset_mount
+from certgen.discovery import discover_asset_mount, write_asset_resolution_report
 REQUIRED_ASSETS = {row["asset_id"]: row.get("revision") for row in CONFIG.get("assets", [])}
 if REQUIRED_ASSETS:
     ASSET_RESOLUTION = discover_asset_mount(SEARCH_ROOTS, required_assets=REQUIRED_ASSETS)
-    if ASSET_RESOLUTION["status"] != "SELECTED_UNIQUE_VALID_ASSET_MOUNT":
+    if ASSET_RESOLUTION["status"] not in {"SELECTED_UNIQUE_VALID_ASSET_MOUNT", "DUPLICATE_IDENTICAL_COPY_DEDUPED"}:
         raise RuntimeError(f"private asset discovery failed: {ASSET_RESOLUTION['status']}")
-    PRIVATE_ASSET_ROOT = Path(ASSET_RESOLUTION["selected"]["root"])
+    ASSET_RESOLUTION_REPORT_PATH = WORK_ROOT / "asset_resolution_report.json"
+    ASSET_RESOLUTION_REPORT = write_asset_resolution_report(ASSET_RESOLUTION, ASSET_RESOLUTION_REPORT_PATH)
+    ASSET_RUNTIME_MAP = {row["asset_id"]: row for row in ASSET_RESOLUTION_REPORT["assets"]}
+    ASSET_RUNTIME_BY_ID = {row["model_or_extractor_id"]: row for row in ASSET_RESOLUTION_REPORT["assets"]}
     ASSET_VALIDATION = ASSET_RESOLUTION
 else:
-    PRIVATE_ASSET_ROOT = INPUT_ROOT / "model_cache"
+    ASSET_RESOLUTION_REPORT_PATH = WORK_ROOT / "asset_resolution_report.json"
+    ASSET_RUNTIME_MAP = {}
+    ASSET_RUNTIME_BY_ID = {}
 '''
             cell["source"] = [line + "\n" for line in source.strip().splitlines()]
         if cell.get("cell_type") == "code" and "specs = []" in source:
-            source = source.replace(
-                'cache_root = RUN_ROOT / "model_cache" / asset["asset_id"]',
-                'cache_root = PRIVATE_ASSET_ROOT / asset.get("mount_subdir", asset["model_or_extractor_id"])',
-            )
             source = source.replace(
                 'str(INPUT_ROOT / "model_cache" / model["model_id"])',
                 'str(PRIVATE_ASSET_ROOT / model["model_id"])',
@@ -217,7 +223,7 @@ GPU_LINES = [line for line in probe.stdout.splitlines() if line.strip().startswi
 if len(GPU_LINES) != 2: raise RuntimeError(f"GPU T4 x2 required; found {len(GPU_LINES)} devices")''', "gpu-visibility"),
         _heading(4, "The bootstrap runs `python -m pip check` and writes `dependency_report.json`, `dependency_freeze.txt`, and `pip_check.txt`."),
         _cell("code", '''from certgen.notebooks.environment_bootstrap import bootstrap_environment
-DEPENDENCIES = bootstrap_environment("kaggle_t4x2_diagnostic", output_dir=RUN_ROOT / "dependencies", network_allowed=CONFIG["dependency_network_allowed"], apply=True, install_mode=CONFIG["dependency_mode"], search_roots=SEARCH_ROOTS, lock_path=INPUT_ROOT / "requirements/stage.lock", constraints_path=INPUT_ROOT / "requirements/kaggle-constraints.txt")
+DEPENDENCIES = bootstrap_environment("kaggle_t4x2_diagnostic", output_dir=RUN_ROOT / "dependencies", network_allowed=CONFIG["dependency_network_allowed"], apply=True, install_mode=CONFIG["dependency_mode"], search_roots=SEARCH_ROOTS, lock_path=INPUT_ROOT / "requirements/stage.lock", constraints_path=INPUT_ROOT / "requirements/kaggle-constraints.txt", lock_integrity_path=INPUT_ROOT / "requirements/lock_integrity.json", expected_input_identity={"package_sha256": AUTHENTICATION_REPORT["package_sha256"], "scientific_identity_hash": AUTHENTICATION_REPORT["identity"]["scientific_identity_hash"]})
 if DEPENDENCIES["status"] != "ENVIRONMENT_COMPATIBLE" or DEPENDENCIES["pip_check"]["returncode"] != 0: raise RuntimeError("dependency validation failed")''', "dependencies"),
         _heading(5),
         _cell("code", '''from certgen.notebooks.model_assets import AssetPolicy
@@ -243,7 +249,7 @@ write_integrity_manifest(RUN_ROOT)''', "merge-validation"),
         _heading(11),
         _cell("code", '''from certgen.notebooks.final_zip import finalize_output_zip, validate_final_zip, write_multipart_fallback
 ZIP_PATH = Path("/kaggle/working/certgen_kaggle_environment_diagnostic_output.zip")
-ZIP = finalize_output_zip(RUN_ROOT, ZIP_PATH, mode=MODE, configuration_hash=CONFIG["configuration_hash"], asset_manifest_hash="no_assets_required")
+ZIP = finalize_output_zip(RUN_ROOT, ZIP_PATH, mode=MODE, configuration_hash=CONFIG["configuration_hash"], asset_manifest_hash="no_assets_required", input_identity={"package_sha256": AUTHENTICATION_REPORT["package_sha256"], "scientific_identity_hash": AUTHENTICATION_REPORT["identity"]["scientific_identity_hash"]})
 if not validate_final_zip(RUN_ROOT, ZIP_PATH)["passed"]: raise RuntimeError("final diagnostic ZIP revalidation failed")
 MULTIPART = write_multipart_fallback(ZIP_PATH) if ZIP_PATH.stat().st_size > 3800 * 1024**2 else None''', "atomic-output-zip"),
         _heading(12),
@@ -265,6 +271,18 @@ Preserve worker logs and status files on failure; resume only when configuration
                 "required_accelerator": "GPU T4 x2",
                 "multiprocessing_start_method": "spawn",
                 "phase1_sections": list(SECTIONS),
+                "expected_package_identity": _expected_identity_from_active_bundle("diagnostic"),
+                "explicit_expected_identity_required": False,
+                "trusted_bootstrap_sha256": hashlib.sha256(
+                    Path(
+                        str(
+                            __import__(
+                                "certgen.notebooks.trusted_bootstrap",
+                                fromlist=["trusted_bootstrap"],
+                            ).__file__
+                        )
+                    ).read_bytes()
+                ).hexdigest(),
                 "claim_allowed": False,
             },
         },

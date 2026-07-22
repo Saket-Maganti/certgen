@@ -69,6 +69,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--asset-id", required=True)
     parser.add_argument("--shard-id", required=True)
     parser.add_argument("--cache-root", required=True)
+    parser.add_argument("--asset-resolution-report")
     parser.add_argument("--out", required=True)
     parser.add_argument("--asset-only", action="store_true")
     args = parser.parse_args(argv)
@@ -98,10 +99,23 @@ def main(argv: list[str] | None = None) -> int:
         token_present=bool(os.environ.get("HF_TOKEN")),
         cache_root=args.cache_root,
     )
+    if policy is AssetPolicy.OFFLINE_PACKAGED_CACHE:
+        if not args.asset_resolution_report:
+            raise ValueError("offline worker requires an authenticated asset-resolution report")
+        from certgen.discovery import validate_resolved_asset
+
+        resolved = validate_resolved_asset(
+            args.asset_resolution_report,
+            asset_id=str(asset["asset_id"]),
+            expected_revision=str(asset["revision"]),
+        )
+        if Path(str(resolved["snapshot_root"])).resolve() != Path(args.cache_root).resolve():
+            raise ValueError("worker cache root differs from the resolved private asset snapshot")
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
     cache_root = Path(args.cache_root)
-    cache_root.mkdir(parents=True, exist_ok=True)
+    if policy is AssetPolicy.ONLINE_PREFLIGHT_DOWNLOAD:
+        cache_root.mkdir(parents=True, exist_ok=True)
     if asset.get("asset_kind") == "extractor":
         if not args.asset_only:
             raise ValueError("extractor asset acquisition requires --asset-only")

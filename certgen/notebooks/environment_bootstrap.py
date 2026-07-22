@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import importlib.metadata
 import importlib
+import hashlib
 import json
 import platform
 import subprocess
@@ -152,6 +153,15 @@ def _write_lock(path: Path, rows: Sequence[str]) -> None:
     temporary.replace(path)
 
 
+def _write_runtime_json(payload: Mapping[str, object], path: Path) -> None:
+    """Atomically replace a runtime state report across an expected restart transition."""
+
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_name(f".{path.name}.partial")
+    temporary.write_text(json.dumps(dict(payload), indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    temporary.replace(path)
+
+
 def _lock_requirements(path: Path, seen: set[Path] | None = None) -> tuple[str, ...]:
     visited = seen or set()
     resolved = path.resolve()
@@ -169,6 +179,41 @@ def _lock_requirements(path: Path, seen: set[Path] | None = None) -> tuple[str, 
             Requirement(line)
             rows.append(line)
     return tuple(rows)
+
+
+def validate_lock_integrity(
+    path: str | Path,
+    *,
+    profile: str,
+    lock_path: str | Path,
+    constraints_path: str | Path,
+) -> dict[str, object]:
+    integrity_path = Path(path)
+    payload = json.loads(integrity_path.read_text(encoding="utf-8"))
+    if not isinstance(payload, dict) or payload.get("claim_allowed") is not False:
+        raise ValueError("lock-integrity manifest must be an object with claim_allowed=false")
+    if payload.get("schema_version") != "certgen.lock_integrity.v1" or payload.get("profile") != profile:
+        raise ValueError("lock-integrity schema/profile mismatch")
+    selected_lock = Path(lock_path)
+    selected_constraints = Path(constraints_path)
+    observed_lock = hashlib.sha256(selected_lock.read_bytes()).hexdigest()
+    observed_constraints = hashlib.sha256(selected_constraints.read_bytes()).hexdigest()
+    if payload.get("lock_sha256") != observed_lock:
+        raise ValueError("lock-integrity lock SHA-256 mismatch")
+    if payload.get("constraints_sha256") != observed_constraints:
+        raise ValueError("lock-integrity constraints SHA-256 mismatch")
+    declared_names = payload.get("resolved_names")
+    observed_names = sorted({Requirement(raw).name for raw in _lock_requirements(selected_lock)})
+    if declared_names != observed_names:
+        raise ValueError("lock-integrity resolved dependency names mismatch")
+    return {
+        "passed": True,
+        "path": str(integrity_path),
+        "lock_sha256": observed_lock,
+        "constraints_sha256": observed_constraints,
+        "resolved_names": observed_names,
+        **EVIDENCE_LABELS,
+    }
 
 
 def import_smoke_test(
@@ -223,6 +268,8 @@ def bootstrap_environment(
     search_roots: Iterable[str | Path] | None = None,
     lock_path: str | Path | None = None,
     constraints_path: str | Path | None = None,
+    lock_integrity_path: str | Path | None = None,
+    expected_input_identity: Mapping[str, object] | None = None,
 ) -> dict[str, object]:
     """Inspect, optionally repair, and record one compatibility profile.
 
@@ -247,6 +294,30 @@ def bootstrap_environment(
     selected_lock = Path(lock_path) if lock_path is not None else requirements_root / PROFILE_LOCKS[profile]
     selected_constraints = Path(constraints_path) if constraints_path is not None else requirements_root / "kaggle-constraints.txt"
     resolved_wheelhouse: Path | None = None
+    selected_lock_integrity = (
+        Path(lock_integrity_path)
+        if lock_integrity_path is not None
+        else selected_lock.parent / "lock_integrity.json"
+    )
+    lock_integrity: dict[str, object] | None = None
+    if selected_lock_integrity.is_file():
+        lock_integrity = validate_lock_integrity(
+            selected_lock_integrity,
+            profile=profile,
+            lock_path=selected_lock,
+            constraints_path=selected_constraints,
+        )
+    elif apply and lock_integrity_path is not None:
+        raise RuntimeError("lock-integrity manifest is missing")
+    restart_marker_payload: dict[str, object] | None = None
+    if restart_marker.is_file():
+        marker_value = json.loads(restart_marker.read_text(encoding="utf-8"))
+        if not isinstance(marker_value, dict) or marker_value.get("claim_allowed") is not False:
+            raise RuntimeError("kernel restart marker is invalid")
+        if marker_value.get("expected_input_identity") != dict(expected_input_identity or {}):
+            raise RuntimeError("kernel restart marker belongs to a different authenticated input identity")
+        restart_marker_payload = marker_value
+        revalidate_after_restart = True
 
     if apply and plan:
         if selected_mode == "USE_PREINSTALLED_VALIDATED":
@@ -271,6 +342,7 @@ def bootstrap_environment(
                 profile=profile,
                 required_requirements=_lock_requirements(selected_lock),
             )
+            atomic_write_json(resolution, out / "wheelhouse_validation_report.json")
             selected = resolution.get("selected")
             if not isinstance(selected, dict) or not selected.get("root"):
                 raise RuntimeError(f"private wheelhouse discovery failed: {resolution['status']}")
@@ -303,6 +375,7 @@ def bootstrap_environment(
             {
                 "restart_required": True,
                 "instruction": "Stop this cell, restart the Kaggle kernel, and rerun the environment bootstrap cell.",
+                "expected_input_identity": dict(expected_input_identity or {}),
                 **EVIDENCE_LABELS,
             },
             restart_marker,
@@ -339,7 +412,7 @@ def bootstrap_environment(
             "imports": [],
             **EVIDENCE_LABELS,
         }
-    atomic_write_json(smoke, out / "import_smoke_test.json")
+    _write_runtime_json(smoke, out / "import_smoke_test.json")
     payload: dict[str, object] = {
         "schema_version": "certgen.environment_report.v1",
         "profile": profile,
@@ -352,6 +425,7 @@ def bootstrap_environment(
         "install_mode": selected_mode,
         "stage_lock": str(selected_lock),
         "constraints": str(selected_constraints),
+        "lock_integrity": lock_integrity,
         "resolved_wheelhouse": str(resolved_wheelhouse) if resolved_wheelhouse else None,
         "apply_requested": apply,
         "restart_required": restart_required,
@@ -372,14 +446,19 @@ def bootstrap_environment(
         "packages_after": [asdict(row) for row in after],
         **EVIDENCE_LABELS,
     }
-    atomic_write_json(payload, out / "environment_report.json")
-    atomic_write_json(payload, out / "dependency_report.json")
+    _write_runtime_json(payload, out / "environment_report.json")
+    _write_runtime_json(payload, out / "dependency_report.json")
     if apply and not compatible and not restart_required:
         raise RuntimeError("environment failed closed after package installation/revalidation")
     if apply and compatible and not restart_required and pip_check.returncode != 0:
         raise RuntimeError("python -m pip check failed; see pip_check.txt")
     if apply and compatible and not restart_required and smoke.get("passed") is not True:
         raise RuntimeError("post-install import smoke test failed; see import_smoke_test.json")
+    if apply and compatible and not restart_required and restart_marker_payload is not None:
+        restart_marker.unlink()
+        payload["restart_marker_consumed"] = True
+        _write_runtime_json(payload, out / "environment_report.json")
+        _write_runtime_json(payload, out / "dependency_report.json")
     return payload
 
 

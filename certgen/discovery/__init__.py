@@ -14,6 +14,7 @@ from certgen.discovery.models import (
     CandidateForm,
     DiscoveryLimits,
     DiscoveryResult,
+    ExpectedPackageIdentity,
     PackageCandidate,
     PackageRequirement,
     PackageType,
@@ -27,6 +28,8 @@ from certgen.discovery.specialized import (
     discover_dataset_root,
     discover_reference,
     discover_wheelhouse,
+    validate_resolved_asset,
+    write_asset_resolution_report,
 )
 
 
@@ -43,14 +46,18 @@ def discover_packages(
     candidates = tuple(classify_package(path, limits=selected_limits) for path in paths)
     reasons = {str(row.path): mismatch_reasons(row, selected_requirement) for row in candidates}
     matches = tuple(row for row in candidates if not reasons[str(row.path)])
+    distinct_hashes = {row.package_sha256 for row in matches}
     if len(matches) == 1:
         status = SelectionStatus.SELECTED_UNIQUE_VALID_PACKAGE
         selected = matches[0]
+    elif matches and len(distinct_hashes) == 1:
+        status = SelectionStatus.DUPLICATE_IDENTICAL_COPY_DEDUPED
+        selected = sorted(matches, key=lambda row: str(row.path).casefold())[0]
     elif not matches:
         status = SelectionStatus.NO_MATCHING_PACKAGE
         selected = None
     else:
-        status = SelectionStatus.AMBIGUOUS_MATCHING_PACKAGES
+        status = SelectionStatus.AMBIGUOUS_DIFFERENT_CONTENT
         selected = None
     return DiscoveryResult(
         status=status,
@@ -136,6 +143,7 @@ def materialize_selected_package(
 __all__ = [
     "DiscoveryLimits",
     "DiscoveryResult",
+    "ExpectedPackageIdentity",
     "PackageCandidate",
     "PackageRequirement",
     "PackageType",
@@ -147,5 +155,7 @@ __all__ = [
     "discover_packages",
     "discover_reference",
     "discover_wheelhouse",
+    "validate_resolved_asset",
+    "write_asset_resolution_report",
     "materialize_selected_package",
 ]

@@ -69,8 +69,15 @@ ROOT_FILES = (
     "CERTGEN_MAX_CEILING_PRE_RUN_READINESS_REPORT.md",
     "CERTGEN_MAX_CEILING_EXECUTION_HANDBOOK.md",
     "CERTGEN_MAX_CEILING_SINGLE_FILE_HANDOFF.md",
+    "CERTGEN_CURRENT_NEXT_ACTION.md",
+    "CERTGEN_KAGGLE_RUN_LAUNCHBOARD.md",
+    "CERTGEN_KAGGLE_UNIVERSAL_ACCOUNT_HANDBOOK.md",
+    "CERTGEN_KAGGLE_DEPENDENCY_AND_ASSET_GUIDE.md",
+    "KAGGLE_ASSET_SETUP.md",
 )
-SOURCE_ROOTS = ("certgen", "tests", "configs", "docs", "paper", "release", "schemas")
+SOURCE_ROOTS = (
+    "certgen", "tests", "configs", "docs", "paper", "release", "schemas", "requirements", "scripts"
+)
 REPORT_FILES = (
     "reports/CERTGEN_FINAL_RUN_READY_BASELINE.md",
     "reports/CERTGEN_FINAL_RUN_READY_COMMAND_LEDGER.csv",
@@ -113,13 +120,40 @@ REPORT_FILES = (
     "reports/CERTGEN_FAILURE_INJECTION_MATRIX.csv",
     "reports/CERTGEN_SENSITIVITY_MATRIX.csv",
     "reports/CERTGEN_CLAIM_EVIDENCE_MATRIX.csv",
+    "reports/CERTGEN_FINAL_EXECUTION_PATH_BASELINE.md",
+    "reports/CERTGEN_FINAL_EXECUTION_PATH_CURRENT_STATE.json",
+    "reports/CERTGEN_FINAL_EXECUTION_PATH_COMMAND_LEDGER.csv",
+    "reports/CERTGEN_FINAL_EXECUTION_PATH_COMMAND_LEDGER.jsonl",
+    "reports/CERTGEN_FINAL_EXECUTION_PATH_ARTIFACT_INVENTORY.csv",
+    "reports/CERTGEN_PREIMPORT_AUTHENTICATION_AUDIT.md",
+    "reports/CERTGEN_EXPECTED_IDENTITY_BINDING_AUDIT.md",
+    "reports/CERTGEN_LOCAL_RESUME_IDENTITY_AUDIT.md",
+    "reports/CERTGEN_ASSET_RESOLUTION_AUDIT.md",
+    "reports/CERTGEN_WHEELHOUSE_COMPATIBILITY_AUDIT.md",
+    "reports/CERTGEN_FINAL_DEPENDENCY_CLOSURE_MATRIX.csv",
+    "reports/CERTGEN_FINAL_DEPENDENCY_CLOSURE_REPORT.md",
+    "reports/CERTGEN_FOUR_ACCOUNT_EXECUTION_PATH_MATRIX.csv",
+    "reports/CERTGEN_FOUR_ACCOUNT_EXECUTION_PATH_REPORT.md",
+    "reports/CERTGEN_FINAL_PACKAGE_SECURITY_AUDIT.md",
+    "reports/CERTGEN_FINAL_KAGGLE_EXECUTION_PATH_AUDIT.md",
 )
 CANONICAL_NOTEBOOKS = (
+    "certgen_kaggle_environment_diagnostic_t4x2.ipynb",
     "certgen_cvpr_checkpoint_preflight_t4x2.ipynb",
     "certgen_cvpr_cifar10_generation_t4x2_1k.ipynb",
     "certgen_cvpr_generation_t4x2_generic.ipynb",
     "certgen_cvpr_feature_extraction_t4x2_1k.ipynb",
     "certgen_cvpr_feature_extraction_t4x2_generic.ipynb",
+    "certgen_cvpr_generation_1k_t4x2.ipynb",
+    "certgen_cvpr_feature_extraction_t4x2.ipynb",
+)
+BUNDLE_FILES = (
+    "artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip",
+    "artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip.manifest.json",
+    "artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip.sha256",
+    "artifacts/cvpr/kaggle_inputs/preflight/certgen_cvpr_preflight_input.zip",
+    "artifacts/cvpr/kaggle_inputs/preflight/certgen_cvpr_preflight_input.zip.manifest.json",
+    "artifacts/cvpr/kaggle_inputs/preflight/certgen_cvpr_preflight_input.zip.sha256",
 )
 
 
@@ -165,6 +199,10 @@ def archive_members(root: str | Path = ".") -> list[Path]:
         path = base / "notebooks" / "kaggle" / name
         if path.is_file():
             candidates.append(path)
+    for name in BUNDLE_FILES:
+        path = base / name
+        if path.is_file():
+            candidates.append(path)
     return sorted(set(candidates), key=lambda path: path.relative_to(base).as_posix())
 
 
@@ -204,6 +242,7 @@ def _verify_names(names: Iterable[str]) -> list[str]:
         "schemas/cvpr/image_manifest.schema.json",
         "release/CERTGEN_PORTABLE_TEST_MANIFEST.json",
         *REPORT_FILES,
+        *BUNDLE_FILES,
     }
     errors.extend(f"missing required member: {name}" for name in sorted(required - names_set))
     errors.extend(
@@ -279,7 +318,17 @@ def build_archive(
         synthetic_result: dict[str, Any] = {"run": False, "returncode": None, "summary": "not requested"}
         if run_tests and not errors:
             completed = subprocess.run(
-                [sys.executable, "-m", "pytest", "-q", "tests/test_archive_portable.py", "tests/test_real_execution_closure.py"],
+                [
+                    sys.executable,
+                    "-m",
+                    "pytest",
+                    "-q",
+                    "tests/test_archive_portable.py",
+                    "tests/test_real_execution_closure.py",
+                    "tests/test_final_execution_path_seal.py",
+                    "tests/test_universal_kaggle_discovery.py",
+                    "tests/test_phase1_closure.py",
+                ],
                 cwd=extracted,
                 env=environment,
                 capture_output=True,

@@ -11,6 +11,7 @@ from pathlib import Path, PurePosixPath
 from typing import Any, Mapping
 
 import yaml  # type: ignore[import-untyped]
+from packaging.requirements import Requirement
 
 from certgen.core.hashing import file_sha256, stable_hash_json
 from certgen.cvpr.output_schemas import expected_output_schema
@@ -186,6 +187,37 @@ def _zip_bytes(files: Mapping[str, bytes]) -> bytes:
 
 def _member_payloads(root: Path, stage: str, config: Mapping[str, Any]) -> dict[str, bytes]:
     lock = "kaggle-diagnostic.lock" if stage == "diagnostic" else "kaggle-preflight.lock"
+    lock_path = root / "requirements" / lock
+    constraints_path = root / "requirements/kaggle-constraints.txt"
+    resolved_names: set[str] = set()
+
+    def collect_requirements(path: Path, seen: set[Path] | None = None) -> None:
+        visited = seen or set()
+        resolved = path.resolve()
+        if resolved in visited:
+            return
+        visited.add(resolved)
+        for raw in path.read_text(encoding="utf-8").splitlines():
+            line = raw.strip()
+            if not line or line.startswith("#") or line.startswith("-c"):
+                continue
+            if line.startswith("-r "):
+                collect_requirements(path.parent / line[3:].strip(), visited)
+            else:
+                resolved_names.add(Requirement(line).name)
+
+    collect_requirements(lock_path)
+    lock_integrity = {
+        "schema_version": "certgen.lock_integrity.v1",
+        "stage": stage,
+        "profile": f"kaggle_t4x2_{stage}",
+        "lock_path": "requirements/stage.lock",
+        "lock_sha256": file_sha256(lock_path),
+        "constraints_path": "requirements/kaggle-constraints.txt",
+        "constraints_sha256": file_sha256(constraints_path),
+        "resolved_names": sorted(resolved_names),
+        "claim_allowed": False,
+    }
     schema = {
         "schema_version": config["output_schema_version"],
         "stage": stage,
@@ -212,6 +244,7 @@ This package contains no credentials or model weights. `claim_allowed=false`.
         "requirements/stage.lock": (root / "requirements" / lock).read_bytes(),
         "requirements/kaggle-base.lock": (root / "requirements/kaggle-base.lock").read_bytes(),
         "requirements/kaggle-constraints.txt": (root / "requirements/kaggle-constraints.txt").read_bytes(),
+        "requirements/lock_integrity.json": (json.dumps(lock_integrity, indent=2, sort_keys=True) + "\n").encode(),
         "asset_registry.yaml": (root / "registry/cvpr/kaggle_asset_registry.yaml").read_bytes(),
         "KAGGLE_ASSET_SETUP.md": (root / "KAGGLE_ASSET_SETUP.md").read_bytes(),
         "expected_output_schema.json": (json.dumps(schema, indent=2, sort_keys=True) + "\n").encode(),
@@ -236,29 +269,32 @@ def build_static_input(
     config = _config(base, stage)
     files = _member_payloads(base, stage, config)
     package_type = PackageType.DIAGNOSTIC_INPUT if stage == "diagnostic" else PackageType.PREFLIGHT_INPUT
+    identity_payload = package_identity_payload(
+        config,
+        package_type=package_type,
+        integrity_manifest="package_integrity_manifest.json",
+        completion_status="INPUT_PACKAGE_READY",
+        created_at_utc="1980-01-01T00:00:00Z",
+    )
     files["package_identity.json"] = (
-        json.dumps(
-            package_identity_payload(
-                config,
-                package_type=package_type,
-                integrity_manifest="package_integrity_manifest.json",
-                completion_status="INPUT_PACKAGE_READY",
-                created_at_utc="1980-01-01T00:00:00Z",
-            ),
-            indent=2,
-            sort_keys=True,
-        )
+        json.dumps(identity_payload, indent=2, sort_keys=True)
         + "\n"
     ).encode()
     members = [
         {"path": name, "size": len(data), "sha256": hashlib.sha256(data).hexdigest()}
         for name, data in sorted(files.items())
     ]
+    source_inventory = [
+        row for row in members if str(row["path"]).startswith("certgen/") and str(row["path"]).endswith(".py")
+    ]
     bundle_manifest = {
-        "schema_version": "certgen.phase1.kaggle_input_bundle.v1",
-        "package_type": f"certgen_{stage}_input",
+        "schema_version": "certgen.phase1.kaggle_input_bundle.v2",
+        "contract_version": "certgen.package_contract.v2",
+        "package_type": package_type.value,
         "stage": stage,
+        "direction": "INPUT",
         "source_code_hash": config["source_code_hash"],
+        "source_inventory": source_inventory,
         "configuration_hash": config["configuration_hash"],
         "profile_hash": config.get("profile_hash"),
         "run_id": config["run_id"],
@@ -268,7 +304,10 @@ def build_static_input(
         "created_at_utc": "1980-01-01T00:00:00Z",
         "completion_status": "INPUT_PACKAGE_READY",
         "integrity_manifest": "package_integrity_manifest.json",
+        "output_schema_version": config["output_schema_version"],
+        "scientific_identity_hash": identity_payload["scientific_identity_hash"],
         "dependency_lock": "requirements/stage.lock",
+        "lock_integrity": "requirements/lock_integrity.json",
         "worker_contract": "WORKER_CONTRACT.md",
         "expected_output_schema": "expected_output_schema.json",
         "members": members,
@@ -406,7 +445,7 @@ def validate_input(path: str | Path) -> dict[str, Any]:
                     errors.append(f"restricted weight member: {info.filename}")
                 if info.filename.casefold().endswith((".zip", ".tar", ".tgz", ".tar.gz")):
                     errors.append(f"nested archive member: {info.filename}")
-            required = {"configuration.yaml", "bundle_manifest.json", "package_identity.json", "package_integrity_manifest.json", "notebook.ipynb", "requirements/stage.lock", "expected_output_schema.json", "WORKER_CONTRACT.md", "VALIDATION_AND_HANDOFF.md"}
+            required = {"configuration.yaml", "bundle_manifest.json", "package_identity.json", "package_integrity_manifest.json", "notebook.ipynb", "requirements/stage.lock", "requirements/kaggle-constraints.txt", "requirements/lock_integrity.json", "expected_output_schema.json", "WORKER_CONTRACT.md", "VALIDATION_AND_HANDOFF.md"}
             errors.extend(f"missing required member: {name}" for name in sorted(required - set(names)))
             if "bundle_manifest.json" in names:
                 manifest = json.loads(archive.read("bundle_manifest.json"))
@@ -420,6 +459,29 @@ def validate_input(path: str | Path) -> dict[str, Any]:
                         errors.append(f"bundle member hash mismatch: {name}")
                 if manifest.get("contains_credentials") is not False or manifest.get("contains_restricted_weights") is not False or manifest.get("contains_fixture_payload") is not False or manifest.get("claim_allowed") is not False:
                     errors.append("bundle safety labels are missing or unsafe")
+                source_rows = manifest.get("source_inventory")
+                if not isinstance(source_rows, list) or not source_rows:
+                    errors.append("bundle source-code inventory is missing")
+                else:
+                    inventory_paths = {str(row.get("path")) for row in source_rows if isinstance(row, dict)}
+                    source_paths = {name for name in names if name.startswith("certgen/") and name.endswith(".py")}
+                    if inventory_paths != source_paths:
+                        errors.append("bundle source-code inventory membership mismatch")
+            if "requirements/lock_integrity.json" in names:
+                lock_integrity = json.loads(archive.read("requirements/lock_integrity.json"))
+                lock_data = archive.read("requirements/stage.lock")
+                constraints_data = archive.read("requirements/kaggle-constraints.txt")
+                if lock_integrity.get("stage") != manifest.get("stage"):
+                    errors.append("lock-integrity stage mismatch")
+                expected_profile = f"kaggle_t4x2_{manifest.get('stage')}"
+                if lock_integrity.get("profile") != expected_profile:
+                    errors.append("lock-integrity profile mismatch")
+                if lock_integrity.get("lock_sha256") != hashlib.sha256(lock_data).hexdigest():
+                    errors.append("lock-integrity lock SHA-256 mismatch")
+                if lock_integrity.get("constraints_sha256") != hashlib.sha256(constraints_data).hexdigest():
+                    errors.append("lock-integrity constraints SHA-256 mismatch")
+                if lock_integrity.get("claim_allowed") is not False:
+                    errors.append("lock-integrity claim_allowed must be false")
             if "configuration.yaml" in names:
                 config = yaml.safe_load(archive.read("configuration.yaml"))
                 observed = stable_hash_json({key: value for key, value in config.items() if key != "configuration_hash"})
@@ -431,6 +493,12 @@ def validate_input(path: str | Path) -> dict[str, Any]:
                     errors.append("configuration claim_allowed must be false")
     except (OSError, zipfile.BadZipFile, KeyError, TypeError, json.JSONDecodeError, yaml.YAMLError) as exc:
         errors.append(f"input ZIP unreadable: {exc}")
+    if archive_path.is_file() and not errors:
+        from certgen.discovery.classify import classify_package
+
+        classified = classify_package(archive_path)
+        if not classified.valid:
+            errors.extend(classified.errors)
     return {
         "schema_version": "certgen.phase1.kaggle_input_validation.v1",
         "path": str(archive_path),

@@ -81,11 +81,16 @@ def build_parser() -> argparse.ArgumentParser:
         "DIAGNOSTIC_INPUT", "DIAGNOSTIC_OUTPUT", "PREFLIGHT_INPUT", "PREFLIGHT_OUTPUT",
         "GENERATION_INPUT", "GENERATION_OUTPUT", "FEATURE_INPUT", "FEATURE_OUTPUT", "MULTIPART_OUTPUT",
     ])
-    discover_packages.add_argument("--study-hash")
-    discover_packages.add_argument("--profile-id")
-    discover_packages.add_argument("--configuration-hash")
-    discover_packages.add_argument("--run-id")
-    discover_packages.add_argument("--scale")
+    discover_packages.add_argument("--expected-package-sha256")
+    discover_packages.add_argument("--expected-scientific-identity-hash")
+    discover_packages.add_argument("--study-hash", "--expected-study-hash", dest="study_hash")
+    discover_packages.add_argument("--profile-id", "--expected-profile-id", dest="profile_id")
+    discover_packages.add_argument("--configuration-hash", "--expected-configuration-hash", dest="configuration_hash")
+    discover_packages.add_argument("--expected-source-code-hash")
+    discover_packages.add_argument("--expected-integrity-manifest")
+    discover_packages.add_argument("--expected-output-schema-version")
+    discover_packages.add_argument("--run-id", "--expected-run-id", dest="run_id")
+    discover_packages.add_argument("--scale", "--expected-scale", dest="scale")
     discover_packages.add_argument("--completion-status")
 
     discover_reference = discover_sub.add_parser("reference", help="Discover a validated reference archive by structure/hash")
@@ -100,6 +105,19 @@ def build_parser() -> argparse.ArgumentParser:
     discover_wheels = discover_sub.add_parser("wheelhouse", help="Discover a complete private wheelhouse by manifest")
     add_discovery_limits(discover_wheels)
     discover_wheels.add_argument("--profile", required=True)
+    discover_wheels.add_argument("--target-python", default="cp311")
+    discover_wheels.add_argument("--target-platform", default="manylinux_x86_64")
+
+    discover_expected = discover_sub.add_parser("expected-output", help="Select output for the exact active input identity")
+    add_discovery_limits(discover_expected)
+    discover_expected.add_argument("--root", default=".")
+    discover_expected.add_argument("--stage", required=True, choices=["diagnostic", "preflight", "generation", "features"])
+
+    discover_multipart = discover_sub.add_parser("multipart", help="Validate and atomically reassemble manifest-declared output parts")
+    discover_multipart.add_argument("--manifest", required=True)
+    discover_multipart.add_argument("--out")
+    discover_multipart.add_argument("--json", action="store_true")
+    discover_multipart.add_argument("--explain", action="store_true")
 
     validate = subparsers.add_parser("validate", help="Validate an execution prerequisite")
     validate_sub = validate.add_subparsers(dest="validate_kind", required=True)
@@ -490,6 +508,14 @@ def main(argv: list[str] | None = None) -> int:
             discover_wheelhouse,
         )
 
+        if args.discover_kind == "multipart":
+            from certgen.notebooks.final_zip import reassemble_multipart_fallback
+
+            payload = reassemble_multipart_fallback(args.manifest, output_path=args.out)
+            exit_code = 0 if payload["passed"] else 6
+            payload["exit_code"] = exit_code
+            _print(payload)
+            return exit_code
         limits = DiscoveryLimits(
             maximum_depth=args.max_depth,
             maximum_candidates=args.max_candidates,
@@ -499,18 +525,30 @@ def main(argv: list[str] | None = None) -> int:
         if args.discover_kind == "packages":
             requirement = PackageRequirement(
                 expected_package_type=PackageType(args.expected_package_type) if args.expected_package_type else None,
+                expected_package_sha256=args.expected_package_sha256,
+                expected_scientific_identity_hash=args.expected_scientific_identity_hash,
                 expected_stage=args.expected_stage,
                 expected_study_hash=args.study_hash,
                 expected_profile_id=args.profile_id,
                 expected_configuration_hash=args.configuration_hash,
+                expected_source_code_hash=args.expected_source_code_hash,
+                expected_integrity_manifest=args.expected_integrity_manifest,
+                expected_output_schema_version=args.expected_output_schema_version,
                 expected_run_id=args.run_id,
                 expected_scale=args.scale,
                 required_completion_status=args.completion_status,
             )
             result = discover_packages(args.search_root, requirement=requirement, limits=limits)
             payload = result.to_dict()
-            exit_code = 0 if payload["status"] == "SELECTED_UNIQUE_VALID_PACKAGE" else (
-                4 if payload["status"] == "AMBIGUOUS_MATCHING_PACKAGES" else 3
+            exit_code = 0 if payload["status"] in {"SELECTED_UNIQUE_VALID_PACKAGE", "DUPLICATE_IDENTICAL_COPY_DEDUPED"} else (
+                4 if payload["status"] in {"AMBIGUOUS_MATCHING_PACKAGES", "AMBIGUOUS_DIFFERENT_CONTENT"} else 3
+            )
+        elif args.discover_kind == "expected-output":
+            from certgen.discovery.expected_output import discover_expected_output
+
+            payload = discover_expected_output(args.root, args.stage, args.search_root)
+            exit_code = 0 if payload["status"] in {"SELECTED_UNIQUE_VALID_PACKAGE", "DUPLICATE_IDENTICAL_COPY_DEDUPED"} else (
+                4 if payload["status"] == "AMBIGUOUS_DIFFERENT_CONTENT" else 3
             )
         elif args.discover_kind == "reference":
             payload = discover_reference(args.search_root, expected_kind=args.expected_kind, limits=limits)
@@ -523,12 +561,18 @@ def main(argv: list[str] | None = None) -> int:
                 required_assets={args.asset_id: args.revision},
                 limits=limits,
             )
-            exit_code = 0 if payload["status"] == "SELECTED_UNIQUE_VALID_ASSET_MOUNT" else (
+            exit_code = 0 if payload["status"] in {"SELECTED_UNIQUE_VALID_ASSET_MOUNT", "DUPLICATE_IDENTICAL_COPY_DEDUPED"} else (
                 4 if payload["status"].startswith("AMBIGUOUS") else 3
             )
         else:
-            payload = discover_wheelhouse(args.search_root, profile=args.profile, limits=limits)
-            exit_code = 0 if payload["status"] == "SELECTED_UNIQUE_VALID_WHEELHOUSE" else (
+            payload = discover_wheelhouse(
+                args.search_root,
+                profile=args.profile,
+                limits=limits,
+                target_python=args.target_python,
+                target_platform=args.target_platform,
+            )
+            exit_code = 0 if payload["status"] in {"SELECTED_UNIQUE_VALID_WHEELHOUSE", "DUPLICATE_IDENTICAL_COPY_DEDUPED"} else (
                 4 if payload["status"].startswith("AMBIGUOUS") else 3
             )
         payload["exit_code"] = exit_code

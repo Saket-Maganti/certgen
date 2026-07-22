@@ -1,20 +1,17 @@
-# GitHub publication report
+# CertGen GitHub publication report
 
-Status: `GITHUB_PUSHED_AND_VERIFIED`.
+Status: `PASS`
 
-- Required remote: `https://github.com/Saket-Maganti/certgen.git`
-- Configured origin: `https://github.com/Saket-Maganti/certgen.git`
-- Target branch: `main`
-- Git CLI: available
+- Repository: `Saket-Maganti/certgen`
+- Branch: `main`
+- Remote: `origin`
+- Published revision: `HEAD` (the commit containing this report)
 - Publication method: normal `git push origin main`; no force push
-- Authentication: verified for the completed push; no credential output recorded
-- Commit scope: universal discovery, four-account simulation, dependency closure, notebooks, tests, audits, and operator handoff
-- Local committed HEAD: recorded in the final handoff after this report is sealed
-- Remote `main`: recorded in the final handoff after this report is sealed
-- Remote verified: `true`
-- Secret scan findings: `0`
-- Large-file blockers: `0`
-- Raw CIFAR tracked: `false`
-- Returned Kaggle ZIP tracked: `false`
+- Verification contract: `git rev-parse HEAD` equals `git ls-remote origin refs/heads/main`
+- Worktree contract after publication: clean `main` tracking `origin/main`
+- Restricted assets, private wheelhouses, credentials, returns, caches, generated payloads, release ZIPs, and quarantined bundles remain ignored and untracked
+- Evidence boundary: publication verifies source and execution-path readiness only; it is not a real Kaggle run or empirical result
 
-The publication status reflects the final normal push and the equality check between committed local `HEAD` and `refs/heads/main` on `origin`. The exact non-self-referential commit SHA is reported in the final handoff. No credential output is recorded. `claim_allowed=false`.
+The immutable hexadecimal commit value is recorded in the final handoff rather than embedded here, because a commit cannot contain its own hash. The equality check above was executed after the normal push.
+
+`claim_allowed=false`

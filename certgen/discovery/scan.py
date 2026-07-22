@@ -19,7 +19,8 @@ EXCLUDED_DIRECTORY_NAMES = {
     ".pytest_cache",
     ".mypy_cache",
     ".ruff_cache",
-    "__MACOSX",
+    "__macosx",
+    "quarantine",
 }
 PACKAGE_MARKERS = {
     "package_identity.json",
@@ -31,10 +32,9 @@ PACKAGE_MARKERS = {
 
 
 def _excluded(path: Path) -> bool:
-    if path.name in EXCLUDED_DIRECTORY_NAMES:
+    if path.name.casefold() in EXCLUDED_DIRECTORY_NAMES:
         return True
-    lowered = tuple(part.casefold() for part in path.parts)
-    return len(lowered) >= 2 and lowered[-2:] == ("dist", "quarantine")
+    return False
 
 
 def scan_package_candidates(

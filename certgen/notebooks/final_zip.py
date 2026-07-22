@@ -8,7 +8,7 @@ import os
 import shutil
 import zipfile
 from datetime import datetime, timezone
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from typing import Any
 
 import yaml  # type: ignore[import-untyped]
@@ -24,12 +24,19 @@ def _timestamp() -> str:
     return datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
 
 
-def _write_output_identity(root: Path) -> dict[str, Any] | None:
+def _write_output_identity(
+    root: Path, input_identity: dict[str, Any] | None = None
+) -> dict[str, Any] | None:
     identity_path = root / "package_identity.json"
     if identity_path.is_file():
         payload = json.loads(identity_path.read_text(encoding="utf-8"))
         if not isinstance(payload, dict) or payload.get("claim_allowed") is not False:
             raise ValueError("existing output package identity is invalid")
+        if input_identity is not None and (
+            payload.get("input_package_sha256") != input_identity.get("package_sha256")
+            or payload.get("input_scientific_identity_hash") != input_identity.get("scientific_identity_hash")
+        ):
+            raise ValueError("existing output package belongs to a different authenticated input identity")
         return payload
     config_path = root / "configuration.yaml"
     if not config_path.is_file():
@@ -65,6 +72,9 @@ def _write_output_identity(root: Path) -> dict[str, Any] | None:
         completion_status=str(status["status_code"]),
         created_at_utc=datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
     )
+    if input_identity is not None:
+        payload["input_package_sha256"] = input_identity.get("package_sha256")
+        payload["input_scientific_identity_hash"] = input_identity.get("scientific_identity_hash")
     atomic_write_json(payload, identity_path)
     return payload
 
@@ -115,12 +125,22 @@ def finalize_output_zip(
     mode: str,
     configuration_hash: str,
     asset_manifest_hash: str,
+    input_identity: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     if mode not in {"resume", "restart", "force_new_run"}:
         raise ValueError("final ZIP mode must be resume, restart, or force_new_run")
     base = Path(root)
     target = Path(output)
-    _write_output_identity(base)
+    if input_identity is not None:
+        atomic_write_json(
+            {
+                "schema_version": "certgen.output_input_identity.v1",
+                **input_identity,
+                "claim_allowed": False,
+            },
+            base / "input_identity.json",
+        )
+    _write_output_identity(base, input_identity)
     write_integrity_manifest(base)
     prior_status_path = target.with_suffix(target.suffix + ".status.json")
     prior_status: dict[str, Any] = {}
@@ -223,20 +243,89 @@ def validate_multipart_fallback(manifest_path: str | Path) -> dict[str, Any]:
     manifest = Path(manifest_path)
     payload = json.loads(manifest.read_text(encoding="utf-8"))
     errors: list[str] = []
-    data = bytearray()
-    expected_indices = list(range(1, len(payload.get("parts", [])) + 1))
-    observed_indices = [row.get("index") for row in payload.get("parts", [])]
+    if not isinstance(payload, dict) or payload.get("schema_version") != "certgen.multipart_output.v1" or payload.get("claim_allowed") is not False:
+        return {"passed": False, "errors": ["multipart manifest schema or safety label is invalid"], "claim_allowed": False}
+    rows = payload.get("parts")
+    if not isinstance(rows, list) or not rows:
+        return {"passed": False, "errors": ["multipart manifest requires non-empty parts"], "claim_allowed": False}
+    expected_indices = list(range(1, len(rows) + 1))
+    observed_indices = [row.get("index") if isinstance(row, dict) else None for row in rows]
     if observed_indices != expected_indices:
         errors.append("multipart indices are missing, duplicated, or out of order")
-    for row in payload.get("parts", []):
-        part = manifest.parent / str(row.get("path", ""))
+    digest = hashlib.sha256()
+    total = 0
+    seen: set[str] = set()
+    for row in rows:
+        if not isinstance(row, dict):
+            errors.append("multipart row is not an object")
+            continue
+        raw = str(row.get("path", ""))
+        relative = PurePosixPath(raw)
+        if not raw or relative.is_absolute() or ".." in relative.parts or "\\" in raw or raw.casefold() in seen:
+            errors.append(f"unsafe or duplicate multipart member path: {raw}")
+            continue
+        seen.add(raw.casefold())
+        part = manifest.parent.joinpath(*relative.parts)
         if not part.is_file():
             errors.append(f"multipart member missing: {part.name}")
             continue
-        chunk = part.read_bytes()
-        if len(chunk) != row.get("size") or hashlib.sha256(chunk).hexdigest() != row.get("sha256"):
+        if part.is_symlink():
+            errors.append(f"multipart member is symlinked: {part.name}")
+            continue
+        chunk_hash = hashlib.sha256()
+        size = 0
+        with part.open("rb") as handle:
+            for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+                size += len(chunk)
+                total += len(chunk)
+                chunk_hash.update(chunk)
+                digest.update(chunk)
+        if size != row.get("size") or chunk_hash.hexdigest() != row.get("sha256"):
             errors.append(f"multipart member corrupt: {part.name}")
-        data.extend(chunk)
-    if len(data) != payload.get("source_zip_size") or hashlib.sha256(data).hexdigest() != payload.get("source_zip_sha256"):
+    if total != payload.get("source_zip_size") or digest.hexdigest() != payload.get("source_zip_sha256"):
         errors.append("reassembled multipart payload differs from source ZIP")
     return {"passed": not errors, "errors": errors, "claim_allowed": False}
+
+
+def reassemble_multipart_fallback(
+    manifest_path: str | Path,
+    *,
+    output_path: str | Path | None = None,
+) -> dict[str, Any]:
+    manifest = Path(manifest_path)
+    validation = validate_multipart_fallback(manifest)
+    if not validation["passed"]:
+        return {**validation, "status": "MULTIPART_VALIDATION_FAILED", "path": None}
+    payload = json.loads(manifest.read_text(encoding="utf-8"))
+    target = Path(output_path) if output_path is not None else manifest.parent / str(payload["source_zip"])
+    if target.exists() and file_sha256(target) == payload["source_zip_sha256"]:
+        status = "REUSED_VALID_REASSEMBLED_ZIP"
+    else:
+        if target.exists():
+            raise FileExistsError("refusing to overwrite a different multipart output ZIP")
+        target.parent.mkdir(parents=True, exist_ok=True)
+        temporary = target.with_name(f".{target.name}.partial")
+        if temporary.exists():
+            temporary.unlink()
+        with temporary.open("xb") as output:
+            for row in payload["parts"]:
+                relative = PurePosixPath(str(row["path"]))
+                with manifest.parent.joinpath(*relative.parts).open("rb") as source:
+                    shutil.copyfileobj(source, output, 1024 * 1024)
+        if temporary.stat().st_size != payload["source_zip_size"] or file_sha256(temporary) != payload["source_zip_sha256"]:
+            temporary.unlink()
+            raise RuntimeError("atomic multipart rebuild differs from the declared final ZIP")
+        os.replace(temporary, target)
+        status = "REASSEMBLED_VALID_FINAL_ZIP"
+    from certgen.discovery import classify_package
+
+    package = classify_package(target)
+    return {
+        "passed": package.valid,
+        "status": status if package.valid else "REASSEMBLED_ZIP_PACKAGE_INVALID",
+        "path": str(target),
+        "sha256": file_sha256(target),
+        "package": package.to_dict(),
+        "errors": list(package.errors),
+        "claim_allowed": False,
+    }

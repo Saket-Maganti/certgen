@@ -29,8 +29,10 @@ class CandidateForm(str, Enum):
 
 class SelectionStatus(str, Enum):
     SELECTED_UNIQUE_VALID_PACKAGE = "SELECTED_UNIQUE_VALID_PACKAGE"
+    DUPLICATE_IDENTICAL_COPY_DEDUPED = "DUPLICATE_IDENTICAL_COPY_DEDUPED"
     NO_MATCHING_PACKAGE = "NO_MATCHING_PACKAGE"
     AMBIGUOUS_MATCHING_PACKAGES = "AMBIGUOUS_MATCHING_PACKAGES"
+    AMBIGUOUS_DIFFERENT_CONTENT = "AMBIGUOUS_DIFFERENT_CONTENT"
 
 
 @dataclass(frozen=True)
@@ -68,6 +70,11 @@ class PackageIdentity:
     integrity_manifest: str | None
     completion_status: str | None
     scientific_identity_hash: str
+    contract_version: str | None = None
+    direction: str | None = None
+    source_code_hash: str | None = None
+    output_schema_version: str | None = None
+    input_package_sha256: str | None = None
 
     def to_dict(self) -> dict[str, Any]:
         payload = asdict(self)
@@ -106,6 +113,12 @@ class PackageRequirement:
     expected_configuration_hash: str | None = None
     expected_run_id: str | None = None
     expected_scale: str | None = None
+    expected_package_sha256: str | None = None
+    expected_scientific_identity_hash: str | None = None
+    expected_source_code_hash: str | None = None
+    expected_integrity_manifest: str | None = None
+    expected_output_schema_version: str | None = None
+    expected_input_package_sha256: str | None = None
     required_completion_status: str | tuple[str, ...] | None = None
 
     def to_dict(self) -> dict[str, Any]:
@@ -115,6 +128,64 @@ class PackageRequirement:
         if isinstance(self.required_completion_status, tuple):
             payload["required_completion_status"] = list(self.required_completion_status)
         return payload
+
+
+@dataclass(frozen=True)
+class ExpectedPackageIdentity:
+    """Versioned, portable identity bound into canonical notebooks and handoffs."""
+
+    expected_package_sha256: str
+    expected_scientific_identity_hash: str
+    expected_configuration_hash: str
+    expected_run_id: str
+    expected_source_code_hash: str
+    expected_integrity_manifest: str
+    expected_output_schema_version: str
+    expected_package_type: str
+    expected_stage: str
+    expected_study_hash: str | None = None
+    expected_profile_id: str | None = None
+    expected_scale: str | None = None
+    schema_version: str = "certgen.expected_package_identity.v1"
+    claim_allowed: bool = False
+
+    def validate(self) -> None:
+        if self.schema_version != "certgen.expected_package_identity.v1":
+            raise ValueError("unsupported expected-package identity schema")
+        if self.claim_allowed is not False:
+            raise ValueError("expected-package identity must set claim_allowed=false")
+        for field_name in (
+            "expected_package_sha256",
+            "expected_scientific_identity_hash",
+            "expected_configuration_hash",
+            "expected_source_code_hash",
+        ):
+            value = str(getattr(self, field_name))
+            if len(value) != 64 or any(character not in "0123456789abcdef" for character in value):
+                raise ValueError(f"{field_name} must be a lowercase SHA-256")
+        for field_name in (
+            "expected_run_id",
+            "expected_integrity_manifest",
+            "expected_output_schema_version",
+            "expected_package_type",
+            "expected_stage",
+        ):
+            if not str(getattr(self, field_name)).strip():
+                raise ValueError(f"{field_name} is required")
+
+    def to_dict(self) -> dict[str, Any]:
+        self.validate()
+        return asdict(self)
+
+    @classmethod
+    def from_dict(cls, payload: dict[str, Any]) -> "ExpectedPackageIdentity":
+        allowed = {field_name for field_name in cls.__dataclass_fields__}
+        unknown = sorted(set(payload) - allowed)
+        if unknown:
+            raise ValueError("unknown expected-package identity fields: " + ", ".join(unknown))
+        identity = cls(**payload)
+        identity.validate()
+        return identity
 
 
 @dataclass(frozen=True)
@@ -156,8 +227,8 @@ class DiscoveryResult:
             "remediation": (
                 "Attach or copy one package whose internal identity matches the requirement."
                 if self.status is SelectionStatus.NO_MATCHING_PACKAGE
-                else "Remove duplicate exact matches or narrow the requirement with study/configuration/run identity."
-                if self.status is SelectionStatus.AMBIGUOUS_MATCHING_PACKAGES
+                else "Remove different-content exact matches or bind the expected package SHA-256."
+                if self.status in {SelectionStatus.AMBIGUOUS_MATCHING_PACKAGES, SelectionStatus.AMBIGUOUS_DIFFERENT_CONTENT}
                 else "No remediation required."
             ),
             "claim_allowed": False,

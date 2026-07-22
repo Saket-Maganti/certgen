@@ -2,7 +2,7 @@ path,size_bytes,tracked,ignored,lfs_managed,classification,allowed_to_commit,rea
 .mypy_cache/3.11/cache.0.db,9297920,false,true,false,source_or_documentation,false,ignored generated artifact
 .mypy_cache/3.11/cache.1.db,9428992,false,true,false,source_or_documentation,false,ignored generated artifact
 .mypy_cache/3.11/cache.10.db,10522624,false,true,false,source_or_documentation,false,ignored generated artifact
-.mypy_cache/3.11/cache.11.db,10932224,false,true,false,source_or_documentation,false,ignored generated artifact
+.mypy_cache/3.11/cache.11.db,10956800,false,true,false,source_or_documentation,false,ignored generated artifact
 .mypy_cache/3.11/cache.12.db,10432512,false,true,false,source_or_documentation,false,ignored generated artifact
 .mypy_cache/3.11/cache.13.db,8888320,false,true,false,source_or_documentation,false,ignored generated artifact
 .mypy_cache/3.11/cache.14.db,10149888,false,true,false,source_or_documentation,false,ignored generated artifact
@@ -29,8 +29,12 @@ dist/certgen_execution_pass_20260721_final.zip,1107103,false,true,false,generate
 dist/certgen_execution_pass_20260721_final.zip.partial,1107143,false,true,false,generated_or_release_artifact,false,ignored generated artifact
 dist/certgen_execution_pass_20260721_final.zip.pre-final-cleanup,1107143,false,true,false,generated_or_release_artifact,false,ignored generated artifact
 dist/certgen_execution_pass_20260721_final.zip.stale,1107130,false,true,false,generated_or_release_artifact,false,ignored generated artifact
+dist/certgen_final_kaggle_execution_path_release.zip,2622487,false,true,false,generated_or_release_artifact,false,ignored generated artifact
+dist/certgen_final_kaggle_execution_path_release_final.zip,2628049,false,true,false,generated_or_release_artifact,false,ignored generated artifact
 dist/certgen_max_ceiling_pre_run.zip,1054231,false,true,false,generated_or_release_artifact,false,ignored generated artifact
+dist/certgen_universal_kaggle_release.zip,1139279,false,true,false,generated_or_release_artifact,false,ignored generated artifact
 dist/quarantine/certgen_cvpr_reproducibility.20260721.manifest-collision.zip,1100235,false,true,false,generated_or_release_artifact,false,ignored generated artifact
 dist/quarantine/certgen_cvpr_reproducibility.20260721.orphaned-manifest.zip,1099990,false,true,false,generated_or_release_artifact,false,ignored generated artifact
 dist/quarantine/certgen_cvpr_reproducibility.20260721.private-path-rejected.zip,1100132,false,true,false,generated_or_release_artifact,false,ignored generated artifact
+dist/quarantine/certgen_final_execution_path_candidate.zip,2598589,false,true,false,generated_or_release_artifact,false,ignored generated artifact
 registry/manifests/cvpr/cifar10_reference.jsonl,7640000,true,false,false,source_or_documentation,true,below the 90 MiB source-control gate

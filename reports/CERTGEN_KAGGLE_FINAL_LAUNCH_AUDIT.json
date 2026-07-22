@@ -76,7 +76,7 @@
         "path": "./artifacts/cvpr/kaggle_inputs/diagnostic/certgen_kaggle_environment_diagnostic_input.zip",
         "schema_version": "certgen.phase1.kaggle_input_validation.v1",
         "stage": "diagnostic",
-        "zip_sha256": "7758308eb2908924ccf15866315fbac0d080d54d1115cacf9dbe178b432b18e6"
+        "zip_sha256": "d9b056f220fdd3ef87d5a0c2b41df0d8012452f0f912cb2e378bbc8f764e718d"
       },
       "passed": true
     },
@@ -102,7 +102,7 @@
         "path": "./artifacts/cvpr/kaggle_inputs/preflight/certgen_cvpr_preflight_input.zip",
         "schema_version": "certgen.phase1.kaggle_input_validation.v1",
         "stage": "preflight",
-        "zip_sha256": "b26d42167398c5e2ea6e47b817ce53ebf98bf27ea3b1ef9f9df3b34d4731bf25"
+        "zip_sha256": "d3a5b585383e12cfad82d94694fa1d8e2701de399617e8e515bafae57f33e93f"
       },
       "passed": true
     },

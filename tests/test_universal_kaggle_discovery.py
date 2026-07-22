@@ -61,7 +61,7 @@ def test_arbitrary_name_depth_unrelated_candidates_and_materialization(tmp_path:
     assert (output / ".certgen_runtime_location.json").is_file()
 
 
-def test_extracted_package_extra_file_and_duplicate_exact_matches_fail_closed(tmp_path: Path) -> None:
+def test_extracted_package_extra_file_and_identical_duplicates_are_deduped(tmp_path: Path) -> None:
     extracted = write_synthetic_package(tmp_path / "auto-expanded", stage="preflight", extracted=True)
     selected = discover_packages((tmp_path,), requirement=_requirement("preflight"))
     assert selected.status is SelectionStatus.SELECTED_UNIQUE_VALID_PACKAGE
@@ -70,10 +70,25 @@ def test_extracted_package_extra_file_and_duplicate_exact_matches_fail_closed(tm
 
     first = write_synthetic_package(tmp_path / "one.zip", stage="generation")
     second = write_synthetic_package(tmp_path / "nested" / "two.zip", stage="generation")
-    ambiguous = discover_packages((tmp_path,), requirement=_requirement("generation"))
-    assert ambiguous.status is SelectionStatus.AMBIGUOUS_MATCHING_PACKAGES
-    assert {row.path for row in ambiguous.matching_candidates} == {first, second}
-    assert ambiguous.selected is None
+    deduped = discover_packages((tmp_path,), requirement=_requirement("generation"))
+    assert deduped.status is SelectionStatus.DUPLICATE_IDENTICAL_COPY_DEDUPED
+    assert {row.path for row in deduped.matching_candidates} == {first, second}
+    assert deduped.selected is not None
+
+
+def test_discovery_excludes_quarantined_packages(tmp_path: Path) -> None:
+    active = write_synthetic_package(tmp_path / "active.zip", stage="diagnostic")
+    write_synthetic_package(
+        tmp_path / "quarantine" / "superseded.zip",
+        stage="diagnostic",
+        study_hash="b" * 64,
+    )
+
+    result = discover_packages((tmp_path,), requirement=_requirement())
+
+    assert result.status is SelectionStatus.SELECTED_UNIQUE_VALID_PACKAGE
+    assert result.selected is not None
+    assert result.selected.path == active
 
 
 def test_archive_traversal_symlink_case_collision_and_limits_are_rejected(tmp_path: Path) -> None:

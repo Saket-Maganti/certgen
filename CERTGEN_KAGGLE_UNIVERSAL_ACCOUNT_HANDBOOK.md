@@ -4,9 +4,9 @@ CertGen’s canonical Kaggle workflow is account-, dataset-, mount-, and filenam
 
 ## What discovery trusts
 
-The notebooks search `/kaggle/input` and `/kaggle/working` recursively, plus any roots in `CERTGEN_SEARCH_ROOTS`. They impose depth, candidate, archive-member, and expansion-byte limits; do not follow symlinks; inspect ZIP central directories before extraction; verify hashes and membership; and select the one package whose internal package type, stage, study/configuration/run identity, profile, scale, completion status, and integrity manifest match. Filenames, modification times, account names, and dataset slugs are never package identity.
+The notebooks search `/kaggle/input` and `/kaggle/working` recursively, plus any roots in `CERTGEN_SEARCH_ROOTS`. A frozen stdlib-only bootstrap imposes depth, candidate, archive-member, expansion-byte, metadata, and compression limits; rejects traversal, links, special entries, nested archives, and case collisions; verifies exact membership, every file hash, the complete source-code inventory, and the notebook's exact package/scientific identity; atomically materializes; and only then imports CertGen. Filenames, modification times, account names, and dataset slugs are never package identity.
 
-ZIP packages and already-extracted package directories are both valid. Unrelated datasets, old CertGen packages, wrong-stage packages, wrong-study packages, wheelhouses, model caches, screenshots, and notes are ignored. Two exact matches stop with `AMBIGUOUS_MATCHING_PACKAGES`; detach one duplicate or provide a narrower identity requirement. Zero matches stop with `NO_MATCHING_PACKAGE` and a candidate-by-candidate explanation.
+ZIP packages and authenticated already-extracted package directories are both valid. Unrelated datasets, old CertGen packages, wrong-stage packages, wrong-study packages, wheelhouses, model caches, screenshots, and notes are ignored. Multiple byte-identical exact copies produce `DUPLICATE_IDENTICAL_COPY_DEDUPED`; different-content matches stop with `AMBIGUOUS_DIFFERENT_CONTENT`. Zero matches stop with `NO_MATCHING_PACKAGE` and a candidate-by-candidate explanation.
 
 ## Four equivalent account layouts
 
@@ -28,6 +28,7 @@ Each layout may include unrelated datasets and may use a differently named model
 3. Choose exactly one dependency mode: `KAGGLE_INTERNET_ON_INSTALL`, `PRIVATE_WHEELHOUSE_OFFLINE`, or `USE_PREINSTALLED_VALIDATED`.
 4. For preflight and later stages, attach the private asset dataset under any mount name. Its `asset_manifest.json` must match every required asset ID/revision and every file hash.
 5. Run the canonical notebook top to bottom. Source-controlled notebooks have no executed output cells.
+   If installation writes `kernel_restart_required.json`, restart the kernel and rerun the same environment cell. No environment variable is needed: the marker is bound to the authenticated input, automatically detected, revalidated with imports and `pip check`, then consumed.
 6. Download the deterministic run-ID output ZIP. You may rename it and place it in any explicitly searched local directory; do not edit or unpack its contents.
 7. Resume locally with:
 
@@ -42,9 +43,10 @@ The current first notebook is `notebooks/kaggle/certgen_kaggle_environment_diagn
 
 ```bash
 python3 -m certgen discover packages --search-root /path --expected-stage diagnostic --json
+python3 -m certgen discover expected-output --root . --stage diagnostic --search-root /path --json --explain
 python3 -m certgen discover reference --search-root /path --expected-kind cifar10_python --json
 python3 -m certgen discover assets --search-root /path --asset-id clip__asset --revision <revision> --json
-python3 -m certgen discover wheelhouse --search-root /path --profile kaggle_t4x2_features --json
+python3 -m certgen discover wheelhouse --search-root /path --profile kaggle_t4x2_features --target-python cp311 --target-platform manylinux_x86_64 --json
 ```
 
 Use `--max-depth`, `--max-candidates`, `--maximum-members`, and `--maximum-bytes` only to make limits stricter or to accommodate a reviewed large package. CertGen never crawls the entire user filesystem automatically.

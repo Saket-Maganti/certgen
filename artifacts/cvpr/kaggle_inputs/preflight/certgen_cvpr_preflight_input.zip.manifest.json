@@ -1,19 +1,22 @@
 {
   "claim_allowed": false,
   "completion_status": "INPUT_PACKAGE_READY",
-  "configuration_hash": "e361765842064455ea51333a389609101e79c13b44affc9985973c8aefcb3e5a",
+  "configuration_hash": "daac551d32f196d5e944b350d4662a4bbf8472a617f8fbb805a813a5f3e812a0",
   "contains_credentials": false,
   "contains_fixture_payload": false,
   "contains_restricted_weights": false,
+  "contract_version": "certgen.package_contract.v2",
   "created_at_utc": "1980-01-01T00:00:00Z",
   "dependency_lock": "requirements/stage.lock",
+  "direction": "INPUT",
   "expected_output_schema": "expected_output_schema.json",
   "integrity_manifest": "package_integrity_manifest.json",
+  "lock_integrity": "requirements/lock_integrity.json",
   "members": [
     {
       "path": "KAGGLE_ASSET_SETUP.md",
-      "sha256": "3d24d6c081a68f7d784a6f6763be87a6a210f0b1336c3347f6710f9e387929cc",
-      "size": 1849
+      "sha256": "df9f38406dab2adaae9c9cc5cfa65777559138b5f037c88d7a98f502bc59ae8b",
+      "size": 2353
     },
     {
       "path": "README.md",
@@ -42,8 +45,8 @@
     },
     {
       "path": "certgen/__main__.py",
-      "sha256": "8601defcf5c08a2fdcbf46b7023d5e3ff7463db172972a86e71455fec436e184",
-      "size": 58526
+      "sha256": "9a360e9ce33d9a0748cd3414568587736f3f5413288af66ea71e046c447e135c",
+      "size": 61504
     },
     {
       "path": "certgen/analysis/__init__.py",
@@ -722,8 +725,8 @@
     },
     {
       "path": "certgen/discovery/__init__.py",
-      "sha256": "710732d484e18d3fd2968be25063217c91a1ddda062122a6796b979f77cc141e",
-      "size": 5846
+      "sha256": "cc4e3bb06b9479bd3a6d68a820981eec15efc5df3d2213e23ee2f01e4f8c806b",
+      "size": 6294
     },
     {
       "path": "certgen/discovery/audit.py",
@@ -732,13 +735,18 @@
     },
     {
       "path": "certgen/discovery/classify.py",
-      "sha256": "efcd963004e5aea62e5155b992cc7ed32948574566ae6f696079d89e333ff7c1",
-      "size": 17481
+      "sha256": "96de6c3aff9e7402bfe093c3916e478acefe8370bb717054df346cb523b7965b",
+      "size": 21405
+    },
+    {
+      "path": "certgen/discovery/expected_output.py",
+      "sha256": "a6e661fa6c29c5e9f0bf9c7cb1b60bc2934631f3b8f292e0c65b8efc021df2f4",
+      "size": 4338
     },
     {
       "path": "certgen/discovery/models.py",
-      "sha256": "3b2c4df7eef81e0fc08ffe0f2c345e5068be46f63770da7f2ffe54eeba6783c3",
-      "size": 5597
+      "sha256": "55b783adcb22690648ffff4c13f466814c755cad68c41db26de954ab47a0875f",
+      "size": 8561
     },
     {
       "path": "certgen/discovery/reports.py",
@@ -752,8 +760,8 @@
     },
     {
       "path": "certgen/discovery/scan.py",
-      "sha256": "13461274aee05d22d39dd5b4abbfbc82b5e89b25a1b9d30effe7fef1a7de157c",
-      "size": 5293
+      "sha256": "dd38fc30fa2d2acc1c0067b0377ea43e6c338cc33a8248b3f00a4d74b1617c68",
+      "size": 5207
     },
     {
       "path": "certgen/discovery/security.py",
@@ -762,13 +770,13 @@
     },
     {
       "path": "certgen/discovery/select.py",
-      "sha256": "111451ff7cee3466fd79d7725754b25d2d81c314a47db1277654c9701ec8fa8c",
-      "size": 1531
+      "sha256": "8ed306c4fe9ad9a4a05bfe6b5511d1af2e65edc365457f3438a0a1a339d2a6a0",
+      "size": 2159
     },
     {
       "path": "certgen/discovery/specialized.py",
-      "sha256": "1c7803842dc368f9b36d5549811adcb5aeca67d599ac97428ce8830cb0f6ae47",
-      "size": 13420
+      "sha256": "8e12875c48f7fb9d495cd22bf42e47aaefacd1dd9e99482cfb1f733b858bc3ad",
+      "size": 25858
     },
     {
       "path": "certgen/experiments/__init__.py",
@@ -1052,8 +1060,8 @@
     },
     {
       "path": "certgen/notebooks/cvpr_factory.py",
-      "sha256": "2611a1109ec8844e8944ab2468e5ce92740ff5c55a029dd1f15272922f34970e",
-      "size": 22032
+      "sha256": "0011723f43f0679193d944a7e7dcf499608794d2e099cb0731c22543a6ae260e",
+      "size": 24791
     },
     {
       "path": "certgen/notebooks/cvpr_runtime.py",
@@ -1067,13 +1075,13 @@
     },
     {
       "path": "certgen/notebooks/environment_bootstrap.py",
-      "sha256": "96927da4b825113c307e03b828117f0e81bdb3b8a23a8b9013387516a4d0d1a2",
-      "size": 14845
+      "sha256": "e508aff43d5dccf190e1e4e3b49e2696b304dfbb4420a9c86fa79ce4cdc9400a",
+      "size": 18760
     },
     {
       "path": "certgen/notebooks/final_zip.py",
-      "sha256": "e35d90cd7474a7502a713a73cedf5e1c1104a826a68e50fee396216c41db157c",
-      "size": 10011
+      "sha256": "ac46e11c47e8876b260a57e1c50a9b296d4ab4a664fa9251645beb7d790e5960",
+      "size": 14277
     },
     {
       "path": "certgen/notebooks/generate_feature_notebook.py",
@@ -1114,6 +1122,11 @@
       "path": "certgen/notebooks/subprocess_orchestrator.py",
       "sha256": "18a4810fa59d14c8966a8fe76706b6c2671e055becb1f16c71bc913ad9144cf6",
       "size": 13679
+    },
+    {
+      "path": "certgen/notebooks/trusted_bootstrap.py",
+      "sha256": "1b790db1512a13136898fde403f0fba1acee07d03f906de0c7a7a30d10dcb8ab",
+      "size": 21546
     },
     {
       "path": "certgen/notebooks/v9_static_analyzer.py",
@@ -1162,8 +1175,8 @@
     },
     {
       "path": "certgen/notebooks/workers/preflight_worker.py",
-      "sha256": "1d130a411198e3b3910f03de39ad2b37befa1dbfa2729766c4e9755052a43e71",
-      "size": 12185
+      "sha256": "009755c595bd089dcf0a001a12108a8934771b6f6ee7b5ab48636019f1b385a0",
+      "size": 12944
     },
     {
       "path": "certgen/packaging/__init__.py",
@@ -1267,13 +1280,13 @@
     },
     {
       "path": "certgen/phase1/kaggle.py",
-      "sha256": "dc83fd96a925e91f320c12b17f68578e6f8ec41a26ef3aafafc190d586af5635",
-      "size": 27774
+      "sha256": "246c5a1d655b40d43f5e6f8b3e5423fddb0605673f12dee2cdd3e579961ce6d2",
+      "size": 31717
     },
     {
       "path": "certgen/phase1/notebooks.py",
-      "sha256": "2a185a6aacffaa7c6daf24f9c940d671ce63fb4835b37bb7958493c2a05f35c3",
-      "size": 18476
+      "sha256": "e2dd4b172a261fceed8b601faf9707a4d233bfa0d9da4e53563266fdff994c59",
+      "size": 19773
     },
     {
       "path": "certgen/phase1/rehearsal.py",
@@ -1412,8 +1425,8 @@
     },
     {
       "path": "certgen/release/archive.py",
-      "sha256": "247b2d99f4b5d6583674a669df160e6ecd899458c6613de19cd99f680a962b9a",
-      "size": 14612
+      "sha256": "aea7bf51409eaa857e7db969d0614de72eb9b28d23bd9052b7e4bb086897912d",
+      "size": 16996
     },
     {
       "path": "certgen/release/capsule.py",
@@ -1622,7 +1635,7 @@
     },
     {
       "path": "configuration.yaml",
-      "sha256": "f321e53d379946956ffff4b6040d0619136f7338785dcc7ac379cb3e647f3279",
+      "sha256": "d52cb90962d3ee2a77d1a8afa63d12fbb4796f63bbef8b37fc550e15e50c3f97",
       "size": 11617
     },
     {
@@ -1632,17 +1645,17 @@
     },
     {
       "path": "notebook.ipynb",
-      "sha256": "b4833302addb966014d7776baad81b43eabe083fc8af539543a32293b00a83bd",
-      "size": 27006
+      "sha256": "e41c6b6032cbaee3c640a9d18aae9d309815e528ca1d6712619d5b61f3b4ecf2",
+      "size": 51933
     },
     {
       "path": "package_identity.json",
-      "sha256": "b3c5abfcef04712dd0da13856809b291c8f8d923168236b0c3eb0063f36c0d2d",
-      "size": 627
+      "sha256": "9191e013dc7fe1d171db3e4465b7613ec9cd381e375aab0133e31ac53cc27fe6",
+      "size": 889
     },
     {
       "path": "preflight_config.yaml",
-      "sha256": "f321e53d379946956ffff4b6040d0619136f7338785dcc7ac379cb3e647f3279",
+      "sha256": "d52cb90962d3ee2a77d1a8afa63d12fbb4796f63bbef8b37fc550e15e50c3f97",
       "size": 11617
     },
     {
@@ -1656,23 +1669,1627 @@
       "size": 333
     },
     {
+      "path": "requirements/lock_integrity.json",
+      "sha256": "b8d94d30d8a92b7f94ac91c3a5bba2290643f679be2c4a201bdadb7757aa6efe",
+      "size": 710
+    },
+    {
       "path": "requirements/stage.lock",
       "sha256": "e63da1a51492e40710c64cb9564f4ad559c2a9cc0b60cb5ff1d59f0e43724a9e",
       "size": 183
     }
   ],
   "not_empirical_evidence": true,
-  "package_type": "certgen_preflight_input",
+  "output_schema_version": "certgen.cvpr.preflight_output.v2",
+  "package_type": "PREFLIGHT_INPUT",
   "profile_hash": "29267d52e3c91dc51fc6a9605a181e162b2e452945f0646e3eeea847285b647e",
   "profile_id": "cifar_integrity_minimal",
   "run_id": "cifar10__checkpoint-preflight__tiny__29267d52e3c9",
   "scale": null,
-  "schema_version": "certgen.phase1.kaggle_input_bundle.v1",
-  "source_code_hash": "3e59ed889e6f97394bf685b2613e1de61fa145f41fb1c530d686572d6808947f",
+  "schema_version": "certgen.phase1.kaggle_input_bundle.v2",
+  "scientific_identity_hash": "a31e6ba5c9486fdafd6491c6d7c03a2887049b0b47a8b2f2a1da0ba1a452e4a5",
+  "source_code_hash": "e2778da97acaa59913d544269c41be447017692786507382e073ed0f5ab982ca",
+  "source_inventory": [
+    {
+      "path": "certgen/__init__.py",
+      "sha256": "1b4eb70d809a8e4de89d3ed57a4f0c83c853d096fc7d48d7274e86267dd86125",
+      "size": 46
+    },
+    {
+      "path": "certgen/__main__.py",
+      "sha256": "9a360e9ce33d9a0748cd3414568587736f3f5413288af66ea71e046c447e135c",
+      "size": 61504
+    },
+    {
+      "path": "certgen/analysis/__init__.py",
+      "sha256": "62c628f6832a89e904280befdb59bf7c58344629fac4d766d17e24e8effa5519",
+      "size": 27
+    },
+    {
+      "path": "certgen/analysis/block_size_sensitivity.py",
+      "sha256": "be6b663c36237b574d57a9aa9546df44a0fe79fd40d6655aff51e35397a16e1f",
+      "size": 4135
+    },
+    {
+      "path": "certgen/analysis/decidedness.py",
+      "sha256": "56abd11b8e484b91d57929363fe88d44761971f966c720b0afef52019f26054a",
+      "size": 2083
+    },
+    {
+      "path": "certgen/analysis/ranking_stability.py",
+      "sha256": "e1e79e3d45fda1bec97db34449914ecfc22ee28289d229cb29cb1aa8be5a50d8",
+      "size": 1173
+    },
+    {
+      "path": "certgen/analysis/samples_to_decision.py",
+      "sha256": "9420f769f38dcfca5365c8375be69fcb3a4c7b5819e25aa216c692623fd28e9e",
+      "size": 1326
+    },
+    {
+      "path": "certgen/audit/__init__.py",
+      "sha256": "be4f1e5a8516e56fea747974a818fc37651d05eea10e1a58957d1255468a3b7a",
+      "size": 34
+    },
+    {
+      "path": "certgen/audit/analysis_plan_audit.py",
+      "sha256": "1777deed93f75ef32ea5308c6e584a88595423b71b90e95d8472751035abf89e",
+      "size": 4157
+    },
+    {
+      "path": "certgen/audit/claim_contract.py",
+      "sha256": "4b1050dd59734db4c388d922c5ca2f939303b2c046b4bd0330988cba58ada93e",
+      "size": 8652
+    },
+    {
+      "path": "certgen/audit/claim_trace_audit_v5.py",
+      "sha256": "c3b14c03c4c45dc8fac20febd09d17c2c03bf79417aa03eee12865785142c52a",
+      "size": 1670
+    },
+    {
+      "path": "certgen/audit/cvpr_final_audit.py",
+      "sha256": "c991f0089148cc5b2e9faee9da41e211b980dd55a6d058bd6d0c9ee8aab749e5",
+      "size": 9016
+    },
+    {
+      "path": "certgen/audit/cvpr_readiness.py",
+      "sha256": "d8f1458415851eb3e3c8714ff4746f32c919dc5a4987fbe0745a2408babe9ddf",
+      "size": 3374
+    },
+    {
+      "path": "certgen/audit/final_execution_audit.py",
+      "sha256": "1ed46ea2f78880ded09312a7717a1a1b364f15867df693d81ed5b0a1887502c3",
+      "size": 683
+    },
+    {
+      "path": "certgen/audit/final_pre_run_audit.py",
+      "sha256": "d7d9e7bee93586f3ec7fa0274a21f704b9420f84430011d6da7575262614a3e7",
+      "size": 13211
+    },
+    {
+      "path": "certgen/audit/forensic_final_audit.py",
+      "sha256": "b63c604ec9b72b71e1bf678a3f5732be7c9dc74305f30551a8cdcae00c78c14b",
+      "size": 9165
+    },
+    {
+      "path": "certgen/audit/forensic_inventory.py",
+      "sha256": "2a67148dc20f4ddc92b8b32f678c080108388d7d0bc3fa0204feda4d56ee5d3f",
+      "size": 8467
+    },
+    {
+      "path": "certgen/audit/metric_reproduction.py",
+      "sha256": "1d71d461ab615b99e976c100d5d38b62ebe63e3a82978c45329d6d04b7c4436c",
+      "size": 5694
+    },
+    {
+      "path": "certgen/audit/paper_scaffold_audit.py",
+      "sha256": "468a5ba382dc44b02cc094ef830d60fc7307afb34da5e61aa788aa9d9e5a1b1a",
+      "size": 2420
+    },
+    {
+      "path": "certgen/audit/preprocessing_lock_audit.py",
+      "sha256": "df409f81a33b6b8885919dbffa77886bc1c6e1755a7241d13b28136a8c965249",
+      "size": 388
+    },
+    {
+      "path": "certgen/audit/proof_obligation_audit.py",
+      "sha256": "550b75b76d84f33f45d977734a21d52ae04ac818a8788c5ad4b3e5dd46a139ce",
+      "size": 3909
+    },
+    {
+      "path": "certgen/audit/r0_cpu_gpu_audit.py",
+      "sha256": "18c74f3ad656f9196b388ab1bdde285b9dbb431e8ade5998ebbb493b6d602f8a",
+      "size": 11780
+    },
+    {
+      "path": "certgen/audit/r0_technical_correction_audit.py",
+      "sha256": "89874004906715594ab4544f1e13a455579831ec79902b82a79ae53da1d73712",
+      "size": 297
+    },
+    {
+      "path": "certgen/audit/r1a_sample_materialization_audit.py",
+      "sha256": "06fa0a955ec9a8f1b56a67787ddc66fe78902cc6bffb726a60f829e7ce9b4c07",
+      "size": 8027
+    },
+    {
+      "path": "certgen/audit/r1b_generation_package_audit.py",
+      "sha256": "2e9acdac54d521202e81f241d56589b4f37e47f39090026ca3d54be31ccf7aed",
+      "size": 7586
+    },
+    {
+      "path": "certgen/audit/r1e_first_pilot_audit.py",
+      "sha256": "01e622ad1a245d5dcc7ab94db37dbabf77241c4c20db717fe3026add5977bc5f",
+      "size": 1693
+    },
+    {
+      "path": "certgen/audit/related_work_audit.py",
+      "sha256": "0adc412456b82d3f374c312dd939fe1251bd7f52e8a1977d5b6ac0d33baeca3c",
+      "size": 4405
+    },
+    {
+      "path": "certgen/audit/release_safety_v5.py",
+      "sha256": "98179d1e903a79de9a38be4c4e44fb0daee31bfdd82058bb11d97446d2d097cc",
+      "size": 3656
+    },
+    {
+      "path": "certgen/audit/result_contract_audit.py",
+      "sha256": "e521f7329cf3c11e4153a9ee9764c4c8b28598cb9e656477083706ab37a4cd64",
+      "size": 1473
+    },
+    {
+      "path": "certgen/audit/reviewer_harness_audit.py",
+      "sha256": "458beeb99b7014b73b55ecdaf1e13153f4046a24bb6b68025879779e3072cd4f",
+      "size": 2044
+    },
+    {
+      "path": "certgen/audit/v2_audit.py",
+      "sha256": "b00f639675c2051336c43da7db7dc7971e356d54d2b7728eae6a0a04bf83693f",
+      "size": 7794
+    },
+    {
+      "path": "certgen/audit/v3_final.py",
+      "sha256": "6fd1824da56d0c168a50573c8944f33c1f8e1da48846b43bd3a728a43027f2ff",
+      "size": 11857
+    },
+    {
+      "path": "certgen/audit/v3_intake.py",
+      "sha256": "be0b929eefbf1817c2307a4940ef1618fb53880e9543b43ba5090329ff8cf32d",
+      "size": 4807
+    },
+    {
+      "path": "certgen/audit/v4_audit.py",
+      "sha256": "93497023e1ebd2c972d1283029f0ba9dab10350e408ba0097b6e0d56f2725f8f",
+      "size": 22193
+    },
+    {
+      "path": "certgen/audit/v4_state_intake.py",
+      "sha256": "30d9a9fe081a153d173f0e903eb5f4a89e1f394c0e94492e0e87d63c33f1ff79",
+      "size": 5368
+    },
+    {
+      "path": "certgen/audit/v5_audit.py",
+      "sha256": "672160626eb296bdc0dc7a394e8733e5e01b5f568f3c01902003c7124943bc8a",
+      "size": 11514
+    },
+    {
+      "path": "certgen/audit/v5_state_intake.py",
+      "sha256": "73f37375c39f11844a90c1f2880d296487ed20a02b285e8d8f802da405cdafeb",
+      "size": 7422
+    },
+    {
+      "path": "certgen/audit/v7_execution_development_audit.py",
+      "sha256": "60ab76e9129053031f316b5381909b1545e19004487d3ef6f0dbd977daa98879",
+      "size": 3356
+    },
+    {
+      "path": "certgen/audit/v9_execution_supercharger_audit.py",
+      "sha256": "3500b8b57707ec6618622101ef58bb55d44396e7692a63ed7b1643c813600bc5",
+      "size": 10880
+    },
+    {
+      "path": "certgen/certs/__init__.py",
+      "sha256": "cc7413f6301d50a65a887a83d5addf1c51f2cf3799d04e7b37d911c7b75d621b",
+      "size": 36
+    },
+    {
+      "path": "certgen/certs/api.py",
+      "sha256": "de625484ddb72606735a302bbd800315b230732c87d501a3c3400b24f3db6dd9",
+      "size": 12461
+    },
+    {
+      "path": "certgen/certs/batch_certificate.py",
+      "sha256": "63d9f9d35cbed97e0533d651c0005090e1d5556216da5fe17067acf5b6c6cb80",
+      "size": 3814
+    },
+    {
+      "path": "certgen/certs/clean_core.py",
+      "sha256": "e76d81deb6b6397b7fb638ebe12075be91f31288bb4efbd8bd2cd333b2ef3464",
+      "size": 3134
+    },
+    {
+      "path": "certgen/certs/confidence_sequence.py",
+      "sha256": "94f7c90fb1893f6b170caccc25a75193fe58816d68e609df6d0a409d5ed54ad8",
+      "size": 2806
+    },
+    {
+      "path": "certgen/certs/decision.py",
+      "sha256": "8a0716c4f5e9880398acb69680196cb24ec9ccd43200a5cb3896858d9ae672c3",
+      "size": 4486
+    },
+    {
+      "path": "certgen/certs/fid_policy.py",
+      "sha256": "5d220fc6756af149fa869132bf7a33b96e108308343764c48ef2cee2eb48f917",
+      "size": 1421
+    },
+    {
+      "path": "certgen/certs/io.py",
+      "sha256": "5084379456514535e778cbfee94e3d60cf7a49e7fbd3cf657c6b776e2cf6a22f",
+      "size": 2535
+    },
+    {
+      "path": "certgen/certs/multiple_comparisons.py",
+      "sha256": "51d097055e4c094ccaf9354e7a192278f9421652a6f4573f085d414160b994ff",
+      "size": 5173
+    },
+    {
+      "path": "certgen/certs/replay.py",
+      "sha256": "7a0fb6e38c969e48a1dce314f7d844ba04cad4fc4807fe987dbbd078497b1140",
+      "size": 3581
+    },
+    {
+      "path": "certgen/certs/sensitivity.py",
+      "sha256": "374b4ebd1f9767493c3339379f585b9ffbfa5455425c498f1bc5b85f022e976e",
+      "size": 892
+    },
+    {
+      "path": "certgen/certs/stopping.py",
+      "sha256": "109ce910571775a62fd933443d830986d9482dc7bf7bca9c2ebd832752aeb32e",
+      "size": 387
+    },
+    {
+      "path": "certgen/cli/__init__.py",
+      "sha256": "78beeac1f641b7767961affe90ec41fc45619d8745fa7475e0a249ee8de37c59",
+      "size": 45
+    },
+    {
+      "path": "certgen/cli/audit_metric_reproduction.py",
+      "sha256": "5bd764dd1037a69bb9adaa1b692c2a44d568be571af3d6bae8afd58b08cdea51",
+      "size": 782
+    },
+    {
+      "path": "certgen/cli/build_decidedness_audit.py",
+      "sha256": "c5ac43e799a9fc24b00a8d09e7e07dec8f8062d65ab361cb3f2a8bedb217ca74",
+      "size": 788
+    },
+    {
+      "path": "certgen/cli/build_paper_artifacts.py",
+      "sha256": "474cece86410cbd9b95aefa70a94ee4ab2d2751b92d0ddb925ce77e103883621",
+      "size": 1515
+    },
+    {
+      "path": "certgen/cli/build_ranking_stability_report.py",
+      "sha256": "5d9c11385755c3434fb2c4c52fa1ce0a72ed3326e44e5e75fbe146aa3b849ca5",
+      "size": 714
+    },
+    {
+      "path": "certgen/cli/build_real_run_plan.py",
+      "sha256": "beaf9ddeffb76f63fd012fb93ad101fec2ae373e92924b9c565d03c982ca6943",
+      "size": 908
+    },
+    {
+      "path": "certgen/cli/build_reference_draw_plan.py",
+      "sha256": "2dc1947f49a3bf599c9160f644b0bcd39ff9251057026a33a67b2813d37eb95b",
+      "size": 1937
+    },
+    {
+      "path": "certgen/cli/certify_clean_metric.py",
+      "sha256": "a7eeb70f4e1b4450d25458d05f7dc4f78f0fde97b2dd8e895e3977de3d8eb53e",
+      "size": 2667
+    },
+    {
+      "path": "certgen/cli/check_fid_policy.py",
+      "sha256": "aed2692104ee10845fef97c11a40d633f6dc1324c9b4441431669b73ea78ca3d",
+      "size": 707
+    },
+    {
+      "path": "certgen/cli/generate_feature_notebook.py",
+      "sha256": "8d41a7fb39fefae15c7a141ceb2d36f8afcd3bc914a4327d3bdd9d41dda14bb4",
+      "size": 854
+    },
+    {
+      "path": "certgen/cli/lock_preprocessing.py",
+      "sha256": "204a2f944047537cf51cead66ee845a15210e2c544785524cc9c26f44ad1ac42",
+      "size": 726
+    },
+    {
+      "path": "certgen/cli/make_smoke_artifacts.py",
+      "sha256": "48e9b3c1036cca22a95a33a385c90f67b6c322f51bda4f2eb66a93835bb638eb",
+      "size": 8550
+    },
+    {
+      "path": "certgen/cli/plan_feature_extraction.py",
+      "sha256": "9af0d0d3969877dfb82efe315768d29598e3491ffaaa2502bcc02ac55bb36653",
+      "size": 2693
+    },
+    {
+      "path": "certgen/cli/plan_first_pilot.py",
+      "sha256": "f5eb18276ab1f440c7a085d2a4b0abf04b4bcb83614f03137f8e961157e9233c",
+      "size": 1098
+    },
+    {
+      "path": "certgen/cli/plan_first_pilot_v2.py",
+      "sha256": "5de1644c690e6fa637db991b4b39bd91f277b6184a9cdd54d702ec13b406637f",
+      "size": 920
+    },
+    {
+      "path": "certgen/cli/r0_technical_audit.py",
+      "sha256": "249400b13ce616cdcdda9931d3025b99cacf9d7af347d9a94acc4c4309b19b27",
+      "size": 10995
+    },
+    {
+      "path": "certgen/cli/render_availability_table.py",
+      "sha256": "ada756f761041015acb2029004165ef1ea238284f4133a20fe384df8d7a50d0a",
+      "size": 704
+    },
+    {
+      "path": "certgen/cli/render_certificate_card.py",
+      "sha256": "53dee5a266b94cf95be2fe0f174567ef8752a5073fc1ce6b1d15f1a65ce4f695",
+      "size": 653
+    },
+    {
+      "path": "certgen/cli/render_pilot_report.py",
+      "sha256": "ea2a1ad6a01729ec30b4f05861d7138371ddc37f0b6403a3d122043718bf1779",
+      "size": 636
+    },
+    {
+      "path": "certgen/cli/replay_certificate.py",
+      "sha256": "85914e93c7aab14c1e23fd40c880bee16d86d1c87550cd4e3bded664d2af4aa0",
+      "size": 769
+    },
+    {
+      "path": "certgen/cli/run_batch_certificates.py",
+      "sha256": "fc927ca89bd4c0ebd905ef9c9073a11a2907af0fb0b6b1af277a8a8f8b0de3f4",
+      "size": 709
+    },
+    {
+      "path": "certgen/cli/run_cifar10_real_pilot.py",
+      "sha256": "7d62184ff8fbc61e40c81f25cffdfe61e16846addc49367868021c235d1a3a70",
+      "size": 1491
+    },
+    {
+      "path": "certgen/cli/run_feature_extraction.py",
+      "sha256": "f19a9712fbffbb0a731e74f70df9bcfff4e9160e7902f50dbdff962c9d0de468",
+      "size": 3581
+    },
+    {
+      "path": "certgen/cli/run_first_pilot.py",
+      "sha256": "e3726e946949ef47f6640d13d499569c9ecbce11ff5d9c4b23cd02b411a7f034",
+      "size": 821
+    },
+    {
+      "path": "certgen/cli/run_first_real_pilot.py",
+      "sha256": "37c5e1dca2fb5b38771d948f820d5447be145d8551fff6f8a812b910c0e57685",
+      "size": 949
+    },
+    {
+      "path": "certgen/cli/run_optional_stopping_lab.py",
+      "sha256": "8badd1ed5ac80f161b0e38481053dda91d6e7a20f7183e0d0b778f67c89a613b",
+      "size": 709
+    },
+    {
+      "path": "certgen/cli/run_release_safety_scan.py",
+      "sha256": "351e8efc6583d0428970d63422ba876495ddc69331faa6518c89be68629098c0",
+      "size": 1503
+    },
+    {
+      "path": "certgen/cli/run_reviewer_attack_harness.py",
+      "sha256": "e310b1d6a2570bdbd7662b11a5670cedf096b40e07e2f6ca21cbc39041e5b811",
+      "size": 1166
+    },
+    {
+      "path": "certgen/cli/run_v6_execution_gate.py",
+      "sha256": "8c927c4162a022a5039ed9b78e9dce23a9ccc02350ede8c1560b0255d6047d01",
+      "size": 1784
+    },
+    {
+      "path": "certgen/cli/v1_audit.py",
+      "sha256": "e703ab3a9f5183f91d55a28af6ccbd4d664928aac25e9bb77ec50c35ec6d2964",
+      "size": 9648
+    },
+    {
+      "path": "certgen/cli/v2_audit.py",
+      "sha256": "5b049a16085453d736092f7fe7dd7e11ecafabcd76ae8c21304fcfafaa431b4f",
+      "size": 673
+    },
+    {
+      "path": "certgen/cli/v3_audit.py",
+      "sha256": "af985e42f6001d94dcf6dda8d5071b0dea6f985f343f41e65ac6ae67206f4e48",
+      "size": 671
+    },
+    {
+      "path": "certgen/cli/v3_intake_audit.py",
+      "sha256": "a87c71a47adab2eb82011f13884958d055d57a334b8f4eb3541430e4ad38190e",
+      "size": 774
+    },
+    {
+      "path": "certgen/cli/v4_audit.py",
+      "sha256": "655f7e8de6e59b3a8b21ad87b67e5c4285ea8052e057f75c8fe3c4936a882548",
+      "size": 185
+    },
+    {
+      "path": "certgen/cli/v5_audit.py",
+      "sha256": "5e5ea642a960f3e1580fe46fd53baf435e559e7da547558caa9d0e739aa2b74e",
+      "size": 193
+    },
+    {
+      "path": "certgen/cli/v5_state_intake.py",
+      "sha256": "25f07688b1309827892392cb8ef2830bde0bdd129a18caef6d4a0b430cd1e478",
+      "size": 201
+    },
+    {
+      "path": "certgen/cli/validate_config.py",
+      "sha256": "7ae92c4395ab321ed30d9b3e7bac7b4865ee2feac934e30474c2f1d14b37117b",
+      "size": 2971
+    },
+    {
+      "path": "certgen/cli/validate_feature_cache.py",
+      "sha256": "da4e873c9954b55e53b173ae9b0a6c7709a3b8bdb7b26a48a274a372ec15468e",
+      "size": 1777
+    },
+    {
+      "path": "certgen/cli/validate_provenance_ledger.py",
+      "sha256": "57e71102ba18a00abd91becda61fd3e18334d3b30603a48b6536dffed481b4e0",
+      "size": 1098
+    },
+    {
+      "path": "certgen/cli/validate_registry.py",
+      "sha256": "9fc2bbc40d350c3fe05ed879629e37ff5944757f14b7d70039e9efebc291b693",
+      "size": 1044
+    },
+    {
+      "path": "certgen/cli/validate_reported_claims.py",
+      "sha256": "b6303e90aa586769b2463cab59da2b560b52232e4c3bc390fb32076522b9a1fb",
+      "size": 1409
+    },
+    {
+      "path": "certgen/cli/validate_repro_capsule.py",
+      "sha256": "2ca720103cadd341a751a2ab18b9f1dbd30826c3013ca1442c89540fcf843a05",
+      "size": 1030
+    },
+    {
+      "path": "certgen/cli/validate_v3_registry.py",
+      "sha256": "db90cf8ec8b7d2445629c95e39cf775db06efb36345d70747c4bb6004a9a9169",
+      "size": 1427
+    },
+    {
+      "path": "certgen/commands/__init__.py",
+      "sha256": "efad6f61fe36b67050cd58ea885f8ac2bbce77164e96b73fbd58d44ca8a7bde1",
+      "size": 30
+    },
+    {
+      "path": "certgen/commands/generate_v5_command_bundle.py",
+      "sha256": "dc8c5b6b6373d85af2d195fe9014a705da3d97a853a989b9c439d13dd13ff799",
+      "size": 3186
+    },
+    {
+      "path": "certgen/core/__init__.py",
+      "sha256": "caaee5e1d798459787fcbe8b67a8c067b77dfe2afa342f1dcfd38ca58b1e0f24",
+      "size": 34
+    },
+    {
+      "path": "certgen/core/enums.py",
+      "sha256": "18459be52cb3ce2cf72460681d1e3fde9ba5774385de3fdb48d1a477d8a68e93",
+      "size": 3577
+    },
+    {
+      "path": "certgen/core/hashing.py",
+      "sha256": "04fd1123202aeb1ded87ad34ecd6d3b6c72238b810d56be61d52e3d618146b66",
+      "size": 1499
+    },
+    {
+      "path": "certgen/core/io.py",
+      "sha256": "a481d8d1756ad71dbc3ee3774aa3fb282513dc98b3dc97529369709173230cf4",
+      "size": 3826
+    },
+    {
+      "path": "certgen/core/provenance.py",
+      "sha256": "483e0f67616aaa7e52c28d18e3c30e9bee88d9005f2afcf49e83344338815411",
+      "size": 986
+    },
+    {
+      "path": "certgen/core/status.py",
+      "sha256": "9c858934d477a9333e6a73574cc4f185cdd8ea3ed0c0c4fa01bdd90cc31e1847",
+      "size": 1712
+    },
+    {
+      "path": "certgen/cvpr/__init__.py",
+      "sha256": "0b112e167468401396d6f3ae72189e7caa00919b9a66958561f6f40937ead2c3",
+      "size": 376
+    },
+    {
+      "path": "certgen/cvpr/adapter_conformance.py",
+      "sha256": "59e3c372ace3a12506cc368cedb653ad947835719c3fe221ef28ed37ba9c04b3",
+      "size": 5908
+    },
+    {
+      "path": "certgen/cvpr/analysis.py",
+      "sha256": "a40a80594f29a53b5c8792a220d4dc39db9454840562fbad209e11754c02f303",
+      "size": 15293
+    },
+    {
+      "path": "certgen/cvpr/certificate.py",
+      "sha256": "82addd48f1df924144c554730952490df2294d6d8512c7226a4680eb5f85cb58",
+      "size": 17694
+    },
+    {
+      "path": "certgen/cvpr/certificate_inputs.py",
+      "sha256": "47767288a94f31855dbb08c0b287ea183e8d0b4d50403a8edfa94c07221826f9",
+      "size": 19172
+    },
+    {
+      "path": "certgen/cvpr/contracts.py",
+      "sha256": "15c4dd94e76c1f812688c880d6a09647f7f7126bd1bdee224f28371fe0e91c96",
+      "size": 8875
+    },
+    {
+      "path": "certgen/cvpr/controls.py",
+      "sha256": "d16dd8eddeac9efb43d6aaa99ee8ec8935cdd7d772046deaec5949a7b3f7161a",
+      "size": 14994
+    },
+    {
+      "path": "certgen/cvpr/extractor_adapters.py",
+      "sha256": "084fa4fa1d8fa35488816d6168cccf00d6117936d70b1b2608600eca84357b83",
+      "size": 20457
+    },
+    {
+      "path": "certgen/cvpr/family_certificates.py",
+      "sha256": "57ee3a3e35abe8a7955d59334a4de38229b14343b2fe8f3d0ac18bb20fa7a1a2",
+      "size": 7661
+    },
+    {
+      "path": "certgen/cvpr/feature_merge.py",
+      "sha256": "462905f6b85d485821a1e076ef849090dbf961407d23d77f3e06a6245e9021a7",
+      "size": 13376
+    },
+    {
+      "path": "certgen/cvpr/fingerprint.py",
+      "sha256": "7f5852256dd43b9f90190aa61ee2a933eb4b9b6210435ad8b11e7afa2f8edf47",
+      "size": 4014
+    },
+    {
+      "path": "certgen/cvpr/gates.py",
+      "sha256": "c4c8a54a501ae04edf52d9c9f36dbfea5bfbe43b6bab39af51649b40c5205b6e",
+      "size": 24755
+    },
+    {
+      "path": "certgen/cvpr/image_manifest.py",
+      "sha256": "97b6a39ebe0d24d7b28d9210a80760c0c51c7d950d55ee333846aac31e4a1a3a",
+      "size": 12209
+    },
+    {
+      "path": "certgen/cvpr/model_adapters.py",
+      "sha256": "96e203c95f0a30fc5ef54159a7af587b39b655519ecfe78c245a4b66d83f50b4",
+      "size": 14674
+    },
+    {
+      "path": "certgen/cvpr/operational.py",
+      "sha256": "1b09bd6f9487ad8b6608ccb3b4faa4107c7b185af4cdfa6aded4c1461181836d",
+      "size": 7317
+    },
+    {
+      "path": "certgen/cvpr/output_schemas.py",
+      "sha256": "07fc0ea2588e0dccdab6e2bdfba65e0f9afc1964c2f881243b1c194280a6ebcb",
+      "size": 14164
+    },
+    {
+      "path": "certgen/cvpr/package.py",
+      "sha256": "fb48ad42178a3f1a93d8d5ca0c2d92e83db139b57323f30500a33db452111202",
+      "size": 23731
+    },
+    {
+      "path": "certgen/cvpr/pilot_stop_go.py",
+      "sha256": "92aae1fcea3d50e925cf211a99a5e19e496156503249b854c8065e0c222e0c17",
+      "size": 3206
+    },
+    {
+      "path": "certgen/cvpr/post_cache.py",
+      "sha256": "b375cb189559c32cee9cd1989c3cb810ddf9406acad242a2a767ad430908cb49",
+      "size": 17156
+    },
+    {
+      "path": "certgen/cvpr/prepare.py",
+      "sha256": "435be601735b79695cc432686620b608b5c39a22a01846b7b8277c665cae86a8",
+      "size": 59555
+    },
+    {
+      "path": "certgen/cvpr/profiles.py",
+      "sha256": "798831c22ea5c23167d58429e3c59c9dd300fd9e76b4ab11119445ad8ce8ecc5",
+      "size": 7044
+    },
+    {
+      "path": "certgen/cvpr/ranking.py",
+      "sha256": "7f75a7382f28dc3e24d0bab3ec637a4ff291b6da20ba8909e0c372bebc9a6741",
+      "size": 18718
+    },
+    {
+      "path": "certgen/cvpr/readiness.py",
+      "sha256": "3bdf4fe07eceb7b0f4280b889f26aa8df8af39022c218579227f41df33bf1f8a",
+      "size": 6541
+    },
+    {
+      "path": "certgen/cvpr/reference.py",
+      "sha256": "9ad14741d09849f528877d04a8717947108c4db8df2343d06d3b992b95981071",
+      "size": 11965
+    },
+    {
+      "path": "certgen/cvpr/reference_draw.py",
+      "sha256": "626e5ca479375fb7bbad433317e87243d518630ffe172d31e8467f83c9e857f7",
+      "size": 10327
+    },
+    {
+      "path": "certgen/cvpr/registries.py",
+      "sha256": "91eb7dff96193420ef3808612ace7e2b4721b49a4aef6046f4e0dfdfc9458986",
+      "size": 14679
+    },
+    {
+      "path": "certgen/cvpr/runtime_planner.py",
+      "sha256": "584a5487bc2e2a87ef38ab86f2e535dcc14b902f33fc131dd051b3c67fadbe89",
+      "size": 13948
+    },
+    {
+      "path": "certgen/cvpr/statistical_contract.py",
+      "sha256": "6fb682f26fd3771e9fdb450d94afcdd273e257311a7945fe2b91c5bfb2b39b73",
+      "size": 1134
+    },
+    {
+      "path": "certgen/cvpr/study.py",
+      "sha256": "d819809a84e7be0038581061ece32324738cc073be4d93c2b93225f5c47d3a30",
+      "size": 8612
+    },
+    {
+      "path": "certgen/cvpr/synthetic_validation.py",
+      "sha256": "177fc766d8fa060acc418f9cf0a63178386dfabf19fae92799aa6dfe956530cf",
+      "size": 3302
+    },
+    {
+      "path": "certgen/data/__init__.py",
+      "sha256": "2fde3faa521470fd009c4bdd5d820987da8d46a82d335712cd07c5c4c9c8bc70",
+      "size": 66
+    },
+    {
+      "path": "certgen/data/autodetect_cifar10_root.py",
+      "sha256": "9dd37dfe348f04b931bf366f2cbebe5be7fc82d6862ccca1953d8fcc38060ca9",
+      "size": 4514
+    },
+    {
+      "path": "certgen/data/build_cifar10_r1_sample_package.py",
+      "sha256": "4829db609d21dc97fbafcbc0a5a4a4008c28922a79fe065b095f82079bd2d607",
+      "size": 7892
+    },
+    {
+      "path": "certgen/data/build_cifar10_reference_manifest.py",
+      "sha256": "b10eafadaa685160e550297680867a2412e3364ea2f2ae0faced44896d526e3b",
+      "size": 12280
+    },
+    {
+      "path": "certgen/data/cifar_reference_super_onramp.py",
+      "sha256": "48933b4c949119d896d1fc02adf15be12bc90dcea38c697cbf70700da433994c",
+      "size": 16063
+    },
+    {
+      "path": "certgen/discovery/__init__.py",
+      "sha256": "cc4e3bb06b9479bd3a6d68a820981eec15efc5df3d2213e23ee2f01e4f8c806b",
+      "size": 6294
+    },
+    {
+      "path": "certgen/discovery/audit.py",
+      "sha256": "8fe4f7dc9ab1cbb1271ff6da5312077c78bf271f45c95bd3e0f9ed34ff8370f5",
+      "size": 5133
+    },
+    {
+      "path": "certgen/discovery/classify.py",
+      "sha256": "96de6c3aff9e7402bfe093c3916e478acefe8370bb717054df346cb523b7965b",
+      "size": 21405
+    },
+    {
+      "path": "certgen/discovery/expected_output.py",
+      "sha256": "a6e661fa6c29c5e9f0bf9c7cb1b60bc2934631f3b8f292e0c65b8efc021df2f4",
+      "size": 4338
+    },
+    {
+      "path": "certgen/discovery/models.py",
+      "sha256": "55b783adcb22690648ffff4c13f466814c755cad68c41db26de954ab47a0875f",
+      "size": 8561
+    },
+    {
+      "path": "certgen/discovery/reports.py",
+      "sha256": "f178929cb14b77b8c728551e6288aa6a30aaed7f310aaf52a664de7921ea7835",
+      "size": 509
+    },
+    {
+      "path": "certgen/discovery/roots.py",
+      "sha256": "8e6986d4d82fd0775478bec01fc617eb9fa62f032e46ef871fe4562b99adb610",
+      "size": 1924
+    },
+    {
+      "path": "certgen/discovery/scan.py",
+      "sha256": "dd38fc30fa2d2acc1c0067b0377ea43e6c338cc33a8248b3f00a4d74b1617c68",
+      "size": 5207
+    },
+    {
+      "path": "certgen/discovery/security.py",
+      "sha256": "9056618c5e63eedcbb13c438e9377d5e12bf180ea0356e70186a80922e49e866",
+      "size": 2687
+    },
+    {
+      "path": "certgen/discovery/select.py",
+      "sha256": "8ed306c4fe9ad9a4a05bfe6b5511d1af2e65edc365457f3438a0a1a339d2a6a0",
+      "size": 2159
+    },
+    {
+      "path": "certgen/discovery/specialized.py",
+      "sha256": "8e12875c48f7fb9d495cd22bf42e47aaefacd1dd9e99482cfb1f733b858bc3ad",
+      "size": 25858
+    },
+    {
+      "path": "certgen/experiments/__init__.py",
+      "sha256": "5b47e74fbbb1299f718ac859b59768d8bd51b61856fa50f41e53fca8fe028e73",
+      "size": 50
+    },
+    {
+      "path": "certgen/experiments/optional_stopping_lab.py",
+      "sha256": "1928a9f378d6c8ea2a46478179d6653b858a841ea154ab225f3a48955bb809c3",
+      "size": 5799
+    },
+    {
+      "path": "certgen/experiments/r1_cpu_validation.py",
+      "sha256": "0ca8d7efcdb3f07d7d4a4f789f6a1f8f009346f2ae515331ffdd969f3228c0a8",
+      "size": 10058
+    },
+    {
+      "path": "certgen/features/__init__.py",
+      "sha256": "cdd27016faa91917875ae4815debac39c7392e1f11b5cc84e18ef0a2c3b575fa",
+      "size": 41
+    },
+    {
+      "path": "certgen/features/cache_contracts.py",
+      "sha256": "1cf1a4ec31295bca30e832dff006e14f99800a227fefb0dfe1197741b189ee11",
+      "size": 383
+    },
+    {
+      "path": "certgen/features/cache_schema.py",
+      "sha256": "ed8cea67f15168c89f45a53deb4d00ec33c394dd312c8ff61c9377913b7701e3",
+      "size": 732
+    },
+    {
+      "path": "certgen/features/cache_v2.py",
+      "sha256": "c1c2d7fe684311fb92ae1f681c3d379bd0b6ba198b5ff8f4c8862500c6cedfa8",
+      "size": 18731
+    },
+    {
+      "path": "certgen/features/cache_validate.py",
+      "sha256": "18b7fb36ffb4befb8aaf0ece6b3f7293dda43c13a12ca48348471073f77b80be",
+      "size": 5448
+    },
+    {
+      "path": "certgen/features/extract.py",
+      "sha256": "c3b95ca910af6f82aaa203e330242914eb8536844a443bc5ee2c9e77a83ec27d",
+      "size": 5498
+    },
+    {
+      "path": "certgen/features/extract_clip.py",
+      "sha256": "ac30b088439d20132a840a91c5db7b7d790850253447fc7eaebe7f98653cfd78",
+      "size": 712
+    },
+    {
+      "path": "certgen/features/extract_dinov2.py",
+      "sha256": "edd4c2be13407d516efb43f2d5e009b86bb3d4986dcb26e706a289ce82245be0",
+      "size": 720
+    },
+    {
+      "path": "certgen/features/extract_inception.py",
+      "sha256": "59e39df81a7077bf18ecdffc0bb72dc5d4973118ecc4966c1546b6ef43b19151",
+      "size": 732
+    },
+    {
+      "path": "certgen/features/extractors/__init__.py",
+      "sha256": "0c1bad7f3836ce1cdf684eab16b6625b8804ff40087502fc068c51ff50927d62",
+      "size": 511
+    },
+    {
+      "path": "certgen/features/extractors/base.py",
+      "sha256": "97149d946d207b5e07cc50c76b6849279135bdba74a1831466ca88a4d5ece299",
+      "size": 9095
+    },
+    {
+      "path": "certgen/features/extractors/clip.py",
+      "sha256": "0cd50c608d936db712a32ecfe2c4fd35f9f486bc75c1a32ad6efc92fe2cc21f9",
+      "size": 2448
+    },
+    {
+      "path": "certgen/features/extractors/dinov2.py",
+      "sha256": "8c018aed5f406b806cad10dcc97c69daf9a9b42d2c0e56c651ce236a5b307925",
+      "size": 1871
+    },
+    {
+      "path": "certgen/features/extractors/inception.py",
+      "sha256": "8a26ab7717a2888fac4a9a02fc479f598225a8da1e4889b6da0d18bff90682e6",
+      "size": 2699
+    },
+    {
+      "path": "certgen/features/merge_shards.py",
+      "sha256": "536d028fea7dd2f3d0c2cf349d1f0cddd664e8db01410da419adb3116e0af733",
+      "size": 4690
+    },
+    {
+      "path": "certgen/features/preprocessing.py",
+      "sha256": "03c9d3ce56bb8ff2ef84910b09f332dc805fa61c0c5d4307006337082e15f8dc",
+      "size": 581
+    },
+    {
+      "path": "certgen/features/protocol_checks.py",
+      "sha256": "c8bf26a283752f27fb645572d6a8aff729cca56838ea275b75a24791b10b0a4e",
+      "size": 6846
+    },
+    {
+      "path": "certgen/features/split_by_role.py",
+      "sha256": "f326a66977e854756ec6ffe84ba50c586f79cf3699570b74f860d9f5f09fcea9",
+      "size": 7143
+    },
+    {
+      "path": "certgen/features/validate_cache.py",
+      "sha256": "80c57546e443c9f41858d31c449abb7c5a115f8a7ebb28bdd2fbf59a4cc9fa6e",
+      "size": 2333
+    },
+    {
+      "path": "certgen/fixtures/__init__.py",
+      "sha256": "ef265a96b8f42c4026d19de64a8d6befeb31669a2225eefce1176046bf8db222",
+      "size": 49
+    },
+    {
+      "path": "certgen/fixtures/make_v2_feature_fixtures.py",
+      "sha256": "38eb03a68ccbfb7e07127646ce3c2441d1d7e340492a87c1b98a0ba9fb3330f8",
+      "size": 2184
+    },
+    {
+      "path": "certgen/gates/__init__.py",
+      "sha256": "a429c2d207b313831010ae86f6ecc80e171a1eb504c84fee8ee39fa31eada1ba",
+      "size": 51
+    },
+    {
+      "path": "certgen/gates/claim_gate.py",
+      "sha256": "a60b67ac983e29e969a464e779227ea2004c16dc2b5a08e4c6f9915507419e8c",
+      "size": 2968
+    },
+    {
+      "path": "certgen/gates/evidence_classification.py",
+      "sha256": "837b9ae3a30289fb42273432b62e2d3bfd639a82baf858c7cb3f3fe89e9f2b9e",
+      "size": 2462
+    },
+    {
+      "path": "certgen/gates/evidence_gate.py",
+      "sha256": "250627456d0f6b33cbe470e88c52d9de821f3f79123bcbd3a2572ee53404c420",
+      "size": 2641
+    },
+    {
+      "path": "certgen/gates/fid_policy_gate.py",
+      "sha256": "4bdcc6a9b7a6129b8ae973e434adc6384a819073427dad39f7337001dd0acfdc",
+      "size": 2329
+    },
+    {
+      "path": "certgen/generation/__init__.py",
+      "sha256": "3589b4933055b6293d2b09a2797d76acde0bca90372a90a9f0dd2b6cb1a6569b",
+      "size": 47
+    },
+    {
+      "path": "certgen/generation/checkpoint_adapters.py",
+      "sha256": "be732adaec6091e154a987bea2da12d879cb40405a8b7002ee41a281e2b32d0b",
+      "size": 1174
+    },
+    {
+      "path": "certgen/generation/generate_cifar10_diffusers.py",
+      "sha256": "1df56e6ed515243e11066f66aec9a0ecfa620fe8bc464aa3419e874c6e34b750",
+      "size": 10341
+    },
+    {
+      "path": "certgen/generation/generate_samples.py",
+      "sha256": "4aff4163006d9ea7bf59a99d339751487e31c01b91555fa88b8a33741bd16485",
+      "size": 1103
+    },
+    {
+      "path": "certgen/generation/merge_sample_manifests.py",
+      "sha256": "95a17b6b8e8bf28778d327e2444eea96ea5f16e1ce01e3882bc22f5586a43953",
+      "size": 4493
+    },
+    {
+      "path": "certgen/generation/preflight_check_cifar10_checkpoints.py",
+      "sha256": "ad955210f6d1b1f32b9773f6f2419c476923120c4047e3ab83b939f96564377d",
+      "size": 1039
+    },
+    {
+      "path": "certgen/generation/validate_cifar10_generated_pilot.py",
+      "sha256": "daae9384e37fc4ad59dd65ee5989be75703c7b565abfd69eaec70fed27592198",
+      "size": 6286
+    },
+    {
+      "path": "certgen/literature/__init__.py",
+      "sha256": "e355234c808c21a526af6c639547e6576c31c10194628c555357d9e23d8642d0",
+      "size": 44
+    },
+    {
+      "path": "certgen/literature/claim_ingest.py",
+      "sha256": "721e4219f19ad0a0eb8c4bb6f98d3a136ea0998975c471cce6738b82cd5da98c",
+      "size": 1477
+    },
+    {
+      "path": "certgen/literature/claim_schema.py",
+      "sha256": "b349a6c51907065dda0f67930708a7946f8daf6a2c51a87ae1d3def1f2af2124",
+      "size": 606
+    },
+    {
+      "path": "certgen/literature/claim_trace.py",
+      "sha256": "a892fb7d5bc2cc706ed4c2c5d3de47ec148b8c72a991bd139d258e5eb677d3a6",
+      "size": 1109
+    },
+    {
+      "path": "certgen/max_ceiling/__init__.py",
+      "sha256": "bbf715148242f1ba0dd35dbd006bf56f87b6f7d764b078c0dfa83ad6e8a18438",
+      "size": 85
+    },
+    {
+      "path": "certgen/max_ceiling/audit.py",
+      "sha256": "bec31609178b7186cf061d36ea9c2fe69b7e8add6b870fa1065d14078ee827be",
+      "size": 11392
+    },
+    {
+      "path": "certgen/max_ceiling/capsule.py",
+      "sha256": "f0e9c78fa0eff77f45d23ab15b18aec744f1d109d38c3eed6ea28ea3865595c0",
+      "size": 12131
+    },
+    {
+      "path": "certgen/max_ceiling/common.py",
+      "sha256": "9552743ddc088b722ddefe8c880c8607251fdb3ac37b60d9a9a7548fe2093d0d",
+      "size": 3101
+    },
+    {
+      "path": "certgen/max_ceiling/contracts.py",
+      "sha256": "db9afe93b0d75843064e51b7cb2858eff1a6992cf4e1899a9b70b2e28b394165",
+      "size": 38287
+    },
+    {
+      "path": "certgen/max_ceiling/provenance.py",
+      "sha256": "ace6bc0335499ab14ed98ee07cd7ecf6dd80c7567077f9f7987ec1706ba9f397",
+      "size": 12187
+    },
+    {
+      "path": "certgen/metrics/__init__.py",
+      "sha256": "69f5e5af919950e7c55f476e47a5044394f6640006d68ccbaea8796e03507cb5",
+      "size": 59
+    },
+    {
+      "path": "certgen/metrics/cmmd.py",
+      "sha256": "99387e0ed917609b7171cfea4243d257ddcc1d5343f6d633e016f6a08b8b972d",
+      "size": 1049
+    },
+    {
+      "path": "certgen/metrics/fd_dinov2.py",
+      "sha256": "e9cd5025101609b0c83541ed84587415a1f83c949c2ce1ed560476066402fa64",
+      "size": 843
+    },
+    {
+      "path": "certgen/metrics/fid.py",
+      "sha256": "19fb851c6e4c0539d52f95a377e969fa709ed09a9073dcb9a6f724d2c673f2c7",
+      "size": 1856
+    },
+    {
+      "path": "certgen/metrics/kernels.py",
+      "sha256": "497648de811b441c8122594d9afea1cf630c0e6adf7ae79f367213d8fe9b1308",
+      "size": 4991
+    },
+    {
+      "path": "certgen/metrics/kid.py",
+      "sha256": "b67da84df1c8949693581ba0271eecc460c36d237ba8d7ca8b402f279d9b685d",
+      "size": 818
+    },
+    {
+      "path": "certgen/metrics/mmd.py",
+      "sha256": "31cf69c11622043a51124458069eb263c751c6b6d712782b4fb2103e257f6bc4",
+      "size": 2556
+    },
+    {
+      "path": "certgen/metrics/registry.py",
+      "sha256": "6ebbf1b5d4088c94fb421d63ab0f4db2cc78825c97fd70d835183586e59e2335",
+      "size": 3760
+    },
+    {
+      "path": "certgen/metrics/streams.py",
+      "sha256": "5dd5cc01bc1e2012ef7300bfe05be7cdb0bd19ee32a5dfb2660cdd94bbdc1898",
+      "size": 9103
+    },
+    {
+      "path": "certgen/notebooks/__init__.py",
+      "sha256": "04ec98cdd075ee1478a9d42dd324ec4fb227a0724252f85894b4d9ad5b17d839",
+      "size": 37
+    },
+    {
+      "path": "certgen/notebooks/cvpr_factory.py",
+      "sha256": "0011723f43f0679193d944a7e7dcf499608794d2e099cb0731c22543a6ae260e",
+      "size": 24791
+    },
+    {
+      "path": "certgen/notebooks/cvpr_runtime.py",
+      "sha256": "42efa76de42d18e49ee489bc9748c7c1ddc3d6e7a23d24020b1797f9eab3d2d6",
+      "size": 3124
+    },
+    {
+      "path": "certgen/notebooks/cvpr_static_analyzer.py",
+      "sha256": "f5100cc6d135a7ed0fe7abdb168aea9c90716c16a40132960c5c64e8fc87371f",
+      "size": 4896
+    },
+    {
+      "path": "certgen/notebooks/environment_bootstrap.py",
+      "sha256": "e508aff43d5dccf190e1e4e3b49e2696b304dfbb4420a9c86fa79ce4cdc9400a",
+      "size": 18760
+    },
+    {
+      "path": "certgen/notebooks/final_zip.py",
+      "sha256": "ac46e11c47e8876b260a57e1c50a9b296d4ab4a664fa9251645beb7d790e5960",
+      "size": 14277
+    },
+    {
+      "path": "certgen/notebooks/generate_feature_notebook.py",
+      "sha256": "09b070b5a34acd3217ce60368e641ba019b2a84812b0f4816429841fa3fbd068",
+      "size": 1495
+    },
+    {
+      "path": "certgen/notebooks/generation_runtime.py",
+      "sha256": "189f6b26367e4069cffd704ba6f88ca8bbbff467a434ed632266a6509f70439e",
+      "size": 10166
+    },
+    {
+      "path": "certgen/notebooks/kaggle_io.py",
+      "sha256": "48705fcf93473c92398e9cdda08ade84d8d20910c2902fef98f077979c80e316",
+      "size": 9065
+    },
+    {
+      "path": "certgen/notebooks/model_assets.py",
+      "sha256": "bf3480231c2f93aed457adcb46fdc99fde65f14f72c25eefb0635b8ce6fc3811",
+      "size": 12687
+    },
+    {
+      "path": "certgen/notebooks/network_policy.py",
+      "sha256": "6b2d96a8da5b47ca019491ffd6180cb12bf274e3ec84cb8d13238dd5b555f918",
+      "size": 2268
+    },
+    {
+      "path": "certgen/notebooks/preprocessing_contract.py",
+      "sha256": "b5a5f282207092e192aa87aec08984bc534a0f6aa5f69341c0e60bfeac0ac323",
+      "size": 7138
+    },
+    {
+      "path": "certgen/notebooks/run_state.py",
+      "sha256": "267a27ceea3fe834bbddc7ea9cd0eaa413de40556d605a56cd78d11a3750a30e",
+      "size": 6259
+    },
+    {
+      "path": "certgen/notebooks/subprocess_orchestrator.py",
+      "sha256": "18a4810fa59d14c8966a8fe76706b6c2671e055becb1f16c71bc913ad9144cf6",
+      "size": 13679
+    },
+    {
+      "path": "certgen/notebooks/trusted_bootstrap.py",
+      "sha256": "1b790db1512a13136898fde403f0fba1acee07d03f906de0c7a7a30d10dcb8ab",
+      "size": 21546
+    },
+    {
+      "path": "certgen/notebooks/v9_static_analyzer.py",
+      "sha256": "0fca4971b15164c5635097c6824f5169f5a74f4fc250dbbb2bd7c75a96505628",
+      "size": 6557
+    },
+    {
+      "path": "certgen/notebooks/validate_kaggle_notebooks.py",
+      "sha256": "eed1f9e371005e3fb455f5ceeb72298840b8b9f7af4ab408ab2c68f5e3733a3e",
+      "size": 1591
+    },
+    {
+      "path": "certgen/notebooks/worker_contract.py",
+      "sha256": "b75632978c8379d9f0febbb8d1783649dc8c815d018d5622780368a70b267043",
+      "size": 4862
+    },
+    {
+      "path": "certgen/notebooks/workers/__init__.py",
+      "sha256": "30fbb85e26cb4fe8730833e5d4e45e3f6a18ce2fcb6e60366b20e009ebd620e5",
+      "size": 89
+    },
+    {
+      "path": "certgen/notebooks/workers/common.py",
+      "sha256": "e037bb7188a0c63cc77b019e650ddede1f26c31d943e79f6addda25f74905b88",
+      "size": 2169
+    },
+    {
+      "path": "certgen/notebooks/workers/diagnostic_worker.py",
+      "sha256": "e9b67298bbe1ad85ad4569d71a10bc666a7ad5c729560473742e36c236e6b375",
+      "size": 3768
+    },
+    {
+      "path": "certgen/notebooks/workers/extractor_preflight_worker.py",
+      "sha256": "ed0974bb8a2b73dc37f4b43048e6e41130f1b759076ba92b18be5b1a3a272aae",
+      "size": 7495
+    },
+    {
+      "path": "certgen/notebooks/workers/feature_worker.py",
+      "sha256": "4b0ea85904ffc671d4b2157ebcd6bce5363d81357c276efce72929e3f6eea90a",
+      "size": 8770
+    },
+    {
+      "path": "certgen/notebooks/workers/generation_worker.py",
+      "sha256": "8e560552ea00635b0eed21dbd933a8fbc8e9ed0a041a90d523d73b61c545e741",
+      "size": 7505
+    },
+    {
+      "path": "certgen/notebooks/workers/preflight_worker.py",
+      "sha256": "009755c595bd089dcf0a001a12108a8934771b6f6ee7b5ab48636019f1b385a0",
+      "size": 12944
+    },
+    {
+      "path": "certgen/packaging/__init__.py",
+      "sha256": "1b36950a22ae4f1327175bbf8a791b76ede6eea79cac4919e96f2ffa63aef73c",
+      "size": 114
+    },
+    {
+      "path": "certgen/packaging/artifact_registry.py",
+      "sha256": "a77d26a0cb70be3b60d1b9b73822d362c7314cfb0a9bcb56247e21df7c35f18f",
+      "size": 7533
+    },
+    {
+      "path": "certgen/packaging/build_kaggle_feature_input_zip.py",
+      "sha256": "b3a54ce671fe65dd061c2e18d1d3f21901da4b63c68c780fcf02f9aab0273389",
+      "size": 10020
+    },
+    {
+      "path": "certgen/packaging/build_kaggle_generation_input_zip.py",
+      "sha256": "ba6230bb1710e41136d97bf11e834a16c0d686b01aa1d133f76f8fccfab79246",
+      "size": 7066
+    },
+    {
+      "path": "certgen/packaging/common.py",
+      "sha256": "caec6f0af43a3f07a74d7178ff846b7a55e313c9ba539ce22c25c887758bbb93",
+      "size": 13013
+    },
+    {
+      "path": "certgen/packaging/import_kaggle_feature_outputs.py",
+      "sha256": "d022f3b8a2adf7e278de10dee6093c69e4ed6572d704df7100d111b3d045be2a",
+      "size": 4774
+    },
+    {
+      "path": "certgen/packaging/import_kaggle_generation_outputs.py",
+      "sha256": "073194ea9a2d42f0d1a90a9dc7204ff5611005f94db609567d8f9558414d2433",
+      "size": 4523
+    },
+    {
+      "path": "certgen/packaging/kaggle_dataset_manifest.py",
+      "sha256": "2954ff0d34246c9ac529358805849fc47fe13a86fb7549c6c065dc7d1cfd23f8",
+      "size": 1285
+    },
+    {
+      "path": "certgen/packaging/prepare_kaggle_dataset_folder.py",
+      "sha256": "b71ca89e67c5cd54d5a41d0b716f2fd5b618ed279c869248db245d74c3f74ff5",
+      "size": 1407
+    },
+    {
+      "path": "certgen/packaging/v9_import_repair.py",
+      "sha256": "21540125d168e3e9daf7e1a90ea5082781f22be3452b97d2fedfe88b64f83d2d",
+      "size": 23926
+    },
+    {
+      "path": "certgen/packaging/validate_cifar10_reference_manifest.py",
+      "sha256": "f0e9063c983d5fa75bfacac12ec91399d0f8bd3c7d5b00bb44a98c3f62658b6a",
+      "size": 5279
+    },
+    {
+      "path": "certgen/packaging/validate_kaggle_feature_output_zip.py",
+      "sha256": "01d76e9883226045a5ae5820775efb875f41382ec9a6e62866bdd990f1148c07",
+      "size": 4986
+    },
+    {
+      "path": "certgen/packaging/validate_kaggle_generation_output_zip.py",
+      "sha256": "21c1100d4615bb5ffc98968dc51014a0439a2e086df7d323157ec818dea15f9c",
+      "size": 7436
+    },
+    {
+      "path": "certgen/paper/__init__.py",
+      "sha256": "6a9314ff01d4fd6a153fbcf9baec0986c9e13013c102aa1f1fe034301c66ceb2",
+      "size": 31
+    },
+    {
+      "path": "certgen/paper/audit_result_injection_gate.py",
+      "sha256": "b008f1bd07bca8d2d1d9636fd750e6420d4f080c17a01bdc8b50c18556e1e88d",
+      "size": 1732
+    },
+    {
+      "path": "certgen/paper/result_injection.py",
+      "sha256": "e1ae723a6addd446337fa4ed595b94518de357b33a62b24452bd76d82cc9e59e",
+      "size": 4591
+    },
+    {
+      "path": "certgen/paper/v9_paper_firewall.py",
+      "sha256": "43b1427bad8daa76cc56f1497289b7b0a1982616124b052c855753949adbde23",
+      "size": 5603
+    },
+    {
+      "path": "certgen/phase1/__init__.py",
+      "sha256": "a687a971ddb2cd63520ed33f5664361afbf464a2b607f844e8cbf664bb7b8a2b",
+      "size": 116
+    },
+    {
+      "path": "certgen/phase1/assets.py",
+      "sha256": "49e57f40c3caf5d8f622cd799cc65dda81c56b80ca4433c75dc2c20a8a2bebde",
+      "size": 2371
+    },
+    {
+      "path": "certgen/phase1/audit.py",
+      "sha256": "af14b756405a34e70aae67e33c15dba802da4f73d2f057acdfa2198c3e2a3e50",
+      "size": 11697
+    },
+    {
+      "path": "certgen/phase1/kaggle.py",
+      "sha256": "246c5a1d655b40d43f5e6f8b3e5423fddb0605673f12dee2cdd3e579961ce6d2",
+      "size": 31717
+    },
+    {
+      "path": "certgen/phase1/notebooks.py",
+      "sha256": "e2dd4b172a261fceed8b601faf9707a4d233bfa0d9da4e53563266fdff994c59",
+      "size": 19773
+    },
+    {
+      "path": "certgen/phase1/rehearsal.py",
+      "sha256": "5dabcdc64cf81fc5394d9be8263f361ed370c5794d439cef09fd76df48ae388a",
+      "size": 5782
+    },
+    {
+      "path": "certgen/phase1/reporting.py",
+      "sha256": "58c3a0b03993c79f9ca4885305f6362cd3f3cbd3d90c3cc72f68bb07ad1698aa",
+      "size": 12538
+    },
+    {
+      "path": "certgen/phase1/state.py",
+      "sha256": "c4c56264351a06520498503479f8872e7de0d0cea2295aed7cf229a72bd96dc6",
+      "size": 3823
+    },
+    {
+      "path": "certgen/pilot/__init__.py",
+      "sha256": "41ea0234823230c980edb174f7c6a5838e10b9c4d259dd217a36d4de0eb23f0a",
+      "size": 38
+    },
+    {
+      "path": "certgen/pilot/first_pilot_v2.py",
+      "sha256": "c16afc13bbbe940c22135f288141b9ee2b82b7e83e5edc050791d259acd10388",
+      "size": 3544
+    },
+    {
+      "path": "certgen/pilot/orchestrator.py",
+      "sha256": "64dd3c8fe5e4e5b08380b6e1935baea82ca4d3116ca3487b4bd2fee223787635",
+      "size": 5978
+    },
+    {
+      "path": "certgen/pilots/__init__.py",
+      "sha256": "f678da8fc99d11b791cb633c06fe29763692cc5658d058882988f07f5a65da44",
+      "size": 30
+    },
+    {
+      "path": "certgen/pilots/registry.py",
+      "sha256": "41893968b392b1d39e1bce769885df0a79cbb8c1e9692c0b576281114e94cccf",
+      "size": 4906
+    },
+    {
+      "path": "certgen/pipeline/__init__.py",
+      "sha256": "106a2b80fa3625733b75d8bbbdb988ca55629a4d5be6d47da9199a6109ca8fc6",
+      "size": 38
+    },
+    {
+      "path": "certgen/pipeline/cifar10_real_pilot.py",
+      "sha256": "b5066d6bdf8a23c67229de3044cb51a382641e7a08637da6973c55fcafad6ea8",
+      "size": 26485
+    },
+    {
+      "path": "certgen/pipeline/first_real_pilot.py",
+      "sha256": "d4f91d1a802a43366e334e10fb0c056dad04700655cf967303845f023bf0ec5f",
+      "size": 2044
+    },
+    {
+      "path": "certgen/pipeline/v6_execution.py",
+      "sha256": "de02678f544d00694b49db5856cd167236c10890934b2994e6eca6058a1ceffd",
+      "size": 36258
+    },
+    {
+      "path": "certgen/pipeline/v9_execution_dashboard.py",
+      "sha256": "a7a92dee5783643ccbeb9a596d646bf26c82f1b93daa7d33390a526e115b7e96",
+      "size": 4865
+    },
+    {
+      "path": "certgen/pipeline/v9_next_action.py",
+      "sha256": "972dd6a5817c1722c4cafeea03886e873e7f96d1fd672de04751a3c447ee5ac4",
+      "size": 44810
+    },
+    {
+      "path": "certgen/pipeline/v9_runtime_budget_planner.py",
+      "sha256": "1a8a215e545c31c554ea29f4b8229a5e6fd87fd81e8738e7e7ca2e2e7c4210ac",
+      "size": 3065
+    },
+    {
+      "path": "certgen/preprocess/__init__.py",
+      "sha256": "b930c40e00d19401873ff1179db40c39fe7b06fc2f9fd35b50fad3ce483eadd6",
+      "size": 27
+    },
+    {
+      "path": "certgen/preprocess/locks.py",
+      "sha256": "bbc9d60a9486db7f1e33c7aae7057ac11ab21758bbba8189f02c780d1d2362a2",
+      "size": 2300
+    },
+    {
+      "path": "certgen/provenance/__init__.py",
+      "sha256": "7d182b68e615fc142a2c66a43cd65e5acecd6c4bc394e50a0670b5f266292fbb",
+      "size": 42
+    },
+    {
+      "path": "certgen/provenance/ledger.py",
+      "sha256": "a0a59ddfc775161095cfb477f1d6bacf62e30a690e2643d0ad34146d29c30cde",
+      "size": 926
+    },
+    {
+      "path": "certgen/provenance/real_run_plan.py",
+      "sha256": "30704d20371c7b054cdceb05cc33dc89d6ec32a077f53501906bd64f36bee068",
+      "size": 3811
+    },
+    {
+      "path": "certgen/registry/__init__.py",
+      "sha256": "321f080c1a6af3a8781dc1cb46c162e51673ee062b7d6b49b2321d318ea85b67",
+      "size": 42
+    },
+    {
+      "path": "certgen/registry/provenance.py",
+      "sha256": "c01e1e81761146b2adb8d420b98c2e1ce0b28d27b388df065884520563a7698e",
+      "size": 4729
+    },
+    {
+      "path": "certgen/registry/schemas.py",
+      "sha256": "02090ae1b0dcab6ff3204124fdb962a3ce4d77c0018a3c0955b1c4962a509884",
+      "size": 975
+    },
+    {
+      "path": "certgen/registry/v3_schema.py",
+      "sha256": "2054f1600b71933f5e23ede94cadd7e44aee3fe0f61152fc482b5521c0336fc2",
+      "size": 4257
+    },
+    {
+      "path": "certgen/registry/validate.py",
+      "sha256": "e854363fdc55c69645dcdb2ecafb08f2c8d271fa529c8d7ef1337b2872e06d21",
+      "size": 2860
+    },
+    {
+      "path": "certgen/registry/validate_multibench_candidates.py",
+      "sha256": "f3b507ef19b328f8ef03a8f0d1eeabe4214aa97514b333247b39fcd59593d9de",
+      "size": 1531
+    },
+    {
+      "path": "certgen/release/__init__.py",
+      "sha256": "bab7dc641de50427a0bf1e35cc0bafda1f034c81556286f38a3d7388d80e5879",
+      "size": 30
+    },
+    {
+      "path": "certgen/release/archive.py",
+      "sha256": "aea7bf51409eaa857e7db969d0614de72eb9b28d23bd9052b7e4bb086897912d",
+      "size": 16996
+    },
+    {
+      "path": "certgen/release/capsule.py",
+      "sha256": "78c2c49658682faf9acf741bc7b6a90806170d96688264b9e49afddec8ae27cf",
+      "size": 1305
+    },
+    {
+      "path": "certgen/release/license_scan.py",
+      "sha256": "cc243bb4474e3e137ebe49178ba76ea2090407b77129178af0fb8fd069d19729",
+      "size": 477
+    },
+    {
+      "path": "certgen/release/privacy_scan.py",
+      "sha256": "d54b0b6571e635be56407f8d813732e50c9ef3acf20384add00de24dfb5a0ec7",
+      "size": 807
+    },
+    {
+      "path": "certgen/reporting/__init__.py",
+      "sha256": "dbe9bfe30ed75bef069b1852bcf91dfa5cbf1437f157553f1732452a9934749d",
+      "size": 32
+    },
+    {
+      "path": "certgen/reporting/audit_summary.py",
+      "sha256": "5bd47608dfd8658862b1112c79bf5fb40a17c0269c773fb47f8e6adcbc6bb58a",
+      "size": 481
+    },
+    {
+      "path": "certgen/reporting/certificate_card.py",
+      "sha256": "3ebeab68bfb4ac3daa9c24badb2eb5731ae3ebaea2e19ab203a0352d2410ee8c",
+      "size": 2938
+    },
+    {
+      "path": "certgen/reporting/certificate_report.py",
+      "sha256": "ca82755ae30c82f3bbc031ee8ab0f8c533433f76f139964f06f5fae4bbf2b1db",
+      "size": 1926
+    },
+    {
+      "path": "certgen/reporting/figures.py",
+      "sha256": "7bd3bdcae0d4d297cc0bf1d2bc57412bd411166e67231af6f5a82146358914b9",
+      "size": 463
+    },
+    {
+      "path": "certgen/reporting/optional_stopping_report.py",
+      "sha256": "bbb1d03631fd12819fe03d35ab3def53468e578be3cc74313cb094f5016d7090",
+      "size": 1244
+    },
+    {
+      "path": "certgen/reporting/pilot_cards.py",
+      "sha256": "08bcad7c10bac37ad6c9d9f4f37fcd11deaf654fe83f67ba601b78e76f198e6b",
+      "size": 2976
+    },
+    {
+      "path": "certgen/reporting/result_cards.py",
+      "sha256": "32bbc1e2eaabc228922e7f3b479d19de9de205a41cd916f79ad6d0effd6c1766",
+      "size": 505
+    },
+    {
+      "path": "certgen/reporting/result_contracts.py",
+      "sha256": "24bd4576c2b1d2c461ada0a5c1b86f406a3bc35efc3cd353f953a2cf0a8af0c8",
+      "size": 5187
+    },
+    {
+      "path": "certgen/reporting/tables.py",
+      "sha256": "a1906010ccd8e16b05f80f8e835a801b8c7464b009d8475bd0015abd5aca8668",
+      "size": 360
+    },
+    {
+      "path": "certgen/reporting/v2_summary.py",
+      "sha256": "f798c97e2db9f49548f82bfc3aa9a8320d644f0eaa524faa4eb9d03a7ff55528",
+      "size": 182
+    },
+    {
+      "path": "certgen/review/__init__.py",
+      "sha256": "6365f3c7b359c0c2da6e28878858c44c1c45c79cc6bae74005a768fff3e402fe",
+      "size": 31
+    },
+    {
+      "path": "certgen/review/attacks.py",
+      "sha256": "b92a5c03a724fddead58b110151d6205ae8dfbdeb77c24470ee6954c144c630e",
+      "size": 1673
+    },
+    {
+      "path": "certgen/review/reviewer_simulator.py",
+      "sha256": "d03e89281a5462fe5098ff73ffeda89a7e198c182aef4719bebd689e00efc1d6",
+      "size": 2753
+    },
+    {
+      "path": "certgen/review/score_simulator.py",
+      "sha256": "b5ba2c42657c11a9539179980ece5e22645883ebdf63d997d1e5cc89c6aa380d",
+      "size": 497
+    },
+    {
+      "path": "certgen/runledger/__init__.py",
+      "sha256": "115a2c2e998dcb67f8e1c1a3d99cc462f4076150b41d9dab3a9ac311173c5e3c",
+      "size": 35
+    },
+    {
+      "path": "certgen/runledger/ledger.py",
+      "sha256": "15e897a23b826da6622a36acb8d5ba03e91c61bb6edafae6ccb686f9a9e17f48",
+      "size": 2658
+    },
+    {
+      "path": "certgen/runledger/render_dashboard.py",
+      "sha256": "572636565a188f0b1dfd0311a5f65b6464ee64560513101c33438c180b6fc55d",
+      "size": 700
+    },
+    {
+      "path": "certgen/runledger/update_stage.py",
+      "sha256": "e8f085ca0a574c035ac439b4ae0c1cb08890d18f14ebb498f547b0ffa3ded789",
+      "size": 1037
+    },
+    {
+      "path": "certgen/schemas/__init__.py",
+      "sha256": "369d287d1f3f7fb5c79740b370134b4175aed0b4f6174fa5daf65cbe131e32f4",
+      "size": 598
+    },
+    {
+      "path": "certgen/schemas/audit_record.py",
+      "sha256": "923078778f6c21c2c8aeb8913a1dca8e212d5eb3e88fbb810408f8c331746e57",
+      "size": 364
+    },
+    {
+      "path": "certgen/schemas/certificate.py",
+      "sha256": "b9df6d70344ba81283ff19098e53c998f257623b1ab10bb31e334cf8a01fac1f",
+      "size": 516
+    },
+    {
+      "path": "certgen/schemas/comparison.py",
+      "sha256": "9c4eb295f77e55c6dd8b62fd091fdb6e789763ff4193ced41ad011b5dbd58096",
+      "size": 296
+    },
+    {
+      "path": "certgen/schemas/dataset.py",
+      "sha256": "cf704113afa0eb8e4bdc88c2c9f5caedda3082b5f2f08143cd6aeea3889b2424",
+      "size": 288
+    },
+    {
+      "path": "certgen/schemas/feature_manifest.py",
+      "sha256": "2f965c991949bbf6c618b3255cc6921e0ae0944badfca5969c6f9e60bdda9d40",
+      "size": 344
+    },
+    {
+      "path": "certgen/schemas/metric.py",
+      "sha256": "9e15df0ae65048f35286b69e1b25fb56aabf1232a3910bc8f0025ef96f8c2640",
+      "size": 279
+    },
+    {
+      "path": "certgen/schemas/model.py",
+      "sha256": "3241d685045d46b53b7ce4e7ca2498e7dcb54269306727de506cc376c1c3b03b",
+      "size": 262
+    },
+    {
+      "path": "certgen/stats/__init__.py",
+      "sha256": "702d02e9386e2874c12c13ab1fb0a791899840c0b648d54bdb6c97b451d36b3b",
+      "size": 271
+    },
+    {
+      "path": "certgen/stats/bounds.py",
+      "sha256": "e40609a0539391b042e959386dc96024a9688f084df8320592798465b75ef78e",
+      "size": 1712
+    },
+    {
+      "path": "certgen/stats/cs.py",
+      "sha256": "49a13bfbd8f9900f5c4042eb5d8b9639c0c2c3f8018ff5b23f28b1412cc9af62",
+      "size": 7255
+    },
+    {
+      "path": "certgen/stats/dependence_diagnostics.py",
+      "sha256": "f4e03a2f30150bd60dc65114289794f7bb2431d56e14c95e83e2031a0c741935",
+      "size": 1619
+    },
+    {
+      "path": "certgen/stats/design_contracts.py",
+      "sha256": "fc65f2b75b17fb52287b347cff20291dce1b1f51c8f0b79641e66a1e293238ab",
+      "size": 2336
+    },
+    {
+      "path": "certgen/stats/e_values.py",
+      "sha256": "01f4cc549ad1cbb73705355be50d09597d2ac0376cb8d397dc827e9694648584",
+      "size": 3422
+    },
+    {
+      "path": "certgen/stats/optional_stopping_lab.py",
+      "sha256": "fcab3772d333c2e357f0afa412e13beabd669307cd4aecca9f979d70166b38d5",
+      "size": 4315
+    },
+    {
+      "path": "certgen/stats/reference_sampling.py",
+      "sha256": "51410ab14f972f69187efdb4c8535621f7f480514f82915213062c302cb5d252",
+      "size": 9498
+    },
+    {
+      "path": "certgen/stats/streams.py",
+      "sha256": "9eb1fa75e505c38d1843c2112ed8cd3afd66ac9e64b3aa22a7576466b9a45fb8",
+      "size": 938
+    },
+    {
+      "path": "certgen/visualization/__init__.py",
+      "sha256": "a3c463f42c2b92c21c8ec6ac6bed97f8f523ab41a4379b67b7a63e767ef5fa59",
+      "size": 187
+    },
+    {
+      "path": "certgen/visualization/factory.py",
+      "sha256": "aa97b58013c904ca9b443336622e09873c00db3fc38120ec4a356e5e318b0364",
+      "size": 12543
+    }
+  ],
   "stage": "preflight",
   "study_hash": null,
   "worker_contract": "WORKER_CONTRACT.md",
   "zip_path": "artifacts/cvpr/kaggle_inputs/preflight/certgen_cvpr_preflight_input.zip",
-  "zip_sha256": "b26d42167398c5e2ea6e47b817ce53ebf98bf27ea3b1ef9f9df3b34d4731bf25",
-  "zip_size": 611060
+  "zip_sha256": "d3a5b585383e12cfad82d94694fa1d8e2701de399617e8e515bafae57f33e93f",
+  "zip_size": 650144
 }

@@ -160,6 +160,46 @@ def _verify_integrity_bytes(
             errors.append("integrity manifest declares absent members: " + ", ".join(extra[:20]))
 
 
+def _verify_source_inventory(
+    members: Mapping[str, bytes], bundle: Mapping[str, Any], errors: list[str]
+) -> str | None:
+    rows = bundle.get("source_inventory")
+    if rows is None:
+        return None
+    if not isinstance(rows, list) or not rows:
+        errors.append("source-code inventory must be a non-empty list")
+        return None
+    digest = hashlib.sha256()
+    declared: set[str] = set()
+    for index, row in enumerate(rows, start=1):
+        if not isinstance(row, dict):
+            errors.append(f"source inventory row {index} is not an object")
+            continue
+        name = row.get("path")
+        if not isinstance(name, str) or not name.startswith("certgen/") or not name.endswith(".py") or name in declared:
+            errors.append(f"source inventory row {index} has an invalid or duplicate path")
+            continue
+        declared.add(name)
+        data = members.get(name)
+        if data is None:
+            errors.append(f"source inventory references absent code: {name}")
+            continue
+        if row.get("size") != len(data) or row.get("sha256") != hashlib.sha256(data).hexdigest():
+            errors.append(f"source inventory size/hash mismatch: {name}")
+        encoded = name.encode()
+        digest.update(len(encoded).to_bytes(8, "big"))
+        digest.update(encoded)
+        digest.update(len(data).to_bytes(8, "big"))
+        digest.update(data)
+    actual = {name for name in members if name.startswith("certgen/") and name.endswith(".py")}
+    if actual != declared:
+        errors.append("source inventory membership differs from packaged source code")
+    observed = digest.hexdigest()
+    if bundle.get("source_code_hash") != observed:
+        errors.append("source-code inventory aggregate hash mismatch")
+    return observed
+
+
 def _directory_members(root: Path, errors: list[str]) -> dict[str, bytes]:
     members: dict[str, bytes] = {}
     for path in sorted(root.rglob("*")):
@@ -196,6 +236,7 @@ def _metadata_from_members(
     _verify_integrity_bytes(members, integrity, integrity_name, errors)
     if config:
         _verify_config(config, errors)
+    observed_source_code_hash = _verify_source_inventory(members, bundle, errors) if bundle else None
 
     stage = _normalize_stage(identity_payload.get("stage") or bundle.get("stage") or config.get("kind") or config.get("stage"))
     if stage is None:
@@ -235,6 +276,11 @@ def _metadata_from_members(
     completion = identity_payload.get("completion_status") or status_payload.get("status_code") or (
         "INPUT_PACKAGE_READY" if direction == "input" else None
     )
+    source_code_hash = identity_payload.get("source_code_hash") or bundle.get("source_code_hash") or config.get("source_code_hash")
+    output_schema_version = identity_payload.get("output_schema_version") or config.get("output_schema_version")
+    input_package_sha256 = identity_payload.get("input_package_sha256")
+    if observed_source_code_hash is not None and source_code_hash != observed_source_code_hash:
+        errors.append("package identity source-code hash mismatch")
     created_at = identity_payload.get("created_at_utc") or status_payload.get("created_at_utc") or status_payload.get("completed_at_utc")
     claim_allowed = identity_payload.get("claim_allowed", config.get("claim_allowed", integrity.get("claim_allowed")))
     if claim_allowed is not False:
@@ -242,7 +288,15 @@ def _metadata_from_members(
     if direction == "output" and stage and completion not in COMPLETE_STATUSES[stage]:
         errors.append(f"output completion status is not valid for {stage}: {completion}")
     if identity_payload:
-        for field in ("schema_version", "package_type", "stage", "run_id", "configuration_hash", "created_at_utc", "integrity_manifest", "completion_status"):
+        required_identity_fields = [
+            "schema_version", "package_type", "stage", "run_id", "configuration_hash",
+            "created_at_utc", "integrity_manifest", "completion_status",
+        ]
+        if identity_payload.get("contract_version") == "certgen.package_contract.v2":
+            required_identity_fields.extend(
+                ["contract_version", "direction", "source_code_hash", "output_schema_version"]
+            )
+        for field in required_identity_fields:
             if identity_payload.get(field) in {None, ""}:
                 errors.append(f"package identity is missing required field: {field}")
         if identity_payload.get("integrity_manifest") != integrity_name:
@@ -278,6 +332,11 @@ def _metadata_from_members(
         integrity_manifest=integrity_name,
         completion_status=str(completion) if completion is not None else None,
         scientific_identity_hash=scientific_hash,
+        contract_version=str(identity_payload.get("contract_version")) if identity_payload.get("contract_version") else None,
+        direction=direction,
+        source_code_hash=str(source_code_hash) if source_code_hash is not None else None,
+        output_schema_version=str(output_schema_version) if output_schema_version is not None else None,
+        input_package_sha256=str(input_package_sha256) if input_package_sha256 is not None else None,
     )
     return identity, warnings
 
@@ -330,12 +389,17 @@ def classify_package(path: str | Path, *, limits: DiscoveryLimits | None = None)
             members = _directory_members(candidate_path, errors)
             identity, derived_warnings = _metadata_from_members(members, errors=errors)
             warnings.extend(derived_warnings)
-            digest = hashlib.sha256(
+            content_digest = hashlib.sha256(
                 b"".join(
                     name.encode() + b"\0" + hashlib.sha256(data).digest()
                     for name, data in sorted(members.items())
                 )
             ).hexdigest()
+            marker = candidate_path / ".source_sha256"
+            marker_digest = marker.read_text(encoding="utf-8").strip() if marker.is_file() else ""
+            if marker_digest and not re.fullmatch(r"[0-9a-f]{64}", marker_digest):
+                errors.append("extracted package has an invalid source SHA-256 marker")
+            digest = marker_digest or content_digest
         except (OSError, RuntimeError, ValueError, KeyError) as exc:
             errors.append(f"extracted package classification failed: {exc}")
             identity = _unknown_identity(invalid=True)
@@ -379,9 +443,15 @@ def package_identity_payload(
         "profile_id": config.get("profile_id") or pilot_profile.get("profile_id"),
         "scale": config.get("scale"),
     }
+    direction = "OUTPUT" if package_type.value.endswith("_OUTPUT") else "INPUT"
     return {
-        "schema_version": "certgen.package_identity.v1",
+        "schema_version": "certgen.package_identity.v2",
+        "contract_version": "certgen.package_contract.v2",
         **scientific,
+        "direction": direction,
+        "source_code_hash": config.get("source_code_hash"),
+        "output_schema_version": config.get("output_schema_version"),
+        "input_package_sha256": config.get("input_package_sha256"),
         "created_at_utc": created_at_utc,
         "claim_allowed": False,
         "integrity_manifest": integrity_manifest,
