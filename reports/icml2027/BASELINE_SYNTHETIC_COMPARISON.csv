@@ -1,0 +1,14 @@
+baseline_id,method_family,estimate,decision,stopping_time,runtime_seconds,sample_ids_aligned,synthetic_validation_only,not_real_generator_evidence,not_empirical_paper_evidence,claim_allowed
+fid,feature_moments,-0.2674014401331659,DESCRIPTIVE_ONLY,,0.00043587503023445606,True,True,True,True,False
+kid,polynomial_mmd,-0.18704611346571243,DESCRIPTIVE_ONLY,,0.0011247500078752637,True,True,True,True,False
+fixed_rbf_mmd,kernel_two_sample,-0.010500662967528773,DESCRIPTIVE_ONLY,,0.000782917020842433,True,True,True,True,False
+permutation_mmd,randomization_test,-0.010500662967528773,A_BETTER,,0.03263724996941164,True,True,True,True,False
+bootstrap_mmd,bootstrap_interval,-0.010500662967528773,A_BETTER,,0.027865791984368116,True,True,True,True,False
+c2st,classifier_two_sample,-0.09375,DESCRIPTIVE_ONLY,,0.0004665000014938414,True,True,True,True,False
+precision_recall,support_diagnostic,,DESCRIPTIVE_ONLY,,0.0006947080255486071,True,True,True,True,False
+density_coverage,support_diagnostic,,DESCRIPTIVE_ONLY,,0.0006236669723875821,True,True,True,True,False
+nearest_neighbor,nearest_neighbor_diagnostic,,DESCRIPTIVE_ONLY,,0.0006169590051285923,True,True,True,True,False
+naive_repeated,sequential_mean,0.16884646627665145,UNRESOLVED,128,0.00016391696408391,True,True,True,True,False
+alpha_spending,sequential_mean,0.16884646627665145,UNRESOLVED,128,0.00016537500778213143,True,True,True,True,False
+fixed_bonferroni,fixed_family,0.16884646627665145,UNRESOLVED,128,0.00014262500917539,True,True,True,True,False
+certgen_anytime,anytime_valid_mean,0.16884646627665145,UNRESOLVED,128,0.00014358299085870385,True,True,True,True,False

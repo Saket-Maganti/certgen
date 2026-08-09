@@ -1,0 +1,14 @@
+{
+  "claim_allowed": false,
+  "directories": [
+    "configs/icml2027",
+    "registry/icml2027",
+    "reports/icml2027",
+    "artifacts/icml2027",
+    "notebooks/kaggle/icml2027",
+    "tests/icml2027",
+    "docs/icml2027"
+  ],
+  "planning_only": true,
+  "schema_version": "certgen.icml2027.research_layer_build.v1"
+}

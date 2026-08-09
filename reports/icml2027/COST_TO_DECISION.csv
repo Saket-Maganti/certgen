@@ -1,0 +1,4 @@
+study_id,stage,comparison,measurement_status,claim_allowed,GPU_seconds,CPU_seconds,wall_seconds,images_generated,images_featured,feature_vectors_computed,bytes_read,bytes_written,disk_peak,VRAM_peak,RAM_peak,model_load_seconds,dependency_install_seconds,samples_to_decision,percent_budget_saved
+cpu_suite,synthetic,,measured,False,,0.0,0.0,,,,,0,,,,,,,
+cifar_10k,generation,,planning_estimate,False,0.0,,,20000,,,,,,,,,,,
+dinov2,feature_extraction,,unknown,False,,,,,,,,,,,,,,,

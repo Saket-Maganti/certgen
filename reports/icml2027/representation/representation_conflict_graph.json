@@ -1,0 +1,24 @@
+{
+  "claim_allowed": false,
+  "edges": [
+    {
+      "classification": "DIRECTION_CONFLICT",
+      "comparison": "synthetic_conflict",
+      "representations": [
+        {
+          "decision": "B_BETTER",
+          "feature_space": "clip"
+        },
+        {
+          "decision": "UNRESOLVED",
+          "feature_space": "dinov2"
+        },
+        {
+          "decision": "A_BETTER",
+          "feature_space": "inception"
+        }
+      ]
+    }
+  ],
+  "schema_version": "certgen.icml2027.representation_conflict_graph.v1"
+}

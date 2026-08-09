@@ -1,0 +1,130 @@
+schema_version: certgen.icml2027.benchmark_registry.v1
+benchmarks:
+- benchmark_id: cifar10
+  verification_status: LEGACY_REFERENCE_VERIFIED_NEW_PROTOCOL_FROZEN
+  source_url: https://www.cs.toronto.edu/~kriz/cifar.html
+  revision: cifar-10-python canonical MD5
+  license: source terms reviewed in legacy lane; new study reuses local authenticated
+    reference
+  redistribution: false
+  authentication: true
+  sample_availability: local_reference
+  blocker: ''
+  human_action: none for local planning
+  gates:
+    source_verified: true
+    license_reviewed: true
+    revision_pinned: true
+    adapter_validated: true
+    reference_protocol_frozen: true
+    feature_protocol_frozen: true
+    compute_feasible: true
+    released_sample_semantics_clear: true
+  planning_only: true
+  claim_allowed: false
+- benchmark_id: ffhq
+  verification_status: BLOCKED_SOURCE_LICENSE_AND_PROTOCOL_VERIFICATION
+  source_url: ''
+  revision: unresolved
+  license: unresolved
+  redistribution: false
+  authentication: false
+  sample_availability: unverified
+  blocker: exact source/license/split/protocol review required
+  human_action: review exact official source and license, then pin immutable artifacts
+  gates:
+    source_verified: false
+    license_reviewed: false
+    revision_pinned: false
+    adapter_validated: false
+    reference_protocol_frozen: false
+    feature_protocol_frozen: false
+    compute_feasible: false
+    released_sample_semantics_clear: false
+  planning_only: true
+  claim_allowed: false
+- benchmark_id: imagenet
+  verification_status: BLOCKED_ACCESS_LICENSE_AND_SPLIT_VERIFICATION
+  source_url: ''
+  revision: unresolved
+  license: unresolved
+  redistribution: false
+  authentication: false
+  sample_availability: unverified
+  blocker: exact source/license/split/protocol review required
+  human_action: review exact official source and license, then pin immutable artifacts
+  gates:
+    source_verified: false
+    license_reviewed: false
+    revision_pinned: false
+    adapter_validated: false
+    reference_protocol_frozen: false
+    feature_protocol_frozen: false
+    compute_feasible: false
+    released_sample_semantics_clear: false
+  planning_only: true
+  claim_allowed: false
+- benchmark_id: text_to_image_public
+  verification_status: BLOCKED_PROMPT_REFERENCE_LICENSE_AND_MODEL_VERIFICATION
+  source_url: ''
+  revision: unresolved
+  license: unresolved
+  redistribution: false
+  authentication: false
+  sample_availability: unverified
+  blocker: exact source/license/split/protocol review required
+  human_action: review exact official source and license, then pin immutable artifacts
+  gates:
+    source_verified: false
+    license_reviewed: false
+    revision_pinned: false
+    adapter_validated: false
+    reference_protocol_frozen: false
+    feature_protocol_frozen: false
+    compute_feasible: false
+    released_sample_semantics_clear: false
+  planning_only: true
+  claim_allowed: false
+- benchmark_id: lsun_optional
+  verification_status: BLOCKED_SOURCE_LICENSE_AND_SPLIT_VERIFICATION
+  source_url: ''
+  revision: unresolved
+  license: unresolved
+  redistribution: false
+  authentication: false
+  sample_availability: unverified
+  blocker: exact source/license/split/protocol review required
+  human_action: review exact official source and license, then pin immutable artifacts
+  gates:
+    source_verified: false
+    license_reviewed: false
+    revision_pinned: false
+    adapter_validated: false
+    reference_protocol_frozen: false
+    feature_protocol_frozen: false
+    compute_feasible: false
+    released_sample_semantics_clear: false
+  planning_only: true
+  claim_allowed: false
+- benchmark_id: video_planning_only
+  verification_status: PLANNING_SKELETON_ONLY
+  source_url: ''
+  revision: unresolved
+  license: unresolved
+  redistribution: false
+  authentication: false
+  sample_availability: unverified
+  blocker: exact source/license/split/protocol review required
+  human_action: review exact official source and license, then pin immutable artifacts
+  gates:
+    source_verified: false
+    license_reviewed: false
+    revision_pinned: false
+    adapter_validated: false
+    reference_protocol_frozen: false
+    feature_protocol_frozen: false
+    compute_feasible: false
+    released_sample_semantics_clear: false
+  planning_only: true
+  claim_allowed: false
+claim_allowed: false

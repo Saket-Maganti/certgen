@@ -1,0 +1,8 @@
+schema_version: certgen.icml2027.reviewer_attack_config.v1
+master_seed: 20270809
+replicates: 32
+alpha: 0.05
+synthetic_validation_only: true
+not_real_generator_evidence: true
+not_empirical_paper_evidence: true
+claim_allowed: false

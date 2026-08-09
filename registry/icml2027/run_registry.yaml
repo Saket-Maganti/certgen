@@ -1,0 +1,39 @@
+schema_version: certgen.icml2027.run_registry.v1
+runs:
+- run_id: cpu_tier_a_quick
+  command: python3 -m certgen icml2027 synthetic run --config configs/icml2027/synthetic_validation_quick.yaml
+    --out-dir artifacts/icml2027/synthetic_validation/quick
+  status: COMPLETED
+  synthetic_validation_only: true
+  not_real_generator_evidence: true
+  not_empirical_paper_evidence: true
+  claim_allowed: false
+  measured_runtime_seconds: 4.73592
+  records: 672
+  scenarios: 28
+  result_report: reports/icml2027/CPU_SUITE_QUICK.json
+- run_id: cpu_tier_b_medium
+  command: python3 -m certgen icml2027 synthetic run --config configs/icml2027/synthetic_validation_medium.yaml
+    --out-dir artifacts/icml2027/synthetic_validation/medium
+  status: COMPLETED
+  synthetic_validation_only: true
+  not_real_generator_evidence: true
+  not_empirical_paper_evidence: true
+  claim_allowed: false
+  measured_runtime_seconds: 4.904193
+  records: 14336
+  scenarios: 28
+  result_report: reports/icml2027/CPU_SUITE_MEDIUM.json
+- run_id: cpu_tier_c_overnight
+  command: python3 -m certgen icml2027 synthetic run --config configs/icml2027/synthetic_validation_overnight.yaml
+    --out-dir artifacts/icml2027/synthetic_validation/overnight
+  status: COMPLETED
+  synthetic_validation_only: true
+  not_real_generator_evidence: true
+  not_empirical_paper_evidence: true
+  claim_allowed: false
+  measured_runtime_seconds: 27.789681
+  records: 112000
+  scenarios: 28
+  result_report: reports/icml2027/CPU_SUITE_OVERNIGHT.json
+claim_allowed: false

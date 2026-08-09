@@ -1,0 +1,25 @@
+schema_version: certgen.icml2027.statistical_method_registry.v1
+methods:
+- method_id: bounded_anytime_union_cs
+  validity: conservative_anytime_union_bound
+  assumptions:
+  - bounded observations
+  - prospectively fixed stream
+  - declared multiplicity
+  claim_allowed: false
+- method_id: bonferroni
+  validity: FWER_under_arbitrary_dependence
+  claim_allowed: false
+- method_id: holm
+  validity: FWER_under_arbitrary_dependence
+  claim_allowed: false
+- method_id: benjamini_hochberg
+  validity: exploratory_dependency_conditions_unverified
+  claim_allowed: false
+- method_id: equivalence_anytime
+  validity: EXPLORATORY_UNTIL_THEORY_VERIFIED
+  claim_allowed: false
+- method_id: adaptive_graph_frontier
+  validity: EXPLORATORY_NOT_PROVEN
+  claim_allowed: false
+claim_allowed: false

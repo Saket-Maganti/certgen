@@ -1,0 +1,44 @@
+schema_version: certgen.icml2027.study.v1
+study_id: icml2027_cifar_confirmatory_10k_v1
+status: PROSPECTIVELY_FROZEN_WAITING_FOR_REAL_GPU_EXECUTION
+result_agnostic: true
+legacy_pilot_result_inspected: false
+benchmark: cifar10_test_reference
+models:
+- google_ddpm_cifar10_candidate
+- frank_ddpm_ema_cifar10_candidate
+feature_spaces:
+- inception
+- clip
+robustness_feature_spaces_excluded_from_confirmatory_family:
+- dinov2
+maximum_sample_budget_per_model: 10000
+reference_sample_budget: 10000
+prefixes:
+- 100
+- 250
+- 500
+- 1000
+- 2000
+- 5000
+- 10000
+prefix_policy: single_frozen_maximum_stream_no_outcome_adaptive_selection
+stopping_rule: anytime_valid_bounded_rbf_mean_confidence_sequence
+multiplicity: bonferroni_across_two_confirmatory_hypotheses
+alpha: 0.05
+reference_draw:
+  source: existing canonical CIFAR-10 test materialization
+  seed: 20270809
+  without_replacement: true
+seed_plan:
+  master_seed: 20270809
+  derivation: sha256(study_id,model_id,sample_index)
+controls:
+- null_reference_split
+- obvious_gap_corruption
+controls_in_confirmatory_multiplicity: false
+cost_accounting: typed measured/planning_estimate/unknown schema
+equivalence: not_in_confirmatory_v1
+immutable: true
+claim_allowed: false
+contract_hash: eeb37b4e174530c3d8bd2b576a355f2b4c98f61ba0c921b7dc01eed14cd9d204

@@ -1,0 +1,8 @@
+claim_id,level,level_description,authenticated_real_evidence,theorem_verified,promotion_eligible,current_claim_allowed,blocker
+engineering_layer_executes,C0,engineering correctness,False,False,True,False,
+synthetic_calibration_observed,C1,synthetic validity,False,False,True,False,
+legacy_1k_observation,C2,real 1k pilot observation,False,False,False,False,required authenticated evidence or verified theory is absent
+cifar_10k_confirmatory,C3,CIFAR confirmatory result,False,False,False,False,required authenticated evidence or verified theory is absent
+real_multi_model_ranking,C4,multi-model real result,False,False,False,False,required authenticated evidence or verified theory is absent
+real_multi_benchmark,C5,multi-benchmark real result,False,False,False,False,required authenticated evidence or verified theory is absent
+general_anytime_methodology,C6,theorem-backed general methodological claim,False,False,False,False,required authenticated evidence or verified theory is absent

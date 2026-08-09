@@ -1,0 +1,9 @@
+{
+  "claim_allowed": false,
+  "go": 0,
+  "no_go": 2,
+  "passed": true,
+  "planning_only": true,
+  "records": 2,
+  "schema_version": "certgen.icml2027.go_no_go_audit.v1"
+}

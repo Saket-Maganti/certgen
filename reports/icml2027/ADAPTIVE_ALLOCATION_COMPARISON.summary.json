@@ -1,0 +1,16 @@
+{
+  "claim_allowed": false,
+  "invalid_confirmatory_promotions": 0,
+  "not_empirical_paper_evidence": true,
+  "not_real_generator_evidence": true,
+  "policies": [
+    "uniform",
+    "round_robin",
+    "uncertainty_first",
+    "largest_confidence_width",
+    "graph_frontier"
+  ],
+  "rows": 20,
+  "schema_version": "certgen.icml2027.adaptive_comparison.v1",
+  "synthetic_validation_only": true
+}

@@ -1,0 +1,19 @@
+{
+  "FWER": 0.0,
+  "claim_allowed": false,
+  "incorrect_edges": 0,
+  "maximum_models": 100,
+  "model_counts": [
+    2,
+    5,
+    10,
+    20,
+    50,
+    100
+  ],
+  "not_empirical_paper_evidence": true,
+  "not_real_generator_evidence": true,
+  "rows": 12,
+  "schema_version": "certgen.icml2027.multi_model_scaling.v1",
+  "synthetic_validation_only": true
+}

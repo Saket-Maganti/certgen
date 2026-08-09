@@ -1,0 +1,110 @@
+schema_version: certgen.icml2027.synthetic_config.v1
+tier: medium
+master_seed: 20270809
+workers: 4
+replicates: 512
+report_root: reports/icml2027
+defaults:
+  dimension: 16
+  sample_budget: 1000
+  alpha: 0.05
+  kernel: rbf
+  bandwidth: median
+  multiplicity_rule: bonferroni
+  representation_count: 1
+  model_count: 2
+  look_step: 16
+scenarios:
+- scenario_id: null_anytime
+  family: null_calibration
+  stopping_rule: anytime
+- scenario_id: null_naive
+  family: optional_stopping
+  stopping_rule: naive_repeated
+- scenario_id: null_fixed
+  family: optional_stopping
+  stopping_rule: fixed_n
+- scenario_id: null_spending
+  family: optional_stopping
+  stopping_rule: alpha_spending
+- scenario_id: power_mean
+  family: mean_shift
+  stopping_rule: anytime
+  expand:
+    effect_size:
+    - 0.05
+    - 0.1
+    - 0.2
+    - 0.4
+    - 0.6
+- scenario_id: power_covariance
+  family: covariance_shift
+  stopping_rule: anytime
+  effect_size: 0.4
+- scenario_id: power_mixture
+  family: mixture_weight_shift
+  stopping_rule: anytime
+  effect_size: 0.4
+- scenario_id: power_mode_drop
+  family: mode_dropping
+  stopping_rule: anytime
+  effect_size: 0.4
+- scenario_id: power_rare_mode
+  family: rare_mode_change
+  stopping_rule: anytime
+  effect_size: 0.4
+- scenario_id: power_tail
+  family: tail_shift
+  stopping_rule: anytime
+  effect_size: 0.4
+- scenario_id: power_multimodal
+  family: multimodal_separation
+  stopping_rule: anytime
+  effect_size: 0.4
+- scenario_id: heavy_tail
+  family: heavy_tailed
+  stopping_rule: anytime
+  effect_size: 0.4
+- scenario_id: finite_reference
+  family: finite_reference_population
+  stopping_rule: anytime
+- scenario_id: reference_reuse
+  family: reference_reuse
+  stopping_rule: anytime
+  reference_reuse: true
+- scenario_id: near_equivalence
+  family: near_equivalence
+  stopping_rule: anytime
+  effect_size: 0.0
+  equivalence_margin: 0.5
+- scenario_id: multiplicity
+  family: multiplicity
+  stopping_rule: anytime
+  model_count: 10
+  representation_count: 3
+- scenario_id: representation
+  family: representation_disagreement
+  stopping_rule: anytime
+  representation_count: 3
+  effect_size: 0.4
+- scenario_id: ranking
+  family: multi_model_ranking
+  stopping_rule: anytime
+  expand:
+    model_count:
+    - 2
+    - 5
+    - 10
+    - 20
+    - 50
+    - 100
+  effect_size: 0.08
+- scenario_id: adaptive
+  family: adaptive_allocation
+  stopping_rule: anytime
+  model_count: 10
+  effect_size: 0.08
+synthetic_validation_only: true
+not_real_generator_evidence: true
+not_empirical_paper_evidence: true
+claim_allowed: false

@@ -1,0 +1,13 @@
+model_count,replicate_id,number_of_comparisons,resolved_edges,unresolved_edges,incorrect_edges,graph_density,transitive_reduction_edges,cycles,connected_components,FWER_event,samples_consumed,CPU_seconds,memory_peak_platform_units,pairwise_matrix_materialized,synthetic_validation_only,not_real_generator_evidence,not_empirical_paper_evidence,claim_allowed
+2,0,1,0,1,0,0.0,0,0,2,False,128,0.00010258401744067669,755761152,False,True,True,True,False
+2,1,1,0,1,0,0.0,0,0,2,False,128,6.329099414870143e-05,755761152,False,True,True,True,False
+5,0,10,0,10,0,0.0,0,0,5,False,1280,0.00023800000781193376,755761152,False,True,True,True,False
+5,1,10,0,10,0,0.0,0,0,5,False,1280,0.00021470797946676612,755761152,False,True,True,True,False
+10,0,45,3,42,0,0.06666666666666667,3,0,7,False,5744,0.000851249962579459,755761152,False,True,True,True,False
+10,1,45,3,42,0,0.06666666666666667,3,0,7,False,5728,0.00083829095819965,755761152,False,True,True,True,False
+20,0,190,70,120,0,0.3684210526315789,63,0,1,False,21280,0.003406417032238096,755761152,False,True,True,True,False
+20,1,190,65,125,0,0.34210526315789475,63,0,1,False,21376,0.003361875016707927,755761152,False,True,True,True,False
+50,0,1225,848,377,0,0.6922448979591836,336,0,1,False,101280,0.023349000024609268,755761152,False,True,True,True,False
+50,1,1225,850,375,0,0.6938775510204082,342,0,1,False,101232,0.023197125003207475,755761152,False,True,True,True,False
+100,0,4950,4121,829,0,0.8325252525252526,834,0,1,False,335584,0.12226112501230091,755761152,False,True,True,True,False
+100,1,4950,4119,831,0,0.8321212121212122,839,0,1,False,335456,0.11820112500572577,755761152,False,True,True,True,False

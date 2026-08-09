@@ -1,0 +1,16 @@
+schema_version: certgen.icml2027.baseline_study.v1
+alpha: 0.05
+master_seed: 20270809
+baseline_repetitions: 49
+block_size: 8
+family_size: 2
+looks:
+- 4
+- 8
+- 16
+- 32
+true_mean: 0.0
+synthetic_validation_only: true
+not_real_generator_evidence: true
+not_empirical_paper_evidence: true
+claim_allowed: false

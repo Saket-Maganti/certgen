@@ -1,0 +1,185 @@
+{
+  "claim_allowed": false,
+  "config_hash": "2737ec599845a2793e24eac71f3743530dab0c2f75dab574e4750ed4112b02d7",
+  "elapsed_seconds": 20.881302708003204,
+  "families": {
+    "adaptive_allocation": {
+      "coverage_rate": 1.0,
+      "decision_counts": {
+        "UNRESOLVED": 4000
+      },
+      "false_negative_rate": 1.0,
+      "false_positive_rate": 0.0,
+      "mean_stopping_time": 5000.0,
+      "records": 4000
+    },
+    "covariance_shift": {
+      "coverage_rate": 1.0,
+      "decision_counts": {
+        "B_BETTER": 4000
+      },
+      "false_negative_rate": 0.0,
+      "false_positive_rate": 0.0,
+      "mean_stopping_time": 394.348,
+      "records": 4000
+    },
+    "finite_reference_population": {
+      "coverage_rate": 1.0,
+      "decision_counts": {
+        "UNRESOLVED": 4000
+      },
+      "false_negative_rate": 0.0,
+      "false_positive_rate": 0.0,
+      "mean_stopping_time": 5000.0,
+      "records": 4000
+    },
+    "heavy_tailed": {
+      "coverage_rate": 1.0,
+      "decision_counts": {
+        "B_BETTER": 4000
+      },
+      "false_negative_rate": 0.0,
+      "false_positive_rate": 0.0,
+      "mean_stopping_time": 302.936,
+      "records": 4000
+    },
+    "mean_shift": {
+      "coverage_rate": 1.0,
+      "decision_counts": {
+        "B_BETTER": 13579,
+        "UNRESOLVED": 6421
+      },
+      "false_negative_rate": 0.32105,
+      "false_positive_rate": 0.0,
+      "mean_stopping_time": 2269.3684,
+      "records": 20000
+    },
+    "mixture_weight_shift": {
+      "coverage_rate": 1.0,
+      "decision_counts": {
+        "B_BETTER": 4000
+      },
+      "false_negative_rate": 0.0,
+      "false_positive_rate": 0.0,
+      "mean_stopping_time": 251.748,
+      "records": 4000
+    },
+    "mode_dropping": {
+      "coverage_rate": 1.0,
+      "decision_counts": {
+        "A_BETTER": 4000
+      },
+      "false_negative_rate": 0.0,
+      "false_positive_rate": 0.0,
+      "mean_stopping_time": 242.576,
+      "records": 4000
+    },
+    "multi_model_ranking": {
+      "coverage_rate": 1.0,
+      "decision_counts": {
+        "UNRESOLVED": 24000
+      },
+      "false_negative_rate": 1.0,
+      "false_positive_rate": 0.0,
+      "mean_stopping_time": 5000.0,
+      "records": 24000
+    },
+    "multimodal_separation": {
+      "coverage_rate": 1.0,
+      "decision_counts": {
+        "B_BETTER": 4000
+      },
+      "false_negative_rate": 0.0,
+      "false_positive_rate": 0.0,
+      "mean_stopping_time": 293.076,
+      "records": 4000
+    },
+    "multiplicity": {
+      "coverage_rate": 1.0,
+      "decision_counts": {
+        "UNRESOLVED": 4000
+      },
+      "false_negative_rate": 0.0,
+      "false_positive_rate": 0.0,
+      "mean_stopping_time": 5000.0,
+      "records": 4000
+    },
+    "near_equivalence": {
+      "coverage_rate": 1.0,
+      "decision_counts": {
+        "PRACTICALLY_EQUIVALENT": 4000
+      },
+      "false_negative_rate": 0.0,
+      "false_positive_rate": 0.0,
+      "mean_stopping_time": 123.884,
+      "records": 4000
+    },
+    "null_calibration": {
+      "coverage_rate": 1.0,
+      "decision_counts": {
+        "UNRESOLVED": 4000
+      },
+      "false_negative_rate": 0.0,
+      "false_positive_rate": 0.0,
+      "mean_stopping_time": 5000.0,
+      "records": 4000
+    },
+    "optional_stopping": {
+      "coverage_rate": 1.0,
+      "decision_counts": {
+        "UNRESOLVED": 12000
+      },
+      "false_negative_rate": 0.0,
+      "false_positive_rate": 0.0,
+      "mean_stopping_time": 5000.0,
+      "records": 12000
+    },
+    "rare_mode_change": {
+      "coverage_rate": 1.0,
+      "decision_counts": {
+        "A_BETTER": 4000
+      },
+      "false_negative_rate": 0.0,
+      "false_positive_rate": 0.0,
+      "mean_stopping_time": 218.992,
+      "records": 4000
+    },
+    "reference_reuse": {
+      "coverage_rate": 1.0,
+      "decision_counts": {
+        "UNRESOLVED": 4000
+      },
+      "false_negative_rate": 0.0,
+      "false_positive_rate": 0.0,
+      "mean_stopping_time": 5000.0,
+      "records": 4000
+    },
+    "representation_disagreement": {
+      "coverage_rate": 1.0,
+      "decision_counts": {
+        "B_BETTER": 4000
+      },
+      "false_negative_rate": 0.0,
+      "false_positive_rate": 0.0,
+      "mean_stopping_time": 253.58,
+      "records": 4000
+    },
+    "tail_shift": {
+      "coverage_rate": 1.0,
+      "decision_counts": {
+        "A_BETTER": 4000
+      },
+      "false_negative_rate": 0.0,
+      "false_positive_rate": 0.0,
+      "mean_stopping_time": 230.996,
+      "records": 4000
+    }
+  },
+  "not_empirical_paper_evidence": true,
+  "not_real_generator_evidence": true,
+  "records": 112000,
+  "scenarios": 28,
+  "schema_version": "certgen.icml2027.synthetic_summary.v1",
+  "synthetic_validation_only": true,
+  "tier": "overnight"
+}

@@ -1,0 +1,21 @@
+{
+  "claim_allowed": false,
+  "config": "configs/icml2027/cifar_cross_family/contract.yaml",
+  "human_action": "satisfy every named prerequisite with authenticated, hash-bound artifacts and rerun the exact builder",
+  "input_zip_created": false,
+  "lane": "cifar_cross_family_preflight",
+  "missing": [
+    "model_asset_manifest",
+    "model_asset_root",
+    "source_verification"
+  ],
+  "notebook": "notebooks/kaggle/icml2027/certgen_icml2027_cifar_cross_family_preflight_t4x2.ipynb",
+  "planning_only": true,
+  "required_inputs": [
+    "source_verification",
+    "model_asset_manifest",
+    "model_asset_root"
+  ],
+  "schema_version": "certgen.icml2027.kaggle_blocked_plan.v1",
+  "status": "BLOCKED_MISSING_AUTHENTICATED_PREREQUISITES"
+}

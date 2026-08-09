@@ -1,0 +1,30 @@
+{
+  "claim_allowed": false,
+  "copyback_cadence": "end_of_stage_plus_final_validation",
+  "estimate_label": "PLANNING_ESTIMATE_NOT_MEASURED",
+  "estimated_GPU_hours": 1.3744212962962963,
+  "estimated_sessions": 1,
+  "expected_ZIP_bytes": 1510008000,
+  "expected_disk_bytes": 1776480000,
+  "feature_GPU_hours": 0.1736111111111111,
+  "generation_GPU_hours": 0.9259259259259259,
+  "inputs": {
+    "claim_allowed": false,
+    "expected_bytes_per_image": 50000,
+    "feature_dimension": 768,
+    "feature_space_count": 3,
+    "gpu_count": 2,
+    "model_count": 2,
+    "overhead_fraction": 0.25,
+    "planning_extractor_throughput": 24.0,
+    "planning_images_per_second": 3.0,
+    "planning_only": true,
+    "reference_count": 10000,
+    "sample_count": 10000,
+    "session_limit_hours": 12
+  },
+  "measurement_status": "planning_estimate",
+  "planning_only": true,
+  "recommended_shard_size": 5000,
+  "schema_version": "certgen.icml2027.compute_plan.v1"
+}

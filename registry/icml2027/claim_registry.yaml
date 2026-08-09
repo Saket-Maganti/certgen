@@ -1,0 +1,33 @@
+schema_version: certgen.icml2027.claim_registry.v1
+claims:
+- claim_id: engineering_layer_executes
+  level: C0
+  evidence: []
+  claim_allowed: false
+- claim_id: synthetic_calibration_observed
+  level: C1
+  evidence: []
+  claim_allowed: false
+- claim_id: legacy_1k_observation
+  level: C2
+  evidence: []
+  claim_allowed: false
+- claim_id: cifar_10k_confirmatory
+  level: C3
+  evidence: []
+  prospective_contract_hash: fa75094d279d2da95f7109ec796654cf0a80665b031093cfa6141324a136fc1b
+  claim_allowed: false
+- claim_id: real_multi_model_ranking
+  level: C4
+  evidence: []
+  claim_allowed: false
+- claim_id: real_multi_benchmark
+  level: C5
+  evidence: []
+  claim_allowed: false
+- claim_id: general_anytime_methodology
+  level: C6
+  evidence: []
+  theorem_verified: false
+  claim_allowed: false
+claim_allowed: false

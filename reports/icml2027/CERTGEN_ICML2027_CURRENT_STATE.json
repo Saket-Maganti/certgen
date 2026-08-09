@@ -1,0 +1,31 @@
+{
+  "adaptive_scheduler_ready": true,
+  "baseline_cpu_runs_completed": true,
+  "baseline_suite_ready": true,
+  "cifar_10k_study_frozen": true,
+  "claim_allowed": false,
+  "cpu_runs_remaining": [],
+  "cross_family_cifar_infrastructure_ready": true,
+  "dinov2_infrastructure_ready": true,
+  "equivalence_infrastructure_ready": true,
+  "final_status": "ICML2027_MAXIMIZED_CPU_COMPLETE_GPU_RUNBOOKS_READY",
+  "gpu_runs_required": true,
+  "legacy_pilot_preserved": true,
+  "multi_model_scaling_completed": true,
+  "multibench_infrastructure_ready": true,
+  "multiplicity_suite_ready": true,
+  "next_real_action": "run the existing authenticated Kaggle diagnostic on T4x2 and import its validated output",
+  "null_calibration_completed": true,
+  "optional_stopping_completed": true,
+  "power_curves_completed": true,
+  "released_sample_import_ready": true,
+  "representation_analysis_ready": true,
+  "reviewer_attack_suite_completed": true,
+  "schema_version": "certgen.icml2027.current_state.v1",
+  "synthetic_cpu_runs_completed": [
+    "quick",
+    "medium",
+    "overnight"
+  ],
+  "synthetic_engine_ready": true
+}

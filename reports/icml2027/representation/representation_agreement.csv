@@ -1,0 +1,3 @@
+comparison,classification,representation_count,decisions_json,unanimous_direction,all_representations_equivalent,any_conflict_blocks,majority_direction_exploratory,claim_allowed
+synthetic_conflict,DIRECTION_CONFLICT,3,"[{""decision"": ""B_BETTER"", ""feature_space"": ""clip""}, {""decision"": ""UNRESOLVED"", ""feature_space"": ""dinov2""}, {""decision"": ""A_BETTER"", ""feature_space"": ""inception""}]",UNRESOLVED,UNRESOLVED,UNRESOLVED,UNRESOLVED,False
+synthetic_consensus,CONSENSUS_A_BETTER,3,"[{""decision"": ""A_BETTER"", ""feature_space"": ""clip""}, {""decision"": ""A_BETTER"", ""feature_space"": ""dinov2""}, {""decision"": ""A_BETTER"", ""feature_space"": ""inception""}]",A_BETTER,UNRESOLVED,A_BETTER,A_BETTER,False

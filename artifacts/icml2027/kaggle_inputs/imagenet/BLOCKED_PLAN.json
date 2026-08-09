@@ -1,0 +1,21 @@
+{
+  "claim_allowed": false,
+  "config": "configs/icml2027/benchmarks/imagenet/prospective_contract.yaml",
+  "human_action": "satisfy every named prerequisite with authenticated, hash-bound artifacts and rerun the exact builder",
+  "input_zip_created": false,
+  "lane": "imagenet",
+  "missing": [
+    "go_no_go_report",
+    "model_or_released_samples",
+    "reference_manifest"
+  ],
+  "notebook": "notebooks/kaggle/icml2027/imagenet/certgen_icml2027_imagenet_t4x2.ipynb",
+  "planning_only": true,
+  "required_inputs": [
+    "go_no_go_report",
+    "reference_manifest",
+    "model_or_released_samples"
+  ],
+  "schema_version": "certgen.icml2027.kaggle_blocked_plan.v1",
+  "status": "BLOCKED_MISSING_AUTHENTICATED_PREREQUISITES"
+}

@@ -1,0 +1,14 @@
+baseline_id,CPU_seconds,measurement_status,claim_allowed
+fid,0.00043587503023445606,measured,False
+kid,0.0011247500078752637,measured,False
+fixed_rbf_mmd,0.000782917020842433,measured,False
+permutation_mmd,0.03263724996941164,measured,False
+bootstrap_mmd,0.027865791984368116,measured,False
+c2st,0.0004665000014938414,measured,False
+precision_recall,0.0006947080255486071,measured,False
+density_coverage,0.0006236669723875821,measured,False
+nearest_neighbor,0.0006169590051285923,measured,False
+naive_repeated,0.00016391696408391,measured,False
+alpha_spending,0.00016537500778213143,measured,False
+fixed_bonferroni,0.00014262500917539,measured,False
+certgen_anytime,0.00014358299085870385,measured,False

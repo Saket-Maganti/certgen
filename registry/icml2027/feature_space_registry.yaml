@@ -1,0 +1,41 @@
+schema_version: certgen.icml2027.feature_space_registry.v1
+feature_spaces:
+- feature_space_id: inception
+  role: confirmatory_cifar
+  legacy_contract_reused: true
+  claim_allowed: false
+- feature_space_id: clip
+  role: confirmatory_cifar
+  legacy_contract_reused: true
+  claim_allowed: false
+- feature_space_id: dinov2_base
+  role: robustness_only
+  contract:
+    model_identifier: facebook/dinov2-base
+    revision: f9e44c814b77203eaa57a6bdbbd535f21ede1415
+    package: transformers
+    model_class: Dinov2Model
+    processor: AutoImageProcessor
+    feature_layer: last_hidden_state[:,0,:]
+    feature_normalization: none
+    dimension: 768
+    input_resolution: 224
+    resize_shortest_edge: 256
+    crop: center_crop_224
+    interpolation: bicubic_pil_resample_3
+    pixel_normalization: imagenet_mean_std
+    precision: float32_output
+    license: Apache-2.0
+    license_status: SOURCE_VERIFIED_REVIEW_REQUIRED_BEFORE_REDISTRIBUTION
+    source_url: https://huggingface.co/facebook/dinov2-base
+    upstream_model_card: https://github.com/facebookresearch/dinov2/blob/main/MODEL_CARD.md
+    redistribution_allowed: false
+    claim_allowed: false
+  preprocessing_hash: 0772fd44eb999188c8dbcdf2ced76d40b601812eeb32ee40897df67e41a25c3b
+  claim_allowed: false
+consensus_policies:
+- unanimous_direction
+- all_representations_equivalent
+- any_conflict_blocks
+- majority_direction_exploratory
+claim_allowed: false

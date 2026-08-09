@@ -1,0 +1,17 @@
+schema_version: certgen.icml2027.adaptive_config.v1
+policies:
+- uniform
+- round_robin
+- uncertainty_first
+- largest_confidence_width
+- graph_frontier
+master_seed: 20270809
+replicates: 4
+model_count: 8
+chunk_size: 16
+maximum_samples: 12000
+alpha: 0.05
+synthetic_validation_only: true
+not_real_generator_evidence: true
+not_empirical_paper_evidence: true
+claim_allowed: false

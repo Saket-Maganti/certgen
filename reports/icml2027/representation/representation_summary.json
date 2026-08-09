@@ -1,0 +1,10 @@
+{
+  "claim_allowed": false,
+  "classification_counts": {
+    "CONSENSUS_A_BETTER": 1,
+    "DIRECTION_CONFLICT": 1
+  },
+  "comparisons": 2,
+  "majority_direction_confirmatory": false,
+  "schema_version": "certgen.icml2027.representation_summary.v1"
+}

@@ -1,0 +1,80 @@
+weights: {}
+candidates:
+- candidate_id: cifar10_cross_family
+  scores:
+    scientific_value: 5
+    model_family_diversity: 5
+    benchmark_diversity: 2
+    public_availability: 2
+    license_clarity: 1
+    compute_cost: 4
+    released_sample_availability: 2
+    feature_compatibility: 5
+    preflight_complexity: 2
+    reviewer_value: 5
+    risk: 3
+  gates: &id001
+    source_verified: false
+    license_reviewed: false
+    revision_pinned: false
+    adapter_validated: false
+    reference_protocol_frozen: false
+    feature_protocol_frozen: false
+    compute_feasible: false
+    released_sample_semantics_clear: false
+  blocker: source/license/adapter/protocol gates require real external verification
+  planning_only: true
+  claim_allowed: false
+- candidate_id: ffhq_released_samples
+  scores:
+    scientific_value: 4
+    model_family_diversity: 4
+    benchmark_diversity: 5
+    public_availability: 3
+    license_clarity: 2
+    compute_cost: 3
+    released_sample_availability: 4
+    feature_compatibility: 4
+    preflight_complexity: 3
+    reviewer_value: 5
+    risk: 4
+  gates: *id001
+  blocker: source/license/adapter/protocol gates require real external verification
+  planning_only: true
+  claim_allowed: false
+- candidate_id: imagenet_class_conditional
+  scores:
+    scientific_value: 5
+    model_family_diversity: 5
+    benchmark_diversity: 5
+    public_availability: 2
+    license_clarity: 2
+    compute_cost: 5
+    released_sample_availability: 3
+    feature_compatibility: 5
+    preflight_complexity: 4
+    reviewer_value: 5
+    risk: 5
+  gates: *id001
+  blocker: source/license/adapter/protocol gates require real external verification
+  planning_only: true
+  claim_allowed: false
+- candidate_id: public_text_to_image
+  scores:
+    scientific_value: 5
+    model_family_diversity: 5
+    benchmark_diversity: 5
+    public_availability: 3
+    license_clarity: 2
+    compute_cost: 5
+    released_sample_availability: 4
+    feature_compatibility: 5
+    preflight_complexity: 5
+    reviewer_value: 5
+    risk: 5
+  gates: *id001
+  blocker: source/license/adapter/protocol gates require real external verification
+  planning_only: true
+  claim_allowed: false
+planning_only: true
+claim_allowed: false

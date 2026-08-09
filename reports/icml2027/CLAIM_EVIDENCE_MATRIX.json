@@ -1,0 +1,8 @@
+{
+  "claim_allowed": false,
+  "claims": 7,
+  "eligible": 2,
+  "errors": [],
+  "passed": true,
+  "schema_version": "certgen.icml2027.evidence_audit.v1"
+}

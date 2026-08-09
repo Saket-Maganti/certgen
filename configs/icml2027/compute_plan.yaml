@@ -1,0 +1,13 @@
+model_count: 2
+sample_count: 10000
+reference_count: 10000
+gpu_count: 2
+session_limit_hours: 12
+planning_images_per_second: 3.0
+planning_extractor_throughput: 24.0
+expected_bytes_per_image: 50000
+feature_dimension: 768
+feature_space_count: 3
+overhead_fraction: 0.25
+planning_only: true
+claim_allowed: false

@@ -1,0 +1,19 @@
+{
+  "claim_allowed": false,
+  "config": "registry/icml2027/feature_space_registry.yaml",
+  "human_action": "satisfy every named prerequisite with authenticated, hash-bound artifacts and rerun the exact builder",
+  "input_zip_created": false,
+  "lane": "released_sample_features",
+  "missing": [
+    "released_sample_import",
+    "released_sample_manifest"
+  ],
+  "notebook": "notebooks/kaggle/icml2027/certgen_icml2027_released_sample_features_t4x2.ipynb",
+  "planning_only": true,
+  "required_inputs": [
+    "released_sample_import",
+    "released_sample_manifest"
+  ],
+  "schema_version": "certgen.icml2027.kaggle_blocked_plan.v1",
+  "status": "BLOCKED_MISSING_AUTHENTICATED_PREREQUISITES"
+}

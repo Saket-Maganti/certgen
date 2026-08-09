@@ -1,0 +1,9 @@
+{
+  "claim_allowed": false,
+  "compatible_for_shared_confirmatory_family": false,
+  "decision": "KEEP_IN_SEPARATE_FAMILIES",
+  "mismatched_fields": [],
+  "protocol_text_equal": true,
+  "sampling_protocols_verified": false,
+  "schema_version": "certgen.icml2027.sample_protocol_compatibility.v1"
+}

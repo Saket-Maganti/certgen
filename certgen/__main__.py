@@ -481,11 +481,19 @@ def build_parser() -> argparse.ArgumentParser:
         notebooks_command.add_argument("--json", action="store_true")
         notebooks_command.add_argument("--explain", action="store_true")
         notebooks_command.add_argument("--dry-run", action="store_true")
+    from certgen.icml2027.cli import add_commands as add_icml2027_commands
+
+    add_icml2027_commands(subparsers)
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
+    from certgen.icml2027.cli import dispatch as dispatch_icml2027
+
+    icml_result = dispatch_icml2027(args)
+    if icml_result is not None:
+        return icml_result
     if args.command == "status":
         _print(_status())
         return 0

@@ -1,0 +1,5 @@
+candidate_id,scientific_value,model_family_diversity,benchmark_diversity,public_availability,license_clarity,compute_cost,released_sample_availability,feature_compatibility,preflight_complexity,reviewer_value,risk,weighted_score,go_no_go,blocker,planning_only,claim_allowed
+ffhq_released_samples,4.0,4.0,5.0,3.0,2.0,3.0,4.0,4.0,3.0,5.0,4.0,36.0,NO_GO,source/license/adapter/protocol gates require real external verification,True,False
+public_text_to_image,5.0,5.0,5.0,3.0,2.0,5.0,4.0,5.0,5.0,5.0,5.0,34.0,NO_GO,source/license/adapter/protocol gates require real external verification,True,False
+cifar10_cross_family,5.0,5.0,2.0,2.0,1.0,4.0,2.0,5.0,2.0,5.0,3.0,33.0,NO_GO,source/license/adapter/protocol gates require real external verification,True,False
+imagenet_class_conditional,5.0,5.0,5.0,2.0,2.0,5.0,3.0,5.0,4.0,5.0,5.0,33.0,NO_GO,source/license/adapter/protocol gates require real external verification,True,False

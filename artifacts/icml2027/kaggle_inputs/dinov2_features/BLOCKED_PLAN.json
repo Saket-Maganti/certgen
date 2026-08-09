@@ -1,0 +1,23 @@
+{
+  "claim_allowed": false,
+  "config": "registry/icml2027/feature_space_registry.yaml",
+  "human_action": "satisfy every named prerequisite with authenticated, hash-bound artifacts and rerun the exact builder",
+  "input_zip_created": false,
+  "lane": "dinov2_features",
+  "missing": [
+    "dinov2_asset_manifest",
+    "dinov2_asset_root",
+    "dinov2_preflight_output",
+    "image_manifest"
+  ],
+  "notebook": "notebooks/kaggle/icml2027/certgen_icml2027_dinov2_features_t4x2.ipynb",
+  "planning_only": true,
+  "required_inputs": [
+    "dinov2_preflight_output",
+    "image_manifest",
+    "dinov2_asset_manifest",
+    "dinov2_asset_root"
+  ],
+  "schema_version": "certgen.icml2027.kaggle_blocked_plan.v1",
+  "status": "BLOCKED_MISSING_AUTHENTICATED_PREREQUISITES"
+}

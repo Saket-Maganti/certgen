@@ -1,0 +1,6 @@
+schema_version: certgen.icml2027.equivalence_config.v1
+margin_type: normalized
+margin: 0.1
+alpha: 0.05
+exploratory_until_theory_verified: true
+claim_allowed: false

@@ -33,6 +33,18 @@ artifacts/**/features/
 artifacts/**/cache*/
 artifacts/**/raw_outputs/
 artifacts/**/quarantine/
+
+# ICML 2027 local Monte Carlo, fixtures, imports, and run outputs.
+# Keep source-controlled contracts, blocked plans, and empty result schemas only.
+artifacts/icml2027/baseline_results/
+artifacts/icml2027/fixtures/
+artifacts/icml2027/numerical_audit/
+artifacts/icml2027/released_sample_fixture_import/
+artifacts/icml2027/replay/
+artifacts/icml2027/reviewer_attacks/
+artifacts/icml2027/synthetic_validation/
+artifacts/icml2027/kaggle_inputs/**/*.zip
+artifacts/icml2027/kaggle_inputs/**/inputs/
 dist/
 
 # Secrets and credentials
@@ -52,6 +64,7 @@ __pycache__/
 .DS_Store
 __MACOSX/
 reports/*command_logs/
+reports/**/command_logs/
 
 # Local paper build products
 *.aux

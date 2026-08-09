@@ -1,0 +1,34 @@
+{
+  "claim_allowed": false,
+  "confirmatory_protocol_mutated": false,
+  "factors": {
+    "antialias": [
+      true,
+      false
+    ],
+    "feature_l2": [
+      true,
+      false
+    ],
+    "interpolation": [
+      "bilinear",
+      "bicubic"
+    ],
+    "metric_dtype": [
+      "float32",
+      "float64"
+    ],
+    "pixel_normalization": [
+      "extractor_default",
+      "unit_interval",
+      "minus_one_to_one"
+    ],
+    "spatial_policy": [
+      "center_crop",
+      "resize_only"
+    ]
+  },
+  "planning_only": true,
+  "rows": 96,
+  "schema_version": "certgen.icml2027.preprocessing_ablation_matrix.v1"
+}

@@ -1,0 +1,3 @@
+record_id,status,failed_gates,blocker,human_action,planning_only,claim_allowed
+dinov2_base_robustness,NO_GO,license_reviewed;adapter_validated;compute_feasible,authenticated pinned model asset and human redistribution review required,"accept/review Apache-2.0 obligations, acquire pinned safetensors snapshot, build private asset manifest, run Kaggle preflight",True,False
+cifar_flow_matching_candidate,NO_GO,source_verified;license_reviewed;revision_pinned;adapter_validated;reference_protocol_frozen;feature_protocol_frozen;compute_feasible;released_sample_semantics_clear,adapter and sampler semantics cannot be established from repository context,"provide official source, revision, license, checkpoint hashes, and sampling documentation",True,False

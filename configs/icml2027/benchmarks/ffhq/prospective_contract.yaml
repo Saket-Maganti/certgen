@@ -1,0 +1,28 @@
+schema_version: certgen.icml2027.benchmark_contract.v1
+benchmark_id: ffhq
+status: BLOCKED_SOURCE_LICENSE_AND_PROTOCOL_VERIFICATION
+reference_source_contract: unresolved; must be exact and authenticated
+license_access_gate: human legal/license review required
+split_definition: must be frozen before feature inspection
+resolution_policy: benchmark-specific; unresolved
+preprocessing_policy: feature-space registry controls; must be frozen
+model_eligibility: public source, pinned revision, usable license, validated adapter
+feature_space_eligibility:
+- inception_if_valid
+- clip_if_valid
+- dinov2_robustness_if_valid
+sample_budgets:
+- 100
+- 250
+- 500
+- 1000
+- 2000
+- 5000
+- 10000
+released_sample_support: true
+kaggle_input_builder: python3 scripts/icml2027/build_kaggle_input.py --lane ffhq
+kaggle_notebook_factory: notebooks/kaggle/icml2027/ffhq
+local_importer: python3 -m certgen released-samples import
+cpu_analysis_continuation: python3 -m certgen icml2027 replay study
+planning_only: true
+claim_allowed: false

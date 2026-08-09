@@ -1,0 +1,78 @@
+{
+  "claim_allowed": false,
+  "cross_set_leakage_groups": [
+    [
+      {
+        "bytes": 75,
+        "path": "/Users/saketmaganti/Projects/certGen/artifacts/icml2027/fixtures/duplicates/reference/reference.png",
+        "perceptual_hash": "0000000000000000",
+        "role": "reference",
+        "sha256": "9fa0f2ae2b655c877690c6ed5649dad9f248147f7e21d0f8011636c20d627162"
+      },
+      {
+        "bytes": 75,
+        "path": "/Users/saketmaganti/Projects/certGen/artifacts/icml2027/fixtures/duplicates/generated/leak.png",
+        "perceptual_hash": "0000000000000000",
+        "role": "generated",
+        "sha256": "9fa0f2ae2b655c877690c6ed5649dad9f248147f7e21d0f8011636c20d627162"
+      }
+    ]
+  ],
+  "exact_duplicate_groups": [
+    [
+      {
+        "bytes": 75,
+        "path": "/Users/saketmaganti/Projects/certGen/artifacts/icml2027/fixtures/duplicates/reference/reference.png",
+        "perceptual_hash": "0000000000000000",
+        "role": "reference",
+        "sha256": "9fa0f2ae2b655c877690c6ed5649dad9f248147f7e21d0f8011636c20d627162"
+      },
+      {
+        "bytes": 75,
+        "path": "/Users/saketmaganti/Projects/certGen/artifacts/icml2027/fixtures/duplicates/generated/leak.png",
+        "perceptual_hash": "0000000000000000",
+        "role": "generated",
+        "sha256": "9fa0f2ae2b655c877690c6ed5649dad9f248147f7e21d0f8011636c20d627162"
+      }
+    ]
+  ],
+  "files": 3,
+  "inventory": [
+    {
+      "bytes": 75,
+      "path": "/Users/saketmaganti/Projects/certGen/artifacts/icml2027/fixtures/duplicates/reference/reference.png",
+      "perceptual_hash": "0000000000000000",
+      "role": "reference",
+      "sha256": "9fa0f2ae2b655c877690c6ed5649dad9f248147f7e21d0f8011636c20d627162"
+    },
+    {
+      "bytes": 75,
+      "path": "/Users/saketmaganti/Projects/certGen/artifacts/icml2027/fixtures/duplicates/generated/leak.png",
+      "perceptual_hash": "0000000000000000",
+      "role": "generated",
+      "sha256": "9fa0f2ae2b655c877690c6ed5649dad9f248147f7e21d0f8011636c20d627162"
+    },
+    {
+      "bytes": 77,
+      "path": "/Users/saketmaganti/Projects/certGen/artifacts/icml2027/fixtures/duplicates/generated/unique.png",
+      "perceptual_hash": "0000000000000000",
+      "role": "generated",
+      "sha256": "36fe6ab71ec56fa1fc84326e4673fbf028c6ad2eb5051ce5a9e6cb0d07c85f4c"
+    }
+  ],
+  "near_duplicate_pairs": [
+    {
+      "hamming_distance": 0,
+      "left": "/Users/saketmaganti/Projects/certGen/artifacts/icml2027/fixtures/duplicates/reference/reference.png",
+      "right": "/Users/saketmaganti/Projects/certGen/artifacts/icml2027/fixtures/duplicates/generated/unique.png"
+    },
+    {
+      "hamming_distance": 0,
+      "left": "/Users/saketmaganti/Projects/certGen/artifacts/icml2027/fixtures/duplicates/generated/leak.png",
+      "right": "/Users/saketmaganti/Projects/certGen/artifacts/icml2027/fixtures/duplicates/generated/unique.png"
+    }
+  ],
+  "passed": false,
+  "schema_version": "certgen.icml2027.duplicate_audit.v1",
+  "within_set_duplicate_groups": []
+}
