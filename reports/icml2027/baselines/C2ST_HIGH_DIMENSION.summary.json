@@ -1,0 +1,21 @@
+{
+  "centroid_preserved_as": "c2st_centroid",
+  "claim_allowed": false,
+  "dimensions": [
+    64,
+    768
+  ],
+  "logistic_baseline": "c2st_logistic",
+  "passed": true,
+  "permutation_calibrated": true,
+  "rows": 12,
+  "scenarios": [
+    "identical_distribution_null",
+    "obvious_mean_shift",
+    "covariance_perturbation",
+    "symmetric_multimodal_shift",
+    "mode_dropping",
+    "heavy_tails"
+  ],
+  "schema_version": "certgen.icml2027.c2st_high_dimension.v1"
+}

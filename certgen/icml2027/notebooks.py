@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from certgen.icml2027.common import stable_hash, write_json
+from certgen.icml2027.notebook_runtime import LANE_STATUS
 
 
 NOTEBOOKS: dict[str, dict[str, str]] = {
@@ -22,57 +23,125 @@ NOTEBOOKS: dict[str, dict[str, str]] = {
 }
 
 
-def _source(lines: list[str]) -> list[str]:
-    return [line + ("" if line.endswith("\n") else "\n") for line in lines]
+def _source(text: str) -> list[str]:
+    return [line + "\n" for line in text.strip("\n").splitlines()]
+
+
+def _bootstrap_code(notebook_id: str) -> str:
+    return f'''# STDLIB-ONLY PRE-IMPORT AUTHENTICATION BOUNDARY
+from __future__ import annotations
+import hashlib, json, os, shutil, stat, sys, tempfile, zipfile
+from pathlib import Path, PurePosixPath
+
+LANE = {notebook_id!r}
+raw_identity = os.environ.get("CERTGEN_EXPECTED_ICML_INPUT_IDENTITY_JSON")
+if not raw_identity:
+    raise RuntimeError("explicit CERTGEN_EXPECTED_ICML_INPUT_IDENTITY_JSON is required")
+EXPECTED_IDENTITY = json.loads(raw_identity)
+if EXPECTED_IDENTITY.get("schema_version") != "certgen.icml2027.expected_input.v1" or EXPECTED_IDENTITY.get("claim_allowed") is not False:
+    raise RuntimeError("invalid expected input identity")
+if EXPECTED_IDENTITY.get("expected_lane") != LANE or len(EXPECTED_IDENTITY.get("expected_input_zip_sha256", "")) != 64:
+    raise RuntimeError("expected input identity is incomplete or for another lane")
+
+def _sha256_file(path):
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+def _safe_name(raw):
+    value = PurePosixPath(raw)
+    if not raw or value.is_absolute() or ".." in value.parts or "\\\\" in raw:
+        raise RuntimeError("unsafe archive member")
+    return value.as_posix()
+
+candidates = []
+for search_root in [Path("/kaggle/input")]:
+    if not search_root.exists() or search_root.is_symlink():
+        continue
+    for current, directories, files in os.walk(search_root, topdown=True, followlinks=False):
+        depth = len(Path(current).relative_to(search_root).parts)
+        directories[:] = sorted(name for name in directories if depth < 8 and not (Path(current) / name).is_symlink())
+        candidates.extend(Path(current) / name for name in sorted(files) if name.lower().endswith(".zip"))
+        if len(candidates) > 10000:
+            raise RuntimeError("candidate count limit exceeded")
+
+accepted = []
+for candidate in candidates:
+    if _sha256_file(candidate) != EXPECTED_IDENTITY["expected_input_zip_sha256"]:
+        continue
+    with zipfile.ZipFile(candidate) as archive:
+        infos = archive.infolist()
+        if len(infos) > 200000 or sum(info.file_size for info in infos) > 20 * 1024**3:
+            raise RuntimeError("archive resource limit exceeded")
+        names = [_safe_name(info.filename) for info in infos if not info.is_dir()]
+        if len(names) != len(set(name.casefold() for name in names)):
+            raise RuntimeError("duplicate or case-colliding member")
+        for info in infos:
+            mode = (info.external_attr >> 16) & 0o177777
+            if stat.S_IFMT(mode) == stat.S_IFLNK:
+                raise RuntimeError("symlink member rejected")
+        manifest = json.loads(archive.read("package_manifest.json"))
+        rows = manifest.get("inventory")
+        if manifest.get("lane") != LANE or manifest.get("claim_allowed") is not False or not isinstance(rows, list):
+            raise RuntimeError("package manifest identity rejected")
+        declared = {{row["path"]: row for row in rows}}
+        if set(names) != set(declared) | {{"package_manifest.json"}}:
+            raise RuntimeError("exact archive membership mismatch")
+        for name, row in declared.items():
+            data = archive.read(name)
+            if row.get("bytes") != len(data) or row.get("sha256") != hashlib.sha256(data).hexdigest():
+                raise RuntimeError("archive inventory hash mismatch")
+    accepted.append(candidate)
+if len(accepted) != 1:
+    raise RuntimeError(f"expected exactly one authenticated input, found {{len(accepted)}}")
+
+destination = Path("/kaggle/working") / f"certgen-authenticated-{{LANE}}"
+if destination.exists():
+    shutil.rmtree(destination)
+partial = Path(tempfile.mkdtemp(prefix=f".certgen-{{LANE}}-", dir="/kaggle/working"))
+try:
+    with zipfile.ZipFile(accepted[0]) as archive:
+        archive.extractall(partial)
+    os.replace(partial, destination)
+except Exception:
+    shutil.rmtree(partial, ignore_errors=True)
+    raise
+INPUT_ROOT = destination
+sys.path.insert(0, str(INPUT_ROOT / "source"))
+# Authenticated package imports are permitted only in the next cell.
+'''
 
 
 def build_notebook(notebook_id: str) -> dict[str, Any]:
     spec = NOTEBOOKS[notebook_id]
-    stage = spec["stage"]
-    bootstrap = [
-        "# Trusted bootstrap and exact package identity",
-        "import json, os, shutil, subprocess, sys, zipfile",
-        "from pathlib import Path",
-        "from certgen.notebooks.trusted_bootstrap import discover_authenticated_package",
-        "EXPECTED_IDENTITY = json.loads(os.environ['CERTGEN_EXPECTED_PACKAGE_IDENTITY_JSON'])",
-        "INPUT_ROOTS = [Path('/kaggle/input')]",
-        "authenticated = discover_authenticated_package(INPUT_ROOTS, EXPECTED_IDENTITY)",
-        "assert authenticated['selection_status'] in {'SELECTED_UNIQUE_VALID_PACKAGE','DUPLICATE_IDENTICAL_COPY_DEDUPED'}",
-    ]
-    runtime = [
-        "# Dependency restart marker, GPU visibility, worker isolation, and disk guard",
-        "RESTART_MARKER = Path('/kaggle/working/.certgen_dependency_restart_complete')",
-        "if not RESTART_MARKER.exists():",
-        "    raise RuntimeError('dependency bootstrap/restart marker is required')",
-        "import torch",
-        "if torch.cuda.device_count() != 2:",
-        "    raise RuntimeError(f'exactly two visible GPUs required, found {torch.cuda.device_count()}')",
-        "free = shutil.disk_usage('/kaggle/working').free",
-        "if free < 10 * 1024**3:",
-        "    raise RuntimeError('disk guard: fewer than 10 GiB free')",
-        "WORKER_ENV = {'CUDA_VISIBLE_DEVICES': None, 'CERTGEN_CPU_ONLY': '0'}",
-    ]
-    execution = [
-        f"# Deterministic {stage} shards, asset resolution, resume/restart, and output identity closure",
-        f"STAGE = {stage!r}",
-        f"NOTEBOOK_ID = {notebook_id!r}",
-        "SHARDS = list(range(int(os.environ.get('CERTGEN_NUM_SHARDS', '1'))))",
-        "for shard_id in SHARDS:",
-        "    marker = Path(f'/kaggle/working/completed_shard_{shard_id:04d}.json')",
-        "    if marker.exists():",
-        "        continue  # deterministic resume",
-        "    raise RuntimeError('worker execution requires an authenticated stage input and explicit worker command')",
-        "# A real run replaces the fail-closed boundary above only through the source-controlled worker.",
-        "# Final ZIP validation must verify membership, hashes, stage identity, configuration hash, and completion status.",
-        "# Copy the validated ZIP back before local import/resume; never treat notebook state as evidence.",
-    ]
+    runtime = f'''# Runtime/GPU/disk gates after package authentication
+import shutil
+import torch
+from certgen.icml2027.notebook_runtime import run_authenticated_lane, validate_output_zip
+WORK_ROOT = Path("/kaggle/working/certgen-icml2027")
+RESTART_MARKER = Path("/kaggle/working/.certgen_dependency_restart_complete")
+if not RESTART_MARKER.exists():
+    raise RuntimeError("dependency bootstrap/restart marker is required")
+if torch.cuda.device_count() != 2:
+    raise RuntimeError(f"exactly two visible GPUs required, found {{torch.cuda.device_count()}}")
+if shutil.disk_usage("/kaggle/working").free < 10 * 1024**3:
+    raise RuntimeError("disk guard: fewer than 10 GiB free")
+LANE_STATUS = {LANE_STATUS[notebook_id]!r}
+'''
+    execution = '''# Invoke the source-controlled worker; validate the closed output ZIP.
+RESULT = run_authenticated_lane(LANE, INPUT_ROOT, WORK_ROOT, fixture_mode=False)
+OUTPUT_VALIDATION = validate_output_zip(RESULT["output_zip"], expected_lane=LANE)
+assert OUTPUT_VALIDATION["passed"]
+print(json.dumps({"lane": LANE, "lane_status": LANE_STATUS, "output": OUTPUT_VALIDATION, "claim_allowed": False}, indent=2, sort_keys=True))
+'''
     return {
         "cells": [
-            {"cell_type": "markdown", "metadata": {}, "source": _source([
-                f"# CertGen ICML 2027 — {notebook_id}",
-                "Planning/execution notebook. `claim_allowed=false`. No outputs are source-controlled.",
-            ])},
-            {"cell_type": "code", "execution_count": None, "metadata": {}, "outputs": [], "source": _source(bootstrap)},
+            {"cell_type": "markdown", "metadata": {}, "source": _source(
+                f"# CertGen ICML 2027 — {notebook_id}\n\nStatus: `{LANE_STATUS[notebook_id]}`. `claim_allowed=false`."
+            )},
+            {"cell_type": "code", "execution_count": None, "metadata": {}, "outputs": [], "source": _source(_bootstrap_code(notebook_id))},
             {"cell_type": "code", "execution_count": None, "metadata": {}, "outputs": [], "source": _source(runtime)},
             {"cell_type": "code", "execution_count": None, "metadata": {}, "outputs": [], "source": _source(execution)},
         ],
@@ -80,7 +149,13 @@ def build_notebook(notebook_id: str) -> dict[str, Any]:
             "accelerator": "GPU",
             "kernelspec": {"display_name": "Python 3", "language": "python", "name": "python3"},
             "language_info": {"name": "python", "version": "3.11"},
-            "certgen": {"notebook_id": notebook_id, "stage": stage, "gpu_count": 2, "claim_allowed": False},
+            "certgen": {
+                "notebook_id": notebook_id,
+                "stage": spec["stage"],
+                "lane_status": LANE_STATUS[notebook_id],
+                "gpu_count": 2,
+                "claim_allowed": False,
+            },
         },
         "nbformat": 4,
         "nbformat_minor": 5,
@@ -94,7 +169,13 @@ def generate_notebooks(root: str | Path = "notebooks/kaggle/icml2027") -> dict[s
         payload = build_notebook(notebook_id)
         path = target / spec["filename"]
         write_json(path, payload)
-        rows.append({"notebook_id": notebook_id, "path": str(path), "sha256": stable_hash(payload), "claim_allowed": False})
+        rows.append({
+            "notebook_id": notebook_id,
+            "path": str(path),
+            "sha256": stable_hash(payload),
+            "lane_status": LANE_STATUS[notebook_id],
+            "claim_allowed": False,
+        })
     return {"passed": True, "notebooks": rows, "claim_allowed": False}
 
 
@@ -111,12 +192,19 @@ def check_notebook_determinism(root: str | Path = "notebooks/kaggle/icml2027") -
         if actual:
             if any(cell.get("outputs") for cell in actual.get("cells", []) if cell.get("cell_type") == "code"):
                 errors.append("source-controlled notebook contains outputs")
-            text = "\n".join("".join(cell.get("source", [])) for cell in actual.get("cells", []))
+            first_code = next(cell for cell in actual["cells"] if cell.get("cell_type") == "code")
+            first_text = "".join(first_code.get("source", []))
+            if "from certgen" in first_text or "import certgen" in first_text:
+                errors.append("project import appears before the authentication boundary")
             for token in (
-                "discover_authenticated_package", "EXPECTED_IDENTITY", "RESTART_MARKER", "torch.cuda.device_count() != 2",
-                "disk guard", "deterministic resume", "Final ZIP validation", "Copy the validated ZIP",
+                "STDLIB-ONLY PRE-IMPORT AUTHENTICATION BOUNDARY",
+                "expected_input_zip_sha256",
+                "exact archive membership mismatch",
+                "run_authenticated_lane",
+                "torch.cuda.device_count() != 2",
+                "validate_output_zip",
             ):
-                if token not in text:
+                if token not in "\n".join("".join(cell.get("source", [])) for cell in actual["cells"]):
                     errors.append(f"required notebook contract token missing: {token}")
         results.append({"notebook_id": notebook_id, "path": str(path), "passed": not errors, "errors": errors})
     return {"passed": all(row["passed"] for row in results), "results": results, "claim_allowed": False}

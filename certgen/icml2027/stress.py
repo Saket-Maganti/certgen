@@ -16,8 +16,26 @@ from certgen.icml2027.ranking import connected_components, strongly_connected_co
 from certgen.icml2027.sequential import evaluate_stream
 
 
-def _edge_stream(rng: np.random.Generator, difference: float, budget: int) -> np.ndarray:
-    return np.clip(np.tanh(rng.normal(difference, 0.35, budget)), -1.0, 1.0)
+def _edge_stream(
+    rng: np.random.Generator, difference: float, budget: int, *, noise_scale: float = 0.35
+) -> np.ndarray:
+    return np.clip(np.tanh(rng.normal(difference, noise_scale, budget)), -1.0, 1.0)
+
+
+def _reachability(edges: list[tuple[str, str]], nodes: list[str]) -> set[tuple[str, str]]:
+    adjacency: dict[str, set[str]] = {node: set() for node in nodes}
+    for source, target in edges:
+        adjacency[source].add(target)
+    closure: set[tuple[str, str]] = set()
+    for source in nodes:
+        stack = list(adjacency[source])
+        while stack:
+            target = stack.pop()
+            if (source, target) in closure:
+                continue
+            closure.add((source, target))
+            stack.extend(adjacency[target])
+    return closure
 
 
 def run_multi_model_scaling(config_path: str | Path, out_dir: str | Path) -> dict[str, Any]:
@@ -28,46 +46,94 @@ def run_multi_model_scaling(config_path: str | Path, out_dir: str | Path) -> dic
     budget = int(config.get("sample_budget", 128))
     alpha = float(config.get("alpha", 0.05))
     effect_spacing = float(config.get("effect_spacing", 0.08))
+    scenarios = [str(value) for value in config.get("scenarios", ["ordered_homoskedastic"])]
     rows: list[dict[str, Any]] = []
-    for model_count in model_counts:
+    for scenario, model_count in itertools.product(scenarios, model_counts):
         node_ids = [f"model_{index:03d}" for index in range(model_count)]
         comparisons = list(itertools.combinations(range(model_count), 2))
         edge_alpha = alpha / max(1, len(comparisons))
         for replicate in range(replicates):
             started = time.perf_counter()
-            rng = np.random.default_rng(derive_seed(master_seed, "multi_model", model_count, replicate))
-            true_scores = np.arange(model_count, dtype=float) * effect_spacing
-            true_scores += rng.normal(0.0, effect_spacing * 0.05, model_count)
+            rng = np.random.default_rng(derive_seed(master_seed, "multi_model", scenario, model_count, replicate))
+            if scenario in {"ordered_homoskedastic", "uniformly_spaced"}:
+                true_scores = np.arange(model_count, dtype=float) * effect_spacing
+                noise_scale = 0.35
+            elif scenario in {"near_tie_clusters", "clustered_quality_tiers", "partial_incomparability"}:
+                true_scores = (np.arange(model_count, dtype=float) // 5) * effect_spacing
+                noise_scale = 0.35
+            elif scenario in {"many_near_ties", "representation_specific_ordering", "representation_conflicts", "adversarial_local_cycles"}:
+                true_scores = np.arange(model_count, dtype=float) * (effect_spacing * 0.1)
+                noise_scale = 0.45
+            elif scenario in {"heteroskedastic_edges", "heterogeneous_variance"}:
+                true_scores = np.arange(model_count, dtype=float) * effect_spacing
+                noise_scale = 0.65
+            elif scenario in {"difficult_covariance", "shared_reference_dependence"}:
+                true_scores = np.arange(model_count, dtype=float) * (effect_spacing * 0.5)
+                noise_scale = 0.8
+            elif scenario in {"heterogeneous_sample_cost", "mixed_easy_hard_edges"}:
+                true_scores = np.arange(model_count, dtype=float) * effect_spacing
+                noise_scale = 0.45
+            else:
+                raise ValueError(f"unknown multi-model scenario: {scenario}")
             certified: list[tuple[str, str]] = []
             incorrect = 0
             resolved = 0
             samples = 0
+            sample_cost = 0.0
+            shared_reference_noise = (
+                rng.normal(0.0, 0.35, budget) if scenario == "shared_reference_dependence" else None
+            )
             for left, right in comparisons:
                 difference = float(true_scores[right] - true_scores[left])
+                if scenario == "representation_specific_ordering" and (left + right) % 5 == 0:
+                    difference *= -1.0
+                if scenario == "representation_conflicts" and (left + right) % 3 == 0:
+                    difference *= -1.0
+                if scenario == "adversarial_local_cycles" and left == 0 and right == 2:
+                    difference = -max(effect_spacing, abs(difference))
+                if scenario == "mixed_easy_hard_edges" and (left + right) % 2:
+                    difference *= 0.05
+                edge_noise = noise_scale
+                if scenario in {"heteroskedastic_edges", "heterogeneous_variance"}:
+                    edge_noise *= 0.5 + 1.5 * ((left + right) % 5) / 4.0
+                if scenario == "partial_incomparability" and left // 5 == right // 5:
+                    difference = 0.0
+                edge_values = _edge_stream(rng, difference, budget, noise_scale=edge_noise)
+                if shared_reference_noise is not None:
+                    edge_values = np.clip(np.tanh(np.arctanh(np.clip(edge_values, -0.999999, 0.999999)) + shared_reference_noise), -1.0, 1.0)
                 trace = evaluate_stream(
-                    _edge_stream(rng, difference, budget),
+                    edge_values,
                     alpha=edge_alpha,
                     rule="anytime",
                     looks=range(16, budget + 1, 16),
                     true_mean=float(np.tanh(difference)),
                 )
                 samples += trace.stopping_time
+                cost_multiplier = 1.0 + ((left + right) % 4) if scenario == "heterogeneous_sample_cost" else 1.0
+                sample_cost += trace.stopping_time * cost_multiplier
                 if trace.decision in {"A_BETTER", "B_BETTER"}:
                     resolved += 1
-                    # Positive difference means the left model has lower (better) true score.
-                    expected = "B_BETTER"
+                    expected = "UNRESOLVED" if abs(difference) < 1e-12 else (
+                        "B_BETTER" if difference > 0.0 else "A_BETTER"
+                    )
                     if trace.decision != expected:
                         incorrect += 1
-                        certified.append((node_ids[right], node_ids[left]))
+                        if trace.decision == "A_BETTER":
+                            certified.append((node_ids[right], node_ids[left]))
+                        else:
+                            certified.append((node_ids[left], node_ids[right]))
                     else:
                         certified.append((node_ids[left], node_ids[right]))
             cycles = [component for component in strongly_connected_components(certified, node_ids) if len(component) > 1]
-            reduction_edges = 0 if cycles else len(transitive_reduction(certified, node_ids))
+            reduction = [] if cycles else transitive_reduction(certified, node_ids)
+            reduction_edges = len(reduction)
+            reduction_correct = not cycles and _reachability(certified, node_ids) == _reachability(reduction, node_ids)
             components = connected_components(certified, node_ids)
             elapsed = time.perf_counter() - started
             peak = int(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)
             rows.append(
                 {
+                    "scenario": scenario,
                     "model_count": model_count,
                     "replicate_id": replicate,
                     "number_of_comparisons": len(comparisons),
@@ -76,10 +142,13 @@ def run_multi_model_scaling(config_path: str | Path, out_dir: str | Path) -> dic
                     "incorrect_edges": incorrect,
                     "graph_density": resolved / max(1, len(comparisons)),
                     "transitive_reduction_edges": reduction_edges,
+                    "transitive_reduction_correct": reduction_correct,
                     "cycles": len(cycles),
                     "connected_components": len(components),
                     "FWER_event": incorrect > 0,
                     "samples_consumed": samples,
+                    "sample_cost_units": sample_cost,
+                    "cost_per_certified_edge": sample_cost / max(1, resolved),
                     "CPU_seconds": elapsed,
                     "memory_peak_platform_units": peak,
                     "pairwise_matrix_materialized": False,
@@ -95,9 +164,11 @@ def run_multi_model_scaling(config_path: str | Path, out_dir: str | Path) -> dic
         "schema_version": "certgen.icml2027.multi_model_scaling.v1",
         "rows": len(rows),
         "model_counts": model_counts,
+        "scenarios": scenarios,
         "FWER": sum(bool(row["FWER_event"]) for row in rows) / max(1, len(rows)),
         "incorrect_edges": sum(int(row["incorrect_edges"]) for row in rows),
         "maximum_models": max(model_counts),
+        "transitive_reduction_failures": sum(not bool(row["transitive_reduction_correct"]) for row in rows),
         "synthetic_validation_only": True,
         "not_real_generator_evidence": True,
         "not_empirical_paper_evidence": True,

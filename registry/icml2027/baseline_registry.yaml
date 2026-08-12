@@ -56,11 +56,35 @@ baselines:
   requires_gpu: false
   claim_allowed: false
 - baseline_id: c2st
-  method_family: classifier_two_sample
+  method_family: classifier_two_sample_centroid_legacy_alias
   implementation: certgen.icml2027.baselines.runner
   package: certgen/numpy/scipy
   version: repository_pinned_environment
   hyperparameters: study_config
+  supports_cached_features: true
+  supports_streaming: false
+  supports_multi_model: false
+  requires_gpu: false
+  claim_allowed: false
+- baseline_id: c2st_centroid
+  method_family: classifier_two_sample_centroid
+  implementation: certgen.icml2027.baselines.runner
+  package: certgen/numpy/scipy
+  version: repository_pinned_environment
+  hyperparameters: study_config
+  supports_cached_features: true
+  supports_streaming: false
+  supports_multi_model: false
+  requires_gpu: false
+  claim_allowed: false
+- baseline_id: c2st_logistic
+  method_family: classifier_two_sample_logistic_permutation
+  implementation: certgen.icml2027.baselines.runner
+  package: scikit-learn
+  version: repository_pinned_environment
+  hyperparameters: folds/permutations/master_seed in study_config
+  leakage_control: standardization fit inside each training fold
+  significance: deterministic label-permutation p-value
   supports_cached_features: true
   supports_streaming: false
   supports_multi_model: false

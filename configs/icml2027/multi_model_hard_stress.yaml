@@ -1,0 +1,24 @@
+schema_version: certgen.icml2027.multi_model_hard_stress_config.v1
+master_seed: 20270812
+model_counts: [2, 5, 10, 20, 50, 100]
+scenarios:
+- uniformly_spaced
+- many_near_ties
+- clustered_quality_tiers
+- heterogeneous_variance
+- heterogeneous_sample_cost
+- shared_reference_dependence
+- representation_specific_ordering
+- representation_conflicts
+- partial_incomparability
+- adversarial_local_cycles
+- mixed_easy_hard_edges
+- difficult_covariance
+replicates: 2
+sample_budget: 128
+alpha: 0.05
+effect_spacing: 0.08
+synthetic_validation_only: true
+not_real_generator_evidence: true
+not_empirical_paper_evidence: true
+claim_allowed: false

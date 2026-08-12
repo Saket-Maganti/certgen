@@ -1,0 +1,20 @@
+schema_version: certgen.icml2027.report_namespace_registry.v1
+source_of_truth: registry/icml2027/report_namespaces.yaml
+namespaces:
+- {producer_id: deep_repair_orchestrator, canonical_root: reports/icml2027/deep_repair}
+- {producer_id: production_mmd_quick, canonical_root: artifacts/icml2027/production_mmd/quick}
+- {producer_id: production_mmd_bounded_stress, canonical_root: artifacts/icml2027/production_mmd/bounded_stress}
+- {producer_id: production_numerical_attacks, canonical_root: artifacts/icml2027/numerical_attacks/production_paired_mmd}
+- {producer_id: notebook_closure_rehearsals, canonical_root: reports/icml2027/notebook_rehearsals}
+- {producer_id: hard_multi_model_stress, canonical_root: reports/icml2027/multi_model_hard_stress}
+- {producer_id: bounded_stream_validation, canonical_root: reports/icml2027/bounded_stream}
+- {producer_id: multiplicity_validation, canonical_root: reports/icml2027/multiplicity}
+- {producer_id: representation_validation, canonical_root: reports/icml2027/representation}
+- {producer_id: adaptive_policy_validation, canonical_root: reports/icml2027/adaptive}
+- {producer_id: reviewer_contract_regression, canonical_root: reports/icml2027/reviewer_attacks}
+- {producer_id: c2st_highdim_benchmark, canonical_root: reports/icml2027/baselines}
+- {producer_id: anytime_boundary_benchmark, canonical_root: artifacts/icml2027/boundary_benchmark}
+- {producer_id: legacy_synthetic_quick, canonical_root: artifacts/icml2027/synthetic_validation/quick}
+- {producer_id: legacy_synthetic_medium, canonical_root: artifacts/icml2027/synthetic_validation/medium}
+- {producer_id: legacy_synthetic_overnight, canonical_root: artifacts/icml2027/synthetic_validation/overnight}
+claim_allowed: false

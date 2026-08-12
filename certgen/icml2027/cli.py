@@ -17,6 +17,12 @@ def add_commands(subparsers: Any) -> None:
     synthetic_run.add_argument("--config", required=True)
     synthetic_run.add_argument("--out-dir", required=True)
 
+    production_mmd = icml_sub.add_parser("production-mmd")
+    production_mmd_sub = production_mmd.add_subparsers(dest="icml_action", required=True)
+    production_mmd_validate = production_mmd_sub.add_parser("validate")
+    production_mmd_validate.add_argument("--config", required=True)
+    production_mmd_validate.add_argument("--out-dir", required=True)
+
     baseline = icml_sub.add_parser("baseline")
     baseline_sub = baseline.add_subparsers(dest="icml_action", required=True)
     baseline_run = baseline_sub.add_parser("run")
@@ -47,6 +53,18 @@ def add_commands(subparsers: Any) -> None:
     numerical = audit_sub.add_parser("numerical")
     numerical.add_argument("--out-dir", required=True)
     numerical.add_argument("--seed", type=int, default=2027)
+    production_numerical = audit_sub.add_parser("production-numerical")
+    production_numerical.add_argument("--out-dir", required=True)
+    production_numerical.add_argument("--seed", type=int, default=20270812)
+    boundary = audit_sub.add_parser("boundary")
+    boundary.add_argument("--config", required=True)
+    boundary.add_argument("--out-dir", required=True)
+    paired_performance = audit_sub.add_parser("paired-performance")
+    paired_performance.add_argument("--out", required=True)
+    paired_performance.add_argument("--seed", type=int, default=20270812)
+    c2st = audit_sub.add_parser("c2st")
+    c2st.add_argument("--out-dir", required=True)
+    c2st.add_argument("--seed", type=int, default=20270812)
     go_no_go = audit_sub.add_parser("go-no-go")
     go_no_go.add_argument("--registry", required=True)
     go_no_go.add_argument("--out", required=True)
@@ -65,6 +83,9 @@ def add_commands(subparsers: Any) -> None:
     selection = plan_sub.add_parser("study-selection")
     selection.add_argument("--config", required=True)
     selection.add_argument("--out", required=True)
+    power = plan_sub.add_parser("power")
+    power.add_argument("--config", required=True)
+    power.add_argument("--out-dir", required=True)
 
     reviewer = icml_sub.add_parser("reviewer-attack")
     reviewer_sub = reviewer.add_subparsers(dest="icml_action", required=True)
@@ -96,6 +117,8 @@ def add_commands(subparsers: Any) -> None:
     for action in ("generate", "check-determinism"):
         command = notebooks_sub.add_parser(action)
         command.add_argument("--root", default="notebooks/kaggle/icml2027")
+    rehearse = notebooks_sub.add_parser("rehearse")
+    rehearse.add_argument("--out-dir", default="reports/icml2027/notebook_rehearsals")
 
     released = subparsers.add_parser("released-samples", help="Validate and import released sample archives")
     released_sub = released.add_subparsers(dest="released_action", required=True)
@@ -142,6 +165,10 @@ def dispatch(args: argparse.Namespace) -> int | None:
         from certgen.icml2027.synthetic import run_synthetic_suite
 
         payload = run_synthetic_suite(args.config, args.out_dir)
+    elif command == "production-mmd" and action == "validate":
+        from certgen.icml2027.production_mmd import run_production_mmd_validation
+
+        payload = run_production_mmd_validation(args.config, args.out_dir)
     elif command == "baseline" and action == "run":
         from certgen.icml2027.baselines import run_baseline
 
@@ -167,6 +194,22 @@ def dispatch(args: argparse.Namespace) -> int | None:
         from certgen.icml2027.numerical import run_numerical_audit
 
         payload = run_numerical_audit(args.out_dir, seed=args.seed)
+    elif command == "audit" and action == "production-numerical":
+        from certgen.icml2027.numerical_reviewer import run_production_numerical_attacks
+
+        payload = run_production_numerical_attacks(args.out_dir, seed=args.seed)
+    elif command == "audit" and action == "boundary":
+        from certgen.icml2027.boundary_benchmark import run_boundary_benchmark
+
+        payload = run_boundary_benchmark(args.config, args.out_dir)
+    elif command == "audit" and action == "paired-performance":
+        from certgen.icml2027.paired_performance import run_paired_performance_audit
+
+        payload = run_paired_performance_audit(args.out, seed=args.seed)
+    elif command == "audit" and action == "c2st":
+        from certgen.icml2027.c2st_benchmark import run_c2st_benchmark
+
+        payload = run_c2st_benchmark(args.out_dir, seed=args.seed)
     elif command == "audit" and action == "go-no-go":
         from certgen.icml2027.gates import audit_go_no_go
 
@@ -183,6 +226,10 @@ def dispatch(args: argparse.Namespace) -> int | None:
         from certgen.icml2027.planning import plan_study_selection
 
         payload = plan_study_selection(args.config, args.out)
+    elif command == "plan" and action == "power":
+        from certgen.icml2027.power_planning import run_power_planning
+
+        payload = run_power_planning(args.config, args.out_dir)
     elif command == "reviewer-attack" and action == "run":
         from certgen.icml2027.reviewer import run_reviewer_attacks
 
@@ -207,6 +254,10 @@ def dispatch(args: argparse.Namespace) -> int | None:
         from certgen.icml2027.notebooks import check_notebook_determinism
 
         payload = check_notebook_determinism(args.root)
+    elif command == "notebooks" and action == "rehearse":
+        from certgen.icml2027.notebook_runtime import run_closure_rehearsals
+
+        payload = run_closure_rehearsals(args.out_dir)
     else:  # pragma: no cover - argparse prevents this
         raise AssertionError(f"unhandled ICML command: {command}/{action}")
     _print(payload)

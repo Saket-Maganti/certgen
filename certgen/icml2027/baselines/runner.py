@@ -23,7 +23,12 @@ BASELINES: dict[str, dict[str, Any]] = {
     "fixed_rbf_mmd": {"method_family": "kernel_two_sample", "supports_streaming": False},
     "permutation_mmd": {"method_family": "randomization_test", "supports_streaming": False},
     "bootstrap_mmd": {"method_family": "bootstrap_interval", "supports_streaming": False},
-    "c2st": {"method_family": "classifier_two_sample", "supports_streaming": False},
+    "c2st": {"method_family": "classifier_two_sample_centroid_legacy_alias", "supports_streaming": False},
+    "c2st_centroid": {"method_family": "classifier_two_sample_centroid", "supports_streaming": False},
+    "c2st_logistic": {
+        "method_family": "classifier_two_sample_logistic_permutation",
+        "supports_streaming": False,
+    },
     "precision_recall": {"method_family": "support_diagnostic", "supports_streaming": False},
     "density_coverage": {"method_family": "support_diagnostic", "supports_streaming": False},
     "nearest_neighbor": {"method_family": "nearest_neighbor_diagnostic", "supports_streaming": False},
@@ -134,6 +139,61 @@ def _c2st_accuracy(x: np.ndarray, y: np.ndarray, rng: np.random.Generator, folds
     return float(np.mean(predictions == labels))
 
 
+def _c2st_logistic(
+    x: np.ndarray,
+    y: np.ndarray,
+    *,
+    seed: int,
+    folds: int = 5,
+    permutations: int = 99,
+) -> dict[str, Any]:
+    """Leakage-safe standardized logistic C2ST with a permutation p-value."""
+
+    from sklearn.linear_model import LogisticRegression  # type: ignore[import-untyped]
+    from sklearn.metrics import accuracy_score  # type: ignore[import-untyped]
+    from sklearn.model_selection import StratifiedKFold  # type: ignore[import-untyped]
+    from sklearn.pipeline import make_pipeline  # type: ignore[import-untyped]
+    from sklearn.preprocessing import StandardScaler  # type: ignore[import-untyped]
+
+    features = np.concatenate([x, y], axis=0)
+    labels = np.concatenate([np.zeros(len(x), dtype=int), np.ones(len(y), dtype=int)])
+    if folds < 2 or folds > min(len(x), len(y)):
+        raise ValueError("c2st_folds must be between 2 and the smaller class size")
+    if permutations < 0:
+        raise ValueError("c2st_permutations must be nonnegative")
+    splitter = StratifiedKFold(n_splits=folds, shuffle=True, random_state=seed)
+    splits = list(splitter.split(features, labels))
+
+    def score(targets: np.ndarray) -> float:
+        predictions: np.ndarray = np.empty(len(targets), dtype=int)
+        for train_indices, test_indices in splits:
+            pipeline = make_pipeline(
+                StandardScaler(),
+                LogisticRegression(
+                    solver="lbfgs",
+                    max_iter=1000,
+                    random_state=seed,
+                ),
+            )
+            pipeline.fit(features[train_indices], targets[train_indices])
+            predictions[test_indices] = pipeline.predict(features[test_indices])
+        return float(accuracy_score(targets, predictions))
+
+    observed = score(labels)
+    rng = np.random.default_rng(seed)
+    null = np.asarray([score(rng.permutation(labels)) for _ in range(permutations)], dtype=np.float64)
+    p_value = (1 + int(np.count_nonzero(null >= observed))) / (permutations + 1)
+    return {
+        "accuracy": observed,
+        "chance_accuracy": 0.5,
+        "permutation_p_value": p_value,
+        "permutations": permutations,
+        "folds": folds,
+        "preprocessing": "StandardScaler fit within each training fold",
+        "classifier": "sklearn.linear_model.LogisticRegression(solver=lbfgs,max_iter=1000)",
+    }
+
+
 def _knn_support(reference: np.ndarray, generated: np.ndarray, k: int = 3) -> dict[str, float]:
     if len(reference) <= k or len(generated) <= k:
         raise ValueError("support diagnostics require more rows than k")
@@ -217,10 +277,25 @@ def run_baseline(
         result = _bootstrap_delta(bundle, bandwidth, rng, repetitions, alpha)
         significant = float(result["ci_upper"]) < 0 or float(result["ci_lower"]) > 0
         result["decision"] = _comparison_decision(float(result["estimate"]), significant)
-    elif baseline_id == "c2st":
+    elif baseline_id in {"c2st", "c2st_centroid"}:
         score_a = _c2st_accuracy(bundle["reference"], bundle["model_a"], rng)
         score_b = _c2st_accuracy(bundle["reference"], bundle["model_b"], rng)
         result = {"score_a": score_a, "score_b": score_b, "estimate": score_a - score_b, "decision": "DESCRIPTIVE_ONLY"}
+    elif baseline_id == "c2st_logistic":
+        folds = int(study.get("c2st_folds", 5))
+        permutations = int(study.get("c2st_permutations", repetitions))
+        logistic_a = _c2st_logistic(
+            bundle["reference"], bundle["model_a"], seed=seed + 101, folds=folds, permutations=permutations
+        )
+        logistic_b = _c2st_logistic(
+            bundle["reference"], bundle["model_b"], seed=seed + 211, folds=folds, permutations=permutations
+        )
+        result = {
+            "model_a": logistic_a,
+            "model_b": logistic_b,
+            "estimate": float(logistic_a["accuracy"] - logistic_b["accuracy"]),
+            "decision": "DESCRIPTIVE_ONLY_SEPARATE_PERMUTATION_TESTS",
+        }
     elif baseline_id in {"precision_recall", "density_coverage", "nearest_neighbor"}:
         support_a = _knn_support(bundle["reference"], bundle["model_a"])
         support_b = _knn_support(bundle["reference"], bundle["model_b"])

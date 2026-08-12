@@ -1,0 +1,85 @@
+{
+  "claim_allowed": false,
+  "dimensions": [
+    2,
+    16,
+    64,
+    256,
+    768,
+    2048
+  ],
+  "directional_error_rate": 0.0,
+  "directional_error_wilson_95": [
+    0.0,
+    0.011107571757860812
+  ],
+  "empirical_power": 0.02631578947368421,
+  "empirical_power_wilson_95": [
+    0.013905386897288551,
+    0.04924915476805328
+  ],
+  "finite_population_without_replacement_status": "EXPERIMENTAL_NOT_SUPPORTED",
+  "kernel_computation": "paired_rbf_o_nd_no_gram_matrix",
+  "mean_compute_seconds": 0.027619638874966768,
+  "mean_confidence_width": 1.6194339108424773,
+  "mean_samples_saved_vs_full_budget": 1.8101851851851851,
+  "mean_stopping_time": 727.3564814814815,
+  "median_stopping_time": 500.0,
+  "not_empirical_paper_evidence": true,
+  "not_real_generator_evidence": true,
+  "null_anytime_coverage_rate": 1.0,
+  "null_anytime_coverage_wilson_95": [
+    0.9590643744356734,
+    1.0
+  ],
+  "null_false_positive_rate": 0.0,
+  "null_false_positive_wilson_95": [
+    0.0,
+    0.04093562556432678
+  ],
+  "p90_stopping_time": 1000.0,
+  "p95_stopping_time": 1000.0,
+  "passed": true,
+  "peak_rss_bytes": 1122680832,
+  "profile": "bounded_stress",
+  "runs": 432,
+  "sample_budgets": [
+    250,
+    500,
+    1000,
+    2000,
+    10000
+  ],
+  "scenarios": [
+    "anisotropy",
+    "contamination_10pct",
+    "contamination_1pct",
+    "contamination_2pct",
+    "contamination_5pct",
+    "covariance_perturbation",
+    "declared_reference_reuse",
+    "dense_weak_high_dimensional_shift",
+    "exact_sample_identical_null",
+    "finite_reference_with_replacement",
+    "heavy_tails",
+    "identical_distribution_null",
+    "low_rank_manifold_shift",
+    "mixture_alternative",
+    "mode_dropping",
+    "near_tie",
+    "obvious_mean_shift",
+    "rare_mode_shift",
+    "scale_shift",
+    "sparse_high_dimensional_shift",
+    "symmetric_multimodal_shift",
+    "tiny_mean_shift",
+    "variance_inflation"
+  ],
+  "schema_version": "certgen.icml2027.production_mmd_validation.v1",
+  "synthetic_validation_only": true,
+  "unresolved_rate": 0.9791666666666666,
+  "unresolved_wilson_95": [
+    0.9608851190582741,
+    0.9890015693724385
+  ]
+}

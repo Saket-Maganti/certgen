@@ -53,6 +53,49 @@ def rbf_kernel(x: np.ndarray, y: np.ndarray, *, gamma: float | None = None) -> n
     return np.exp(-gamma * distances)
 
 
+def rbf_kernel_paired(
+    x: np.ndarray,
+    y: np.ndarray,
+    *,
+    gamma: float | None = None,
+    chunk_size: int = 4096,
+) -> np.ndarray:
+    """Evaluate only ``k(x[i], y[i])`` in O(ND) time and chunk memory.
+
+    Unlike ``diag(rbf_kernel(x, y))``, this primitive never constructs an
+    ``N x N`` Gram matrix.  It accepts float32 or float64 arrays (including
+    memory maps), performs the distance accumulation in float64 for stable
+    parity with :func:`rbf_kernel`, and returns one float64 value per row.
+    """
+
+    left = np.asanyarray(x)
+    right = np.asanyarray(y)
+    if left.ndim != 2 or right.ndim != 2:
+        raise ValueError(f"x and y must be 2D arrays, got {left.shape} and {right.shape}")
+    if left.shape != right.shape:
+        raise ValueError(f"paired kernel inputs must have identical shapes, got {left.shape} and {right.shape}")
+    if left.dtype not in (np.dtype(np.float32), np.dtype(np.float64)):
+        raise TypeError("x must have dtype float32 or float64")
+    if right.dtype not in (np.dtype(np.float32), np.dtype(np.float64)):
+        raise TypeError("y must have dtype float32 or float64")
+    if isinstance(chunk_size, bool) or int(chunk_size) != chunk_size or int(chunk_size) <= 0:
+        raise ValueError("chunk_size must be a positive integer")
+    resolved_gamma = 1.0 / max(1, left.shape[1]) if gamma is None else float(gamma)
+    if not np.isfinite(resolved_gamma) or resolved_gamma <= 0.0:
+        raise ValueError("RBF gamma must be finite and strictly positive")
+
+    result = np.empty(left.shape[0], dtype=np.float64)
+    for start in range(0, left.shape[0], int(chunk_size)):
+        stop = min(start + int(chunk_size), left.shape[0])
+        left_chunk = np.asarray(left[start:stop], dtype=np.float64)
+        right_chunk = np.asarray(right[start:stop], dtype=np.float64)
+        if not np.all(np.isfinite(left_chunk)) or not np.all(np.isfinite(right_chunk)):
+            raise ValueError("paired RBF inputs contain non-finite values")
+        squared_distance = np.sum((left_chunk - right_chunk) ** 2, axis=1, dtype=np.float64)
+        result[start:stop] = np.exp(-resolved_gamma * np.maximum(squared_distance, 0.0))
+    return result
+
+
 def kernel_matrix(x: np.ndarray, y: np.ndarray, kernel_config: dict | None = None) -> np.ndarray:
     kernel_config = kernel_config or {"name": "polynomial"}
     name = kernel_config.get("name") or kernel_config.get("kernel") or "polynomial"

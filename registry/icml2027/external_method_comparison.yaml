@@ -1,0 +1,53 @@
+schema_version: certgen.icml2027.external_method_comparison.v1
+dimensions:
+- fixed_or_sequential
+- kernel_or_non_kernel
+- anytime_valid
+- two_sample_or_goodness_of_fit
+- multi_model
+- simultaneous_ranking
+- partial_order
+- equivalence
+- multiple_representations
+- sample_cost_aware
+methods:
+- method_id: certgen_bounded_paired_mmd_union_hoeffding
+  fixed_or_sequential: sequential
+  kernel_or_non_kernel: kernel
+  anytime_valid: true
+  two_sample_or_goodness_of_fit: paired_two_candidate_vs_reference
+  multi_model: pairwise_with_external_multiplicity
+  simultaneous_ranking: graph_aggregation_after_pairwise_control
+  partial_order: true
+  equivalence: not_in_confirmatory_v2
+  multiple_representations: separate_registered_families
+  sample_cost_aware: descriptive_cost_accounting
+  proof_status: canonical_local_contract
+  citations: []
+- method_id: fixed_budget_descriptive_metrics
+  fixed_or_sequential: fixed
+  kernel_or_non_kernel: mixed
+  anytime_valid: false
+  two_sample_or_goodness_of_fit: descriptive_two_sample
+  multi_model: pairwise_descriptive
+  simultaneous_ranking: false
+  partial_order: false
+  equivalence: false
+  multiple_representations: possible_but_not_jointly_inferential
+  sample_cost_aware: false
+  proof_status: descriptive_only
+  citations: []
+- method_id: future_external_methods
+  fixed_or_sequential: unresolved
+  kernel_or_non_kernel: unresolved
+  anytime_valid: unresolved
+  two_sample_or_goodness_of_fit: unresolved
+  multi_model: unresolved
+  simultaneous_ranking: unresolved
+  partial_order: unresolved
+  equivalence: unresolved
+  multiple_representations: unresolved
+  sample_cost_aware: unresolved
+  proof_status: NOT_RESEARCHED_NO_CITATIONS_FABRICATED
+  citations: []
+claim_allowed: false

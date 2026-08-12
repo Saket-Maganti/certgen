@@ -1,0 +1,44 @@
+{
+  "canonical": {
+    "confirmatory_eligible": true,
+    "formula": "(upper-lower)*sqrt(log(pi^2*n^2/(3*alpha))/(2*n))",
+    "method": "union_hoeffding_canonical",
+    "optional_stopping_guarantee": "countable-union fixed-time Hoeffding construction",
+    "proof_status": "CANONICAL_LOCAL_CONTRACT",
+    "support": [
+      -3.0,
+      3.0
+    ]
+  },
+  "claim_allowed": false,
+  "not_empirical_paper_evidence": true,
+  "not_real_generator_evidence": true,
+  "passed": true,
+  "replicates": 100,
+  "schema_version": "certgen.icml2027.anytime_boundary_benchmark.v1",
+  "sharper_boundaries": [
+    {
+      "confirmatory_eligible": false,
+      "method": "empirical_bernstein",
+      "proof_status": "NOT_PROVEN"
+    },
+    {
+      "confirmatory_eligible": false,
+      "method": "finite_grid_betting",
+      "proof_status": "NOT_PROVEN"
+    },
+    {
+      "confirmatory_eligible": false,
+      "method": "stitched_hoeffding",
+      "proof_status": "NOT_IMPLEMENTED_NOT_VERIFIED"
+    },
+    {
+      "confirmatory_eligible": false,
+      "method": "mixture_boundary",
+      "proof_status": "NOT_IMPLEMENTED_NOT_VERIFIED"
+    }
+  ],
+  "stream_units": 5000,
+  "synthetic_validation_only": true,
+  "terminal_radius": 0.27639731927408734
+}

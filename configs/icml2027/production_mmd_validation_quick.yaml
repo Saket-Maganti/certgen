@@ -1,0 +1,16 @@
+schema_version: certgen.icml2027.production_mmd_validation_config.v1
+profile: quick
+master_seed: 20270812
+alpha: 0.05
+replicates: 1
+gamma: 0.5
+kernel_chunk_size: 512
+look_stride: 32
+dimensions: [2, 16, 64, 256, 768, 2048]
+sample_budgets: [100, 250, 500, 1000, 2000, 5000, 10000]
+representative_dimensions: [64, 768]
+representative_budgets: [1000, 10000]
+synthetic_validation_only: true
+not_real_generator_evidence: true
+not_empirical_paper_evidence: true
+claim_allowed: false

@@ -1,0 +1,81 @@
+schema_version: certgen.icml2027.study.v2
+study_id: icml2027_cifar_confirmatory_10k_v2
+status: PROSPECTIVELY_FROZEN_WAITING_FOR_AUTHENTICATED_GPU_EXECUTION
+supersedes: icml2027_cifar_confirmatory_10k_v1
+supersession_reason: v1 declared finite-population without-replacement reference sampling, which is unsupported by the confirmatory CS proof contract
+result_agnostic: true
+legacy_pilot_result_inspected: false
+benchmark: cifar10_test_reference
+models:
+- google_ddpm_cifar10_candidate
+- frank_ddpm_ema_cifar10_candidate
+feature_spaces:
+- inception
+- clip
+robustness_feature_spaces_excluded_from_confirmatory_family:
+- dinov2
+maximum_sample_budget_per_model: 10000
+reference_sample_budget: 10000
+prefixes: [100, 250, 500, 1000, 2000, 5000, 10000]
+prefix_policy: single_frozen_maximum_stream_no_outcome_adaptive_selection
+sample_identity:
+  algorithm: sha256_utf8
+  canonical_input: study_id|model_id|zero_padded_8_digit_sample_index|master_seed
+  order: ascending_sample_index
+  duplicate_policy: hard_fail
+  missing_or_extra_id_policy: hard_fail
+prefix_sample_id_hashes:
+  hash_algorithm: sha256_canonical_json_list
+  google_ddpm_cifar10_candidate:
+    100: e53bd047225d09bf71d80776933afebdcc81dae6640244deaf9bfe58e76de2dc
+    250: 506e9ef4a2ed3459400b3b2bae6a4c978bf541112afb26b63dc207edcedb6417
+    500: 7b5fb6cae4b74cfafe1e55b354169371cf70901fd855ffcdcb439bb4b6d71f35
+    1000: 561628a14b77c54d086b1099c020d6c50e7d5be8187915e8ab85d840c558dc17
+    2000: 34bb3a4e4f4949de9a2e67c7b4043d543ff39744c2926ff74d6e88816b454068
+    5000: eef9e9827e5f42d4179cbf7ade9e8df9b44d9c14272d5f98a0f6e2b51e06c949
+    10000: 6d780ff2bf375cb2eb49bb34720cbe4bb3f19907ad8cba35beb6c95e278e38ad
+  frank_ddpm_ema_cifar10_candidate:
+    100: 7e5b4b1cacd9df8979de1e1bcb337c5e3758cb013ca07170cfcf35f676269925
+    250: 1ee5765035d23fb133cb52543bc43146e303a085f0191efb4e1db17f4dfa0f6c
+    500: 78af6c0c797afdce5e2eaf0d0703f047e75463a3516de7616ef0bf77113cbeb8
+    1000: d176f62f8176def2ecdf2c339a53b209d728c186d09fa0df0ceb39798d0405cb
+    2000: 6acd321b1d5def5551f0b93c9d6d343e65e94813bae555f46f86d09fb3541d49
+    5000: c11079fa9e88b091123bb2d5a7e7351fb506454259adceae6c310a1c32adb56b
+    10000: c37437ea3ad2241f28ae293e8fd150141c00f15ea90468b144e038b983b122ad
+reference_draw:
+  sampling_scheme: iid_with_replacement_from_fixed_empirical_population
+  without_replacement: false
+  finite_population_without_replacement_status: EXPERIMENTAL_NOT_SUPPORTED
+  target_population: fixed_empirical_reference_distribution
+  plan_path: registry/manifests/icml2027/cifar10_reference_draw_plan_10k_v2.json
+  plan_sha256: f2ae231aa67b0f3b29995451ae56f7fa0a01b0e2410664022dd024a3cb47804e
+  adaptive_reference_reuse: false
+  reference_reuse_declared: true
+  precommitted_before_stream: true
+kernel:
+  name: rbf
+  normalize: l2
+  gamma: 0.5
+  bandwidth_protocol: fixed_unit_sphere_gamma_0.5_v1
+  computation: paired_rbf_o_nd_no_gram_matrix
+  contribution_bounds: [-3.0, 3.0]
+stopping_rule: anytime_valid_bounded_rbf_mean_confidence_sequence
+statistical_method: bounded_anytime_union_cs
+multiplicity: bonferroni_across_two_confirmatory_hypotheses
+alpha: 0.05
+seed_plan:
+  master_seed: 20270812
+  derivation: sha256(study_id,model_id,sample_index,master_seed)
+controls:
+- null_reference_split
+- obvious_gap_corruption
+controls_in_confirmatory_multiplicity: false
+cost_accounting: typed measured/planning_estimate/unknown schema
+equivalence: not_in_confirmatory_v2
+authenticated_input_policy: exact_hash_manifest_and_package_identity_required
+execution_status: WAITING_FOR_AUTHENTICATED_GPU_ASSETS
+immutable: true
+synthetic_validation_only: false
+not_real_generator_evidence: true
+not_empirical_paper_evidence: true
+claim_allowed: false

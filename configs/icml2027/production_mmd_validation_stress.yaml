@@ -1,0 +1,16 @@
+schema_version: certgen.icml2027.production_mmd_validation_config.v1
+profile: bounded_stress
+master_seed: 20270813
+alpha: 0.05
+replicates: 3
+gamma: 0.5
+kernel_chunk_size: 256
+look_stride: 16
+dimensions: [2, 64, 768, 2048]
+sample_budgets: [250, 1000, 10000]
+representative_dimensions: [16, 256, 2048]
+representative_budgets: [500, 2000]
+synthetic_validation_only: true
+not_real_generator_evidence: true
+not_empirical_paper_evidence: true
+claim_allowed: false

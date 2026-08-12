@@ -1,0 +1,12 @@
+{
+  "budget_resolution_counts": {
+    "1000": 0,
+    "10000": 8,
+    "2000": 4,
+    "5000": 4
+  },
+  "claim_allowed": false,
+  "rows": 80,
+  "schema_version": "certgen.icml2027.power_aware_planning.v1",
+  "status": "EXPECTED_RESOLUTION_PLANNING_ONLY"
+}

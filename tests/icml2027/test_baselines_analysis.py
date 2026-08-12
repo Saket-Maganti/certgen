@@ -89,3 +89,29 @@ def test_prefixes_are_frozen_and_cost_types_do_not_mix(tmp_path: Path) -> None:
     result = cost_to_decision(cost_path, tmp_path / "cost.csv")
     assert result["totals_kept_separate"]["measured"]["CPU_seconds"] == 2.0
     assert result["totals_kept_separate"]["planning_estimate"]["GPU_seconds"] == 3.0
+
+
+def test_logistic_c2st_is_deterministic_and_reports_permutation_calibration(tmp_path: Path) -> None:
+    bundle = tmp_path / "bundle.npz"
+    _bundle(bundle)
+    study = tmp_path / "study.yaml"
+    study.write_text(
+        yaml.safe_dump(
+            {
+                "alpha": 0.05,
+                "master_seed": 71,
+                "c2st_folds": 4,
+                "c2st_permutations": 7,
+                "synthetic_validation_only": True,
+            }
+        ),
+        encoding="utf-8",
+    )
+    first = run_baseline("c2st_logistic", bundle, study, tmp_path / "first.json")
+    second = run_baseline("c2st_logistic", bundle, study, tmp_path / "second.json")
+    assert first["result"] == second["result"]
+    for role in ("model_a", "model_b"):
+        result = first["result"][role]
+        assert 0.0 <= result["accuracy"] <= 1.0
+        assert 0.0 < result["permutation_p_value"] <= 1.0
+        assert "within each training fold" in result["preprocessing"]

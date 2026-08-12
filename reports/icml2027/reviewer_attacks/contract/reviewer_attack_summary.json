@@ -1,0 +1,10 @@
+{
+  "checks_passed": 26,
+  "checks_total": 26,
+  "claim_allowed": false,
+  "not_empirical_paper_evidence": true,
+  "not_real_generator_evidence": true,
+  "passed": true,
+  "schema_version": "certgen.icml2027.reviewer_attack_summary.v1",
+  "synthetic_validation_only": true
+}

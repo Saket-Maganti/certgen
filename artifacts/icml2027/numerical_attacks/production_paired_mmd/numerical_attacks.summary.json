@@ -1,0 +1,8 @@
+{
+  "attacks_passed": 20,
+  "attacks_total": 20,
+  "claim_allowed": false,
+  "passed": true,
+  "peak_rss_bytes": 239566848,
+  "schema_version": "certgen.icml2027.production_numerical_attacks.v1"
+}

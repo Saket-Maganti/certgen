@@ -170,6 +170,10 @@ def _safe(path: Path, root: Path) -> bool:
     return (
         path.is_file()
         and not path.is_symlink()
+        and not (
+            relative.parts[:1] == ("release",)
+            and (path.suffix.lower() == ".zip" or path.name.endswith(".zip.manifest.json"))
+        )
         and not any(part in EXCLUDED_PARTS for part in relative.parts)
         and path.name not in EXCLUDED_NAMES
         and path.suffix not in EXCLUDED_SUFFIXES
@@ -370,10 +374,14 @@ def build_archive(
             if synthetic.returncode != 0:
                 errors.append("portable synthetic real-contract run failed")
     verification_completed_at_utc = datetime.now(timezone.utc).isoformat(timespec="milliseconds")
+    try:
+        recorded_archive = target.relative_to(base).as_posix()
+    except ValueError:
+        recorded_archive = "<external-output>"
     payload = {
         "schema_version": "certgen.clean_archive.v1",
         "status": "ARCHIVE_VERIFIED" if not errors else "ARCHIVE_VERIFICATION_FAILED",
-        "archive": str(target),
+        "archive": recorded_archive,
         "archive_sha256": _sha256(target),
         "member_count": len(rows) + 1,
         "manifest": rows,
@@ -395,7 +403,7 @@ def build_archive(
         "verification_started_at_utc": verification_started_at_utc,
         "verification_completed_at_utc": verification_completed_at_utc,
         "verification_duration_seconds": round(time.monotonic() - verification_started, 3),
-        "verification_working_directory": str(base),
+        "verification_working_directory": ".",
         "verification_python": sys.version.split()[0],
         "evidence_class": "release_validation_only",
         "claim_allowed": False,

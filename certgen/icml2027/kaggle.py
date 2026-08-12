@@ -18,32 +18,32 @@ from certgen.icml2027.notebooks import NOTEBOOKS
 LANES: dict[str, dict[str, Any]] = {
     "dinov2_preflight": {
         "notebook": "dinov2_preflight",
-        "required_inputs": ["dinov2_asset_manifest", "dinov2_asset_root"],
+        "required_inputs": ["dinov2_asset_manifest", "dinov2_asset_root", "worker_spec"],
         "config": "registry/icml2027/model_registry.yaml",
     },
     "dinov2_features": {
         "notebook": "dinov2_features",
-        "required_inputs": ["dinov2_preflight_output", "image_manifest", "dinov2_asset_manifest", "dinov2_asset_root"],
+        "required_inputs": ["dinov2_preflight_output", "image_manifest", "dinov2_asset_manifest", "dinov2_asset_root", "worker_spec"],
         "config": "registry/icml2027/feature_space_registry.yaml",
     },
     "cifar_cross_family_preflight": {
         "notebook": "cifar_cross_family_preflight",
-        "required_inputs": ["source_verification", "model_asset_manifest", "model_asset_root"],
+        "required_inputs": ["source_verification", "model_asset_manifest", "model_asset_root", "worker_spec"],
         "config": "configs/icml2027/cifar_cross_family/contract.yaml",
     },
     "cifar_10k_generation": {
         "notebook": "cifar_10k_generation",
-        "required_inputs": ["legacy_preflight_output", "model_asset_manifest", "model_asset_root"],
-        "config": "configs/icml2027/cifar_confirmatory_10k_v1.yaml",
+        "required_inputs": ["legacy_preflight_output", "model_asset_manifest", "model_asset_root", "worker_spec"],
+        "config": "configs/icml2027/cifar_confirmatory_10k_v2.yaml",
     },
     "cifar_10k_features": {
         "notebook": "cifar_10k_features",
-        "required_inputs": ["generation_10k_output", "reference_manifest"],
-        "config": "configs/icml2027/cifar_confirmatory_10k_v1.yaml",
+        "required_inputs": ["generation_10k_output", "reference_manifest", "worker_spec"],
+        "config": "configs/icml2027/cifar_confirmatory_10k_v2.yaml",
     },
     "released_sample_features": {
         "notebook": "released_sample_features",
-        "required_inputs": ["released_sample_import", "released_sample_manifest"],
+        "required_inputs": ["released_sample_import", "released_sample_manifest", "worker_spec"],
         "config": "registry/icml2027/feature_space_registry.yaml",
     },
     "ffhq": {
@@ -138,12 +138,7 @@ def build_input(
     members: list[tuple[str, bytes]] = []
     members.extend(_members(notebook, f"notebook/{notebook.name}"))
     members.extend(_members(config, f"config/{config.name}"))
-    code_paths = [
-        workspace / "certgen/icml2027",
-        workspace / "certgen/notebooks/trusted_bootstrap.py",
-        workspace / "certgen/notebooks/environment_bootstrap.py",
-        workspace / "certgen/notebooks/final_zip.py",
-    ]
+    code_paths = [workspace / "certgen"]
     for code in code_paths:
         members.extend(_members(code, f"source/{code.relative_to(workspace).as_posix()}"))
     input_hashes: dict[str, Any] = {}

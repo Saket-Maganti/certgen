@@ -1,0 +1,54 @@
+{
+  "claim_allowed": false,
+  "dimensions": [
+    64
+  ],
+  "directional_error_rate": 0.0,
+  "directional_error_wilson_95": [
+    null,
+    null
+  ],
+  "empirical_power": 0.0,
+  "empirical_power_wilson_95": [
+    null,
+    null
+  ],
+  "finite_population_without_replacement_status": "EXPERIMENTAL_NOT_SUPPORTED",
+  "kernel_computation": "paired_rbf_o_nd_no_gram_matrix",
+  "mean_compute_seconds": 0.001881424931634683,
+  "mean_confidence_width": 1.546827274550648,
+  "mean_samples_saved_vs_full_budget": 0.0,
+  "mean_stopping_time": 500.0,
+  "median_stopping_time": 500.0,
+  "not_empirical_paper_evidence": true,
+  "not_real_generator_evidence": true,
+  "null_anytime_coverage_rate": 1.0,
+  "null_anytime_coverage_wilson_95": [
+    0.9630065017930143,
+    1.0
+  ],
+  "null_false_positive_rate": 0.0,
+  "null_false_positive_wilson_95": [
+    0.0,
+    0.03699349820698568
+  ],
+  "p90_stopping_time": 500.0,
+  "p95_stopping_time": 500.0,
+  "passed": true,
+  "peak_rss_bytes": 46530560,
+  "profile": "null_calibration_100",
+  "runs": 100,
+  "sample_budgets": [
+    1000
+  ],
+  "scenarios": [
+    "identical_distribution_null"
+  ],
+  "schema_version": "certgen.icml2027.production_mmd_validation.v1",
+  "synthetic_validation_only": true,
+  "unresolved_rate": 1.0,
+  "unresolved_wilson_95": [
+    0.9630065017930143,
+    1.0
+  ]
+}

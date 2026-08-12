@@ -1,0 +1,15 @@
+schema_version: certgen.icml2027.power_replication_plan.v1
+status: EXPECTED_RESOLUTION_PLANNING_ONLY
+budgets: [1000, 2000, 5000, 10000]
+effect_grid_scaled_to_support: [0.01, 0.025, 0.05, 0.10, 0.20]
+standard_deviation_grid_scaled_to_support: [0.05, 0.10, 0.20, 0.35]
+replication_tiers:
+  quick_null: 100
+  medium_null: 1000
+  full_null_fwer: 5000
+  high_dimension_2048x10000: bounded_runtime_replicates_reported_with_wilson_interval
+promotion_policy: planning outputs can never become model evidence
+synthetic_validation_only: true
+not_real_generator_evidence: true
+not_empirical_paper_evidence: true
+claim_allowed: false

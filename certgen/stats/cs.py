@@ -44,10 +44,10 @@ def confidence_sequence(values: list[float], config: CSConfig) -> CSResult:
 
 def hoeffding_cs(values: list[float], config: CSConfig) -> CSResult:
     states: list[dict[str, float]] = []
-    running: list[float] = []
+    running_sum = 0.0
     for n, value in enumerate(values, start=1):
-        running.append(value)
-        mean = float(np.mean(running))
+        running_sum += value
+        mean = running_sum / n
         radius = hoeffding_union_radius(n, config.alpha, config.lower_bound, config.upper_bound)
         states.append({"n": float(n), "mean": mean, "lower": mean - radius, "upper": mean + radius})
     final = states[-1]

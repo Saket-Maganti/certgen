@@ -19,6 +19,47 @@ from certgen.core.hashing import stable_hash_json
 
 SCHEMA_VERSION = "certgen.reference_draw_plan.v1"
 SAMPLING_SCHEME = "iid_with_replacement_from_fixed_empirical_population"
+FINITE_POPULATION_WITHOUT_REPLACEMENT_STATUS = "EXPERIMENTAL_NOT_SUPPORTED"
+
+
+def validate_reference_sampling_contract(
+    contract: dict[str, Any],
+    *,
+    expected_plan_sha256: str | None = None,
+) -> dict[str, Any]:
+    """Fail closed on invalid sampling, reuse, adaptation, or plan identity."""
+
+    errors: list[str] = []
+    if contract.get("sampling_scheme") != SAMPLING_SCHEME:
+        errors.append("confirmatory reference sampling must be IID with replacement")
+    if contract.get("without_replacement") is not False:
+        errors.append(
+            "finite-population without-replacement sampling is EXPERIMENTAL_NOT_SUPPORTED"
+        )
+    if contract.get("adaptive_reference_reuse") is not False:
+        errors.append("adaptive reference reuse is forbidden")
+    if contract.get("reference_reuse_declared") is not True:
+        errors.append("reference reuse must be explicitly declared")
+    if contract.get("precommitted_before_stream") is not True:
+        errors.append("the complete reference draw plan must be precommitted before the stream")
+    plan_sha256 = contract.get("plan_sha256")
+    if not isinstance(plan_sha256, str) or len(plan_sha256) != 64:
+        errors.append("a 64-character reference plan SHA-256 is required")
+    else:
+        try:
+            int(plan_sha256, 16)
+        except ValueError:
+            errors.append("reference plan SHA-256 must be hexadecimal")
+    if expected_plan_sha256 is not None and plan_sha256 != expected_plan_sha256:
+        errors.append("reference plan SHA-256 does not match the preregistered plan")
+    return {
+        "passed": not errors,
+        "errors": errors,
+        "sampling_scheme": contract.get("sampling_scheme"),
+        "finite_population_without_replacement_status": FINITE_POPULATION_WITHOUT_REPLACEMENT_STATUS,
+        "plan_sha256": plan_sha256,
+        "claim_allowed": False,
+    }
 
 
 def _normalise_source_ids(source_ids: Sequence[Any]) -> list[str]:

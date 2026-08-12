@@ -7,7 +7,7 @@ from typing import Any
 
 import numpy as np
 
-from certgen.metrics.kernels import as_2d_float64, certified_kernel_bounds, kernel_matrix, l2_normalize_rows
+from certgen.metrics.kernels import certified_kernel_bounds, kernel_matrix, rbf_kernel_paired
 from certgen.stats.design_contracts import ComparisonStream
 
 
@@ -36,11 +36,50 @@ def _paired_mmd_contributions(x: np.ndarray, y: np.ndarray, kernel_config: dict)
     return k_xx + k_yy - k_xy_1 - k_xy_2
 
 
-def _paired_mmd_difference_contributions(
+def _validate_feature_arrays(
+    a: np.ndarray, b: np.ndarray, r: np.ndarray, *, chunk_size: int
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    arrays = tuple(np.asanyarray(value) for value in (a, b, r))
+    for name, value in zip(("features_a", "features_b", "features_r"), arrays):
+        if value.ndim != 2:
+            raise ValueError(f"{name} must be a 2D array, got shape {value.shape}")
+        if value.dtype not in (np.dtype(np.float32), np.dtype(np.float64)):
+            raise TypeError(f"{name} must have dtype float32 or float64")
+        for start in range(0, len(value), chunk_size):
+            if not np.all(np.isfinite(value[start : start + chunk_size])):
+                raise ValueError(f"{name} contains non-finite values")
+    if not (arrays[0].shape[1] == arrays[1].shape[1] == arrays[2].shape[1]):
+        raise ValueError("feature dimensions for A, B, and R must match")
+    return arrays  # type: ignore[return-value]
+
+
+def _paired_rows(
+    array: np.ndarray,
+    first_indices: np.ndarray,
+    second_indices: np.ndarray,
+    *,
+    normalize: bool,
+) -> tuple[np.ndarray, np.ndarray]:
+    first = np.asarray(array[first_indices], dtype=np.float64)
+    second = np.asarray(array[second_indices], dtype=np.float64)
+    if normalize:
+        first_norms = np.linalg.norm(first, axis=1)
+        second_norms = np.linalg.norm(second, axis=1)
+        if np.any(first_norms <= 0.0) or np.any(second_norms <= 0.0):
+            raise ValueError("features contain zero-norm rows; cannot certify normalized bounded kernel stream")
+        first = first / first_norms[:, None]
+        second = second / second_norms[:, None]
+    return first, second
+
+
+def paired_mmd_difference_contributions(
     a: np.ndarray,
     b: np.ndarray,
     r: np.ndarray,
     kernel_config: dict,
+    *,
+    indices: np.ndarray | None = None,
+    chunk_size: int = 1024,
 ) -> np.ndarray:
     """Disjoint-pair unbiased contributions for MMD^2(A,R)-MMD^2(B,R).
 
@@ -51,27 +90,44 @@ def _paired_mmd_difference_contributions(
     before this stream is inspected.
     """
 
+    if isinstance(chunk_size, bool) or int(chunk_size) != chunk_size or int(chunk_size) <= 0:
+        raise ValueError("chunk_size must be a positive integer")
+    a, b, r = _validate_feature_arrays(a, b, r, chunk_size=int(chunk_size))
+    kernel_name = kernel_config.get("name") or kernel_config.get("kernel") or "rbf"
+    if kernel_name not in {"rbf", "mmd_rbf", "cmmd_clip_mmd"}:
+        raise ValueError("production paired MMD contributions currently require an RBF kernel")
+    gamma_value = kernel_config.get("gamma")
+    gamma = 0.5 if gamma_value is None else float(gamma_value)
+    normalize = kernel_config.get("normalize") in {True, "l2", "unit", "unit_l2"}
     count = min(len(a), len(b), len(r))
     if count < 4:
         raise ValueError("linear-time MMD difference stream requires at least four samples per array")
     if count % 2:
         count -= 1
-    a1, a2 = a[:count:2], a[1:count:2]
-    b1, b2 = b[:count:2], b[1:count:2]
-    r1, r2 = r[:count:2], r[1:count:2]
-    k_aa = np.diag(kernel_matrix(a1, a2, kernel_config))
-    k_bb = np.diag(kernel_matrix(b1, b2, kernel_config))
-    k_ar_1 = np.diag(kernel_matrix(a1, r2, kernel_config))
-    k_ar_2 = np.diag(kernel_matrix(a2, r1, kernel_config))
-    k_br_1 = np.diag(kernel_matrix(b1, r2, kernel_config))
-    k_br_2 = np.diag(kernel_matrix(b2, r1, kernel_config))
-    return k_aa - k_bb - k_ar_1 - k_ar_2 + k_br_1 + k_br_2
+    order = np.arange(count, dtype=np.int64) if indices is None else np.asarray(indices, dtype=np.int64)
+    if order.ndim != 1 or len(order) < count:
+        raise ValueError("indices must be a one-dimensional permutation covering the aligned rows")
+    order = order[:count]
+    if np.any(order < 0) or np.any(order >= min(len(a), len(b), len(r))) or len(np.unique(order)) != count:
+        raise ValueError("indices must be unique and inside the aligned feature range")
 
-
-def _normalise_certified_features(array: np.ndarray, kernel_config: dict, *, name: str) -> np.ndarray:
-    if kernel_config.get("normalize") in {True, "l2", "unit", "unit_l2"}:
-        return l2_normalize_rows(array, name=name)
-    return array
+    contributions: np.ndarray = np.empty(count // 2, dtype=np.float64)
+    for start in range(0, count // 2, int(chunk_size)):
+        stop = min(start + int(chunk_size), count // 2)
+        first_indices = order[2 * start : 2 * stop : 2]
+        second_indices = order[2 * start + 1 : 2 * stop : 2]
+        a1, a2 = _paired_rows(a, first_indices, second_indices, normalize=normalize)
+        b1, b2 = _paired_rows(b, first_indices, second_indices, normalize=normalize)
+        r1, r2 = _paired_rows(r, first_indices, second_indices, normalize=normalize)
+        contributions[start:stop] = (
+            rbf_kernel_paired(a1, a2, gamma=gamma, chunk_size=int(chunk_size))
+            - rbf_kernel_paired(b1, b2, gamma=gamma, chunk_size=int(chunk_size))
+            - rbf_kernel_paired(a1, r2, gamma=gamma, chunk_size=int(chunk_size))
+            - rbf_kernel_paired(a2, r1, gamma=gamma, chunk_size=int(chunk_size))
+            + rbf_kernel_paired(b1, r2, gamma=gamma, chunk_size=int(chunk_size))
+            + rbf_kernel_paired(b2, r1, gamma=gamma, chunk_size=int(chunk_size))
+        )
+    return contributions
 
 
 def _block_average(values: np.ndarray, block_size: int | None) -> tuple[list[float], list[int]]:
@@ -103,21 +159,17 @@ def mmd_difference_stream(
     block_size: int | None = None,
     require_bounded_kernel: bool = True,
     reference_sampling_metadata: dict[str, Any] | None = None,
+    kernel_chunk_size: int = 1024,
 ) -> ComparisonStream:
-    a = as_2d_float64(features_a, name="features_a")
-    b = as_2d_float64(features_b, name="features_b")
-    r = as_2d_float64(features_r, name="features_r")
-    if not (a.shape[1] == b.shape[1] == r.shape[1]):
-        raise ValueError("feature dimensions for A, B, and R must match")
+    if isinstance(kernel_chunk_size, bool) or int(kernel_chunk_size) != kernel_chunk_size or int(kernel_chunk_size) <= 0:
+        raise ValueError("kernel_chunk_size must be a positive integer")
+    a, b, r = _validate_feature_arrays(features_a, features_b, features_r, chunk_size=int(kernel_chunk_size))
     count = min(len(a), len(b), len(r))
     if count < 4:
         raise ValueError("at least four aligned samples are required")
     rng = np.random.default_rng(seed)
     indices = np.arange(count)
     rng.shuffle(indices)
-    a = a[indices]
-    b = b[indices]
-    r = r[indices]
     kernel = dict(kernel_config or {"name": "rbf", "normalize": "l2"})
     kernel_name = kernel.get("name") or kernel.get("kernel") or "rbf"
     if kernel_name in {"rbf", "mmd_rbf", "cmmd_clip_mmd"} and kernel.get("gamma") is None:
@@ -130,13 +182,9 @@ def mmd_difference_stream(
         raise ValueError(f"kernel is not certified-bounded for rigorous clean CS mode: {bounds.get('reason')}")
     if bounds.get("bounded_by_construction"):
         kernel = {**kernel, "normalize": kernel.get("normalize") or "l2"}
-        a = _normalise_certified_features(a, kernel, name="features_a")
-        b = _normalise_certified_features(b, kernel, name="features_b")
-        r = _normalise_certified_features(r, kernel, name="features_r")
-        kernel_for_matrix = {**kernel, "normalize": None}
-    else:
-        kernel_for_matrix = kernel
-    raw_values = _paired_mmd_difference_contributions(a, b, r, kernel_for_matrix).astype(float)
+    raw_values: np.ndarray = paired_mmd_difference_contributions(
+        a, b, r, kernel, indices=indices, chunk_size=int(kernel_chunk_size)
+    ).astype(float)
     values, block_lengths = _block_average(raw_values, block_size)
     if max_units is not None:
         values = values[: int(max_units)]
@@ -177,6 +225,9 @@ def mmd_difference_stream(
             "samples_per_distribution_consumed": int(2 * sum(block_lengths)),
             "total_feature_rows_consumed": int(6 * sum(block_lengths)),
             "bandwidth_protocol": kernel.get("bandwidth_protocol"),
+            "kernel_computation": "paired_rbf_o_nd_no_gram_matrix",
+            "kernel_chunk_size": int(kernel_chunk_size),
+            "input_memory_mapping_preserved": any(isinstance(value, np.memmap) for value in (a, b, r)),
             "boundedness_metadata": bounds,
         },
     )

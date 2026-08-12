@@ -1,0 +1,8 @@
+{
+  "claim_allowed": false,
+  "fixture_orchestration_only": true,
+  "lanes": 6,
+  "passed": true,
+  "real_workers_exercised": false,
+  "schema_version": "certgen.icml2027.notebook_closure_rehearsal.v1"
+}

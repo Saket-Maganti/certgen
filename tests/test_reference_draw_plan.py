@@ -8,10 +8,12 @@ from certgen.certs.api import certify_clean_metric_comparison
 from certgen.cli.build_reference_draw_plan import main as build_reference_draw_plan_main
 from certgen.core.io import read_json
 from certgen.stats.reference_sampling import (
+    FINITE_POPULATION_WITHOUT_REPLACEMENT_STATUS,
     SAMPLING_SCHEME,
     build_reference_draw_plan,
     materialize_reference_draws,
     validate_reference_draw_plan,
+    validate_reference_sampling_contract,
 )
 
 
@@ -47,6 +49,31 @@ def test_reference_draw_plan_changes_with_seed_and_rejects_without_replacement_l
     validation = validate_reference_draw_plan(tampered, source_ids=["r0", "r1", "r2", "r3"])
     assert validation["passed"] is False
     assert any("with replacement" in error for error in validation["errors"])
+
+
+def test_confirmatory_sampling_contract_fails_closed_on_reuse_and_plan_mutations():
+    plan = _plan()
+    valid = {
+        "sampling_scheme": SAMPLING_SCHEME,
+        "without_replacement": False,
+        "adaptive_reference_reuse": False,
+        "reference_reuse_declared": True,
+        "precommitted_before_stream": True,
+        "plan_sha256": plan["plan_sha256"],
+    }
+    assert validate_reference_sampling_contract(valid, expected_plan_sha256=plan["plan_sha256"])["passed"]
+    for field, value in (
+        ("without_replacement", True),
+        ("adaptive_reference_reuse", True),
+        ("reference_reuse_declared", False),
+        ("precommitted_before_stream", False),
+        ("plan_sha256", "0" * 64),
+    ):
+        mutated = {**valid, field: value}
+        assert not validate_reference_sampling_contract(
+            mutated, expected_plan_sha256=plan["plan_sha256"]
+        )["passed"]
+    assert FINITE_POPULATION_WITHOUT_REPLACEMENT_STATUS == "EXPERIMENTAL_NOT_SUPPORTED"
 
 
 def test_reference_draw_plan_detects_draw_tampering_and_source_order_mismatch():

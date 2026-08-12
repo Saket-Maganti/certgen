@@ -16,7 +16,7 @@ from certgen.metrics.streams import mmd_difference_stream
 from certgen.gates.evidence_classification import enforce_declared_status
 from certgen.features.cache_v2 import validate_feature_cache_v2
 from certgen.stats.design_contracts import CSConfig
-from certgen.stats.reference_sampling import materialize_reference_draws
+from certgen.stats.reference_sampling import materialize_reference_draws, validate_reference_sampling_contract
 
 
 METRIC_TO_KERNEL = {
@@ -171,6 +171,19 @@ def _materialize_reference_sampling_contract(
         plan,
         min_draws=min_draws,
     )
+    sampling_contract = cs_config.get("reference_sampling_contract")
+    if cs_config.get("require_reference_sampling_contract_v2") is True and not isinstance(sampling_contract, dict):
+        raise ValueError("v2 production certificates require an explicit reference_sampling_contract")
+    if isinstance(sampling_contract, dict):
+        contract_validation = validate_reference_sampling_contract(
+            sampling_contract,
+            expected_plan_sha256=str(validation["plan_sha256"]),
+        )
+        if not contract_validation["passed"]:
+            raise ValueError(
+                "invalid production reference sampling contract: "
+                + "; ".join(contract_validation["errors"])
+            )
     return drawn, {
         "sampling_scheme": validation["sampling_scheme"],
         "plan_sha256": validation["plan_sha256"],

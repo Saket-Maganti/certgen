@@ -1,0 +1,87 @@
+{
+  "claim_allowed": false,
+  "dimensions": [
+    2,
+    16,
+    64,
+    256,
+    768,
+    2048
+  ],
+  "directional_error_rate": 0.0,
+  "directional_error_wilson_95": [
+    0.0,
+    0.048113585065137326
+  ],
+  "empirical_power": 0.02631578947368421,
+  "empirical_power_wilson_95": [
+    0.00724665907512833,
+    0.09096621098658073
+  ],
+  "finite_population_without_replacement_status": "EXPERIMENTAL_NOT_SUPPORTED",
+  "kernel_computation": "paired_rbf_o_nd_no_gram_matrix",
+  "mean_compute_seconds": 0.05717987408503317,
+  "mean_confidence_width": 1.3237478384729526,
+  "mean_samples_saved_vs_full_budget": 63.06153846153846,
+  "mean_stopping_time": 2233.476923076923,
+  "median_stopping_time": 500.0,
+  "not_empirical_paper_evidence": true,
+  "not_real_generator_evidence": true,
+  "null_anytime_coverage_rate": 1.0,
+  "null_anytime_coverage_wilson_95": [
+    0.9335864119091037,
+    1.0
+  ],
+  "null_false_positive_rate": 0.0,
+  "null_false_positive_wilson_95": [
+    0.0,
+    0.0664135880908964
+  ],
+  "p90_stopping_time": 5000.0,
+  "p95_stopping_time": 5000.0,
+  "passed": true,
+  "peak_rss_bytes": 939982848,
+  "profile": "quick",
+  "runs": 130,
+  "sample_budgets": [
+    100,
+    250,
+    500,
+    1000,
+    2000,
+    5000,
+    10000
+  ],
+  "scenarios": [
+    "anisotropy",
+    "contamination_10pct",
+    "contamination_1pct",
+    "contamination_2pct",
+    "contamination_5pct",
+    "covariance_perturbation",
+    "declared_reference_reuse",
+    "dense_weak_high_dimensional_shift",
+    "exact_sample_identical_null",
+    "finite_reference_with_replacement",
+    "heavy_tails",
+    "identical_distribution_null",
+    "low_rank_manifold_shift",
+    "mixture_alternative",
+    "mode_dropping",
+    "near_tie",
+    "obvious_mean_shift",
+    "rare_mode_shift",
+    "scale_shift",
+    "sparse_high_dimensional_shift",
+    "symmetric_multimodal_shift",
+    "tiny_mean_shift",
+    "variance_inflation"
+  ],
+  "schema_version": "certgen.icml2027.production_mmd_validation.v1",
+  "synthetic_validation_only": true,
+  "unresolved_rate": 0.9846153846153847,
+  "unresolved_wilson_95": [
+    0.9456415388402218,
+    0.9957707941559447
+  ]
+}

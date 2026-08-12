@@ -1,0 +1,21 @@
+attack_id,passed,expected_invariant,detail,runtime_seconds,peak_rss_bytes,synthetic_validation_only,not_real_generator_evidence,not_empirical_paper_evidence,claim_allowed
+paired_vs_matrix_equality,True,paired values equal Gram diagonal,{'max_abs_drift': 2.439454888092385e-19},0.0001830830005928874,41074688,True,True,True,False
+float32_float64_drift,True,dtype drift below registered tolerance,"{'max_abs_drift': 1.5787191602015683e-12, 'tolerance': 2e-06}",2.4250010028481483e-05,41123840,True,True,True,False
+normalization_epsilon,True,tiny finite norms either normalize finitely or fail closed,{'stable_or_rejected': True},0.004609249997884035,42303488,True,True,True,False
+distance_roundoff_clamp,True,"near-zero distances remain inside [0,1]","{'minimum': 1.0, 'maximum': 1.0}",8.087500464171171e-05,42319872,True,True,True,False
+distance_overflow_underflow,True,extreme finite distances underflow safely to zero,{'unique_values': [0.0]},3.429199568927288e-05,42352640,True,True,True,False
+chunking_invariance,True,chunk size does not change paired values,{'max_abs_drift': 0.0},0.004995708994101733,42565632,True,True,True,False
+seeded_order_invariance,True,frozen seed/order is invariant to chunking,{'units': 65},0.002142999990610406,42565632,True,True,True,False
+partial_block_accounting,True,partial last block is included exactly once,"{'raw_units': 65, 'consumed': 65, 'last_block': 2}",0.00020637499983422458,42663936,True,True,True,False
+high_dimension_memory_path,True,4096x2048 inputs complete without a Gram matrix,"{'shape': [4096, 2048], 'stream_units': 2048, 'pairwise_matrix_materialized': False}",0.18433520797407255,233521152,True,True,True,False
+near_tie_finite_precision,True,null-like near tie stays finite and near zero,{'mean': 0.0043919294099087755},0.00287391702295281,233553920,True,True,True,False
+preprocessing_perturbation,True,"registered preprocessing perturbation is computed, finite, and never silently promoted","{'maximum_stream_drift': 0.0009849477934086859, 'classification': 'ABLATION_ONLY'}",0.0005384579999372363,233865216,True,True,True,False
+interpolation_perturbation,True,interpolation alternatives produce a detectable registered ablation,{'maximum_pixel_drift': 21},0.00966845900984481,236273664,True,True,True,False
+feature_normalization_perturbation,True,normalization choice changes values and is hash-bound,{'maximum_kernel_drift': 0.6061682063713985},4.516699118539691e-05,236273664,True,True,True,False
+jpeg_compression_perturbation,True,compression perturbation is numerically exercised and ablation-only,{'mean_absolute_pixel_drift': 10.165364583333334},0.007154792023357004,237944832,True,True,True,False
+duplicate_contamination,True,exact content duplicates are detected,{'duplicate_count': 1},1.2999982573091984e-05,237944832,True,True,True,False
+near_duplicate_contamination,True,near-duplicate fixture crosses the registered distance threshold,"{'near_duplicate_pairs': 1, 'threshold': 1e-05}",3.695799387060106e-05,237944832,True,True,True,False
+reference_reuse_contract,True,undeclared reference reuse fails closed,{'errors': ['reference reuse must be explicitly declared']},2.6659981813281775e-06,237944832,True,True,True,False
+finite_population_sampling_contract,True,without-replacement mode is rejected without a verified theorem,{'errors': ['finite-population without-replacement sampling is EXPERIMENTAL_NOT_SUPPORTED']},9.160139597952366e-07,237944832,True,True,True,False
+representation_conflict,True,opposite representation directions are detected as a conflict,"{'representation_a': 'B_BETTER', 'representation_b': 'A_BETTER', 'classification': 'DIRECTION_CONFLICT'}",0.006080749997636303,239566848,True,True,True,False
+multi_model_near_tie_scaling,True,near ties remain unresolved as multiplicity grows through M=100,"{'decisions': {'5': 'UNRESOLVED', '10': 'UNRESOLVED', '20': 'UNRESOLVED', '50': 'UNRESOLVED', '100': 'UNRESOLVED'}}",0.00038462498923763633,239566848,True,True,True,False

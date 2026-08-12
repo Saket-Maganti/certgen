@@ -1,6 +1,11 @@
 # CertGen ICML 2027 Kaggle launchboard
 
-All runtimes are planning estimates until authenticated measurements exist. `claim_allowed=false`.
+All runtimes are planning estimates until authenticated measurements exist. The 10k rows are governed exclusively by corrected frozen v2; v1 is `SUPERSEDED_BEFORE_EXECUTION_DO_NOT_RUN`. `claim_allowed=false`.
+
+10k v1: `SUPERSEDED_DO_NOT_RUN`. 10k v2:
+`READY_AFTER_LEGACY_PREFLIGHT_AND_AUTHENTICATED_ASSETS`, using
+`configs/icml2027/cifar_confirmatory_10k_v2.yaml`. The immutable diagnostic
+remains the exact next executable action.
 
 | Order | Study | Stage | Status | Prerequisites | Notebook | Input builder | Input ZIP | SHA | GPU | Internet | Private assets | Runtime | Output | Copyback | Local resume |
 |---:|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|

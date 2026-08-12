@@ -1,0 +1,10 @@
+schema_version: certgen.icml2027.anytime_boundary_benchmark_config.v1
+master_seed: 20270812
+replicates: 100
+stream_units: 5000
+alpha: 0.05
+effects: [0.0, 0.15, 0.30, 0.60, 1.00]
+synthetic_validation_only: true
+not_real_generator_evidence: true
+not_empirical_paper_evidence: true
+claim_allowed: false

@@ -10,7 +10,7 @@ studies:
   claim_allowed: false
   study_contract_hash: e28e56714e6e4bb934a74932f351a00baef0269ad46cc918a8f5ed20b4b9bc12
 - study_id: icml2027_cifar_confirmatory_10k_v1
-  status: FROZEN_WAITING_GPU
+  status: SUPERSEDED_BEFORE_EXECUTION_DO_NOT_RUN
   config_path: configs/icml2027/cifar_confirmatory_10k_v1.yaml
   config_sha256: c1e4996fc3e2c8ec90dbd8d297f667b7f4405056e1ad0221faee5a32abdd0cdd
   replay_derivation: planning_only
@@ -18,6 +18,17 @@ studies:
   immutable: true
   claim_allowed: false
   study_contract_hash: 6b1516b0f78681df1e966a29797b84110e110f46b834f65f623a43f09a9d2005
+- study_id: icml2027_cifar_confirmatory_10k_v2
+  status: FROZEN_WAITING_AUTHENTICATED_GPU
+  config_path: configs/icml2027/cifar_confirmatory_10k_v2.yaml
+  config_sha256: 7d543ddd077edeea20bf29d322916a8d0f531ff05787cb779dc2a35506e85e2d
+  replay_derivation: planning_only_no_outcome_inspection
+  authenticated_inputs:
+  - registry/manifests/icml2027/cifar10_reference_draw_plan_10k_v2.json
+  immutable: true
+  supersedes: icml2027_cifar_confirmatory_10k_v1
+  claim_allowed: false
+  study_contract_hash: 0b77851744d8c6a506cc8530f7fc99a92aa0fefa198c1b64711e1924d944c176
 - study_id: icml2027_multi_model_synthetic_v1
   status: FROZEN_SYNTHETIC
   config_path: configs/icml2027/multi_model_scaling.yaml

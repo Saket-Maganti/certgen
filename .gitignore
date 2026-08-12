@@ -43,6 +43,8 @@ artifacts/icml2027/released_sample_fixture_import/
 artifacts/icml2027/replay/
 artifacts/icml2027/reviewer_attacks/
 artifacts/icml2027/synthetic_validation/
+artifacts/icml2027/production_mmd/**/raw_records.csv
+artifacts/icml2027/boundary_benchmark/raw_records.csv
 artifacts/icml2027/kaggle_inputs/**/*.zip
 artifacts/icml2027/kaggle_inputs/**/inputs/
 dist/
@@ -65,6 +67,7 @@ __pycache__/
 __MACOSX/
 reports/*command_logs/
 reports/**/command_logs/
+reports/icml2027/notebook_rehearsals/work/
 
 # Local paper build products
 *.aux

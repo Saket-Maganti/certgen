@@ -6,6 +6,7 @@ import yaml  # type: ignore[import-untyped]
 
 from certgen.icml2027.kaggle import LANES, build_input
 from certgen.icml2027.notebooks import check_notebook_determinism, generate_notebooks
+from certgen.icml2027.notebook_runtime import run_closure_rehearsals
 from certgen.icml2027.numerical import run_numerical_audit
 from certgen.icml2027.reviewer import run_reviewer_attacks
 from certgen.icml2027.stress import run_adaptive_comparison, run_multi_model_scaling
@@ -20,6 +21,9 @@ def test_notebook_factory_and_blocked_input_plans(tmp_path: Path) -> None:
         payload = build_input(lane, {}, root=Path.cwd(), out_root=tmp_path / "inputs")
         assert payload["input_zip_created"] is False
         assert payload["claim_allowed"] is False
+    rehearsal = run_closure_rehearsals(tmp_path / "rehearsal")
+    assert rehearsal["passed"]
+    assert rehearsal["lanes"] == 6
 
 
 def test_numerical_reviewer_scaling_and_adaptive_smokes(tmp_path: Path) -> None:

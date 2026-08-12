@@ -2,10 +2,16 @@ schema_version: certgen.icml2027.statistical_method_registry.v1
 methods:
 - method_id: bounded_anytime_union_cs
   validity: conservative_anytime_union_bound
+  implementation: certgen.icml2027.sequential.anytime_radius
+  proof_route: countable_union_of_fixed_time_Hoeffding_bounds
+  sharper_boundary_status: NOT_PROVEN_NOT_IMPLEMENTED
+  theorem_to_code_test: tests/icml2027/test_theory_contract.py
   assumptions:
   - bounded observations
   - prospectively fixed stream
   - declared multiplicity
+  - disjoint stream units after a frozen seeded order
+  - IID with-replacement reference draws from a fixed empirical population
   claim_allowed: false
 - method_id: bonferroni
   validity: FWER_under_arbitrary_dependence
@@ -21,5 +27,12 @@ methods:
   claim_allowed: false
 - method_id: adaptive_graph_frontier
   validity: EXPLORATORY_NOT_PROVEN
+  claim_allowed: false
+- method_id: paired_rbf_linear_time_stream
+  validity: unbiased_disjoint_pair_contributions_under_declared_IID_contract
+  implementation: certgen.metrics.streams.paired_mmd_difference_contributions
+  complexity: O(ND)_time_O(chunk*D+N)_extra_memory
+  kernel_bounds: rbf_terms_in_[0,1]_difference_contributions_in_[-3,3]
+  finite_population_without_replacement_status: EXPERIMENTAL_NOT_SUPPORTED
   claim_allowed: false
 claim_allowed: false

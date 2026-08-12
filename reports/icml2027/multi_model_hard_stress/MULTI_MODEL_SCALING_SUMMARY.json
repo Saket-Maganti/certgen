@@ -1,0 +1,34 @@
+{
+  "FWER": 0.0,
+  "claim_allowed": false,
+  "incorrect_edges": 0,
+  "maximum_models": 100,
+  "model_counts": [
+    2,
+    5,
+    10,
+    20,
+    50,
+    100
+  ],
+  "not_empirical_paper_evidence": true,
+  "not_real_generator_evidence": true,
+  "rows": 144,
+  "scenarios": [
+    "uniformly_spaced",
+    "many_near_ties",
+    "clustered_quality_tiers",
+    "heterogeneous_variance",
+    "heterogeneous_sample_cost",
+    "shared_reference_dependence",
+    "representation_specific_ordering",
+    "representation_conflicts",
+    "partial_incomparability",
+    "adversarial_local_cycles",
+    "mixed_easy_hard_edges",
+    "difficult_covariance"
+  ],
+  "schema_version": "certgen.icml2027.multi_model_scaling.v1",
+  "synthetic_validation_only": true,
+  "transitive_reduction_failures": 0
+}

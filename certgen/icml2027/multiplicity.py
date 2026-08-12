@@ -13,7 +13,7 @@ def adjust_pvalues(pvalues: Sequence[float], method: str, *, alpha: float = 0.05
     m = len(values)
     rejected = [False] * m
     adjusted = [1.0] * m
-    validity = "VALIDITY_PROVEN"
+    validity = "FWER_CONTROL_REQUIRES_VALID_INPUT_PVALUES_AND_DECLARED_FAMILY"
     if method in {"bonferroni", "fixed_alpha_split"}:
         for index, value in enumerate(values):
             adjusted[index] = min(1.0, value * m)
