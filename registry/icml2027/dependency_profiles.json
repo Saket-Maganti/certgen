@@ -1,0 +1,67 @@
+{
+  "claim_allowed": false,
+  "profiles": {
+    "cifar_10k_features": {
+      "dependency_profile_id": "icml2027-cifar-features-py311-v1",
+      "import_smoke": ["numpy", "PIL", "torch", "torchvision", "transformers"],
+      "lock": [
+        {"distribution": "numpy", "import_name": "numpy", "version": "1.26.4"},
+        {"distribution": "Pillow", "import_name": "PIL", "version": "10.4.0"},
+        {"distribution": "torch", "import_name": "torch", "version": "2.4.1"},
+        {"distribution": "torchvision", "import_name": "torchvision", "version": "0.19.1"},
+        {"distribution": "transformers", "import_name": "transformers", "version": "4.44.2"}
+      ]
+    },
+    "cifar_10k_generation": {
+      "dependency_profile_id": "icml2027-cifar-generation-py311-v1",
+      "import_smoke": ["numpy", "PIL", "torch", "diffusers", "transformers", "safetensors"],
+      "lock": [
+        {"distribution": "numpy", "import_name": "numpy", "version": "1.26.4"},
+        {"distribution": "Pillow", "import_name": "PIL", "version": "10.4.0"},
+        {"distribution": "torch", "import_name": "torch", "version": "2.4.1"},
+        {"distribution": "diffusers", "import_name": "diffusers", "version": "0.30.3"},
+        {"distribution": "transformers", "import_name": "transformers", "version": "4.44.2"},
+        {"distribution": "safetensors", "import_name": "safetensors", "version": "0.4.5"},
+        {"distribution": "accelerate", "import_name": "accelerate", "version": "0.34.2"}
+      ]
+    },
+    "dinov2_features": {
+      "dependency_profile_id": "icml2027-dinov2-features-py311-v1",
+      "import_smoke": ["numpy", "PIL", "torch", "transformers", "safetensors"],
+      "lock": [
+        {"distribution": "numpy", "import_name": "numpy", "version": "1.26.4"},
+        {"distribution": "Pillow", "import_name": "PIL", "version": "10.4.0"},
+        {"distribution": "torch", "import_name": "torch", "version": "2.4.1"},
+        {"distribution": "transformers", "import_name": "transformers", "version": "4.44.2"},
+        {"distribution": "safetensors", "import_name": "safetensors", "version": "0.4.5"}
+      ]
+    },
+    "dinov2_preflight": {
+      "dependency_profile_id": "icml2027-dinov2-preflight-py311-v1",
+      "import_smoke": ["numpy", "torch", "transformers", "safetensors"],
+      "lock": [
+        {"distribution": "numpy", "import_name": "numpy", "version": "1.26.4"},
+        {"distribution": "torch", "import_name": "torch", "version": "2.4.1"},
+        {"distribution": "transformers", "import_name": "transformers", "version": "4.44.2"},
+        {"distribution": "safetensors", "import_name": "safetensors", "version": "0.4.5"}
+      ]
+    },
+    "released_sample_features": {
+      "dependency_profile_id": "icml2027-released-features-py311-v1",
+      "import_smoke": ["numpy", "PIL", "torch", "torchvision", "transformers"],
+      "lock": [
+        {"distribution": "numpy", "import_name": "numpy", "version": "1.26.4"},
+        {"distribution": "Pillow", "import_name": "PIL", "version": "10.4.0"},
+        {"distribution": "torch", "import_name": "torch", "version": "2.4.1"},
+        {"distribution": "torchvision", "import_name": "torchvision", "version": "0.19.1"},
+        {"distribution": "transformers", "import_name": "transformers", "version": "4.44.2"}
+      ]
+    }
+  },
+  "schema_version": "certgen.icml2027.dependency_profiles.v1",
+  "supported_modes": [
+    "USE_PREINSTALLED_VALIDATED",
+    "KAGGLE_INTERNET_ON_INSTALL",
+    "PRIVATE_WHEELHOUSE_OFFLINE"
+  ]
+}

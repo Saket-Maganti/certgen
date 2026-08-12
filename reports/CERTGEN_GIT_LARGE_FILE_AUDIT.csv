@@ -1,8 +1,8 @@
 path,size_bytes,tracked,ignored,lfs_managed,classification,allowed_to_commit,reason
 .mypy_cache/3.11/cache.0.db,9297920,false,true,false,source_or_documentation,false,ignored generated artifact
-.mypy_cache/3.11/cache.1.db,9428992,false,true,false,source_or_documentation,false,ignored generated artifact
+.mypy_cache/3.11/cache.1.db,9445376,false,true,false,source_or_documentation,false,ignored generated artifact
 .mypy_cache/3.11/cache.10.db,10522624,false,true,false,source_or_documentation,false,ignored generated artifact
-.mypy_cache/3.11/cache.11.db,10956800,false,true,false,source_or_documentation,false,ignored generated artifact
+.mypy_cache/3.11/cache.11.db,10981376,false,true,false,source_or_documentation,false,ignored generated artifact
 .mypy_cache/3.11/cache.12.db,10432512,false,true,false,source_or_documentation,false,ignored generated artifact
 .mypy_cache/3.11/cache.13.db,8888320,false,true,false,source_or_documentation,false,ignored generated artifact
 .mypy_cache/3.11/cache.14.db,10149888,false,true,false,source_or_documentation,false,ignored generated artifact
@@ -15,6 +15,9 @@ path,size_bytes,tracked,ignored,lfs_managed,classification,allowed_to_commit,rea
 .mypy_cache/3.11/cache.7.db,7516160,false,true,false,source_or_documentation,false,ignored generated artifact
 .mypy_cache/3.11/cache.8.db,7991296,false,true,false,source_or_documentation,false,ignored generated artifact
 .mypy_cache/3.11/cache.9.db,8785920,false,true,false,source_or_documentation,false,ignored generated artifact
+.mypy_cache/3.11/cache.db,152842240,false,true,false,source_or_documentation,false,ignored generated artifact
+artifacts/icml2027/synthetic_validation/medium/simulation_records.jsonl,10097693,false,true,false,generated_or_release_artifact,false,ignored generated artifact
+artifacts/icml2027/synthetic_validation/overnight/simulation_records.jsonl,79021655,false,true,false,generated_or_release_artifact,false,ignored generated artifact
 cifar-10-python.tar.gz,170498071,false,true,false,raw_execution_input,false,raw/restricted execution data must remain local
 data/reference_materialized/6d958be074577803/cifar-10-batches-py/data_batch_1,31035704,false,true,false,raw_execution_input,false,raw/restricted execution data must remain local
 data/reference_materialized/6d958be074577803/cifar-10-batches-py/data_batch_2,31035320,false,true,false,raw_execution_input,false,raw/restricted execution data must remain local
@@ -31,10 +34,22 @@ dist/certgen_execution_pass_20260721_final.zip.pre-final-cleanup,1107143,false,t
 dist/certgen_execution_pass_20260721_final.zip.stale,1107130,false,true,false,generated_or_release_artifact,false,ignored generated artifact
 dist/certgen_final_kaggle_execution_path_release.zip,2622487,false,true,false,generated_or_release_artifact,false,ignored generated artifact
 dist/certgen_final_kaggle_execution_path_release_final.zip,2628049,false,true,false,generated_or_release_artifact,false,ignored generated artifact
+dist/certgen_icml2027_candidate.zip,2759765,false,true,false,generated_or_release_artifact,false,ignored generated artifact
+dist/certgen_icml2027_deep_repair_source.zip,2808684,false,true,false,generated_or_release_artifact,false,ignored generated artifact
+dist/certgen_icml2027_final.zip,2759970,false,true,false,generated_or_release_artifact,false,ignored generated artifact
 dist/certgen_max_ceiling_pre_run.zip,1054231,false,true,false,generated_or_release_artifact,false,ignored generated artifact
 dist/certgen_universal_kaggle_release.zip,1139279,false,true,false,generated_or_release_artifact,false,ignored generated artifact
 dist/quarantine/certgen_cvpr_reproducibility.20260721.manifest-collision.zip,1100235,false,true,false,generated_or_release_artifact,false,ignored generated artifact
 dist/quarantine/certgen_cvpr_reproducibility.20260721.orphaned-manifest.zip,1099990,false,true,false,generated_or_release_artifact,false,ignored generated artifact
 dist/quarantine/certgen_cvpr_reproducibility.20260721.private-path-rejected.zip,1100132,false,true,false,generated_or_release_artifact,false,ignored generated artifact
 dist/quarantine/certgen_final_execution_path_candidate.zip,2598589,false,true,false,generated_or_release_artifact,false,ignored generated artifact
+dist/quarantine/certgen_icml2027_deep_repair_source.pre_nested_fix.zip,2801616,false,true,false,generated_or_release_artifact,false,ignored generated artifact
+dist/quarantine/certgen_icml2027_deep_repair_source.pre_portable_tests.zip,2801667,false,true,false,generated_or_release_artifact,false,ignored generated artifact
+dist/quarantine/certgen_icml2027_deep_repair_source.pre_privacy_fix.zip,2801578,false,true,false,generated_or_release_artifact,false,ignored generated artifact
 registry/manifests/cvpr/cifar10_reference.jsonl,7640000,true,false,false,source_or_documentation,true,below the 90 MiB source-control gate
+registry/manifests/icml2027/cifar10_reference_draw_plan_10k_v2.json,1598677,true,false,false,source_or_documentation,true,below the 90 MiB source-control gate
+registry/manifests/icml2027/cifar10k_generator_seed_manifest_v1.json,9796041,false,false,false,source_or_documentation,true,below the 90 MiB source-control gate
+reports/icml2027/SYNTHETIC_MULTI_MODEL_RANKING.csv,5748105,true,false,false,source_or_documentation,true,below the 90 MiB source-control gate
+reports/icml2027/SYNTHETIC_POWER_CURVES.csv,10813027,true,false,false,source_or_documentation,true,below the 90 MiB source-control gate
+reports/icml2027/SYNTHETIC_REFERENCE_REUSE.csv,1854612,true,false,false,source_or_documentation,true,below the 90 MiB source-control gate
+reports/icml2027/SYNTHETIC_STOPPING_TIME.csv,8245535,true,false,false,source_or_documentation,true,below the 90 MiB source-control gate

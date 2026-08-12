@@ -1,0 +1,282 @@
+{
+  "claim_allowed": false,
+  "feasibility": {
+    "claim_allowed": false,
+    "dimensions": [
+      768,
+      2048
+    ],
+    "no_gram_matrix": true,
+    "passed": true,
+    "rows": 10000
+  },
+  "fixture": {
+    "claim_allowed": false,
+    "dependency_lifecycle": {
+      "claim_allowed": false,
+      "compatible": {
+        "claim_allowed": false,
+        "identity": {
+          "claim_allowed": false,
+          "dependency_lock_sha256": "a32f09202627a70df4caf532fe6549e93e973f3d61fb140d17bb8c47f8bab9a6",
+          "dependency_profile_id": "icml2027-cifar-generation-py311-v1",
+          "input_zip_sha256": "8888888888888888888888888888888888888888888888888888888888888888",
+          "lane": "cifar_10k_generation",
+          "platform": "fixture-platform",
+          "python_version": "3.11.fixture",
+          "source_tree_sha256": "9999999999999999999999999999999999999999999999999999999999999999"
+        },
+        "passed": true,
+        "plan": {
+          "action": "VERIFY_PREINSTALLED",
+          "claim_allowed": false,
+          "restart_required": false
+        },
+        "profile_file_sha256": "c11fb2ed3afe3a32630ec35f878794b6e5d8c144e85a931cb66dc2a5881877d7",
+        "restart_required": false,
+        "schema_version": "certgen.icml2027.dependency_verification.v1",
+        "second_pass_identity_verified": true,
+        "state_after": {
+          "claim_allowed": false,
+          "incompatible": [],
+          "missing": [],
+          "passed": true
+        },
+        "state_before": {
+          "claim_allowed": false,
+          "incompatible": [],
+          "missing": [],
+          "passed": true
+        },
+        "verification": {
+          "claim_allowed": false,
+          "imports": [
+            "fixture"
+          ],
+          "pip_check": "PASS"
+        }
+      },
+      "install": {
+        "claim_allowed": false,
+        "identity": {
+          "claim_allowed": false,
+          "dependency_lock_sha256": "a32f09202627a70df4caf532fe6549e93e973f3d61fb140d17bb8c47f8bab9a6",
+          "dependency_profile_id": "icml2027-cifar-generation-py311-v1",
+          "input_zip_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "lane": "cifar_10k_generation",
+          "platform": "fixture-platform",
+          "python_version": "3.11.fixture",
+          "source_tree_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "passed": true,
+        "plan": {
+          "action": "INSTALL_EXACT_LOCK",
+          "claim_allowed": false,
+          "required_distributions": [
+            "Pillow",
+            "accelerate",
+            "diffusers",
+            "numpy",
+            "safetensors",
+            "torch",
+            "transformers"
+          ],
+          "restart_required": true
+        },
+        "profile_file_sha256": "c11fb2ed3afe3a32630ec35f878794b6e5d8c144e85a931cb66dc2a5881877d7",
+        "restart_required": true,
+        "schema_version": "certgen.icml2027.dependency_verification.v1",
+        "second_pass_identity_verified": true,
+        "state_after": {
+          "claim_allowed": false,
+          "incompatible": [],
+          "missing": [],
+          "passed": true
+        },
+        "state_before": {
+          "claim_allowed": false,
+          "incompatible": [
+            {
+              "actual": "2.4.4",
+              "distribution": "numpy",
+              "expected": "1.26.4"
+            },
+            {
+              "actual": "12.1.1",
+              "distribution": "Pillow",
+              "expected": "10.4.0"
+            },
+            {
+              "actual": "2.11.0",
+              "distribution": "torch",
+              "expected": "2.4.1"
+            },
+            {
+              "actual": "5.5.0",
+              "distribution": "transformers",
+              "expected": "4.44.2"
+            },
+            {
+              "actual": "0.7.0",
+              "distribution": "safetensors",
+              "expected": "0.4.5"
+            },
+            {
+              "actual": "1.14.0",
+              "distribution": "accelerate",
+              "expected": "0.34.2"
+            }
+          ],
+          "missing": [
+            "diffusers"
+          ],
+          "passed": false
+        },
+        "verification": {
+          "claim_allowed": false,
+          "imports": [
+            "fixture"
+          ],
+          "pip_check": "PASS"
+        }
+      },
+      "passed": true,
+      "second_pass": {
+        "claim_allowed": false,
+        "identity": {
+          "claim_allowed": false,
+          "dependency_lock_sha256": "a32f09202627a70df4caf532fe6549e93e973f3d61fb140d17bb8c47f8bab9a6",
+          "dependency_profile_id": "icml2027-cifar-generation-py311-v1",
+          "input_zip_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "lane": "cifar_10k_generation",
+          "platform": "fixture-platform",
+          "python_version": "3.11.fixture",
+          "source_tree_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "passed": true,
+        "plan": {
+          "action": "VERIFY_PREINSTALLED",
+          "claim_allowed": false,
+          "restart_required": false
+        },
+        "profile_file_sha256": "c11fb2ed3afe3a32630ec35f878794b6e5d8c144e85a931cb66dc2a5881877d7",
+        "restart_required": false,
+        "schema_version": "certgen.icml2027.dependency_verification.v1",
+        "second_pass_identity_verified": true,
+        "state_after": {
+          "claim_allowed": false,
+          "incompatible": [],
+          "missing": [],
+          "passed": true
+        },
+        "state_before": {
+          "claim_allowed": false,
+          "incompatible": [],
+          "missing": [],
+          "passed": true
+        },
+        "verification": {
+          "claim_allowed": false,
+          "imports": [
+            "fixture"
+          ],
+          "pip_check": "PASS"
+        }
+      }
+    },
+    "fake_models": 2,
+    "feature_copy_forward_sha256": "4642e9d66389286d72b8474aa5e4e077ab1195a6080d063a8c3e57dbe38414bd",
+    "feature_import": {
+      "claim_allowed": false,
+      "import_root": ".",
+      "member_count": 16,
+      "schema_version": "certgen.icml2027.payload_import.v1",
+      "validation": {
+        "claim_allowed": false,
+        "extractors": [
+          "fixture_clip",
+          "fixture_inception"
+        ],
+        "feature_rows": 400,
+        "lane": "cifar_10k_features",
+        "parts": 8,
+        "passed": true,
+        "payload_index_sha256": "92f3093f75935f7ae97da80161f869f126b447df7364febc4c60ae59f74c54bf",
+        "payload_type": "features"
+      }
+    },
+    "feature_shards_per_extractor_model": 2,
+    "feature_validation": {
+      "claim_allowed": false,
+      "extractors": [
+        "fixture_clip",
+        "fixture_inception"
+      ],
+      "feature_rows": 400,
+      "lane": "cifar_10k_features",
+      "parts": 8,
+      "passed": true,
+      "payload_index_sha256": "92f3093f75935f7ae97da80161f869f126b447df7364febc4c60ae59f74c54bf",
+      "payload_type": "features"
+    },
+    "fixture_extractors": 2,
+    "generation_copy_forward_sha256": "1b912becae114bbb72def57adcb675674156570ec2a548831a77a9581187031d",
+    "generation_shards_per_model": 2,
+    "generation_validation": {
+      "claim_allowed": false,
+      "lane": "cifar_10k_generation",
+      "models": [
+        "fixture_model_a",
+        "fixture_model_b"
+      ],
+      "parts": 4,
+      "passed": true,
+      "payload_index_sha256": "679aa5c9729e72f5f5d178b110a2efcd7ba9330092f7224c023c17a3c158db19",
+      "payload_type": "generation",
+      "samples": 200
+    },
+    "images_per_model": 100,
+    "not_empirical_paper_evidence": true,
+    "passed": true,
+    "production_mmd_certificate": {
+      "claim_allowed": false,
+      "decision": "UNRESOLVED",
+      "lower": -2.2051840659875537,
+      "mean": -0.06664291340705447,
+      "method_label": "time_uniform_hoeffding_union_bound_v3",
+      "stopping_time": 50,
+      "synthetic_validation_only": true,
+      "theory_status": "valid_for_bounded_conditionally_mean_stationary_streams",
+      "upper": 2.071898239173445
+    },
+    "real_gpu_evidence_exists": false,
+    "rehearsal_sha256": "86721319fb1ac4c56567a3ac593f5cb9634ef5e43f635dec4c0c0949d4094d7d",
+    "schema_version": "certgen.icml2027.full_generation_feature_rehearsal.v1",
+    "worker_subprocesses": 4
+  },
+  "independent_mmd": {
+    "claim_allowed": false,
+    "imports_production_stream_helper": false,
+    "maximum_absolute_error": 0.0,
+    "passed": true,
+    "reproduction_audit_only": true,
+    "schema_version": "certgen.icml2027.independent_mmd_reproduction.v1",
+    "trials": 50
+  },
+  "normalization_power": {
+    "claim_allowed": false,
+    "corrected_true_alternative_power": 0.029411764705882353,
+    "diagnostics_are_not_evidence": true,
+    "expected_resolution_planning_only": "RED",
+    "invariance_controls_excluded": [
+      "scale_shift",
+      "variance_inflation"
+    ],
+    "passed": true,
+    "schema_version": "certgen.icml2027.normalization_power_audit.v1",
+    "true_alternative_runs": 68,
+    "true_alternative_unresolved_fraction": 0.9705882352941176
+  },
+  "passed": true,
+  "schema_version": "certgen.icml2027.final_closure_cpu_science.v1"
+}

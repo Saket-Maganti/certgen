@@ -116,14 +116,29 @@ sys.path.insert(0, str(INPUT_ROOT / "source"))
 
 def build_notebook(notebook_id: str) -> dict[str, Any]:
     spec = NOTEBOOKS[notebook_id]
-    runtime = f'''# Runtime/GPU/disk gates after package authentication
+    runtime = f'''# Identity-bound dependency lifecycle, then runtime/GPU/disk gates
 import shutil
-import torch
+from certgen.icml2027.dependency_lifecycle import dependency_mode_from_environment, ensure_dependency_lifecycle
 from certgen.icml2027.notebook_runtime import run_authenticated_lane, validate_output_zip
 WORK_ROOT = Path("/kaggle/working/certgen-icml2027")
-RESTART_MARKER = Path("/kaggle/working/.certgen_dependency_restart_complete")
-if not RESTART_MARKER.exists():
-    raise RuntimeError("dependency bootstrap/restart marker is required")
+DEPENDENCY_PROFILE = INPUT_ROOT / "contract/dependency_profiles.json"
+DEPENDENCY_REPORT = None
+if DEPENDENCY_PROFILE.is_file():
+    DEPENDENCY_REPORT = ensure_dependency_lifecycle(
+        lane=LANE,
+        input_zip_sha256=EXPECTED_IDENTITY["expected_input_zip_sha256"],
+        source_tree_sha256=manifest["source_tree_sha256"],
+        profile_path=DEPENDENCY_PROFILE,
+        marker_path=WORK_ROOT / LANE / "dependency_restart_marker.json",
+        report_path=WORK_ROOT / LANE / "dependency_verification.json",
+        mode=dependency_mode_from_environment(),
+        wheelhouse=os.environ.get("CERTGEN_AUTHENTICATED_WHEELHOUSE"),
+    )
+    if DEPENDENCY_REPORT["restart_required"]:
+        raise RuntimeError("exact dependencies installed and identity-bound marker written; restart the runtime and rerun all cells")
+    os.environ["CERTGEN_DEPENDENCY_REPORT"] = str(WORK_ROOT / LANE / "dependency_verification.json")
+os.environ["CERTGEN_AUTHENTICATED_INPUT_ZIP_SHA256"] = EXPECTED_IDENTITY["expected_input_zip_sha256"]
+import torch
 if torch.cuda.device_count() != 2:
     raise RuntimeError(f"exactly two visible GPUs required, found {{torch.cuda.device_count()}}")
 if shutil.disk_usage("/kaggle/working").free < 10 * 1024**3:
@@ -132,7 +147,11 @@ LANE_STATUS = {LANE_STATUS[notebook_id]!r}
 '''
     execution = '''# Invoke the source-controlled worker; validate the closed output ZIP.
 RESULT = run_authenticated_lane(LANE, INPUT_ROOT, WORK_ROOT, fixture_mode=False)
-OUTPUT_VALIDATION = validate_output_zip(RESULT["output_zip"], expected_lane=LANE)
+if RESULT.get("output_index"):
+    from certgen.icml2027.payload import validate_multipart_payload
+    OUTPUT_VALIDATION = validate_multipart_payload(RESULT["output_index"])
+else:
+    OUTPUT_VALIDATION = validate_output_zip(RESULT["output_zip"], expected_lane=LANE)
 assert OUTPUT_VALIDATION["passed"]
 print(json.dumps({"lane": LANE, "lane_status": LANE_STATUS, "output": OUTPUT_VALIDATION, "claim_allowed": False}, indent=2, sort_keys=True))
 '''
@@ -201,6 +220,9 @@ def check_notebook_determinism(root: str | Path = "notebooks/kaggle/icml2027") -
                 "expected_input_zip_sha256",
                 "exact archive membership mismatch",
                 "run_authenticated_lane",
+                "ensure_dependency_lifecycle",
+                "source_tree_sha256",
+                "dependency_restart_marker.json",
                 "torch.cuda.device_count() != 2",
                 "validate_output_zip",
             ):

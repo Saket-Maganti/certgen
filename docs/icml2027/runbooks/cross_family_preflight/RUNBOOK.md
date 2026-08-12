@@ -3,6 +3,7 @@
 | Field | Value |
 |---|---|
 | `purpose` | cross-family adapter conformance |
+| `launchboard_status` | BLOCKED_EXTERNAL_SOURCE |
 | `prerequisite_state` | BLOCKED_REQUIRES_REAL_SOURCE_VERIFICATION |
 | `input_builder` | python3 scripts/icml2027/build_kaggle_input.py --lane cifar_cross_family_preflight |
 | `input_ZIP` | BLOCKED_NOT_BUILT |
@@ -24,3 +25,7 @@
 | `failure_recovery` | preserve input/config/logs; repair only failed stage; rerun exact immutable identity |
 | `immutable_fields` | study/model/revision/seed/preprocessing/shards/output schema |
 | `claim_allowed` | False |
+
+## Blocked boundary
+
+No authenticated source, revision, license, checkpoint hash, or sampler semantics are available. Do not build an adapter, input package, dependency state, worker partition, or payload by inference. Once the external source is supplied, the lane must adopt the same stdlib authentication, scientific worker binding, identity-bound dependency lifecycle, exact shard resume, multipart copyback, validator/importer, and failure-recovery contract as other ICML lanes. This blocker does not block the legacy 1k path or the two-checkpoint CIFAR 10k path.

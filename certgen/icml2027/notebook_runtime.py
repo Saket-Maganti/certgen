@@ -17,15 +17,15 @@ from certgen.icml2027.common import file_sha256, stable_hash, write_csv, write_j
 
 
 LANE_STATUS = {
-    "dinov2_preflight": "READY_AFTER_PRIVATE_ASSET",
-    "dinov2_features": "READY_AFTER_DINOV2_PREFLIGHT",
-    "cifar_cross_family_preflight": "BLOCKED_EXTERNAL_SOURCE_VERIFICATION",
-    "cifar_10k_generation": "READY_AFTER_LEGACY_PREFLIGHT",
-    "cifar_10k_features": "READY_AFTER_10K_GENERATION",
-    "released_sample_features": "READY_AFTER_RELEASED_SAMPLE_IMPORT",
-    "ffhq": "BLOCKED_EXTERNAL_REFERENCE_AND_SOURCE",
-    "imagenet": "BLOCKED_EXTERNAL_REFERENCE_AND_SOURCE",
-    "text_to_image": "BLOCKED_EXTERNAL_PROMPTS_REFERENCE_AND_SOURCE",
+    "dinov2_preflight": "READY_AFTER_AUTHENTICATED_PREREQUISITE",
+    "dinov2_features": "READY_AFTER_AUTHENTICATED_PREREQUISITE",
+    "cifar_cross_family_preflight": "BLOCKED_EXTERNAL_SOURCE",
+    "cifar_10k_generation": "READY_AFTER_AUTHENTICATED_PREREQUISITE",
+    "cifar_10k_features": "READY_AFTER_AUTHENTICATED_PREREQUISITE",
+    "released_sample_features": "READY_AFTER_AUTHENTICATED_PREREQUISITE",
+    "ffhq": "BLOCKED_EXTERNAL_SOURCE",
+    "imagenet": "BLOCKED_EXTERNAL_SOURCE",
+    "text_to_image": "BLOCKED_EXTERNAL_SOURCE",
 }
 LOCALLY_IMPLEMENTABLE_LANES = {
     "dinov2_preflight",
@@ -51,6 +51,22 @@ def _worker_spec(input_root: Path, lane: str) -> dict[str, Any]:
     spec = json.loads(candidates[0].read_text(encoding="utf-8"))
     if not isinstance(spec, dict) or spec.get("lane") != lane or spec.get("claim_allowed") is not False:
         raise ValueError("worker specification has the wrong lane or evidence gate")
+    contract_path = input_root / "contract" / "execution_contract.json"
+    if lane in {"cifar_10k_generation", "cifar_10k_features"}:
+        if not contract_path.is_file():
+            raise ValueError("authenticated input is missing the execution contract")
+        from certgen.icml2027.execution_contract import validate_worker_spec
+
+        contract = json.loads(contract_path.read_text(encoding="utf-8"))
+        validation = validate_worker_spec(spec, expected_lane=lane, contract=contract)
+        if not validation["passed"]:
+            raise ValueError(f"worker scientific identity rejected: {validation['errors']}")
+    else:
+        from certgen.icml2027.execution_contract import validate_worker_spec
+
+        validation = validate_worker_spec(spec, expected_lane=lane, contract=None)
+        if not validation["passed"]:
+            raise ValueError(f"worker scientific identity rejected: {validation['errors']}")
     return spec
 
 
@@ -91,10 +107,12 @@ def _run_real_worker(
         job = jobs[job_index]
         shard_id = int(job["shard_id"])
         num_shards = int(job["num_shards"])
+        extractor_id = str(job.get("extractor_id", job.get("extractor", "")))
+        source_role = str(job.get("source_role", "unknown"))
         result = run_sharded_extraction(
             input_manifest=str(_input_path(input_root, str(job["input_manifest"]))),
             extractor=str(job["extractor"]),
-            out_dir=str(work_root / "features"),
+            out_dir=str(work_root / "features" / extractor_id / source_role),
             device=str(job.get("device", "cuda:0")),
             batch_size=int(job.get("batch_size", 64)),
             preprocessing_lock=str(_input_path(input_root, str(job["preprocessing_lock"]))),
@@ -116,7 +134,7 @@ def _run_real_worker(
             "claim_allowed": False,
         }
     if lane == "cifar_10k_generation":
-        from certgen.generation.generate_cifar10_diffusers import KNOWN_CHECKPOINTS, run_generation
+        from certgen.generation.generate_cifar10_diffusers import KNOWN_CHECKPOINTS, run_generation_samples
 
         jobs = spec.get("jobs")
         if not isinstance(jobs, list) or not jobs:
@@ -127,23 +145,33 @@ def _run_real_worker(
         checkpoint_id = str(job["checkpoint_id"])
         if checkpoint_id not in KNOWN_CHECKPOINTS:
             raise ValueError(f"unregistered checkpoint blocked: {checkpoint_id}")
-        seed_start = int(job["seed_start"])
-        num_samples = int(job["num_samples"])
-        if seed_start < 0 or num_samples <= 0 or seed_start + num_samples > 10_000:
-            raise ValueError("generation shard is outside the frozen 10k seed range")
+        seed_start = int(job["sample_index_start"])
+        seed_stop = int(job["sample_index_stop"])
+        if seed_start < 0 or seed_stop <= seed_start or seed_stop > 10_000:
+            raise ValueError("generation shard is outside the frozen 10k sample-index range")
+        manifest_path = input_root / "contract" / "generator_seed_manifest.json"
+        if not manifest_path.is_file():
+            raise ValueError("authenticated generation input is missing the frozen generator seed manifest")
+        seed_manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        seed_records = [
+            row
+            for row in seed_manifest.get("records", [])
+            if row.get("model_id") == job.get("model_id")
+            and seed_start <= int(row.get("sample_index", -1)) < seed_stop
+        ]
+        if len(seed_records) != seed_stop - seed_start:
+            raise ValueError("frozen generator-seed shard has missing or extra records")
+        if stable_hash(seed_records) != job.get("seed_records_sha256"):
+            raise ValueError("frozen generator-seed shard hash mismatch")
         slug = checkpoint_id.replace("/", "__")
-        result = run_generation(
+        result = run_generation_samples(
             checkpoint_id=checkpoint_id,
-            seed_start=seed_start,
-            seed_end=None,
-            num_samples=num_samples,
+            samples=seed_records,
             out_dir=work_root / "generated" / slug,
             manifest_out=work_root / "manifests" / f"{slug}_{seed_start:08d}.jsonl",
             device=str(job.get("device", "cuda")),
             batch_size=int(job.get("batch_size", 32)),
             resume=True,
-            execute=True,
-            dry_run=False,
         )
         return {"passed": True, "job_index": job_index, "result": result, "claim_allowed": False}
     if lane == "cifar_cross_family_preflight":
@@ -283,6 +311,154 @@ def validate_output_zip(path: str | Path, *, expected_lane: str) -> dict[str, An
     }
 
 
+def _output_identity(lane: str, input_root: Path) -> tuple[dict[str, Any], dict[str, Any]]:
+    package_manifest = json.loads((input_root / "package_manifest.json").read_text(encoding="utf-8"))
+    spec = _worker_spec(input_root, lane)
+    contract_path = input_root / "contract/execution_contract.json"
+    contract = json.loads(contract_path.read_text(encoding="utf-8")) if contract_path.is_file() else {}
+    dependency_report_path = Path(os.environ.get("CERTGEN_DEPENDENCY_REPORT", ""))
+    dependency_report = (
+        json.loads(dependency_report_path.read_text(encoding="utf-8"))
+        if str(dependency_report_path) and dependency_report_path.is_file()
+        else {}
+    )
+    identity = {
+        "input_package_sha256": os.environ.get(
+            "CERTGEN_AUTHENTICATED_INPUT_ZIP_SHA256", str(spec["input_package_sha256"])
+        ),
+        "study_id": spec["study_id"],
+        "study_hash": spec["study_hash"],
+        "configuration_sha256": spec["configuration_sha256"],
+        "worker_spec_sha256": stable_hash(spec),
+        "source_tree_sha256": package_manifest["source_tree_sha256"],
+        "dependency_lock_sha256": dependency_report.get("identity", {}).get(
+            "dependency_lock_sha256", "0" * 64
+        ),
+        "model_revisions": spec["model_revisions"],
+        "extractor_revisions": spec["extractor_revisions"],
+        "preprocessing_hashes": spec["preprocessing_hashes"],
+        "reference_plan_sha256": spec.get("reference_plan_sha256"),
+        "seed_manifest_sha256": contract.get("seed_manifest_sha256"),
+        "claim_allowed": False,
+    }
+    if lane == "dinov2_features":
+        identity.update({"robustness_feature_space": True, "confirmatory_family": False})
+    return identity, spec
+
+
+def _write_scientific_payload(
+    lane: str,
+    input_root: Path,
+    work_root: Path,
+) -> Path:
+    from certgen.icml2027.payload import build_multipart_payload, validate_multipart_payload
+
+    identity, spec = _output_identity(lane, input_root)
+    parts: list[dict[str, bytes]] = []
+    records: list[dict[str, Any]] = []
+    if lane == "cifar_10k_generation":
+        for shard_id, manifest_path in enumerate(sorted((work_root / "manifests").glob("*.jsonl"))):
+            member_map: dict[str, bytes] = {f"manifests/{manifest_path.name}": manifest_path.read_bytes()}
+            for line in manifest_path.read_text(encoding="utf-8").splitlines():
+                if not line.strip():
+                    continue
+                row = json.loads(line)
+                image = Path(str(row["image_path"]))
+                image_member = f"images/{row['model_id'].replace('/', '__')}/{image.name}"
+                image_bytes = image.read_bytes()
+                member_map[image_member] = image_bytes
+                records.append(
+                    {
+                        "sample_id": row["sample_id"],
+                        "sample_index": row["sample_index"],
+                        "model_id": next(
+                            model_id
+                            for model_id, values in spec["model_revisions"].items()
+                            if values["checkpoint_id"] == row["checkpoint_id"]
+                        ),
+                        "checkpoint_id": row["checkpoint_id"],
+                        "checkpoint_revision": row["checkpoint_revision"],
+                        "generator_seed": row["seed"],
+                        "image_path": image_member,
+                        "image_sha256": hashlib.sha256(image_bytes).hexdigest(),
+                        "shard_id": shard_id,
+                        "claim_allowed": False,
+                    }
+                )
+            parts.append(member_map)
+        payload_type = "generation"
+    else:
+        import numpy as np
+
+        for shard_id, feature_path in enumerate(sorted((work_root / "features").rglob("*.npz"))):
+            relative = feature_path.relative_to(work_root / "features")
+            extractor_id, source_role = relative.parts[:2]
+            with np.load(feature_path, allow_pickle=False) as loaded:
+                features = np.asarray(loaded["features"])
+                sample_ids = [str(value) for value in np.asarray(loaded["sample_ids"]).tolist()]
+            feature_member = f"features/{relative.as_posix()}"
+            sidecar_member = f"sidecars/{relative.with_suffix('.json').as_posix()}"
+            revision = spec["extractor_revisions"][extractor_id]
+            preprocessing = spec["preprocessing_hashes"][extractor_id]
+            sidecar = {
+                "sample_ids": sample_ids,
+                "extractor_id": extractor_id,
+                "extractor_revision": revision,
+                "preprocessing_sha256": preprocessing,
+                "dimension": int(features.shape[1]),
+                "dtype": str(features.dtype),
+                "claim_allowed": False,
+            }
+            parts.append(
+                {
+                    feature_member: feature_path.read_bytes(),
+                    sidecar_member: json.dumps(sidecar, sort_keys=True, separators=(",", ":")).encode(),
+                }
+            )
+            records.append(
+                {
+                    "extractor_id": extractor_id,
+                    "extractor_revision": revision,
+                    "preprocessing_sha256": preprocessing,
+                    "source_role": source_role,
+                    "source_manifest_sha256": spec["source_manifest_hashes"][source_role],
+                    "feature_path": feature_member,
+                    "sidecar_path": sidecar_member,
+                    "dimension": int(features.shape[1]),
+                    "dtype": str(features.dtype),
+                    "row_count": int(features.shape[0]),
+                    "source_sample_ids_sha256": stable_hash(sample_ids),
+                    "shard_id": shard_id,
+                    "claim_allowed": False,
+                }
+            )
+        payload_type = "features"
+    if not parts:
+        raise RuntimeError(f"{lane} produced no scientific payload shards")
+    for result_path in sorted((work_root / "worker_results").glob("*.json")):
+        parts[0][f"runtime/worker_results/{result_path.name}"] = result_path.read_bytes()
+    dependency_path = Path(os.environ.get("CERTGEN_DEPENDENCY_REPORT", ""))
+    if str(dependency_path) and dependency_path.is_file():
+        parts[0]["provenance/dependency_verification.json"] = dependency_path.read_bytes()
+    parts[0]["provenance/worker_spec.json"] = json.dumps(spec, indent=2, sort_keys=True).encode() + b"\n"
+    parts[0]["provenance/scientific_identity.json"] = (
+        json.dumps(identity, indent=2, sort_keys=True).encode() + b"\n"
+    )
+    built = build_multipart_payload(
+        lane=lane,
+        payload_type=payload_type,
+        parts=parts,
+        records=records,
+        identity=identity,
+        out_dir=work_root,
+        basename=lane,
+    )
+    validation = validate_multipart_payload(built["index_path"], expected_type=payload_type)
+    if not validation["passed"]:
+        raise RuntimeError("scientific multipart payload validation failed")
+    return Path(str(built["index_path"]))
+
+
 def run_authenticated_lane(
     lane: str,
     input_root: str | Path,
@@ -298,7 +474,12 @@ def run_authenticated_lane(
     marker = root / "completed.json"
     if marker.is_file():
         previous = json.loads(marker.read_text(encoding="utf-8"))
-        validation = validate_output_zip(previous["output_zip"], expected_lane=lane)
+        if previous.get("output_index"):
+            from certgen.icml2027.payload import validate_multipart_payload
+
+            validation = validate_multipart_payload(previous["output_index"])
+        else:
+            validation = validate_output_zip(previous["output_zip"], expected_lane=lane)
         return {**previous, "resumed": True, "validation": validation, "claim_allowed": False}
     result = _run_worker_processes(
         lane,
@@ -307,8 +488,21 @@ def run_authenticated_lane(
         fixture_mode=fixture_mode,
         fixture_shards=fixture_shards,
     )
-    output_zip = _write_result_zip(lane, root, result)
-    validation = validate_output_zip(output_zip, expected_lane=lane)
+    output_zip: Path | None = None
+    output_index: Path | None = None
+    if not fixture_mode and lane in {
+        "cifar_10k_generation",
+        "cifar_10k_features",
+        "dinov2_features",
+        "released_sample_features",
+    }:
+        output_index = _write_scientific_payload(lane, Path(input_root), root)
+        from certgen.icml2027.payload import validate_multipart_payload
+
+        validation = validate_multipart_payload(output_index)
+    else:
+        output_zip = _write_result_zip(lane, root, result)
+        validation = validate_output_zip(output_zip, expected_lane=lane)
     payload = {
         "schema_version": "certgen.icml2027.notebook_lane_result.v1",
         "lane": lane,
@@ -316,7 +510,8 @@ def run_authenticated_lane(
         "fixture_mode": fixture_mode,
         "resumed": False,
         "result": result,
-        "output_zip": str(output_zip),
+        "output_zip": str(output_zip) if output_zip else None,
+        "output_index": str(output_index) if output_index else None,
         "validation": validation,
         "not_empirical_paper_evidence": True,
         "claim_allowed": False,

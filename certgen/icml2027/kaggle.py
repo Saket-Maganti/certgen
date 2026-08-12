@@ -99,6 +99,29 @@ def _write_zip(path: Path, members: list[tuple[str, bytes]]) -> None:
         raise
 
 
+def compute_prerequisite_identity(lane: str, inputs: dict[str, str | Path]) -> str:
+    """Hash authenticated prerequisite members, excluding the worker spec that binds this hash."""
+
+    if lane not in LANES:
+        raise ValueError(f"unknown ICML Kaggle lane: {lane}")
+    required = [name for name in LANES[lane]["required_inputs"] if name != "worker_spec"]
+    missing = [name for name in required if name not in inputs or not Path(inputs[name]).exists()]
+    if missing:
+        raise ValueError(f"missing prerequisites for identity calculation: {missing}")
+    input_hashes: dict[str, Any] = {}
+    for name in required:
+        path = Path(inputs[name]).resolve()
+        resolved = _members(path, f"inputs/{name}")
+        input_hashes[name] = {
+            "path_type": "directory" if path.is_dir() else "file",
+            "members": [
+                {"path": member, "sha256": hashlib.sha256(data).hexdigest(), "bytes": len(data)}
+                for member, data in resolved
+            ],
+        }
+    return stable_hash(input_hashes)
+
+
 def build_input(
     lane: str,
     inputs: dict[str, str | Path],
@@ -138,6 +161,20 @@ def build_input(
     members: list[tuple[str, bytes]] = []
     members.extend(_members(notebook, f"notebook/{notebook.name}"))
     members.extend(_members(config, f"config/{config.name}"))
+    dependency_profiles = workspace / "registry/icml2027/dependency_profiles.json"
+    if lane in {
+        "dinov2_preflight",
+        "dinov2_features",
+        "cifar_10k_generation",
+        "cifar_10k_features",
+        "released_sample_features",
+    }:
+        members.extend(_members(dependency_profiles, "contract/dependency_profiles.json"))
+    if lane in {"cifar_10k_generation", "cifar_10k_features"}:
+        execution_contract = workspace / "registry/icml2027/cifar_10k_v2_execution_contract_v1.json"
+        seed_manifest = workspace / "registry/manifests/icml2027/cifar10k_generator_seed_manifest_v1.json"
+        members.extend(_members(execution_contract, "contract/execution_contract.json"))
+        members.extend(_members(seed_manifest, "contract/generator_seed_manifest.json"))
     code_paths = [workspace / "certgen"]
     for code in code_paths:
         members.extend(_members(code, f"source/{code.relative_to(workspace).as_posix()}"))
@@ -151,15 +188,67 @@ def build_input(
             "path_type": "directory" if path.is_dir() else "file",
             "members": [{"path": member, "sha256": hashlib.sha256(data).hexdigest(), "bytes": len(data)} for member, data in resolved],
         }
+    prerequisite_identity = stable_hash(
+        {key: value for key, value in input_hashes.items() if key != "worker_spec"}
+    )
+    if "worker_spec" in inputs:
+        from certgen.icml2027.execution_contract import (
+            validate_feature_job_partition,
+            validate_generation_job_partition,
+            validate_worker_spec,
+        )
+
+        worker_payload = json.loads(Path(inputs["worker_spec"]).read_text(encoding="utf-8"))
+        contract_payload = (
+            json.loads(
+                (workspace / "registry/icml2027/cifar_10k_v2_execution_contract_v1.json").read_text(
+                    encoding="utf-8"
+                )
+            )
+            if lane in {"cifar_10k_generation", "cifar_10k_features"}
+            else None
+        )
+        worker_validation = validate_worker_spec(worker_payload, expected_lane=lane, contract=contract_payload)
+        if worker_payload.get("input_package_sha256") != prerequisite_identity:
+            worker_validation["passed"] = False
+            worker_validation["errors"].append("input_package_sha256 does not bind the authenticated prerequisite set")
+        if not worker_validation["passed"]:
+            raise ValueError(f"worker scientific identity rejected: {worker_validation['errors']}")
+        jobs = worker_payload.get("jobs", [])
+        if lane == "cifar_10k_generation":
+            seed_payload = json.loads(
+                (workspace / "registry/manifests/icml2027/cifar10k_generator_seed_manifest_v1.json").read_text(
+                    encoding="utf-8"
+                )
+            )
+            partition = validate_generation_job_partition(jobs, seed_payload)
+        elif lane == "cifar_10k_features":
+            partition = validate_feature_job_partition(
+                jobs,
+                required_extractors=list(worker_payload["extractor_revisions"]),
+                required_roles=list(worker_payload["expected_source_roles"]),
+                expected_shards=int(worker_payload["expected_shard_count"]),
+                source_sample_order_sha256=str(worker_payload["source_sample_order_sha256"]),
+            )
+        else:
+            partition = {"passed": True, "errors": []}
+        if not partition["passed"]:
+            raise ValueError(f"aggregate worker partition rejected: {partition['errors']}")
     inventory = [{"path": name, "sha256": hashlib.sha256(data).hexdigest(), "bytes": len(data)} for name, data in sorted(members)]
+    source_inventory = [row for row in inventory if str(row["path"]).startswith("source/")]
     manifest = {
         "schema_version": "certgen.icml2027.kaggle_input.v1",
         "lane": lane,
         "package_type": "ICML2027_AUTHENTICATED_STAGE_INPUT",
         "configuration_sha256": file_sha256(config),
         "input_hashes": input_hashes,
+        "authenticated_prerequisite_set_sha256": prerequisite_identity,
         "inventory": inventory,
         "inventory_hash": stable_hash(inventory),
+        "source_tree_sha256": stable_hash(source_inventory),
+        "dependency_profiles_sha256": file_sha256(dependency_profiles)
+        if dependency_profiles.is_file()
+        else None,
         "requested_gpu_count": 2,
         "one_gpu_fallback": False,
         "claim_allowed": False,

@@ -13,6 +13,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+import numpy as np
+
 from certgen.cli.run_feature_extraction import run_feature_extraction
 from certgen.core.hashing import file_sha256
 from certgen.core.io import read_json, write_json
@@ -55,11 +57,49 @@ def run_sharded_extraction(
     shard_dir = Path(out_dir) / f"shard-{shard_id:03d}-of-{num_shards:03d}"
     feature_path = shard_dir / f"{extractor}_features.npz"
     sidecar_path = shard_dir / f"{extractor}_features.json"
-    if feature_path.exists() and not (resume or force):
-        raise FileExistsError(f"output exists and neither --resume nor --force was set: {feature_path}")
-
     shard_manifest = shard_dir / "input_manifest.shard.jsonl"
     _write_jsonl(shard_rows, shard_manifest)
+    if feature_path.exists() and not (resume or force):
+        raise FileExistsError(f"output exists and neither --resume nor --force was set: {feature_path}")
+    if resume and not force and (feature_path.exists() or sidecar_path.exists()):
+        if not feature_path.is_file() or not sidecar_path.is_file():
+            raise RuntimeError("partial feature shard rejected; quarantine and rerun the shard")
+        sidecar = read_json(sidecar_path)
+        with np.load(feature_path, allow_pickle=False) as loaded:
+            features = np.asarray(loaded["features"])
+            sample_ids = [str(value) for value in np.asarray(loaded["sample_ids"]).tolist()]
+        expected_ids = [str(row["sample_id"]) for row in shard_rows]
+        expected_source = file_sha256(input_manifest)
+        expected_preprocessing = file_sha256(preprocessing_lock)
+        if (
+            sidecar.get("extractor") != extractor
+            or sidecar.get("sample_ids") != expected_ids
+            or sample_ids != expected_ids
+            or features.ndim != 2
+            or features.shape[0] != len(expected_ids)
+            or not np.isfinite(features).all()
+            or sidecar.get("hash") != file_sha256(feature_path)
+            or sidecar.get("source_manifest_sha256") != expected_source
+            or sidecar.get("preprocessing_lock_sha256") != expected_preprocessing
+            or int(sidecar.get("shard_id", -1)) != shard_id
+            or int(sidecar.get("num_shards", -1)) != num_shards
+        ):
+            raise RuntimeError("stale or corrupt feature shard rejected; quarantine and rerun the shard")
+        return {
+            "extractor": extractor,
+            "feature_path": str(feature_path),
+            "sidecar_path": str(sidecar_path),
+            "num_items": len(expected_ids),
+            "feature_dim": int(features.shape[1]),
+            "shard_id": shard_id,
+            "num_shards": num_shards,
+            "shard_manifest": str(shard_manifest),
+            "source_manifest_sha256": expected_source,
+            "preprocessing_lock_sha256": expected_preprocessing,
+            "provenance_ledger_sha256": file_sha256(provenance_ledger) if provenance_ledger else None,
+            "resumed": True,
+            "claim_allowed": False,
+        }
     result = run_feature_extraction(
         input_manifest=str(shard_manifest),
         extractor=extractor,
@@ -83,8 +123,15 @@ def run_sharded_extraction(
     )
     if execute and sidecar_path.exists():
         sidecar = read_json(sidecar_path)
+        with np.load(feature_path, allow_pickle=False) as loaded:
+            features = np.asarray(loaded["features"])
+        ordered_ids = [str(row["sample_id"]) for row in shard_rows]
+        np.savez_compressed(feature_path, features=features, sample_ids=np.asarray(ordered_ids))
+        feature_hash = file_sha256(feature_path)
         sidecar.update(
             {
+                "sample_ids": ordered_ids,
+                "hash": feature_hash,
                 "source_manifest_sha256": result["source_manifest_sha256"],
                 "preprocessing_lock_sha256": result["preprocessing_lock_sha256"],
                 "provenance_ledger_sha256": result["provenance_ledger_sha256"],
@@ -94,6 +141,7 @@ def run_sharded_extraction(
             }
         )
         write_json(sidecar, sidecar_path)
+        result["hash"] = feature_hash
     if json_out:
         write_json(result, json_out)
     return result

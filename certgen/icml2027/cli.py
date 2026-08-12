@@ -120,6 +120,17 @@ def add_commands(subparsers: Any) -> None:
     rehearse = notebooks_sub.add_parser("rehearse")
     rehearse.add_argument("--out-dir", default="reports/icml2027/notebook_rehearsals")
 
+    payload = icml_sub.add_parser("payload")
+    payload_sub = payload.add_subparsers(dest="icml_action", required=True)
+    payload_validate = payload_sub.add_parser("validate")
+    payload_validate.add_argument("index")
+    payload_validate.add_argument("--type", choices=["generation", "features"])
+    payload_validate.add_argument("--seed-manifest")
+    payload_validate.add_argument("--worker-spec")
+    payload_import = payload_sub.add_parser("import")
+    payload_import.add_argument("index")
+    payload_import.add_argument("--out-dir", required=True)
+
     released = subparsers.add_parser("released-samples", help="Validate and import released sample archives")
     released_sub = released.add_subparsers(dest="released_action", required=True)
     validate = released_sub.add_parser("validate")
@@ -258,6 +269,19 @@ def dispatch(args: argparse.Namespace) -> int | None:
         from certgen.icml2027.notebook_runtime import run_closure_rehearsals
 
         payload = run_closure_rehearsals(args.out_dir)
+    elif command == "payload" and action == "validate":
+        from certgen.icml2027.payload import validate_multipart_payload
+
+        payload = validate_multipart_payload(
+            args.index,
+            expected_type=args.type,
+            seed_manifest_path=args.seed_manifest,
+            worker_spec_path=args.worker_spec,
+        )
+    elif command == "payload" and action == "import":
+        from certgen.icml2027.payload import import_multipart_payload
+
+        payload = import_multipart_payload(args.index, args.out_dir)
     else:  # pragma: no cover - argparse prevents this
         raise AssertionError(f"unhandled ICML command: {command}/{action}")
     _print(payload)

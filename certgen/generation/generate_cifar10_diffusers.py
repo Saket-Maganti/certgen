@@ -48,7 +48,9 @@ def _planned_seeds(seed_start: int, seed_end: int | None, num_samples: int | Non
     if num_samples is not None and num_samples <= 0:
         raise ValueError("--num-samples must be positive")
     if seed_end is None:
-        seed_end = seed_start + int(num_samples)
+        if num_samples is None:  # narrowed explicitly for static analyzers
+            raise AssertionError("num_samples is required when seed_end is absent")
+        seed_end = seed_start + num_samples
     if seed_end <= seed_start:
         raise ValueError("--seed-end must be greater than --seed-start")
     seeds = list(range(seed_start, seed_end))
@@ -85,11 +87,14 @@ def _manifest_row(
     adapter_status: str,
     device: str,
     checkpoint_revision: str | None = None,
+    sample_id: str | None = None,
+    sample_index: int | None = None,
 ) -> dict[str, Any]:
     image_hash = file_sha256(image_path) if image_path.exists() else None
-    sample_id = f"{_slug(checkpoint_id)}_seed_{seed:08d}"
+    sample_id = sample_id or f"{_slug(checkpoint_id)}_seed_{seed:08d}"
     return {
         "sample_id": sample_id,
+        "sample_index": sample_index,
         "checkpoint_id": checkpoint_id,
         "checkpoint_revision": checkpoint_revision,
         "model_id": checkpoint_id,
@@ -184,7 +189,7 @@ def run_generation(
 
     try:
         import torch
-        from diffusers import DDPMPipeline
+        from diffusers import DDPMPipeline  # type: ignore[import-not-found]
     except Exception as exc:  # pragma: no cover - real-run dependency path.
         raise RuntimeError("execute mode requires torch and diffusers") from exc
 
@@ -237,6 +242,128 @@ def run_generation(
     if json_out:
         write_json(summary, json_out)
     return summary
+
+
+def run_generation_samples(
+    *,
+    checkpoint_id: str,
+    samples: list[dict[str, Any]],
+    out_dir: str | Path,
+    manifest_out: str | Path,
+    device: str,
+    batch_size: int,
+    resume: bool,
+) -> dict[str, Any]:
+    """Generate the exact authenticated sample-ID/RNG-seed records for one shard."""
+
+    if checkpoint_id not in KNOWN_CHECKPOINTS:
+        raise ValueError(f"unknown checkpoint_id blocked: {checkpoint_id}")
+    if not samples:
+        raise ValueError("the frozen seed-record shard must be non-empty")
+    sample_ids = [str(row.get("sample_id", "")) for row in samples]
+    generator_seeds = [int(row.get("generator_seed", -1)) for row in samples]
+    sample_indices = [int(row.get("sample_index", -1)) for row in samples]
+    if any(not value or "/" in value or ".." in value for value in sample_ids):
+        raise ValueError("unsafe or empty frozen sample ID")
+    if len(sample_ids) != len(set(sample_ids)) or len(generator_seeds) != len(set(generator_seeds)):
+        raise ValueError("duplicate sample ID or generator seed in authenticated shard")
+    if generator_seeds != [int(row["generator_seed"]) for row in samples] or any(seed < 0 or seed >= 2**63 for seed in generator_seeds):
+        raise ValueError("generator seed is outside the frozen signed-64-bit range")
+    checkpoint = KNOWN_CHECKPOINTS[checkpoint_id]
+    for row in samples:
+        if row.get("checkpoint_id") != checkpoint_id or row.get("checkpoint_revision") != checkpoint["revision"]:
+            raise ValueError("frozen seed record checkpoint identity mismatch")
+        if row.get("claim_allowed") is not False:
+            raise ValueError("claim_allowed must remain false")
+    try:
+        import torch
+        from diffusers import DDPMPipeline  # type: ignore[import-not-found]
+    except Exception as exc:  # pragma: no cover - authenticated GPU path.
+        raise RuntimeError("execute mode requires torch and diffusers") from exc
+    target = Path(out_dir)
+    target.mkdir(parents=True, exist_ok=True)
+    manifest_target = Path(manifest_out)
+    completed: dict[str, dict[str, Any]] = {}
+    if resume and manifest_target.is_file():
+        for line in manifest_target.read_text(encoding="utf-8").splitlines():
+            if line.strip():
+                prior = json.loads(line)
+                completed[str(prior["sample_id"])] = prior
+    pipe = DDPMPipeline.from_pretrained(checkpoint_id, revision=str(checkpoint["revision"]))
+    if hasattr(pipe, "to"):
+        pipe = pipe.to(device)
+    rows: list[dict[str, Any]] = []
+    width = height = channels = 0
+    for offset in range(0, len(samples), max(1, batch_size)):
+        batch = samples[offset : offset + max(1, batch_size)]
+        pending = []
+        for row in batch:
+            image_path = target / f"{row['sample_id']}.png"
+            if not image_path.is_file():
+                pending.append(row)
+                continue
+            if not resume:
+                raise FileExistsError("generated image exists and resume was not set")
+            prior = completed.get(str(row["sample_id"]))
+            if (
+                prior is None
+                or prior.get("seed") != row["generator_seed"]
+                or prior.get("checkpoint_id") != checkpoint_id
+                or prior.get("checkpoint_revision") != checkpoint["revision"]
+                or prior.get("image_hash") != file_sha256(image_path)
+            ):
+                raise RuntimeError("stale or corrupt generation shard rejected; quarantine and rerun the shard")
+        generated: dict[str, Any] = {}
+        if pending:
+            generators = [
+                torch.Generator(device=device).manual_seed(int(row["generator_seed"])) for row in pending
+            ]
+            outputs = pipe(batch_size=len(pending), generator=generators)
+            generated = {str(row["sample_id"]): image for row, image in zip(pending, outputs.images, strict=True)}
+        for row in batch:
+            sample_id = str(row["sample_id"])
+            image_path = target / f"{sample_id}.png"
+            image = generated.get(sample_id)
+            if image is not None:
+                image.save(image_path)
+                width, height, channels = _image_shape(image)
+            else:
+                from PIL import Image
+
+                with Image.open(image_path) as saved:
+                    saved.verify()
+                with Image.open(image_path) as saved:
+                    width, height, channels = _image_shape(saved)
+            rows.append(
+                _manifest_row(
+                    checkpoint_id=checkpoint_id,
+                    seed=int(row["generator_seed"]),
+                    image_path=image_path,
+                    width=width,
+                    height=height,
+                    channels=channels,
+                    generation_status="generated",
+                    adapter_status=str(checkpoint["adapter_status"]),
+                    device=device,
+                    checkpoint_revision=str(checkpoint["revision"]),
+                    sample_id=sample_id,
+                    sample_index=int(row["sample_index"]),
+                )
+            )
+    rows.sort(key=lambda row: int(row["sample_index"]))
+    _write_manifest(rows, manifest_target)
+    return {
+        "checkpoint_id": checkpoint_id,
+        "checkpoint_revision": checkpoint["revision"],
+        "num_samples": len(rows),
+        "sample_index_start": min(sample_indices),
+        "sample_index_stop": max(sample_indices) + 1,
+        "seed_records_sha256": stable_hash_json(samples),
+        "manifest_out": str(manifest_out),
+        "out_dir": str(out_dir),
+        "execute": True,
+        "claim_allowed": False,
+    }
 
 
 def main(argv: list[str] | None = None) -> int:

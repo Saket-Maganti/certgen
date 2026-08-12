@@ -1,0 +1,91 @@
+{
+  "claim_allowed": false,
+  "configuration_sha256": "7d543ddd077edeea20bf29d322916a8d0f531ff05787cb779dc2a35506e85e2d",
+  "execution_contract_id": "icml2027_cifar_confirmatory_10k_v2_execution_contract_v1",
+  "execution_contract_sha256": "7f0a2899aa9d320076562fb4dda530dada25a9c09bde4da3541ca395ac52d6d2",
+  "expected_prefix_hashes": {
+    "frank_ddpm_ema_cifar10_candidate": {
+      "100": "7e5b4b1cacd9df8979de1e1bcb337c5e3758cb013ca07170cfcf35f676269925",
+      "250": "1ee5765035d23fb133cb52543bc43146e303a085f0191efb4e1db17f4dfa0f6c",
+      "500": "78af6c0c797afdce5e2eaf0d0703f047e75463a3516de7616ef0bf77113cbeb8",
+      "1000": "d176f62f8176def2ecdf2c339a53b209d728c186d09fa0df0ceb39798d0405cb",
+      "2000": "6acd321b1d5def5551f0b93c9d6d343e65e94813bae555f46f86d09fb3541d49",
+      "5000": "c11079fa9e88b091123bb2d5a7e7351fb506454259adceae6c310a1c32adb56b",
+      "10000": "c37437ea3ad2241f28ae293e8fd150141c00f15ea90468b144e038b983b122ad"
+    },
+    "google_ddpm_cifar10_candidate": {
+      "100": "e53bd047225d09bf71d80776933afebdcc81dae6640244deaf9bfe58e76de2dc",
+      "250": "506e9ef4a2ed3459400b3b2bae6a4c978bf541112afb26b63dc207edcedb6417",
+      "500": "7b5fb6cae4b74cfafe1e55b354169371cf70901fd855ffcdcb439bb4b6d71f35",
+      "1000": "561628a14b77c54d086b1099c020d6c50e7d5be8187915e8ab85d840c558dc17",
+      "2000": "34bb3a4e4f4949de9a2e67c7b4043d543ff39744c2926ff74d6e88816b454068",
+      "5000": "eef9e9827e5f42d4179cbf7ade9e8df9b44d9c14272d5f98a0f6e2b51e06c949",
+      "10000": "6d780ff2bf375cb2eb49bb34720cbe4bb3f19907ad8cba35beb6c95e278e38ad"
+    },
+    "hash_algorithm": "sha256_canonical_json_list"
+  },
+  "expected_sample_count_per_model": 10000,
+  "extractors": {
+    "clip": {
+      "dimension": 768,
+      "dtype": "float32",
+      "model_identifier": "openai/clip-vit-large-patch14",
+      "preprocessing_sha256": "226db4ace5b9341ce52285c47ea2825665da0e2b334f0cd241290c9d64437b71",
+      "revision": "32bd64288804d66eefd0ccbe215aa642df71cc41"
+    },
+    "inception": {
+      "dimension": 2048,
+      "dtype": "float32",
+      "model_identifier": "torchvision_inception_v3_IMAGENET1K_V1",
+      "preprocessing_sha256": "867a0a78071088af4d4b65f594facf3c29a3c79f554fea2bce0c55a145f1a44d",
+      "revision": "torchvision_0.22.1__Inception_V3_Weights.IMAGENET1K_V1"
+    }
+  },
+  "feature_spaces": [
+    "inception",
+    "clip"
+  ],
+  "generator_rng_policy": {
+    "byte_order": "big",
+    "bytes": "first_8",
+    "canonical_input": "domain\\0study_id\\0model_id\\0sample_id\\0master_seed_decimal",
+    "collision_behavior": "hard_fail_and_version_derivation; no retry",
+    "generator_api": "torch.Generator(device=device).manual_seed(generator_seed)",
+    "hash": "SHA-256",
+    "integer_range": [
+      0,
+      9223372036854775807
+    ]
+  },
+  "generator_rng_policy_sha256": "5e891c0c8dc9fdd2de09e02e6cb7f6e5c98f0c276f2796625e960ad017c5c9af",
+  "models": {
+    "frank_ddpm_ema_cifar10_candidate": {
+      "checkpoint_id": "FrankCCCCC/ddpm_ema_cifar10",
+      "checkpoint_revision": "6aa387f240fbb00d0e003f93a3b994f56dd98dc2"
+    },
+    "google_ddpm_cifar10_candidate": {
+      "checkpoint_id": "google/ddpm-cifar10-32",
+      "checkpoint_revision": "267b167dc01f0e4e61923ea244e8b988f84deb80"
+    }
+  },
+  "output_schema_versions": {
+    "features": "certgen.icml2027.feature_payload.v1",
+    "generation": "certgen.icml2027.generation_payload.v1"
+  },
+  "probability_space_interpretation": "unconditional_over_precommitted_iid_reference_draw_and_randomized_generator_seed_law",
+  "realized_manifest_conditioning": "validity_claim_requires_the_randomized_design_law; conditional_replay_is_reproducibility_only",
+  "reference_plan_sha256": "f2ae231aa67b0f3b29995451ae56f7fa0a01b0e2410664022dd024a3cb47804e",
+  "sample_identity_policy": {
+    "algorithm": "sha256_utf8",
+    "canonical_input": "study_id|model_id|zero_padded_8_digit_sample_index|master_seed",
+    "duplicate_policy": "hard_fail",
+    "missing_or_extra_id_policy": "hard_fail",
+    "order": "ascending_sample_index"
+  },
+  "sample_identity_policy_sha256": "814028db9398c1c55f047083562edbb81b10304325edc11f4cc680ed6d4870ff",
+  "schema_version": "certgen.icml2027.execution_contract.v1",
+  "seed_manifest_sha256": "875ce5637b2596c5e12cbc3ffc0ee76b19c12282290a4a59b75e5d9daa4853d0",
+  "seed_plan_sha256": "e53c7cb4f12a22f8f1e2a1bc0de3d83827f4afb4c91ce867c50f06e1229dd64a",
+  "study_hash": "0b77851744d8c6a506cc8530f7fc99a92aa0fefa198c1b64711e1924d944c176",
+  "study_id": "icml2027_cifar_confirmatory_10k_v2"
+}

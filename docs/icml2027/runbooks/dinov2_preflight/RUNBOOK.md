@@ -3,6 +3,7 @@
 | Field | Value |
 |---|---|
 | `purpose` | DINOv2 robustness preflight |
+| `launchboard_status` | READY_AFTER_AUTHENTICATED_PREREQUISITE |
 | `prerequisite_state` | BLOCKED_PINNED_PRIVATE_ASSET_AND_LICENSE_REVIEW |
 | `input_builder` | python3 scripts/icml2027/build_kaggle_input.py --lane dinov2_preflight |
 | `input_ZIP` | BLOCKED_NOT_BUILT |
@@ -12,7 +13,7 @@
 | `accelerator` | Kaggle T4 x2 |
 | `GPU_count` | 2 |
 | `internet_mode` | internet_on_for_dependencies; model/data assets authenticated separately |
-| `dependency_profile` | exact stage lock plus restart marker |
+| `dependency_profile` | authenticated `dinov2_preflight` exact lock with identity-bound self-created restart lifecycle |
 | `private_assets` | required only where source/license/asset registry says so |
 | `disk_expectation` | planner estimate; verify preflight before launch |
 | `RAM_VRAM_expectation` | planner estimate; fail closed on preflight |
@@ -24,3 +25,9 @@
 | `failure_recovery` | preserve input/config/logs; repair only failed stage; rerun exact immutable identity |
 | `immutable_fields` | study/model/revision/seed/preprocessing/shards/output schema |
 | `claim_allowed` | False |
+
+## Closed execution procedure
+
+Authenticate the pinned private asset manifest and revision, package inventory, source tree, worker spec, and dependency profile before any project or ML import. The notebook validates/installs only the exact lock, runs `pip check` and import smoke, writes its dependency report, and on restart rejects any marker for another lane, input ZIP, source tree, profile, lock, Python, or platform.
+
+This stage validates the DINO asset, processor contract, preprocessing hash, feature layer, 768 dimension, and human license-review state. It remains metadata-only by design. Copy back the exact ZIP and hash; do not treat preflight as feature evidence. Failure recovery preserves the package, asset manifest, dependency report, and logs and changes no scientific identity.

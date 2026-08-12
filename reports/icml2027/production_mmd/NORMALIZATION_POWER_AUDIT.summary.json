@@ -1,0 +1,14 @@
+{
+  "claim_allowed": false,
+  "corrected_true_alternative_power": 0.029411764705882353,
+  "diagnostics_are_not_evidence": true,
+  "expected_resolution_planning_only": "RED",
+  "invariance_controls_excluded": [
+    "scale_shift",
+    "variance_inflation"
+  ],
+  "passed": true,
+  "schema_version": "certgen.icml2027.normalization_power_audit.v1",
+  "true_alternative_runs": 68,
+  "true_alternative_unresolved_fraction": 0.9705882352941176
+}

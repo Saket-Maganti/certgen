@@ -1,0 +1,9 @@
+{
+  "claim_allowed": false,
+  "imports_production_stream_helper": false,
+  "maximum_absolute_error": 0.0,
+  "passed": true,
+  "reproduction_audit_only": true,
+  "schema_version": "certgen.icml2027.independent_mmd_reproduction.v1",
+  "trials": 50
+}

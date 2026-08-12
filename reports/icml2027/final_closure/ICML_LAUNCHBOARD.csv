@@ -1,0 +1,8 @@
+lane,status,next_prerequisite,claim_allowed
+legacy_diagnostic,READY,execute and import immutable diagnostic,False
+legacy_1k_generation_features,READY_AFTER_AUTHENTICATED_PREREQUISITE,diagnostic then preflight imports,False
+cifar_10k_generation,READY_AFTER_AUTHENTICATED_PREREQUISITE,legacy preflight receipt and authenticated model assets,False
+cifar_10k_features,READY_AFTER_AUTHENTICATED_PREREQUISITE,validated generation payload index,False
+dinov2_preflight_features,READY_AFTER_AUTHENTICATED_PREREQUISITE,pinned private asset and human license review,False
+cross_family,BLOCKED_EXTERNAL_SOURCE,official source/revision/license/checkpoint/sampler semantics,False
+cifar_10k_v1,SUPERSEDED_DO_NOT_RUN,none; use v2 execution contract,False

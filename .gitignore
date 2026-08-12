@@ -38,6 +38,8 @@ artifacts/**/quarantine/
 # Keep source-controlled contracts, blocked plans, and empty result schemas only.
 artifacts/icml2027/baseline_results/
 artifacts/icml2027/fixtures/
+artifacts/icml2027/final_closure_fixture/
+artifacts/icml2027/final_closure_boundary/
 artifacts/icml2027/numerical_audit/
 artifacts/icml2027/released_sample_fixture_import/
 artifacts/icml2027/replay/
