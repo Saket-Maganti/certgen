@@ -78,6 +78,65 @@ def _input_path(root: Path, value: str) -> Path:
     return path
 
 
+def _resolve_worker_asset(
+    input_root: Path,
+    requirement: dict[str, Any],
+    *,
+    archived_root: str,
+) -> tuple[Path, dict[str, Any]]:
+    """Resolve one exact authenticated local snapshot without using a runtime mount name."""
+
+    from certgen.discovery import discover_asset_mount
+
+    asset_id = str(requirement.get("asset_id", ""))
+    revision = str(requirement.get("revision", ""))
+    if not asset_id or not revision or requirement.get("local_files_only") is not True:
+        raise ValueError("worker asset requirement is incomplete or permits network loading")
+    root = _input_path(input_root, f"inputs/{archived_root}")
+    resolution = discover_asset_mount([root], required_assets={asset_id: revision})
+    selected = resolution.get("selected")
+    if not isinstance(selected, dict):
+        raise ValueError(f"authenticated asset resolution failed closed: {resolution.get('status')}")
+    row = selected.get("resolution_map", {}).get(asset_id)
+    if not isinstance(row, dict):
+        raise ValueError(f"authenticated asset resolution omitted {asset_id}")
+    expected = {
+        "aggregate_manifest_sha256": selected.get("aggregate_manifest_sha256"),
+        "asset_manifest_sha256": row.get("asset_manifest_sha256"),
+        "inventory_sha256": row.get("inventory_hash"),
+        "loader_type": row.get("loader_type"),
+        "revision": row.get("revision"),
+        "local_files_only": row.get("local_files_only"),
+    }
+    for field, observed in expected.items():
+        declared = requirement.get(field)
+        if field == "inventory_sha256" and declared is None:
+            declared = requirement.get("asset_inventory_sha256")
+        if declared != observed:
+            raise ValueError(f"authenticated asset identity mismatch: {asset_id}/{field}")
+    snapshot = Path(str(row["snapshot_root"])).resolve()
+    snapshot.relative_to(root.resolve())
+    if not snapshot.is_dir() or snapshot.is_symlink():
+        raise ValueError("authenticated snapshot root is missing or symlinked")
+    identity = {
+        **requirement,
+        "inventory_sha256": row.get("inventory_hash"),
+        "model_or_extractor_id": row.get("model_or_extractor_id"),
+        "license_status": row.get("license_status"),
+        "runtime_snapshot_root": str(snapshot),
+        "runtime_path_is_scientific_identity": False,
+        "claim_allowed": False,
+    }
+    weight_file = requirement.get("local_weight_file")
+    if weight_file:
+        resolved_weight = (snapshot / _safe_relative(str(weight_file))).resolve()
+        resolved_weight.relative_to(snapshot)
+        if not resolved_weight.is_file() or resolved_weight.is_symlink():
+            raise ValueError("authenticated local weight file is missing or symlinked")
+        identity["runtime_weight_file"] = str(resolved_weight)
+    return snapshot, identity
+
+
 def _run_real_worker(
     lane: str,
     spec: dict[str, Any],
@@ -109,6 +168,15 @@ def _run_real_worker(
         num_shards = int(job["num_shards"])
         extractor_id = str(job.get("extractor_id", job.get("extractor", "")))
         source_role = str(job.get("source_role", "unknown"))
+        archived_asset_root = (
+            "dinov2_asset_root" if lane == "dinov2_features" else "extractor_asset_root"
+        )
+        snapshot_root, asset_context = _resolve_worker_asset(
+            input_root,
+            dict(job["asset_requirement"]),
+            archived_root=archived_asset_root,
+        )
+        asset_context["runtime_snapshot_root"] = str(snapshot_root)
         result = run_sharded_extraction(
             input_manifest=str(_input_path(input_root, str(job["input_manifest"]))),
             extractor=str(job["extractor"]),
@@ -125,6 +193,12 @@ def _run_real_worker(
             resume=True,
             force=False,
             json_out=None,
+            asset_context=asset_context,
+            extractor_id=extractor_id,
+            source_role=source_role,
+            source_payload_sha256=str(job["source_payload_sha256"]),
+            expected_runtime_provenance=dict(job["runtime_provenance_expectation"]),
+            output_schema_version=str(spec["output_schema_version"]),
         )
         return {
             "passed": True,
@@ -163,6 +237,12 @@ def _run_real_worker(
             raise ValueError("frozen generator-seed shard has missing or extra records")
         if stable_hash(seed_records) != job.get("seed_records_sha256"):
             raise ValueError("frozen generator-seed shard hash mismatch")
+        snapshot_root, asset_identity = _resolve_worker_asset(
+            input_root,
+            dict(job["asset_requirement"]),
+            archived_root="model_asset_root",
+        )
+        asset_identity["model_identifier"] = checkpoint_id
         slug = checkpoint_id.replace("/", "__")
         result = run_generation_samples(
             checkpoint_id=checkpoint_id,
@@ -172,6 +252,8 @@ def _run_real_worker(
             device=str(job.get("device", "cuda")),
             batch_size=int(job.get("batch_size", 32)),
             resume=True,
+            authenticated_snapshot_root=snapshot_root,
+            asset_identity=asset_identity,
         )
         return {"passed": True, "job_index": job_index, "result": result, "claim_allowed": False}
     if lane == "cifar_cross_family_preflight":
@@ -339,6 +421,13 @@ def _output_identity(lane: str, input_root: Path) -> tuple[dict[str, Any], dict[
         "preprocessing_hashes": spec["preprocessing_hashes"],
         "reference_plan_sha256": spec.get("reference_plan_sha256"),
         "seed_manifest_sha256": contract.get("seed_manifest_sha256"),
+        "asset_requirements": spec.get("asset_requirements")
+        or {
+            key: value
+            for key, value in spec.get("extractor_specs", {}).items()
+        },
+        "actual_extractor_provenance_validated": lane
+        in {"dinov2_features", "cifar_10k_features", "released_sample_features"},
         "claim_allowed": False,
     }
     if lane == "dinov2_features":
@@ -390,44 +479,75 @@ def _write_scientific_payload(
     else:
         import numpy as np
 
-        for shard_id, feature_path in enumerate(sorted((work_root / "features").rglob("*.npz"))):
+        from certgen.icml2027.feature_provenance import (
+            validate_actual_extractor_provenance,
+        )
+
+        for feature_path in sorted((work_root / "features").rglob("*.npz")):
             relative = feature_path.relative_to(work_root / "features")
             extractor_id, source_role = relative.parts[:2]
+            shard_token = relative.parts[2]
+            try:
+                shard_id = int(shard_token.split("-")[1])
+            except (IndexError, ValueError) as exc:
+                raise ValueError(f"feature shard directory is not canonical: {shard_token}") from exc
+            matching_jobs = [
+                job
+                for job in spec["jobs"]
+                if job.get("extractor_id") == extractor_id
+                and job.get("source_role") == source_role
+                and int(job.get("shard_id", -1)) == shard_id
+            ]
+            if len(matching_jobs) != 1:
+                raise ValueError("feature payload cannot bind shard to exactly one worker job")
+            job = matching_jobs[0]
             with np.load(feature_path, allow_pickle=False) as loaded:
                 features = np.asarray(loaded["features"])
                 sample_ids = [str(value) for value in np.asarray(loaded["sample_ids"]).tolist()]
             feature_member = f"features/{relative.as_posix()}"
             sidecar_member = f"sidecars/{relative.with_suffix('.json').as_posix()}"
-            revision = spec["extractor_revisions"][extractor_id]
-            preprocessing = spec["preprocessing_hashes"][extractor_id]
-            sidecar = {
-                "sample_ids": sample_ids,
-                "extractor_id": extractor_id,
-                "extractor_revision": revision,
-                "preprocessing_sha256": preprocessing,
-                "dimension": int(features.shape[1]),
-                "dtype": str(features.dtype),
-                "claim_allowed": False,
-            }
+            actual_path = feature_path.parent / "actual_runtime_provenance.json"
+            if not actual_path.is_file():
+                raise ValueError("feature shard is missing validated actual runtime provenance")
+            actual = json.loads(actual_path.read_text(encoding="utf-8"))
+            provenance_validation = validate_actual_extractor_provenance(
+                actual,
+                job["runtime_provenance_expectation"],
+            )
+            if not provenance_validation["passed"]:
+                raise ValueError(
+                    "feature shard actual runtime provenance rejected: "
+                    + "; ".join(provenance_validation["errors"])
+                )
+            if (
+                actual["source_sample_ids_sha256"] != stable_hash(sample_ids)
+                or int(actual["row_count"]) != int(features.shape[0])
+                or int(actual["dimension"]) != int(features.shape[1])
+                or actual["dtype"] != str(features.dtype)
+            ):
+                raise ValueError("feature array differs from validated actual runtime provenance")
+            sidecar_bytes = actual_path.read_bytes()
             parts.append(
                 {
                     feature_member: feature_path.read_bytes(),
-                    sidecar_member: json.dumps(sidecar, sort_keys=True, separators=(",", ":")).encode(),
+                    sidecar_member: sidecar_bytes,
                 }
             )
             records.append(
                 {
                     "extractor_id": extractor_id,
-                    "extractor_revision": revision,
-                    "preprocessing_sha256": preprocessing,
+                    "extractor_revision": actual["model_revision"],
+                    "preprocessing_sha256": actual["preprocessing_sha256"],
                     "source_role": source_role,
-                    "source_manifest_sha256": spec["source_manifest_hashes"][source_role],
+                    "source_manifest_sha256": actual["source_manifest_sha256"],
+                    "source_payload_sha256": actual["source_payload_sha256"],
                     "feature_path": feature_member,
                     "sidecar_path": sidecar_member,
                     "dimension": int(features.shape[1]),
                     "dtype": str(features.dtype),
                     "row_count": int(features.shape[0]),
                     "source_sample_ids_sha256": stable_hash(sample_ids),
+                    "actual_provenance_sha256": actual["actual_provenance_sha256"],
                     "shard_id": shard_id,
                     "claim_allowed": False,
                 }

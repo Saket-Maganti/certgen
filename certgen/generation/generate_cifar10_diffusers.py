@@ -5,7 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
-from typing import Any
+from typing import Any, Mapping
 
 from certgen.core.hashing import file_sha256, stable_hash_json
 from certgen.core.io import write_json
@@ -89,6 +89,7 @@ def _manifest_row(
     checkpoint_revision: str | None = None,
     sample_id: str | None = None,
     sample_index: int | None = None,
+    asset_identity: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     image_hash = file_sha256(image_path) if image_path.exists() else None
     sample_id = sample_id or f"{_slug(checkpoint_id)}_seed_{seed:08d}"
@@ -112,6 +113,7 @@ def _manifest_row(
         "source_type": "checkpoint_generated",
         "evidence_status": "r1a_sample_package_non_evidence",
         "claim_allowed": False,
+        "authenticated_asset_identity": dict(asset_identity or {}),
     }
 
 
@@ -253,6 +255,8 @@ def run_generation_samples(
     device: str,
     batch_size: int,
     resume: bool,
+    authenticated_snapshot_root: str | Path,
+    asset_identity: Mapping[str, Any],
 ) -> dict[str, Any]:
     """Generate the exact authenticated sample-ID/RNG-seed records for one shard."""
 
@@ -270,6 +274,23 @@ def run_generation_samples(
     if generator_seeds != [int(row["generator_seed"]) for row in samples] or any(seed < 0 or seed >= 2**63 for seed in generator_seeds):
         raise ValueError("generator seed is outside the frozen signed-64-bit range")
     checkpoint = KNOWN_CHECKPOINTS[checkpoint_id]
+    snapshot_root = Path(authenticated_snapshot_root).resolve()
+    if not snapshot_root.is_dir() or Path(authenticated_snapshot_root).is_symlink():
+        raise ValueError("authenticated generator snapshot root is missing or symlinked")
+    if (
+        asset_identity.get("model_identifier") != checkpoint_id
+        or asset_identity.get("revision") != checkpoint["revision"]
+        or asset_identity.get("local_files_only") is not True
+        or asset_identity.get("loader_type") != "from_pretrained_local_snapshot"
+    ):
+        raise ValueError("authenticated generator asset identity mismatch")
+    for field in (
+        "aggregate_manifest_sha256",
+        "asset_manifest_sha256",
+        "inventory_sha256",
+    ):
+        if not isinstance(asset_identity.get(field), str) or len(str(asset_identity.get(field))) != 64:
+            raise ValueError(f"authenticated generator asset is missing {field}")
     for row in samples:
         if row.get("checkpoint_id") != checkpoint_id or row.get("checkpoint_revision") != checkpoint["revision"]:
             raise ValueError("frozen seed record checkpoint identity mismatch")
@@ -289,7 +310,7 @@ def run_generation_samples(
             if line.strip():
                 prior = json.loads(line)
                 completed[str(prior["sample_id"])] = prior
-    pipe = DDPMPipeline.from_pretrained(checkpoint_id, revision=str(checkpoint["revision"]))
+    pipe = DDPMPipeline.from_pretrained(str(snapshot_root), local_files_only=True)
     if hasattr(pipe, "to"):
         pipe = pipe.to(device)
     rows: list[dict[str, Any]] = []
@@ -348,6 +369,7 @@ def run_generation_samples(
                     checkpoint_revision=str(checkpoint["revision"]),
                     sample_id=sample_id,
                     sample_index=int(row["sample_index"]),
+                    asset_identity=asset_identity,
                 )
             )
     rows.sort(key=lambda row: int(row["sample_index"]))
@@ -362,6 +384,9 @@ def run_generation_samples(
         "manifest_out": str(manifest_out),
         "out_dir": str(out_dir),
         "execute": True,
+        "authenticated_snapshot_root_runtime_only": str(snapshot_root),
+        "authenticated_asset_identity": dict(asset_identity),
+        "local_files_only": True,
         "claim_allowed": False,
     }
 

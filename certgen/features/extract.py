@@ -51,6 +51,12 @@ def run_sharded_extraction(
     resume: bool,
     force: bool,
     json_out: str | None,
+    asset_context: dict[str, Any] | None = None,
+    extractor_id: str | None = None,
+    source_role: str | None = None,
+    source_payload_sha256: str | None = None,
+    expected_runtime_provenance: dict[str, Any] | None = None,
+    output_schema_version: str = "certgen.icml2027.feature_payload.v1",
 ) -> dict[str, Any]:
     rows = read_input_manifest(input_manifest)
     shard_rows = _select_shard(rows, shard_id, num_shards)
@@ -58,6 +64,7 @@ def run_sharded_extraction(
     feature_path = shard_dir / f"{extractor}_features.npz"
     sidecar_path = shard_dir / f"{extractor}_features.json"
     shard_manifest = shard_dir / "input_manifest.shard.jsonl"
+    actual_provenance_path = shard_dir / "actual_runtime_provenance.json"
     _write_jsonl(shard_rows, shard_manifest)
     if feature_path.exists() and not (resume or force):
         raise FileExistsError(f"output exists and neither --resume nor --force was set: {feature_path}")
@@ -85,6 +92,23 @@ def run_sharded_extraction(
             or int(sidecar.get("num_shards", -1)) != num_shards
         ):
             raise RuntimeError("stale or corrupt feature shard rejected; quarantine and rerun the shard")
+        actual_validation = None
+        if expected_runtime_provenance is not None:
+            if not actual_provenance_path.is_file():
+                raise RuntimeError("resumed feature shard has no validated actual runtime provenance")
+            from certgen.icml2027.feature_provenance import (
+                validate_actual_extractor_provenance,
+            )
+
+            actual = read_json(actual_provenance_path)
+            actual_validation = validate_actual_extractor_provenance(
+                actual, expected_runtime_provenance
+            )
+            if not actual_validation["passed"]:
+                raise RuntimeError(
+                    "resumed feature shard actual provenance mismatch: "
+                    + "; ".join(actual_validation["errors"])
+                )
         return {
             "extractor": extractor,
             "feature_path": str(feature_path),
@@ -98,6 +122,10 @@ def run_sharded_extraction(
             "preprocessing_lock_sha256": expected_preprocessing,
             "provenance_ledger_sha256": file_sha256(provenance_ledger) if provenance_ledger else None,
             "resumed": True,
+            "actual_provenance_path": str(actual_provenance_path)
+            if actual_provenance_path.is_file()
+            else None,
+            "actual_provenance_validation": actual_validation,
             "claim_allowed": False,
         }
     result = run_feature_extraction(
@@ -107,6 +135,7 @@ def run_sharded_extraction(
         device=device,
         batch_size=batch_size,
         preprocessing_lock=preprocessing_lock,
+        asset_context=asset_context,
         execute=execute,
         json_out=None,
     )
@@ -121,6 +150,39 @@ def run_sharded_extraction(
             "claim_allowed": False,
         }
     )
+    if expected_runtime_provenance is not None:
+        from certgen.icml2027.feature_provenance import (
+            build_actual_extractor_provenance,
+            validate_actual_extractor_provenance,
+        )
+
+        if not asset_context or not extractor_id or not source_role or not source_payload_sha256:
+            raise ValueError("actual provenance validation requires complete runtime identity")
+        sidecar = read_json(sidecar_path)
+        sample_ids = [str(row["sample_id"]) for row in shard_rows]
+        actual = build_actual_extractor_provenance(
+            sidecar,
+            extractor_id=extractor_id,
+            source_role=source_role,
+            source_manifest_sha256=file_sha256(input_manifest),
+            source_payload_sha256=source_payload_sha256,
+            sample_ids=sample_ids,
+            asset_identity=asset_context,
+            output_schema_version=output_schema_version,
+        )
+        validation = validate_actual_extractor_provenance(actual, expected_runtime_provenance)
+        if not validation["passed"]:
+            raise RuntimeError(
+                "actual extractor provenance differs from worker spec: "
+                + "; ".join(validation["errors"])
+            )
+        write_json(actual, actual_provenance_path)
+        result.update(
+            {
+                "actual_provenance_path": str(actual_provenance_path),
+                "actual_provenance_validation": validation,
+            }
+        )
     if execute and sidecar_path.exists():
         sidecar = read_json(sidecar_path)
         with np.load(feature_path, allow_pickle=False) as loaded:

@@ -14,6 +14,8 @@ scenarios:
 - adversarial_local_cycles
 - mixed_easy_hard_edges
 - difficult_covariance
+- one_dominant_dense_middle
+- few_easy_many_hard_edges
 replicates: 2
 sample_budget: 128
 alpha: 0.05

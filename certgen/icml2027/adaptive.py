@@ -13,6 +13,8 @@ POLICY_VALIDITY = {
     "uncertainty_first": "EXPLORATORY_NOT_PROVEN",
     "largest_confidence_width": "EXPLORATORY_NOT_PROVEN",
     "graph_frontier": "EXPLORATORY_NOT_PROVEN",
+    "cost_normalized_width": "EXPLORATORY_NOT_PROVEN",
+    "expected_resolution_gain": "EXPLORATORY_NOT_PROVEN",
 }
 
 
@@ -38,6 +40,28 @@ def select_edge(
         )
     if policy == "largest_confidence_width":
         return max(unresolved, key=lambda index: (float(edges[index].get("width", 0.0)), -index))
+    if policy == "cost_normalized_width":
+        return max(
+            unresolved,
+            key=lambda index: (
+                float(edges[index].get("width", 0.0))
+                / max(float(edges[index].get("cost", 1.0)), 1e-12),
+                -index,
+            ),
+        )
+    if policy == "expected_resolution_gain":
+        return max(
+            unresolved,
+            key=lambda index: (
+                float(edges[index].get("width", 0.0))
+                / max(
+                    abs(float(edges[index].get("estimate", 0.0)))
+                    * float(edges[index].get("cost", 1.0)),
+                    1e-12,
+                ),
+                -index,
+            ),
+        )
     degrees: dict[str, int] = defaultdict(int)
     for edge in edges:
         if edge.get("resolved"):

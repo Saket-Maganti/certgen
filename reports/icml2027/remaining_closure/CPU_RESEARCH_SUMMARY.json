@@ -1,0 +1,80 @@
+{
+  "claim_allowed": false,
+  "kernel_power": {
+    "budget": 1000,
+    "claim_allowed": false,
+    "cpu_seconds": 7.762452708004275,
+    "dimensions": [
+      64,
+      768
+    ],
+    "frozen_gamma": 0.5,
+    "frozen_study_modified": false,
+    "gammas": [
+      0.125,
+      0.25,
+      0.5,
+      1.0,
+      2.0
+    ],
+    "not_empirical_paper_evidence": true,
+    "not_real_generator_evidence": true,
+    "replicates_per_cell": 25,
+    "rows": 50,
+    "schema_version": "certgen.icml2027.kernel_power.v1",
+    "synthetic_validation_only": true
+  },
+  "passed": true,
+  "power": {
+    "claim_allowed": false,
+    "correct_resolutions": 11,
+    "corrected_true_alternative_power": 0.029411764705882353,
+    "corrected_true_alternative_power_wilson_95": [
+      0.016500948105892376,
+      0.05189138475601643
+    ],
+    "invariance_controls_excluded": [
+      "scale_shift",
+      "variance_inflation"
+    ],
+    "minimum_utility_gate": "RED",
+    "not_empirical_paper_evidence": true,
+    "not_real_generator_evidence": true,
+    "nulls_and_reference_stress_excluded": true,
+    "schema_version": "certgen.icml2027.true_alternative_power.v2",
+    "source_records": [
+      "artifacts/icml2027/production_mmd/quick/raw_records.csv",
+      "artifacts/icml2027/production_mmd/bounded_stress/raw_records.csv"
+    ],
+    "synthetic_validation_only": true,
+    "true_alternative_runs": 374,
+    "true_alternative_unresolved_fraction": 0.9705882352941176,
+    "true_alternative_unresolved_wilson_95": [
+      0.9481086152439835,
+      0.9834990518941076
+    ]
+  },
+  "schema_version": "certgen.icml2027.remaining_closure_cpu_science.v1",
+  "tier_a_complete": true,
+  "tier_b_reuses_completed_bounded_stress_and_null100": true,
+  "tier_c_complete": false,
+  "variance_reduction": {
+    "claim_allowed": false,
+    "confirmatory_policy_changed": false,
+    "not_empirical_paper_evidence": true,
+    "not_real_generator_evidence": true,
+    "outcome_adaptive_pairing_used": false,
+    "replicates_per_scenario": 100,
+    "scenarios": [
+      "obvious_mean_shift",
+      "dense_weak_high_dimensional_shift"
+    ],
+    "schema_version": "certgen.icml2027.variance_reduction.v1",
+    "strategies": [
+      "four_frozen_pairings_reuse_exploratory",
+      "nonoverlapping_block_mean_4",
+      "single_prospectively_fixed_pairing"
+    ],
+    "synthetic_validation_only": true
+  }
+}

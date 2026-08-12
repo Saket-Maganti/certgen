@@ -8,9 +8,11 @@
     "round_robin",
     "uncertainty_first",
     "largest_confidence_width",
-    "graph_frontier"
+    "graph_frontier",
+    "cost_normalized_width",
+    "expected_resolution_gain"
   ],
-  "rows": 20,
+  "rows": 28,
   "schema_version": "certgen.icml2027.adaptive_comparison.v1",
   "synthetic_validation_only": true
 }

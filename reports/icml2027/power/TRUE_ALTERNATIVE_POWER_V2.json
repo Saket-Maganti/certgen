@@ -1,0 +1,29 @@
+{
+  "claim_allowed": false,
+  "correct_resolutions": 11,
+  "corrected_true_alternative_power": 0.029411764705882353,
+  "corrected_true_alternative_power_wilson_95": [
+    0.016500948105892376,
+    0.05189138475601643
+  ],
+  "invariance_controls_excluded": [
+    "scale_shift",
+    "variance_inflation"
+  ],
+  "minimum_utility_gate": "RED",
+  "not_empirical_paper_evidence": true,
+  "not_real_generator_evidence": true,
+  "nulls_and_reference_stress_excluded": true,
+  "schema_version": "certgen.icml2027.true_alternative_power.v2",
+  "source_records": [
+    "artifacts/icml2027/production_mmd/quick/raw_records.csv",
+    "artifacts/icml2027/production_mmd/bounded_stress/raw_records.csv"
+  ],
+  "synthetic_validation_only": true,
+  "true_alternative_runs": 374,
+  "true_alternative_unresolved_fraction": 0.9705882352941176,
+  "true_alternative_unresolved_wilson_95": [
+    0.9481086152439835,
+    0.9834990518941076
+  ]
+}

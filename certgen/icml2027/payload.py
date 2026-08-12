@@ -290,17 +290,47 @@ def _validate_features(index: Mapping[str, Any], members: Mapping[str, bytes]) -
             raise ValueError(f"non-finite feature values: {feature_path}")
         if len(sample_ids) != len(set(sample_ids)) or stable_hash(sample_ids) != row["source_sample_ids_sha256"]:
             raise ValueError(f"feature row-order mismatch: {feature_path}")
-        bound = {
-            "sample_ids": sample_ids,
-            "extractor_id": row["extractor_id"],
-            "extractor_revision": row["extractor_revision"],
-            "preprocessing_sha256": row["preprocessing_sha256"],
-            "dimension": row["dimension"],
-            "dtype": row["dtype"],
-            "claim_allowed": False,
-        }
-        if sidecar != bound:
-            raise ValueError(f"feature sidecar mismatch: {sidecar_path}")
+        if sidecar.get("schema_version") == "certgen.icml2027.actual_extractor_provenance.v1":
+            from certgen.icml2027.feature_provenance import REQUIRED_ACTUAL_FIELDS
+
+            if not REQUIRED_ACTUAL_FIELDS <= set(sidecar):
+                raise ValueError(f"actual feature provenance is incomplete: {sidecar_path}")
+            if (
+                sidecar.get("extractor_id") != row["extractor_id"]
+                or sidecar.get("model_revision") != row["extractor_revision"]
+                or sidecar.get("preprocessing_sha256") != row["preprocessing_sha256"]
+                or sidecar.get("dimension") != row["dimension"]
+                or sidecar.get("dtype") != row["dtype"]
+                or sidecar.get("source_sample_ids_sha256")
+                != row["source_sample_ids_sha256"]
+                or sidecar.get("row_order_sha256") != row["source_sample_ids_sha256"]
+                or sidecar.get("row_count") != row["row_count"]
+                or sidecar.get("claim_allowed") is not False
+                or sidecar.get("local_files_only") is not True
+            ):
+                raise ValueError(f"actual feature provenance mismatch: {sidecar_path}")
+            if row.get("actual_provenance_sha256") != sidecar.get(
+                "actual_provenance_sha256"
+            ) or sidecar.get("actual_provenance_sha256") != stable_hash(
+                {
+                    key: value
+                    for key, value in sidecar.items()
+                    if key != "actual_provenance_sha256"
+                }
+            ):
+                raise ValueError(f"actual feature provenance hash mismatch: {sidecar_path}")
+        else:
+            bound = {
+                "sample_ids": sample_ids,
+                "extractor_id": row["extractor_id"],
+                "extractor_revision": row["extractor_revision"],
+                "preprocessing_sha256": row["preprocessing_sha256"],
+                "dimension": row["dimension"],
+                "dtype": row["dtype"],
+                "claim_allowed": False,
+            }
+            if sidecar != bound:
+                raise ValueError(f"feature sidecar mismatch: {sidecar_path}")
         extractors.add(str(row["extractor_id"]))
         total_rows += len(sample_ids)
     return {"feature_rows": total_rows, "extractors": sorted(extractors)}
@@ -371,6 +401,25 @@ def validate_multipart_payload(
                     raise ValueError("feature extractor revision differs from worker spec")
                 if row["preprocessing_sha256"] != spec["preprocessing_hashes"][extractor]:
                     raise ValueError("feature preprocessing differs from worker spec")
+            if "jobs" in spec and "shards_per_source" in spec:
+                observed = [
+                    (
+                        str(row["extractor_id"]),
+                        str(row.get("source_role", "")),
+                        int(row.get("shard_id", -1)),
+                    )
+                    for row in rows
+                ]
+                expected = [
+                    (
+                        str(job["extractor_id"]),
+                        str(job["source_role"]),
+                        int(job["shard_id"]),
+                    )
+                    for job in spec["jobs"]
+                ]
+                if sorted(observed) != sorted(expected) or len(observed) != len(set(observed)):
+                    raise ValueError("feature payload aggregate coverage differs from worker spec")
     return {
         "passed": True,
         "payload_type": payload_type,

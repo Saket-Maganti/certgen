@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Any
 
 from certgen.icml2027.common import file_sha256, stable_hash, write_json
-from certgen.icml2027.notebooks import NOTEBOOKS
+from certgen.icml2027.notebooks import NOTEBOOKS, build_notebook
 
 
 LANES: dict[str, dict[str, Any]] = {
@@ -38,12 +38,24 @@ LANES: dict[str, dict[str, Any]] = {
     },
     "cifar_10k_features": {
         "notebook": "cifar_10k_features",
-        "required_inputs": ["generation_10k_output", "reference_manifest", "worker_spec"],
+        "required_inputs": [
+            "generation_10k_output",
+            "reference_manifest",
+            "extractor_asset_manifest",
+            "extractor_asset_root",
+            "worker_spec",
+        ],
         "config": "configs/icml2027/cifar_confirmatory_10k_v2.yaml",
     },
     "released_sample_features": {
         "notebook": "released_sample_features",
-        "required_inputs": ["released_sample_import", "released_sample_manifest", "worker_spec"],
+        "required_inputs": [
+            "released_sample_import",
+            "released_sample_manifest",
+            "extractor_asset_manifest",
+            "extractor_asset_root",
+            "worker_spec",
+        ],
         "config": "registry/icml2027/feature_space_registry.yaml",
     },
     "ffhq": {
@@ -227,8 +239,8 @@ def build_input(
                 jobs,
                 required_extractors=list(worker_payload["extractor_revisions"]),
                 required_roles=list(worker_payload["expected_source_roles"]),
-                expected_shards=int(worker_payload["expected_shard_count"]),
-                source_sample_order_sha256=str(worker_payload["source_sample_order_sha256"]),
+                expected_shards=int(worker_payload["shards_per_source"]),
+                source_sample_order_sha256=worker_payload["source_sample_order_sha256"],
             )
         else:
             partition = {"passed": True, "errors": []}
@@ -253,14 +265,48 @@ def build_input(
         "one_gpu_fallback": False,
         "claim_allowed": False,
     }
-    members.append(("package_manifest.json", json.dumps(manifest, indent=2, sort_keys=True).encode() + b"\n"))
+    package_manifest_bytes = json.dumps(manifest, indent=2, sort_keys=True).encode() + b"\n"
+    members.append(("package_manifest.json", package_manifest_bytes))
     zip_path = output / f"certgen_icml2027_{lane}_input.zip"
     _write_zip(zip_path, members)
+    worker_rows = input_hashes.get("worker_spec", {}).get("members", [])
+    expected_identity = {
+        "schema_version": "certgen.icml2027.expected_input.v1",
+        "expected_lane": lane,
+        "expected_input_zip_sha256": file_sha256(zip_path),
+        "expected_package_manifest_sha256": hashlib.sha256(package_manifest_bytes).hexdigest(),
+        "expected_configuration_sha256": manifest["configuration_sha256"],
+        "expected_source_tree_sha256": manifest["source_tree_sha256"],
+        "expected_prerequisite_set_sha256": prerequisite_identity,
+        "expected_worker_spec_sha256": worker_rows[0]["sha256"] if len(worker_rows) == 1 else None,
+        "claim_allowed": False,
+    }
+    expected_identity["expected_identity_sha256"] = stable_hash(expected_identity)
+    launch_notebook = output / f"certgen_icml2027_{lane}_LAUNCH_EXACT.ipynb"
+    write_json(launch_notebook, build_notebook(spec["notebook"], expected_identity=expected_identity))
+    launch_manifest = {
+        "schema_version": "certgen.icml2027.launch_manifest.v1",
+        "expected_input_identity": expected_identity,
+        "launch_notebook": launch_notebook.name,
+        "launch_notebook_sha256": file_sha256(launch_notebook),
+        "generic_notebook_fallback": notebook.name,
+        "operator_action": "upload the input ZIP and import the exact launch notebook; no environment identity JSON is used",
+        "claim_allowed": False,
+    }
+    launch_manifest["launch_manifest_sha256"] = stable_hash(launch_manifest)
+    launch_manifest_path = output / "certgen_icml2027_launch_manifest.v1.json"
+    write_json(launch_manifest_path, launch_manifest)
     payload = {
         **manifest,
         "status": "READY",
         "input_zip": str(zip_path),
-        "input_zip_sha256": file_sha256(zip_path),
+        "input_zip_sha256": expected_identity["expected_input_zip_sha256"],
+        "expected_input_identity": expected_identity,
+        "launch_notebook": str(launch_notebook),
+        "launch_notebook_sha256": file_sha256(launch_notebook),
+        "launch_manifest": str(launch_manifest_path),
+        "launch_manifest_sha256": file_sha256(launch_manifest_path),
+        "manual_expected_identity_json_required": False,
         "input_zip_created": True,
     }
     write_json(zip_path.with_suffix(".zip.manifest.json"), payload)

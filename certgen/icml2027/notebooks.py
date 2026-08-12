@@ -27,19 +27,69 @@ def _source(text: str) -> list[str]:
     return [line + "\n" for line in text.strip("\n").splitlines()]
 
 
-def _bootstrap_code(notebook_id: str) -> str:
+def _bootstrap_code(
+    notebook_id: str,
+    expected_identity: dict[str, Any] | None = None,
+) -> str:
+    embedded_identity = repr(expected_identity) if expected_identity is not None else "None"
     return f'''# STDLIB-ONLY PRE-IMPORT AUTHENTICATION BOUNDARY
 from __future__ import annotations
 import hashlib, json, os, shutil, stat, sys, tempfile, zipfile
 from pathlib import Path, PurePosixPath
 
 LANE = {notebook_id!r}
-raw_identity = os.environ.get("CERTGEN_EXPECTED_ICML_INPUT_IDENTITY_JSON")
-if not raw_identity:
-    raise RuntimeError("explicit CERTGEN_EXPECTED_ICML_INPUT_IDENTITY_JSON is required")
-EXPECTED_IDENTITY = json.loads(raw_identity)
+EMBEDDED_EXPECTED_IDENTITY = {embedded_identity}
+SEARCH_ROOTS = [Path("/kaggle/input")]
+WORKING_ROOT = Path("/kaggle/working")
+
+def _stable_hash(value):
+    data = (json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False) + "\\n").encode()
+    return hashlib.sha256(data).hexdigest()
+
+def _load_expected_identity():
+    if EMBEDDED_EXPECTED_IDENTITY is not None:
+        return dict(EMBEDDED_EXPECTED_IDENTITY)
+    manifests = []
+    for search_root in SEARCH_ROOTS:
+        if not search_root.exists() or search_root.is_symlink():
+            continue
+        for current, directories, files in os.walk(search_root, topdown=True, followlinks=False):
+            depth = len(Path(current).relative_to(search_root).parts)
+            directories[:] = sorted(
+                name for name in directories if depth < 8 and not (Path(current) / name).is_symlink()
+            )
+            for name in sorted(files):
+                if name == "certgen_icml2027_launch_manifest.v1.json":
+                    path = Path(current) / name
+                    payload = json.loads(path.read_text(encoding="utf-8"))
+                    declared = payload.pop("launch_manifest_sha256", None)
+                    if declared != _stable_hash(payload):
+                        raise RuntimeError("launch manifest self-hash mismatch")
+                    payload["launch_manifest_sha256"] = declared
+                    if payload.get("schema_version") != "certgen.icml2027.launch_manifest.v1":
+                        raise RuntimeError("launch manifest schema mismatch")
+                    identity = payload.get("expected_input_identity")
+                    if (
+                        isinstance(identity, dict)
+                        and identity.get("expected_lane") == LANE
+                        and identity.get("claim_allowed") is False
+                    ):
+                        manifests.append(payload)
+    identities = {{_stable_hash(payload): payload for payload in manifests}}
+    if len(identities) != 1:
+        raise RuntimeError(
+            "generic notebook requires exactly one content-consistent generated launch manifest; "
+            "use the exact launch notebook emitted by build_kaggle_input.py"
+        )
+    return dict(next(iter(identities.values()))["expected_input_identity"])
+
+EXPECTED_IDENTITY = _load_expected_identity()
 if EXPECTED_IDENTITY.get("schema_version") != "certgen.icml2027.expected_input.v1" or EXPECTED_IDENTITY.get("claim_allowed") is not False:
     raise RuntimeError("invalid expected input identity")
+declared_expected_identity_hash = EXPECTED_IDENTITY.pop("expected_identity_sha256", None)
+if declared_expected_identity_hash != _stable_hash(EXPECTED_IDENTITY):
+    raise RuntimeError("expected input identity self-hash mismatch")
+EXPECTED_IDENTITY["expected_identity_sha256"] = declared_expected_identity_hash
 if EXPECTED_IDENTITY.get("expected_lane") != LANE or len(EXPECTED_IDENTITY.get("expected_input_zip_sha256", "")) != 64:
     raise RuntimeError("expected input identity is incomplete or for another lane")
 
@@ -57,7 +107,7 @@ def _safe_name(raw):
     return value.as_posix()
 
 candidates = []
-for search_root in [Path("/kaggle/input")]:
+for search_root in SEARCH_ROOTS:
     if not search_root.exists() or search_root.is_symlink():
         continue
     for current, directories, files in os.walk(search_root, topdown=True, followlinks=False):
@@ -82,10 +132,24 @@ for candidate in candidates:
             mode = (info.external_attr >> 16) & 0o177777
             if stat.S_IFMT(mode) == stat.S_IFLNK:
                 raise RuntimeError("symlink member rejected")
-        manifest = json.loads(archive.read("package_manifest.json"))
+        manifest_bytes = archive.read("package_manifest.json")
+        manifest = json.loads(manifest_bytes)
         rows = manifest.get("inventory")
         if manifest.get("lane") != LANE or manifest.get("claim_allowed") is not False or not isinstance(rows, list):
             raise RuntimeError("package manifest identity rejected")
+        exact_manifest_fields = {{
+            "expected_package_manifest_sha256": hashlib.sha256(manifest_bytes).hexdigest(),
+            "expected_configuration_sha256": manifest.get("configuration_sha256"),
+            "expected_source_tree_sha256": manifest.get("source_tree_sha256"),
+            "expected_prerequisite_set_sha256": manifest.get("authenticated_prerequisite_set_sha256"),
+        }}
+        worker_rows = manifest.get("input_hashes", {{}}).get("worker_spec", {{}}).get("members", [])
+        exact_manifest_fields["expected_worker_spec_sha256"] = (
+            worker_rows[0].get("sha256") if len(worker_rows) == 1 else None
+        )
+        for field, observed in exact_manifest_fields.items():
+            if EXPECTED_IDENTITY.get(field) != observed:
+                raise RuntimeError(f"stale or wrong launch identity: {{field}}")
         declared = {{row["path"]: row for row in rows}}
         if set(names) != set(declared) | {{"package_manifest.json"}}:
             raise RuntimeError("exact archive membership mismatch")
@@ -94,15 +158,18 @@ for candidate in candidates:
             if row.get("bytes") != len(data) or row.get("sha256") != hashlib.sha256(data).hexdigest():
                 raise RuntimeError("archive inventory hash mismatch")
     accepted.append(candidate)
-if len(accepted) != 1:
-    raise RuntimeError(f"expected exactly one authenticated input, found {{len(accepted)}}")
+if not accepted:
+    raise RuntimeError("expected authenticated input was not found")
+accepted = sorted(accepted, key=lambda value: str(value).casefold())
+selected_input = accepted[0]
 
-destination = Path("/kaggle/working") / f"certgen-authenticated-{{LANE}}"
+WORKING_ROOT.mkdir(parents=True, exist_ok=True)
+destination = WORKING_ROOT / f"certgen-authenticated-{{LANE}}"
 if destination.exists():
     shutil.rmtree(destination)
-partial = Path(tempfile.mkdtemp(prefix=f".certgen-{{LANE}}-", dir="/kaggle/working"))
+partial = Path(tempfile.mkdtemp(prefix=f".certgen-{{LANE}}-", dir=WORKING_ROOT))
 try:
-    with zipfile.ZipFile(accepted[0]) as archive:
+    with zipfile.ZipFile(selected_input) as archive:
         archive.extractall(partial)
     os.replace(partial, destination)
 except Exception:
@@ -114,7 +181,11 @@ sys.path.insert(0, str(INPUT_ROOT / "source"))
 '''
 
 
-def build_notebook(notebook_id: str) -> dict[str, Any]:
+def build_notebook(
+    notebook_id: str,
+    *,
+    expected_identity: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     spec = NOTEBOOKS[notebook_id]
     runtime = f'''# Identity-bound dependency lifecycle, then runtime/GPU/disk gates
 import shutil
@@ -160,7 +231,7 @@ print(json.dumps({"lane": LANE, "lane_status": LANE_STATUS, "output": OUTPUT_VAL
             {"cell_type": "markdown", "metadata": {}, "source": _source(
                 f"# CertGen ICML 2027 — {notebook_id}\n\nStatus: `{LANE_STATUS[notebook_id]}`. `claim_allowed=false`."
             )},
-            {"cell_type": "code", "execution_count": None, "metadata": {}, "outputs": [], "source": _source(_bootstrap_code(notebook_id))},
+            {"cell_type": "code", "execution_count": None, "metadata": {}, "outputs": [], "source": _source(_bootstrap_code(notebook_id, expected_identity))},
             {"cell_type": "code", "execution_count": None, "metadata": {}, "outputs": [], "source": _source(runtime)},
             {"cell_type": "code", "execution_count": None, "metadata": {}, "outputs": [], "source": _source(execution)},
         ],
@@ -173,6 +244,7 @@ print(json.dumps({"lane": LANE, "lane_status": LANE_STATUS, "output": OUTPUT_VAL
                 "stage": spec["stage"],
                 "lane_status": LANE_STATUS[notebook_id],
                 "gpu_count": 2,
+                "expected_input_identity_embedded": expected_identity is not None,
                 "claim_allowed": False,
             },
         },

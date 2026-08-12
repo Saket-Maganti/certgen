@@ -5,6 +5,8 @@ policies:
 - uncertainty_first
 - largest_confidence_width
 - graph_frontier
+- cost_normalized_width
+- expected_resolution_gain
 master_seed: 20270809
 replicates: 4
 model_count: 8

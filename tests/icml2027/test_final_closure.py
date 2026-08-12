@@ -21,6 +21,7 @@ from certgen.icml2027.execution_contract import (
     STUDY_ID,
     build_execution_contract,
     build_feature_jobs,
+    build_generation_worker_spec,
     build_generation_jobs,
     build_generator_seed_manifest,
     seed_collision_audit,
@@ -192,26 +193,29 @@ def test_generation_and_feature_partitions_fail_closed() -> None:
 def test_worker_spec_scientific_identity_mutations_fail() -> None:
     manifest = build_generator_seed_manifest(count_per_model=100)
     contract = build_execution_contract(manifest, root=ROOT)
-    spec = {
-        "schema_version": "certgen.icml2027.worker_spec.v1",
-        "lane": "cifar_10k_generation",
-        "study_id": STUDY_ID,
-        "study_hash": STUDY_HASH,
-        "configuration_sha256": CONFIG_SHA256,
-        "input_package_sha256": "a" * 64,
-        "reference_plan_sha256": REFERENCE_PLAN_SHA256,
-        "model_revisions": {},
-        "extractor_revisions": {},
-        "preprocessing_hashes": {},
-        "seed_plan_sha256": contract["seed_plan_sha256"],
-        "sample_identity_policy_sha256": contract["sample_identity_policy_sha256"],
-        "expected_prefix_hashes": {},
-        "expected_sample_count": 200,
-        "expected_shard_count": 4,
-        "expected_shard_coverage": {},
-        "output_schema_version": "certgen.icml2027.generation_payload.v1",
-        "claim_allowed": False,
+    assets = {
+        model_id: {
+            "asset_id": f"{model_id}__asset",
+            "model_identifier": row["checkpoint_id"],
+            "revision": row["checkpoint_revision"],
+            "aggregate_manifest_sha256": "1" * 64,
+            "asset_manifest_sha256": "2" * 64,
+            "inventory_sha256": "3" * 64,
+            "loader_type": "from_pretrained_local_snapshot",
+            "local_files_only": True,
+            "license_status": "synthetic_fixture_only",
+            "license_review_status": "synthetic_fixture_only",
+            "claim_allowed": False,
+        }
+        for model_id, row in contract["models"].items()
     }
+    spec = build_generation_worker_spec(
+        manifest,
+        contract,
+        input_package_sha256="a" * 64,
+        asset_requirements=assets,
+        shard_size=50,
+    )
     assert validate_worker_spec(spec, expected_lane=spec["lane"], contract=contract)["passed"]
     for field in ("study_hash", "configuration_sha256", "seed_plan_sha256", "sample_identity_policy_sha256"):
         mutated = dict(spec)

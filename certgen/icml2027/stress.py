@@ -64,6 +64,16 @@ def run_multi_model_scaling(config_path: str | Path, out_dir: str | Path) -> dic
             elif scenario in {"many_near_ties", "representation_specific_ordering", "representation_conflicts", "adversarial_local_cycles"}:
                 true_scores = np.arange(model_count, dtype=float) * (effect_spacing * 0.1)
                 noise_scale = 0.45
+            elif scenario == "one_dominant_dense_middle":
+                true_scores = np.arange(model_count, dtype=float) * (effect_spacing * 0.08)
+                true_scores[-1] = effect_spacing * max(10.0, model_count / 2.0)
+                noise_scale = 0.45
+            elif scenario == "few_easy_many_hard_edges":
+                true_scores = np.arange(model_count, dtype=float) * (effect_spacing * 0.03)
+                if model_count >= 2:
+                    true_scores[-1] = effect_spacing * 8.0
+                    true_scores[-2] = effect_spacing * 4.0
+                noise_scale = 0.5
             elif scenario in {"heteroskedastic_edges", "heterogeneous_variance"}:
                 true_scores = np.arange(model_count, dtype=float) * effect_spacing
                 noise_scale = 0.65
@@ -203,10 +213,12 @@ def _adaptive_once(
             "width": float("inf"),
             "resolved": False,
             "decision": "UNRESOLVED",
+            "cost": 1.0 + ((left + right) % 4),
         }
         for left, right in pairs
     ]
     total = 0
+    total_cost = 0.0
     step = 0
     while total < maximum_samples and any(not state["resolved"] for state in states):
         index = select_edge(states, policy, step=step)
@@ -228,6 +240,7 @@ def _adaptive_once(
         state["decision"] = trace.decision
         state["resolved"] = trace.decision in {"A_BETTER", "B_BETTER"}
         total += amount
+        total_cost += amount * float(state["cost"])
         step += 1
     resolved = [state for state in states if state["resolved"]]
     incorrect = sum(str(state["decision"]) != "B_BETTER" for state in resolved)
@@ -243,8 +256,9 @@ def _adaptive_once(
         "unresolved_edges": len(states) - len(resolved),
         "incorrect_edges": incorrect,
         "samples_consumed": total,
-        "cost_per_certified_edge": total / max(1, len(resolved)),
-        "cost_per_resolved_model": total / max(1, len(resolved_models)),
+        "sample_cost_units": total_cost,
+        "cost_per_certified_edge": total_cost / max(1, len(resolved)),
+        "cost_per_resolved_model": total_cost / max(1, len(resolved_models)),
         "graph_coverage": len(resolved) / len(states),
         "confirmatory_eligible": POLICY_VALIDITY[policy] in {"VALIDITY_PROVEN", "VALIDITY_INHERITED"},
         "synthetic_validation_only": True,

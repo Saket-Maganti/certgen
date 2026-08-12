@@ -13,7 +13,7 @@
   ],
   "not_empirical_paper_evidence": true,
   "not_real_generator_evidence": true,
-  "rows": 144,
+  "rows": 168,
   "scenarios": [
     "uniformly_spaced",
     "many_near_ties",
@@ -26,7 +26,9 @@
     "partial_incomparability",
     "adversarial_local_cycles",
     "mixed_easy_hard_edges",
-    "difficult_covariance"
+    "difficult_covariance",
+    "one_dominant_dense_middle",
+    "few_easy_many_hard_edges"
   ],
   "schema_version": "certgen.icml2027.multi_model_scaling.v1",
   "synthetic_validation_only": true,

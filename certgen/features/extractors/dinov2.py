@@ -14,6 +14,7 @@ import numpy as np
 from certgen.features.extractors.base import FeatureExtractor
 
 _DEFAULT_MODEL = "facebook/dinov2-base"
+_DEFAULT_REVISION = "f9e44c814b77203eaa57a6bdbbd535f21ede1415"
 
 
 class DinoV2Extractor(FeatureExtractor):
@@ -24,10 +25,34 @@ class DinoV2Extractor(FeatureExtractor):
     def _load_backbone(self, device: str, model_id: str | None, preprocessing: dict[str, Any] | None) -> tuple[Any, Any]:
         from transformers import AutoImageProcessor, AutoModel
 
-        model_id = model_id or _DEFAULT_MODEL
-        model = AutoModel.from_pretrained(model_id)
+        asset = getattr(self, "runtime_asset_context", {})
+        configured_model_id = str(asset.get("model_identifier") or model_id or _DEFAULT_MODEL)
+        if configured_model_id != _DEFAULT_MODEL:
+            raise ValueError("DINOv2 model identity differs from the pinned robustness contract")
+        if asset:
+            if asset.get("local_files_only") is not True or asset.get("revision") != _DEFAULT_REVISION:
+                raise ValueError("DINOv2 authenticated local asset identity mismatch")
+            snapshot = str(asset["runtime_snapshot_root"])
+            model = AutoModel.from_pretrained(snapshot, local_files_only=True)
+            self._processor = AutoImageProcessor.from_pretrained(snapshot, local_files_only=True)
+            self.resolved_local_files_only = True
+            self.resolved_local_snapshot_inventory_sha256 = asset.get("inventory_sha256")
+        else:
+            model = AutoModel.from_pretrained(configured_model_id, revision=_DEFAULT_REVISION)
+            self._processor = AutoImageProcessor.from_pretrained(
+                configured_model_id, revision=_DEFAULT_REVISION
+            )
+            self.resolved_local_files_only = False
         model.eval().to(device)
-        self._processor = AutoImageProcessor.from_pretrained(model_id)
+        self.resolved_model_id = configured_model_id
+        self.resolved_model_revision = _DEFAULT_REVISION
+        self.resolved_weights_id = "huggingface_commit"
+        self.resolved_weights_url = None if asset else f"https://huggingface.co/{configured_model_id}/tree/{_DEFAULT_REVISION}"
+        self.resolved_license_status = "Apache-2.0_review_required"
+        self.resolved_model_class = "transformers.Dinov2Model"
+        self.resolved_processor_identity = "transformers.AutoImageProcessor"
+        self.resolved_feature_layer = "last_hidden_state[:,0,:]"
+        self.resolved_feature_normalization = "none"
         self.feature_dim = int(model.config.hidden_size)
         return model, self._processor
 

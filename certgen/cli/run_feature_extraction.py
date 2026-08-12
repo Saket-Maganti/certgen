@@ -24,6 +24,7 @@ def run_feature_extraction(
     batch_size: int = 32,
     model_id: str | None = None,
     preprocessing_lock: str | None = None,
+    asset_context: dict | None = None,
     max_items: int | None = None,
     execute: bool = False,
     json_out: str | None = None,
@@ -51,6 +52,7 @@ def run_feature_extraction(
         max_items=max_items,
         model_id=model_id,
         preprocessing=preprocessing,
+        asset_context=asset_context,
     )
     if json_out:
         write_json(result, json_out)

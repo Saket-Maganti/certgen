@@ -21,6 +21,8 @@ from typing import Any
 
 import numpy as np
 
+from certgen.icml2027.common import stable_hash
+
 
 class OptionalDependencyMissing(RuntimeError):
     pass
@@ -48,6 +50,14 @@ class FeatureExtractor:
             "weights_id": getattr(self, "resolved_weights_id", None),
             "weights_url": getattr(self, "resolved_weights_url", None),
             "license_status": getattr(self, "resolved_license_status", "unknown"),
+            "model_class": getattr(self, "resolved_model_class", None),
+            "processor_identity": getattr(self, "resolved_processor_identity", None),
+            "feature_layer": getattr(self, "resolved_feature_layer", None),
+            "feature_normalization": getattr(self, "resolved_feature_normalization", None),
+            "local_files_only": getattr(self, "resolved_local_files_only", False),
+            "local_snapshot_inventory_sha256": getattr(
+                self, "resolved_local_snapshot_inventory_sha256", None
+            ),
         }
 
     def is_available(self) -> bool:
@@ -124,6 +134,7 @@ class FeatureExtractor:
         *,
         model_id: str | None = None,
         preprocessing: dict[str, Any] | None = None,
+        asset_context: dict[str, Any] | None = None,
         evidence_status: str = "real_features_unvalidated",
     ) -> dict[str, Any]:
         if not self.is_available():
@@ -141,6 +152,7 @@ class FeatureExtractor:
             raise ValueError(f"{len(missing)} manifest paths do not exist locally (first: {missing[0]})")
 
         resolved_device = self._resolve_device(device)
+        self.runtime_asset_context = dict(asset_context or {})
         model, transform = self._load_backbone(resolved_device, model_id, preprocessing)
         model_metadata = self._resolved_model_metadata()
         if not model_metadata.get("model_id") or not model_metadata.get("model_revision"):
@@ -164,6 +176,10 @@ class FeatureExtractor:
             "model_id": model_metadata["model_id"],
             "requested_model_id": model_id,
             "model_revision": model_metadata["model_revision"],
+            "model_class": model_metadata["model_class"]
+            or f"{type(model).__module__}.{type(model).__qualname__}",
+            "processor_identity": model_metadata["processor_identity"]
+            or f"{type(transform).__module__}.{type(transform).__qualname__}",
             "weights_id": model_metadata["weights_id"],
             "weights_url": model_metadata["weights_url"],
             "feature_type": self.name,
@@ -171,6 +187,13 @@ class FeatureExtractor:
             "num_items": int(features.shape[0]),
             "sample_ids": sample_ids,
             "preprocessing": preprocessing or {},
+            "preprocessing_sha256": stable_hash(preprocessing or {}),
+            "feature_layer": model_metadata["feature_layer"] or self.name,
+            "feature_normalization": model_metadata["feature_normalization"] or "none",
+            "local_files_only": bool(model_metadata["local_files_only"]),
+            "local_snapshot_inventory_sha256": model_metadata[
+                "local_snapshot_inventory_sha256"
+            ],
             "source": model_metadata,
             "dependency_versions": {
                 dependency: importlib.metadata.version(dependency)

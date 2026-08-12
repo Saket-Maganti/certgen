@@ -1,0 +1,67 @@
+{
+  "branch": "main",
+  "claim_allowed": false,
+  "identity_hashes": {
+    "cifar_10k_v2_config": "7d543ddd077edeea20bf29d322916a8d0f531ff05787cb779dc2a35506e85e2d",
+    "cifar_10k_v2_execution_contract": "29f7fb84f12ab6e89b0144ade376e49ed8cb382d7c776b9c113a4b609d14d099",
+    "cifar_10k_v2_reference_draw_plan": "fb3b20684ff7bdea7cef120feec72838706002c309878db5db18aae59988a3b2",
+    "cifar_10k_v2_seed_manifest": "031b3e10709b436a96afd6e2f2ad4e398861a71bf315ad107b152b87c9f96704",
+    "diagnostic_input_zip": "d9b056f220fdd3ef87d5a0c2b41df0d8012452f0f912cb2e378bbc8f764e718d",
+    "diagnostic_notebook": "cd2a774e98ce4c711afd5ac49ae3bdb6fe94a46ae49b1fc58ea5bb2c4777965d",
+    "legacy_1k_feature_notebook": "1ac5d341478d312f9f58be717e9dd005af0746af5122f445d8c72888e81479e5",
+    "legacy_1k_generation_notebook": "0dbc5216aeac0c538e52a71548f3b2540d43e4d2f762233e4cc0d977b11a1b56",
+    "legacy_frozen_profile": "346f0bea70d94803bd9da2793153496a6b0c1fe839174e8d2049773f5bfcc5ae",
+    "legacy_pilot_link": "e31faca64bd6ebd9a7326573f9016378c1028c5826c1bf0192aea88e1598c790",
+    "legacy_reference_draw_plan": "27bc56310998dd14fbf06fd096c432f1c21fe2389466a52383df8265468bff6f",
+    "preflight_input_zip": "d3a5b585383e12cfad82d94694fa1d8e2701de399617e8e515bafae57f33e93f",
+    "preflight_notebook": "56553ccc3832c522aa482ed73657e27d82e4dbaa8b7c01a68b2bbb059a8f2b00"
+  },
+  "initial_worktree": [
+    "?? promptpacks/CERTGEN_FINAL_KAGGLE_EXECUTION_PATH_REPAIR_POLISH_AND_RUN_READY_SEAL_PROMPT.md",
+    "?? promptpacks/CERTGEN_ICML2027_DEEP_AUDIT_FULL_REPAIR_AND_MAX_UPGRADE_PROMPT.md",
+    "?? promptpacks/CERTGEN_ICML2027_MAXIMIZE_PROJECT_CPU_RUNS_GPU_RUNBOOKS_MASTER_PROMPT.md",
+    "?? promptpacks/CERTGEN_UNIVERSAL_KAGGLE_FOUR_ACCOUNT_PORTABILITY_AND_DEPENDENCY_FIX_PROMPT.md",
+    "?? reports/icml2027/remaining_closure/",
+    "?? scripts/icml2027/build_remaining_closure_baseline.py",
+    "?? scripts/icml2027/remaining_closure_command.py"
+  ],
+  "origin_main": "77460dfe6ee1ae8ea294e6a2c36a98cb88e152b3",
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "python": "3.11.9 (v3.11.9:de54cf5be3, Apr  2 2024, 07:12:50) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "schema_version": "certgen.icml2027.remaining_closure_baseline.v1",
+  "semantic_identity": {
+    "comparison_family": {
+      "alpha": 0.05,
+      "feature_spaces": [
+        "inception",
+        "clip"
+      ],
+      "models": [
+        "google_ddpm_cifar10_candidate",
+        "frank_ddpm_ema_cifar10_candidate"
+      ],
+      "multiplicity": "bonferroni_across_two_confirmatory_hypotheses"
+    },
+    "legacy_configuration_hash": "b6882b9e1be0b9f12868c47be44c0f41a522ed45c7a4529ceabd08f38cc991aa",
+    "legacy_profile_id": "cifar_integrity_minimal",
+    "reference_draw": {
+      "adaptive_reference_reuse": false,
+      "finite_population_without_replacement_status": "EXPERIMENTAL_NOT_SUPPORTED",
+      "plan_path": "registry/manifests/icml2027/cifar10_reference_draw_plan_10k_v2.json",
+      "plan_sha256": "f2ae231aa67b0f3b29995451ae56f7fa0a01b0e2410664022dd024a3cb47804e",
+      "precommitted_before_stream": true,
+      "reference_reuse_declared": true,
+      "sampling_scheme": "iid_with_replacement_from_fixed_empirical_population",
+      "target_population": "fixed_empirical_reference_distribution",
+      "without_replacement": false
+    },
+    "seed_plan": {
+      "derivation": "sha256(study_id,model_id,sample_index,master_seed)",
+      "master_seed": 20270812
+    },
+    "study_id": "icml2027_cifar_confirmatory_10k_v2",
+    "study_status": "PROSPECTIVELY_FROZEN_WAITING_FOR_AUTHENTICATED_GPU_EXECUTION"
+  },
+  "semantic_identity_sha256": "91e15b115fd9680e52595858c4f28f93748d388b70fe81c43d434380a5ee83d6",
+  "starting_commit": "77460dfe6ee1ae8ea294e6a2c36a98cb88e152b3"
+}

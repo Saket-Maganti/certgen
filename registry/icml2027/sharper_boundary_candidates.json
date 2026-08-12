@@ -1,0 +1,69 @@
+{
+  "schema_version": "certgen.icml2027.sharper_boundary_candidate_registry.v1",
+  "canonical_baseline": {
+    "method": "time_uniform_hoeffding_union_bound_v3",
+    "status": "VERIFIED_CONFIRMATORY_ELIGIBLE",
+    "frozen_study_modified": false
+  },
+  "candidates": [
+    {
+      "candidate_id": "waudby_smith_ramdas_prpl_eb_2024",
+      "family": "predictable_plugin_empirical_bernstein_cs",
+      "primary_source": "https://academic.oup.com/jrsssb/article/86/1/1/7043257",
+      "citation": "Waudby-Smith and Ramdas, JRSS B 86(1), 2024, Theorem 2 (PrPl-EB)",
+      "source_statement": "Theorem 2 constructs a running-intersection confidence sequence for a bounded conditional-mean process using a [0,1/2)-valued predictable lambda sequence and the empirical-Bernstein process in equations (13)-(15).",
+      "assumptions": [
+        "observations are bounded in [0,1] after an explicitly verified affine transformation",
+        "the conditional mean is constant with respect to the canonical filtration",
+        "every plug-in lambda is predictable",
+        "two-sided alpha allocation and running intersection follow the theorem exactly"
+      ],
+      "time_uniform_statement": "The theorem asserts confidence-sequence coverage simultaneously over all times; arbitrary stopping follows from that event.",
+      "alpha_conversion": "NOT_MAPPED_TO_CERTGEN_TWO_SIDED_AND_FAMILYWISE_ALPHA",
+      "certgen_stream_mapping": "INCOMPLETE: the exact affine contribution transform, predictable variance process, two-sided split, and two-feature Bonferroni composition have not been mapped line by line.",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "proof_status": "PRIMARY_THEOREM_VERIFIED_FORMULA_TO_CODE_MAPPING_INCOMPLETE",
+      "confirmatory_eligibility": false
+    },
+    {
+      "candidate_id": "waudby_smith_ramdas_betting_cs_2024",
+      "family": "betting_cs_eprocess_inversion",
+      "primary_source": "https://academic.oup.com/jrsssb/article/86/1/1/7043257",
+      "citation": "Waudby-Smith and Ramdas, JRSS B 86(1), 2024, Theorem 1 and Section 4",
+      "source_statement": "Theorem 1 inverts a family of nonnegative processes upper-bounded by test supermartingales and rejects when wealth crosses 1/alpha, yielding a (1-alpha) confidence sequence by Ville's inequality.",
+      "assumptions": [
+        "the process at the true candidate mean is upper-bounded by a valid test supermartingale for every law in the composite null",
+        "bets are predictable and respect the bounded observation support",
+        "confidence sets are obtained by the theorem's sequential-test inversion"
+      ],
+      "time_uniform_statement": "The nonnegative-supermartingale crossing event is controlled over all times by Ville's maximal inequality.",
+      "alpha_conversion": "NOT_MAPPED_TO_CERTGEN_TWO_SIDED_AND_FAMILYWISE_ALPHA",
+      "certgen_stream_mapping": "INCOMPLETE: no CertGen e-process, numerical inversion, or theorem-to-code proof exists.",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "proof_status": "PRIMARY_THEOREM_VERIFIED_FORMULA_TO_CODE_MAPPING_INCOMPLETE",
+      "confirmatory_eligibility": false
+    },
+    {
+      "candidate_id": "kuchibhotla_zheng_adaptive_bentkus_2021",
+      "family": "stitched_adaptive_bentkus_cs",
+      "primary_source": "https://proceedings.mlr.press/v139/kuchibhotla21a.html",
+      "citation": "Kuchibhotla and Zheng, PMLR 139, 2021, Theorems 2-4",
+      "source_statement": "Theorem 2 states P(exists n>=1: S_n >= q(delta/h(k_n); c_n,A,B)) <= delta for independent mean-zero bounded variables, with epochs k_n and c_n defined immediately before the theorem; Theorems 3-4 make the bound actionable with time-uniform variance estimation and confidence-sequence inversion.",
+      "assumptions": [
+        "independent mean-zero variables",
+        "known two-sided support bounds",
+        "the stitched error-spending function h and epoch ratio eta satisfy the source construction",
+        "the adaptive version uses the source's separate variance-overestimation error allocation"
+      ],
+      "time_uniform_statement": "Theorems 2-4 control the boundary simultaneously for every n>=1.",
+      "alpha_conversion": "NOT_MAPPED_TO_CERTGEN_TWO_SIDED_AND_FAMILYWISE_ALPHA",
+      "certgen_stream_mapping": "BLOCKED: the source's independence assumption has not been proved for CertGen's paired, shared-reference contribution filtration, and q inversion is not implemented.",
+      "implementation_status": "NOT_IMPLEMENTED",
+      "proof_status": "PRIMARY_THEOREM_VERIFIED_CERTGEN_ASSUMPTION_MAPPING_INCOMPLETE",
+      "confirmatory_eligibility": false
+    }
+  ],
+  "best_verified_sharper_result": "NONE_IMPLEMENTED_OR_CONFIRMATORY_ELIGIBLE",
+  "frozen_study_modified": false,
+  "claim_allowed": false
+}
